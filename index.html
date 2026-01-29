@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STR Summit Team Real Estate - Admin System</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        body { font-family: 'Cairo', sans-serif; scroll-behavior: smooth; background-color: #050505; color: white; }
+        .gold-gradient { background: linear-gradient(135deg, #D4AF37 0%, #F9E27D 50%, #B8860B 100%); }
+        .text-gold { color: #D4AF37; }
+        .border-gold { border-color: #D4AF37; }
+        .sidebar { background-color: #000; border-left: 1px solid rgba(212, 175, 55, 0.2); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+    </style>
+</head>
+<body>
+
+    <div id="admin-panel" class="min-h-screen flex">
+        <div class="w-64 sidebar p-6 fixed h-full">
+            <div class="text-2xl font-bold gold-gradient bg-clip-text text-transparent italic mb-10">STR ADMIN</div>
+            <nav class="space-y-4">
+                <button onclick="showTab('dashboard')" class="w-full text-right p-3 hover:bg-gold/10 rounded text-gold">📊 الإحصائيات والأداء</button>
+                <button onclick="showTab('inventory')" class="w-full text-right p-3 hover:bg-gold/10 rounded">🏠 إدارة الوحدات (Inventory)</button>
+                <button onclick="showTab('leads')" class="w-full text-right p-3 hover:bg-gold/10 rounded">👥 إدارة العملاء (CRM)</button>
+                <button onclick="window.open('#preview', '_blank')" class="w-full text-right p-3 bg-gold text-black font-bold rounded mt-10">معاينة الموقع الحقيقي</button>
+            </nav>
+        </div>
+
+        <div class="mr-64 p-10 w-full">
+            
+            <div id="dashboard" class="tab-content active">
+                <h2 class="text-3xl font-bold mb-8 italic">مراجعة أداء الفريق <span class="text-gold text-sm font-normal">(حسب ملف STR)</span></h2>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+                    <div class="bg-[#111] p-6 rounded-xl border border-gold/20">
+                        <p class="text-gray-400">إجمالي الوحدات المعروضة</p>
+                        <p class="text-4xl font-bold text-gold">145</p>
+                    </div>
+                    <div class="bg-[#111] p-6 rounded-xl border border-gold/20">
+                        <p class="text-gray-400">عملاء جدد (Leads)</p>
+                        <p class="text-4xl font-bold text-green-500">28</p>
+                    </div>
+                    <div class="bg-[#111] p-6 rounded-xl border border-gold/20">
+                        <p class="text-gray-400">أداء الموظفين (إغلاق صفقات)</p>
+                        <p class="text-4xl font-bold text-blue-500">85%</p>
+                    </div>
+                </div>
+                <div class="bg-[#111] rounded-xl p-6 border border-gray-800">
+                    <h3 class="text-xl mb-4">نشاط الموظفين</h3>
+                    <table class="w-full text-right">
+                        <thead class="text-gray-500 border-b border-gray-800">
+                            <tr>
+                                <th class="pb-3">الموظف</th>
+                                <th class="pb-3">وحدات مضافة</th>
+                                <th class="pb-3">عملاء قيد المتابعة</th>
+                                <th class="pb-3">التقييم</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                            <tr class="border-b border-gray-800/50">
+                                <td class="py-4 font-bold">أحمد محمد (Sales)</td>
+                                <td>12</td>
+                                <td>5</td>
+                                <td class="text-gold">⭐⭐⭐⭐⭐</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div id="inventory" class="tab-content">
+                <div class="flex justify-between mb-8">
+                    <h2 class="text-3xl font-bold">المخزن العقاري</h2>
+                    <div class="flex gap-2">
+                        <button class="bg-blue-600 px-4 py-2 rounded text-sm">Import Excel</button>
+                        <button class="bg-gold text-black font-bold px-4 py-2 rounded text-sm">+ إضافة وحدة</button>
+                    </div>
+                </div>
+                <div class="grid grid-cols-1 gap-4">
+                    <div class="bg-[#111] p-4 rounded-lg flex justify-between items-center border border-gray-800">
+                        <div class="flex gap-4 items-center">
+                            <div class="w-16 h-16 bg-gray-800 rounded"></div>
+                            <div>
+                                <h4 class="font-bold">شقة في التجمع - العاصمة</h4>
+                                <p class="text-xs text-gray-500">ريسيل | 4,500,000 ج.م</p>
+                            </div>
+                        </div>
+                        <div class="flex gap-4">
+                            <button class="text-blue-400 text-sm">تعديل</button>
+                            <button class="text-red-400 text-sm">حذف</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <script>
+        function showTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(tab => tab.classList.remove('active'));
+            document.getElementById(tabId).classList.add('active');
+        }
+    </script>
+</body>
+</html>
