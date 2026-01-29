@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" id="html-tag">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>STR Summit Team Real Estate</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        :root { --gold: #D4AF37; --dark: #050505; }
+        body { font-family: 'Cairo', 'Poppins', sans-serif; background-color: var(--dark); color: white; scroll-behavior: smooth; }
+        .gold-text { color: var(--gold); }
+        .gold-bg { background: linear-gradient(135deg, #D4AF37 0%, #F9E27D 50%, #B8860B 100%); }
+        .nav-glass { background: rgba(0, 0, 0, 0.9); backdrop-filter: blur(10px); border-bottom: 1px solid rgba(212, 175, 55, 0.2); }
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
+        .lang-en { font-family: 'Poppins', sans-serif; }
+    </style>
+</head>
+<body>
+
+    <div id="site-wrapper">
+        <nav class="fixed w-full z-50 nav-glass px-6 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold gold-text italic tracking-tighter">STR SUMMIT</div>
+            <ul class="hidden md:flex space-x-reverse space-x-8 text-sm font-bold">
+                <li><a href="#home" data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
+                <li><a href="#about" data-ar="من نحن" data-en="About Us">من نحن</a></li>
+                <li><a href="#units" data-ar="العقارات" data-en="Properties">العقارات</a></li>
+                <li><button onclick="showLogin()" class="border border-gold text-gold px-4 py-1 rounded-full text-xs hover:bg-gold hover:text-black transition uppercase" data-ar="دخول الإدارة" data-en="Admin Login">دخول الإدارة</button></li>
+            </ul>
+            <button onclick="toggleLanguage()" id="lang-btn" class="bg-white/10 px-3 py-1 rounded text-xs font-bold border border-white/20">English</button>
+        </nav>
+
+        <section id="home" class="h-screen flex items-center justify-center text-center relative bg-[url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&w=1920&q=80')] bg-cover bg-fixed">
+            <div class="absolute inset-0 bg-black/70"></div>
+            <div class="relative z-10 px-4">
+                <h1 class="text-6xl md:text-8xl font-bold mb-4 italic tracking-tighter uppercase" id="hero-title">STR SUMMIT</h1>
+                <p class="text-xl md:text-2xl gold-text mb-10 italic font-light" id="hero-subtitle">حيث تؤدي كل خطوة إلى القمة</p>
+                <div class="flex justify-center gap-4">
+                    <a href="#units" class="gold-bg text-black px-10 py-3 rounded-full font-bold shadow-2xl" data-ar="تصفح العقارات" data-en="Browse Properties">تصفح العقارات</a>
+                </div>
+            </div>
+        </section>
+
+        <section id="about" class="py-24 px-6 max-w-6xl mx-auto">
+            <div class="grid md:grid-cols-2 gap-16">
+                <div>
+                    <h2 class="text-4xl font-bold mb-8 gold-text border-r-4 border-gold pr-4 uppercase" data-ar="من نحن" data-en="About Us">من نحن</h2>
+                    <div id="about-text" class="text-gray-300 space-y-6 leading-relaxed italic">
+                        <p data-ar="نلتزم بتوفير كافة متطلبات عملائنا مع توفير أفضل قيمة في المجال العقاري." data-en="We are committed to providing all our clients' requirements while providing the best value in the real estate field.">نلتزم بتوفير كافة متطلبات عملائنا مع توفير أفضل قيمة في المجال العقاري.</p>
+                        <p data-ar="الهدف الرئيسي لشركتنا هو راحة ورضا عملائنا." data-en="The main goal of our company is the comfort and satisfaction of our clients.">الهدف الرئيسي لشركتنا هو راحة ورضا عملائنا.</p>
+                    </div>
+                </div>
+                <div class="space-y-6">
+                    <div class="bg-white/5 p-6 rounded-2xl border border-gold/10">
+                        <h3 class="gold-text font-bold mb-2 uppercase" data-ar="رؤيتنا" data-en="Our Vision">رؤيتنا</h3>
+                        <p class="text-sm text-gray-400" data-ar="أن نكون الشركة الرائدة في تقديم الحلول العقارية الاحترافية." data-en="To be the leading company in providing professional real estate solutions.">أن نكون الشركة الرائدة في تقديم الحلول العقارية الاحترافية.</p>
+                    </div>
+                    <div class="bg-white/5 p-6 rounded-2xl border border-gold/10">
+                        <h3 class="gold-text font-bold mb-2 uppercase" data-ar="قيمنا" data-en="Our Values">قيمنا</h3>
+                        <p class="text-sm text-gray-400" data-ar="الاحترافية، المصداقية، العميل أولاً." data-en="Professionalism, Credibility, Customer First.">الاحترافية، المصداقية، العميل أولاً.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <div id="login-view" class="hidden fixed inset-0 bg-black/95 z-[100] flex items-center justify-center p-6">
+        <div class="bg-[#111] p-10 rounded-3xl border border-gold/30 w-full max-w-md">
+            <h2 class="text-2xl font-bold text-gold text-center mb-8 uppercase italic">STR Admin Access</h2>
+            <input id="email" type="email" placeholder="admin@str.com" class="w-full bg-black border border-gray-800 p-4 rounded-xl mb-4 outline-none focus:border-gold">
+            <input id="pass" type="password" placeholder="Password" class="w-full bg-black border border-gray-800 p-4 rounded-xl mb-6 outline-none focus:border-gold">
+            <button onclick="handleLogin()" class="w-full gold-bg text-black font-bold py-4 rounded-xl shadow-lg uppercase">Login</button>
+            <button onclick="hideLogin()" class="w-full text-gray-500 mt-4 text-xs">Cancel / العودة</button>
+        </div>
+    </div>
+
+    <div id="admin-view" class="hidden min-h-screen flex bg-black">
+        <aside class="w-64 border-l border-gold/10 p-6 fixed h-full bg-[#050505]">
+            <div class="text-xl font-bold gold-text mb-10 border-b border-gold/10 pb-4">STR SYSTEM</div>
+            <nav class="space-y-2">
+                <button onclick="showTab('dash')" class="w-full text-right p-3 hover:bg-gold/10 rounded">📊 الإحصائيات</button>
+                <button onclick="showTab('leads')" class="w-full text-right p-3 hover:bg-gold/10 rounded">👥 العملاء (CRM)</button>
+                <button onclick="showTab('inventory')" class="w-full text-right p-3 hover:bg-gold/10 rounded">🏠 الوحدات</button>
+                <button onclick="location.reload()" class="w-full text-right p-3 text-red-500 mt-20">Logout</button>
+            </nav>
+        </aside>
+        <main class="mr-64 p-10 w-full">
+            <div id="dash" class="tab-content active">
+                <h2 class="text-3xl font-bold mb-8 italic">نظرة عامة على الأداء</h2>
+                <div class="grid grid-cols-3 gap-6">
+                    <div class="bg-[#111] p-8 rounded-2xl border border-gold/10"><p class="text-gray-500">الوحدات</p><p class="text-4xl font-bold text-gold">145</p></div>
+                    <div class="bg-[#111] p-8 rounded-2xl border border-gold/10"><p class="text-gray-500">العملاء</p><p class="text-4xl font-bold text-green-500">28</p></div>
+                    <div class="bg-[#111] p-8 rounded-2xl border border-gold/10"><p class="text-gray-500">العمولات</p><p class="text-4xl font-bold text-blue-500">STR</p></div>
+                </div>
+            </div>
+            <div id="leads" class="tab-content">
+                <h2 class="text-3xl font-bold mb-8">إدارة العملاء</h2>
+                <div class="bg-[#111] p-6 rounded-xl text-center text-gray-500 italic border border-dashed border-gray-700">قائمة العملاء والـ Leads ستظهر هنا..</div>
+            </div>
+            <div id="inventory" class="tab-content">
+                <h2 class="text-3xl font-bold mb-8">المخزن العقاري</h2>
+                <button class="bg-green-600 px-6 py-2 rounded font-bold mb-4 italic">Import Excel</button>
+                <div class="bg-[#111] p-6 rounded-xl text-center text-gray-500 italic">رفع وتحميل الوحدات العقارية..</div>
+            </div>
+        </main>
+    </div>
+
+    <script>
+        let currentLang = 'ar';
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            const html = document.getElementById('html-tag');
+            html.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            html.lang = currentLang;
+            
+            document.querySelectorAll('[data-ar]').forEach(el => {
+                el.innerText = el.getAttribute(`data-${currentLang}`);
+            });
+            
+            document.getElementById('lang-btn').innerText = currentLang === 'ar' ? 'English' : 'عربي';
+            document.getElementById('hero-title').innerText = currentLang === 'ar' ? 'STR SUMMIT' : 'STR SUMMIT TEAM';
+            document.getElementById('hero-subtitle').innerText = currentLang === 'ar' ? 'حيث تؤدي كل خطوة إلى القمة' : 'Where every step leads to the summit';
+        }
+
+        function showLogin() { document.getElementById('login-view').classList.remove('hidden'); }
+        function hideLogin() { document.getElementById('login-view').classList.add('hidden'); }
+        
+        function handleLogin() {
+            const email = document.getElementById('email').value;
+            if(email === 'admin@str.com') {
+                document.getElementById('site-wrapper').classList.add('hidden');
+                document.getElementById('login-view').classList.add('hidden');
+                document.getElementById('admin-view').classList.remove('hidden');
+            } else { alert('User: admin@str.com'); }
+        }
+
+        function showTab(id) {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+        }
+    </script>
+</body>
+</html>
