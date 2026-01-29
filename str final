@@ -1,168 +1,0 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STR Summit Team Real Estate | المنظومة المتكاملة</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        body { font-family: 'Cairo', sans-serif; scroll-behavior: smooth; background-color: #050505; color: white; }
-        .gold-gradient { background: linear-gradient(135deg, #D4AF37 0%, #F9E27D 50%, #B8860B 100%); }
-        .text-gold { color: #D4AF37; }
-        .border-gold { border-color: #D4AF37; }
-        .tab-content { display: none; }
-        .tab-content.active { display: block; }
-    </style>
-</head>
-<body>
-
-    <div id="website-view">
-        <nav class="fixed w-full z-50 bg-black/95 border-b border-gold/20 px-6 py-4 flex justify-between items-center">
-            <div class="text-2xl font-bold gold-gradient bg-clip-text text-transparent italic">STR SUMMIT</div>
-            <ul class="hidden md:flex space-x-reverse space-x-6 text-sm">
-                <li><a href="#home" class="hover:text-gold transition">الرئيسية</a></li>
-                <li><a href="#about" class="hover:text-gold transition">من نحن</a></li>
-                <li><a href="#units" class="hover:text-gold transition">المتجر العقاري</a></li>
-                <li><a href="#services" class="hover:text-gold transition">خدماتنا</a></li>
-                <li><button onclick="toggleLogin(true)" class="bg-gold/10 text-gold border border-gold/50 px-4 py-1 rounded hover:bg-gold hover:text-black transition">دخول الإدارة</button></li>
-            </ul>
-            <button class="border border-gold text-gold px-3 py-1 rounded text-xs">English</button>
-        </nav>
-
-        <section id="home" class="h-screen flex items-center justify-center text-center bg-[url('https://images.unsplash.com/photo-1512917774080-9991f1c4c750?auto=format&fit=crop&q=80')] bg-cover bg-fixed">
-            <div class="bg-black/70 w-full h-full flex flex-col justify-center items-center px-4">
-                <h1 class="text-5xl md:text-7xl font-bold mb-4 italic">STR SUMMIT TEAM</h1>
-                <p class="text-xl md:text-2xl text-gold italic mb-8">حيث تؤدي كل خطوة إلى القمة</p>
-                <div class="flex gap-4">
-                    <a href="#units" class="gold-gradient text-black px-10 py-3 rounded-full font-bold">استكشف العقارات</a>
-                </div>
-            </div>
-        </section>
-
-        <section id="about" class="py-20 px-6 max-w-6xl mx-auto">
-            <h2 class="text-3xl font-bold mb-10 text-center italic border-b border-gold/20 pb-4 uppercase">عن الشركة</h2>
-            <p class="text-center text-gray-400 text-lg max-w-3xl mx-auto mb-12 italic">
-                "نلتزم بتوفير كافة متطلبات عملائنا مع توفير أفضل قيمة في المجال العقاري.. راحة ورضا عملاؤنا هي هدفنا الرئيسي."
-            </p>
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div class="bg-[#111] p-8 rounded border-t-2 border-gold text-center">
-                    <i class="fas fa-gem text-gold text-3xl mb-4"></i>
-                    <h3 class="font-bold mb-2">الاحترافية</h3>
-                    <p class="text-sm text-gray-500">نعمل تحت عنوان الإحتراف في كل خطوة.</p>
-                </div>
-                <div class="bg-[#111] p-8 rounded border-t-2 border-gold text-center">
-                    <i class="fas fa-handshake text-gold text-3xl mb-4"></i>
-                    <h3 class="font-bold mb-2">المصداقية</h3>
-                    <p class="text-sm text-gray-500">توفير أفضل قيمة حقيقية في السوق.</p>
-                </div>
-                <div class="bg-[#111] p-8 rounded border-t-2 border-gold text-center">
-                    <i class="fas fa-users text-gold text-3xl mb-4"></i>
-                    <h3 class="font-bold mb-2">رضا العملاء</h3>
-                    <p class="text-sm text-gray-500">هدفنا الرئيسي هو راحة عملاؤنا.</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="units" class="py-20 bg-[#0a0a0a] px-6">
-            <div class="max-w-6xl mx-auto">
-                <h2 class="text-3xl font-bold mb-12">أحدث الوحدات <span class="text-gold">(ريسيل، إيجار، مشروعات)</span></h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-8 italic">
-                    <div class="bg-black border border-gray-800 rounded-xl overflow-hidden group">
-                        <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?auto=format&fit=crop&q=80" class="w-full h-48 object-cover group-hover:scale-110 transition duration-500">
-                        <div class="p-6">
-                            <span class="text-gold text-xs font-bold italic uppercase">العاصمة الإدارية</span>
-                            <h3 class="text-xl font-bold mt-2 italic uppercase">فيلا بقمة الفخامة</h3>
-                            <button class="w-full mt-6 py-2 border border-gold text-gold font-bold rounded hover:bg-gold hover:text-black transition">تفاصيل الوحدة</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-
-        <footer class="py-12 border-t border-gold/10 text-center">
-            <div class="flex justify-center gap-6 mb-6 text-2xl text-gray-500">
-                <a href="https://facebook.com/summitteamrealestateeg" class="hover:text-gold"><i class="fab fa-facebook"></i></a>
-                <a href="https://instagram.com/str.summit.team/" class="hover:text-gold"><i class="fab fa-instagram"></i></a>
-                <a href="https://tiktok.com/@strsummitteam" class="hover:text-gold"><i class="fab fa-tiktok"></i></a>
-            </div>
-            <p class="text-xs text-gray-600 italic">© 2024 STR Summit Team Real Estate. All Rights Reserved.</p>
-        </footer>
-    </div>
-
-    <div id="login-screen" class="hidden fixed inset-0 z-[100] bg-black flex items-center justify-center p-6">
-        <div class="bg-[#111] p-8 rounded-xl border border-gold/30 w-full max-w-md shadow-2xl">
-            <h2 class="text-2xl font-bold text-gold text-center mb-8 italic">نظام إدارة STR</h2>
-            <input id="email" type="email" placeholder="البريد الإلكتروني" class="w-full bg-black border border-gray-800 p-3 rounded mb-4 outline-none focus:border-gold">
-            <input id="pass" type="password" placeholder="كلمة السر" class="w-full bg-black border border-gray-800 p-3 rounded mb-6 outline-none focus:border-gold">
-            <button onclick="handleLogin()" class="w-full gold-gradient text-black font-bold py-3 rounded shadow-lg">دخول</button>
-            <button onclick="toggleLogin(false)" class="w-full text-gray-500 mt-4 text-sm">العودة للموقع</button>
-        </div>
-    </div>
-
-    <div id="admin-panel" class="hidden min-h-screen flex bg-[#050505]">
-        <aside class="w-64 bg-black border-l border-gold/10 p-6 fixed h-full">
-            <div class="text-xl font-bold gold-gradient bg-clip-text text-transparent italic mb-10">STR ADMIN</div>
-            <nav class="space-y-4">
-                <button onclick="showTab('dash')" class="w-full text-right p-3 bg-gold/10 text-gold rounded font-bold">📊 الإحصائيات</button>
-                <button onclick="showTab('units-mgr')" class="w-full text-right p-3 hover:bg-gold/10 rounded">🏠 إدارة الوحدات</button>
-                <button onclick="showTab('crm')" class="w-full text-right p-3 hover:bg-gold/10 rounded">👥 العملاء (CRM)</button>
-                <button onclick="location.reload()" class="w-full text-right p-3 text-red-500 mt-20">خروج</button>
-            </nav>
-        </aside>
-        
-        <main class="mr-64 p-10 w-full">
-            <div id="dash" class="tab-content active">
-                <h2 class="text-3xl font-bold mb-8 italic">مراجعة الأداء</h2>
-                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-                    <div class="bg-[#111] p-6 rounded-xl border border-gold/10">
-                        <p class="text-gray-500">إجمالي الوحدات</p>
-                        <p class="text-4xl font-bold text-gold">140</p>
-                    </div>
-                    <div class="bg-[#111] p-6 rounded-xl border border-gold/10 text-green-500">
-                        <p class="text-gray-500">الـ Leads الجدد</p>
-                        <p class="text-4xl font-bold">+25</p>
-                    </div>
-                </div>
-            </div>
-            
-            <div id="units-mgr" class="tab-content">
-                <div class="flex justify-between mb-8">
-                    <h2 class="text-3xl font-bold">المخزن العقاري</h2>
-                    <button class="gold-gradient text-black font-bold px-6 py-2 rounded">+ إضافة وحدة</button>
-                </div>
-                <div class="bg-[#111] p-10 rounded-xl border border-dashed border-gray-700 text-center">
-                    <p class="text-gray-500 italic">هنا يمكنك رفع ملف Excel أو إضافة وحدات يدوياً</p>
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <a href="https://wa.me/201000000000" class="fixed bottom-6 right-6 z-50 bg-[#25d366] p-4 rounded-full shadow-2xl">
-        <i class="fab fa-whatsapp text-3xl"></i>
-    </a>
-
-    <script>
-        function toggleLogin(show) {
-            document.getElementById('login-screen').classList.toggle('hidden', !show);
-        }
-
-        function handleLogin() {
-            const email = document.getElementById('email').value;
-            if(email === 'admin@str.com') {
-                document.getElementById('website-view').classList.add('hidden');
-                document.getElementById('login-screen').classList.add('hidden');
-                document.getElementById('admin-panel').classList.remove('hidden');
-            } else {
-                alert('البيانات غير صحيحة (admin@str.com)');
-            }
-        }
-
-        function showTab(tabId) {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.getElementById(tabId).classList.add('active');
-        }
-    </script>
-</body>
-</html>
