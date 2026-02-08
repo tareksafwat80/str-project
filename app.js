@@ -1,142 +1,121 @@
-// --- 1. قاعدة البيانات (State) ---
+// --- 1. الحالة العامة ---
 let state = {
     content: { slogan: "STR - حيث تؤدي كل خطوة إلى القمة | 2026" },
     units: [],
     leads: [],
     team: [
         { name: "المدير", user: "admin", pass: "str2026", role: "admin", leadsCount: 0 },
-        { name: "مبيعات 1", user: "sales", pass: "123", role: "agent", leadsCount: 0 }
+        { name: "Sales 1", user: "sales1", pass: "123", role: "agent", leadsCount: 0 },
+        { name: "Sales 2", user: "sales2", pass: "123", role: "agent", leadsCount: 0 }
     ],
-    currentUser: null
+    currentUser: null,
+    currentCategory: 'resale'
 };
 
-// توليد بيانات افتراضية فورية
-const generateData = () => {
-    const areas = ["مدينتي B8", "الرحاب", "العاصمة الإدارية", "التجمع الخامس"];
-    for (let i = 1; i <= 16; i++) {
+// --- 2. التشغيل المبدئي ---
+function init() {
+    const areas = ["مدينتي B8", "الرحاب", "العاصمة", "التجمع"];
+    for (let i = 1; i <= 12; i++) {
         state.units.push({
-            id: i, code: 1000 + i, area: areas[i % 4],
-            price: 3500000 + (i * 150000), space: 90 + i, rooms: 3,
-            type: i <= 8 ? 'resale' : 'primary',
-            img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=500"
+            id: Date.now() + i,
+            code: 8000 + i,
+            area: areas[i % 4],
+            price: 4000000 + (i * 100000),
+            space: 120 + i,
+            rooms: 3,
+            type: i <= 6 ? 'resale' : 'primary',
+            img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600"
         });
     }
-};
-generateData();
+    document.getElementById('site-slogan').innerText = state.content.slogan;
+}
 
-// --- 2. وظائف العرض (UI Functions) ---
+// --- 3. التنقل والعرض ---
 window.showTab = function(tab) {
-    // إخفاء كل الأقسام
-    document.querySelectorAll('.tab-content').forEach(c => c.style.display = 'none');
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active', 'gold-text'));
-    
-    if (['resale', 'primary', 'rentals'].includes(tab)) {
-        window.currentCat = tab;
-        const section = document.getElementById('units-section');
-        if(section) section.style.display = 'block';
+    document.querySelectorAll('.tab-content').forEach(c => c.classList.remove('active-tab'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    if (['resale', 'primary'].includes(tab)) {
+        state.currentCategory = tab;
+        document.getElementById('units-section').classList.add('active-tab');
+        document.getElementById(`btn-${tab}`).classList.add('active');
         renderUnits();
     } else {
-        const target = document.getElementById(tab);
-        if(target) target.style.display = 'block';
+        document.getElementById(tab).classList.add('active-tab');
+        document.getElementById('btn-home').classList.add('active');
     }
-    
-    // تحديث الشعار
-    const sloganEl = document.getElementById('site-slogan');
-    if(sloganEl) sloganEl.innerText = state.content.slogan;
 };
 
-function renderUnits() {
+function renderUnits(data = null) {
     const grid = document.getElementById('units-grid');
-    if(!grid) return;
-    
-    const filtered = state.units.filter(u => u.type === window.currentCat);
-    grid.innerHTML = filtered.map(u => `
-        <div style="background:#111; border:1px solid #222; border-radius:20px; overflow:hidden;">
-            <img src="${u.img}" style="width:100%; h:200px; object-fit:cover;">
-            <div style="padding:20px;">
-                <p style="color:#d4af37; font-size:12px; font-weight:bold;">كود: ${u.code}</p>
-                <h3 style="font-size:20px; font-weight:900;">${u.price.toLocaleString()} EGP</h3>
-                <p style="color:#666; font-size:14px;">${u.area} | ${u.space} متر</p>
-                <button onclick="assignLead(${u.code})" style="width:100%; margin-top:15px; background:#d4af37; color:black; padding:10px; border-radius:10px; font-weight:bold; cursor:pointer;">تواصل واتساب</button>
+    const units = data || state.units.filter(u => u.type === state.currentCategory);
+    grid.innerHTML = units.map(u => `
+        <div class="bg-zinc-900 border border-zinc-800 rounded-[35px] overflow-hidden group hover:border-gold transition shadow-xl">
+            <div class="h-56 relative"><img src="${u.img}" class="w-full h-full object-cover"></div>
+            <div class="p-8">
+                <p class="text-zinc-500 text-[10px] font-bold uppercase tracking-widest">${u.area}</p>
+                <h3 class="text-2xl font-black my-2">${u.price.toLocaleString()} EGP</h3>
+                <div class="text-xs text-zinc-400 pb-4 border-b border-zinc-800">${u.space}م | ${u.rooms} غرف | كود: ${u.code}</div>
+                <button onclick="assignLead(${u.code})" class="w-full mt-6 bg-zinc-800 group-hover:bg-gold group-hover:text-black py-4 rounded-2xl font-black transition">واتساب الآن</button>
             </div>
         </div>
     `).join('');
 }
 
-// --- 3. نظام الإدارة (Admin Logic) ---
+window.applyFilters = function() {
+    const val = document.getElementById('globalSearch').value.toLowerCase();
+    const filtered = state.units.filter(u => u.type === state.currentCategory && (u.code.toString().includes(val) || u.area.toLowerCase().includes(val)));
+    renderUnits(filtered);
+};
+
+// --- 4. الإدارة ---
 window.openAdminPortal = function() {
-    if (!state.currentUser) {
-        const loginModal = document.getElementById('loginModal');
-        if(loginModal) loginModal.style.display = 'flex';
-    } else {
-        const portal = document.getElementById('adminPortal');
-        if(portal) portal.style.display = 'block';
-        showAdminTab('inventory');
-    }
+    if (!state.currentUser) document.getElementById('loginModal').style.display = 'flex';
+    else { document.getElementById('adminPortal').style.display = 'block'; showAdminTab('inventory'); }
 };
 
 window.processLogin = function() {
     const u = document.getElementById('loginUser').value;
     const p = document.getElementById('loginPass').value;
     const user = state.team.find(t => t.user === u && t.pass === p);
-    
-    if (user) {
-        state.currentUser = user;
-        document.getElementById('loginModal').style.display = 'none';
-        document.getElementById('adminPortal').style.display = 'block';
-        showAdminTab('inventory');
-    } else {
-        alert("بيانات الدخول غير صحيحة");
-    }
+    if (user) { state.currentUser = user; document.getElementById('loginModal').style.display = 'none'; showAdminTab('inventory'); document.getElementById('adminPortal').style.display = 'block'; }
+    else alert("بيانات خاطئة");
 };
 
 window.showAdminTab = function(tab) {
+    document.querySelectorAll('.admin-sidebar-btn').forEach(b => b.classList.remove('active'));
+    if(document.getElementById(`adm-${tab}`)) document.getElementById(`adm-${tab}`).classList.add('active');
     const body = document.getElementById('adminBody');
-    if(!body) return;
-
+    
     if (tab === 'inventory') {
-        body.innerHTML = `
-            <div style="display:flex; justify-content:space-between; margin-bottom:20px;">
-                <h2 style="color:#d4af37; font-size:24px; font-weight:bold;">المخزون العقاري</h2>
-                <button onclick="exportToExcel()" style="background:#15803d; color:white; padding:8px 15px; border-radius:8px;">تصدير Excel</button>
-            </div>
-            <div style="display:grid; gap:10px;">
-                ${state.units.map(u => `<div style="background:#18181b; padding:15px; border-radius:12px; display:flex; justify-content:space-between; border:1px solid #27272a;">
-                    <span>كود: ${u.code} - ${u.area}</span>
-                    <span style="color:#d4af37; font-weight:bold;">${u.price.toLocaleString()} EGP</span>
-                </div>`).join('')}
-            </div>
-        `;
+        body.innerHTML = `<div class="flex justify-between mb-8"><h2 class="text-3xl font-black gold-text">المخزون</h2><button onclick="exportExcel()" class="bg-green-700 px-6 py-2 rounded-xl font-bold">تصدير EXCEL</button></div>
+        ${state.units.map(u => `<div class="bg-zinc-900 p-4 rounded-2xl mb-2 flex justify-between"><span>#${u.code} - ${u.area}</span><button onclick="deleteUnit(${u.id})" class="text-red-500">حذف</button></div>`).join('')}`;
     } else if (tab === 'crm') {
-        body.innerHTML = `<h2 style="color:#d4af37; font-size:24px; font-weight:bold;">قائمة العملاء (CRM)</h2>
-        <div style="margin-top:20px;">${state.leads.length === 0 ? "لا يوجد طلبات حالياً" : state.leads.map(l => `
-            <div style="background:#111; padding:15px; margin-bottom:10px; border-right:4px solid #d4af37;">
-                <p>عميل مهتم بالكود: ${l.code}</p>
-                <small style="color:#666;">الموظف: ${l.staff} | التاريخ: ${l.date}</small>
-            </div>
-        `).join('')}</div>`;
+        body.innerHTML = `<h2 class="text-3xl font-black gold-text mb-8 text-right">العملاء (CRM)</h2>
+        ${state.leads.map(l => `<div class="bg-zinc-900 p-6 rounded-3xl mb-4 border-r-4 border-gold text-right"><h4 class="font-black italic">كود الوحدة: ${l.code}</h4><p class="text-zinc-400">الموظف: ${l.staff}</p><span class="text-[10px] text-zinc-600">${l.date}</span></div>`).join('')}`;
+    } else if (tab === 'cms') {
+        body.innerHTML = `<h2 class="text-3xl font-black gold-text mb-8">تعديل المحتوى</h2><textarea id="cms-slogan" rows="4" class="w-full bg-black border border-zinc-800 p-6 rounded-3xl outline-none focus:border-gold mb-6">${state.content.slogan}</textarea><button onclick="saveCMS()" class="bg-gold text-black px-12 py-4 rounded-2xl font-black">حفظ</button>`;
+    } else if (tab === 'add') {
+        body.innerHTML = `<h2 class="text-3xl font-black gold-text mb-8">إضافة وحدة</h2><div class="grid grid-cols-2 gap-4"><input id="add-code" placeholder="الكود" class="bg-zinc-900 p-4 rounded-xl outline-none"><input id="add-area" placeholder="المنطقة" class="bg-zinc-900 p-4 rounded-xl outline-none"><input id="add-price" placeholder="السعر" class="bg-zinc-900 p-4 rounded-xl outline-none"><select id="add-type" class="bg-zinc-900 p-4 rounded-xl"><option value="resale">ريسيل</option><option value="primary">برايمري</option></select><button onclick="addNewUnit()" class="col-span-2 bg-green-700 py-4 rounded-xl font-bold">إضافة</button></div>`;
     }
 };
 
-// --- 4. العمليات (Operations) ---
+// --- 5. العمليات ---
 window.assignLead = function(code) {
-    // توزيع عادل لليدز
     state.team.sort((a, b) => a.leadsCount - b.leadsCount);
-    const agent = state.team[0];
+    const agent = state.team.find(t => t.role === 'agent') || state.team[0];
     agent.leadsCount++;
-    
-    state.leads.unshift({ code, staff: agent.name, date: new Date().toLocaleString('ar-EG') });
-    
-    const msg = `استفسار عن وحدة STR كود: ${code}`;
-    window.open(`https://wa.me/201159333060?text=${encodeURIComponent(msg)}`);
+    state.leads.unshift({ code, staff: agent.name, date: new Date().toLocaleString() });
+    alert(`تم تسجيل طلبك لـ ${agent.name}. سيتم توجيهك للواتساب.`);
+    window.open(`https://wa.me/201159333060?text=استفسار عن كود: ${code}`);
 };
 
-window.exportToExcel = function() {
-    const ws = XLSX.utils.json_to_sheet(state.units);
-    const wb = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Inventory");
-    XLSX.writeFile(wb, "STR_Inventory_2026.xlsx");
+window.addNewUnit = function() {
+    const u = { id: Date.now(), code: document.getElementById('add-code').value, area: document.getElementById('add-area').value, price: document.getElementById('add-price').value, space: "150", rooms: "3", type: document.getElementById('add-type').value, img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600" };
+    state.units.unshift(u); alert("تمت الإضافة"); showAdminTab('inventory');
 };
 
-// تشغيل عند التحميل
-window.onload = () => showTab('home');
+window.deleteUnit = function(id) { state.units = state.units.filter(u => u.id !== id); showAdminTab('inventory'); };
+window.saveCMS = function() { state.content.slogan = document.getElementById('cms-slogan').value; alert("تم الحفظ"); showTab('home'); };
+window.exportExcel = function() { const ws = XLSX.utils.json_to_sheet(state.units); const wb = XLSX.utils.book_new(); XLSX.utils.book_append_sheet(wb, ws, "STR"); XLSX.writeFile(wb, "STR_Inventory.xlsx"); };
+
+window.onload = init;
