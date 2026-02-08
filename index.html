@@ -3,86 +3,288 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STR - Summit Team Real Estate | Pro System 2026</title>
+    <title>STR - Summit Team Real Estate | Internal Management System 2026</title>
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
+    
     <style>
-        :root { --gold: #d4af37; --black: #050505; }
-        body { font-family: 'Cairo', sans-serif; background: var(--black); color: white; margin: 0; overflow-x: hidden; }
-        .gold-text { color: var(--gold); }
-        .bg-gold { background-color: var(--gold); }
-        .tab-content { display: none; min-height: 85vh; }
-        .active-tab { display: block; animation: fadeIn 0.5s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
-        .hero-bg { background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.95)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; }
-        .nav-btn { cursor: pointer; padding: 12px 20px; font-weight: bold; color: #777; transition: 0.3s; border-radius: 12px; }
-        .nav-btn.active { color: var(--gold); background: rgba(212,175,55,0.1); }
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 2000; overflow-y: auto; }
-        .admin-sidebar-btn { width: 100%; text-align: right; padding: 15px; cursor: pointer; border-radius: 12px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; transition: 0.3s; }
-        .admin-sidebar-btn.active { background: var(--gold); color: black; font-weight: 900; }
-        .wa-float { position: fixed; bottom: 30px; left: 30px; background: #25D366; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; z-index: 1000; box-shadow: 0 10px 30px rgba(37,211,102,0.4); }
+        :root {
+            --gold: #d4af37;
+            --gold-dark: #aa8c2c;
+            --black: #050505;
+            --zinc-900: #18181b;
+            --zinc-800: #27272a;
+            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--black);
+            color: #ffffff;
+            margin: 0;
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar { width: 8px; }
+        ::-webkit-scrollbar-track { background: var(--black); }
+        ::-webkit-scrollbar-thumb { background: var(--zinc-800); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
+
+        /* Navigation Animations */
+        .nav-link {
+            position: relative;
+            cursor: pointer;
+            padding: 10px 20px;
+            color: #a1a1aa;
+            font-weight: 600;
+            transition: var(--transition);
+        }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            width: 0;
+            height: 2px;
+            background: var(--gold);
+            transition: var(--transition);
+            transform: translateX(-50%);
+        }
+        .nav-link.active { color: var(--gold); }
+        .nav-link.active::after { width: 80%; }
+
+        /* Dynamic Tab Content */
+        .tab-content { display: none; opacity: 0; transform: translateY(20px); transition: var(--transition); }
+        .tab-content.active { display: block; opacity: 1; transform: translateY(0); }
+
+        /* Hero Background with Parallax Effect */
+        .hero-section {
+            height: 95vh;
+            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), 
+                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+        }
+
+        /* Luxury Cards */
+        .property-card {
+            background: linear-gradient(145deg, #111, #080808);
+            border: 1px solid var(--zinc-800);
+            border-radius: 40px;
+            overflow: hidden;
+            transition: var(--transition);
+        }
+        .property-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--gold);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+        }
+
+        /* Admin Portal Sidebar */
+        .admin-sidebar {
+            width: 320px;
+            background: #0a0a0a;
+            border-left: 1px solid var(--zinc-800);
+            height: 100vh;
+            position: sticky;
+            top: 0;
+            padding: 40px 20px;
+        }
+
+        .sidebar-btn {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 18px 25px;
+            border-radius: 20px;
+            color: #71717a;
+            cursor: pointer;
+            transition: var(--transition);
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        .sidebar-btn:hover { background: rgba(255,255,255,0.05); color: #fff; }
+        .sidebar-btn.active { background: var(--gold); color: #000; box-shadow: 0 10px 20px rgba(212,175,55,0.2); }
+
+        /* Modal Overlays */
+        .full-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0,0,0,0.98);
+            z-index: 9999;
+            backdrop-blur: 10px;
+        }
+
+        /* Glassmorphism Inputs */
+        .glass-input {
+            background: rgba(255,255,255,0.03);
+            border: 1px solid var(--zinc-800);
+            color: #fff;
+            padding: 18px 25px;
+            border-radius: 20px;
+            width: 100%;
+            outline: none;
+            transition: var(--transition);
+        }
+        .glass-input:focus { border-color: var(--gold); background: rgba(255,255,255,0.05); }
+
+        /* Floating WhatsApp */
+        .whatsapp-float {
+            position: fixed;
+            bottom: 40px;
+            left: 40px;
+            background: #25d366;
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            box-shadow: 0 15px 30px rgba(37,211,102,0.4);
+            z-index: 1000;
+            transition: var(--transition);
+        }
+        .whatsapp-float:hover { transform: scale(1.1) rotate(15deg); }
     </style>
 </head>
 <body>
-    <nav class="bg-black border-b border-zinc-900 sticky top-0 z-50 p-4">
-        <div class="container mx-auto flex justify-between items-center">
-            <img src="https://i.imgur.com/uVpX5Xp.png" class="h-[60px] cursor-pointer" onclick="showTab('home')">
-            <div class="flex items-center gap-2 md:gap-4">
-                <div class="nav-btn active" id="btn-home" onclick="showTab('home')">الرئيسية</div>
-                <div class="nav-btn" id="btn-resale" onclick="showTab('resale')">ريسيل</div>
-                <div class="nav-btn" id="btn-primary" onclick="showTab('primary')">برايمري</div>
-                <div class="nav-btn text-red-500 border border-red-900/30 font-bold" onclick="openAdminPortal()">الإدارة</div>
+
+    <header class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-xl border-b border-zinc-900">
+        <div class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <div class="flex items-center gap-8">
+                <img src="https://i.imgur.com/uVpX5Xp.png" class="h-[65px] cursor-pointer" onclick="showTab('home')">
+                <nav class="hidden lg:flex gap-2">
+                    <div class="nav-link active" id="nav-home" onclick="showTab('home')">الرئيسية</div>
+                    <div class="nav-link" id="nav-resale" onclick="showTab('resale')">ريسيل</div>
+                    <div class="nav-link" id="nav-primary" onclick="showTab('primary')">برايمري</div>
+                </nav>
+            </div>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleAdminPortal()" class="bg-red-600/10 text-red-500 border border-red-600/20 px-6 py-3 rounded-2xl font-black text-sm hover:bg-red-600 hover:text-white transition-all duration-500">
+                    <i class="fa fa-shield-alt ml-2"></i> بوابة الإدارة
+                </button>
             </div>
         </div>
-    </nav>
+    </header>
 
     <main>
-        <section id="home" class="tab-content active-tab hero-bg h-[90vh]">
-            <div class="text-center px-4">
-                <h1 class="text-6xl md:text-[100px] font-black italic gold-text mb-2">SUMMIT TEAM</h1>
-                <h2 class="text-2xl md:text-5xl font-bold tracking-[15px] uppercase mb-12 text-white/80">Real Estate</h2>
-                <p id="site-slogan" class="text-zinc-400 text-xl md:text-2xl italic border-t border-gold/20 pt-8 max-w-3xl mx-auto"></p>
-                <button onclick="showTab('resale')" class="mt-12 bg-gold text-black px-12 py-4 rounded-2xl font-black text-xl hover:scale-105 transition shadow-2xl">استعرض الوحدات</button>
+        <section id="home" class="tab-content active hero-section">
+            <div class="container mx-auto px-6">
+                <div class="inline-block px-6 py-2 border border-gold/30 rounded-full text-gold text-xs font-black tracking-widest uppercase mb-8">Premium Real Estate Management</div>
+                <h1 class="text-7xl md:text-[130px] font-black italic gold-text mb-4 leading-none tracking-tighter">SUMMIT TEAM</h1>
+                <h2 class="text-3xl md:text-6xl font-extrabold uppercase tracking-[20px] md:tracking-[40px] mb-12 text-white/90">Real Estate</h2>
+                <div class="w-32 h-1 bg-gold mx-auto mb-12 rounded-full shadow-[0_0_20px_#d4af37]"></div>
+                <p id="site-slogan-display" class="text-zinc-400 text-2xl md:text-3xl italic max-w-4xl mx-auto leading-relaxed font-light"></p>
+                <div class="mt-16 flex flex-wrap justify-center gap-8">
+                    <button onclick="showTab('resale')" class="bg-gold text-black px-16 py-6 rounded-[25px] font-black text-xl shadow-2xl hover:scale-105 active:scale-95 transition-all">تصفح المخزون العقاري</button>
+                    <button onclick="window.scrollTo(0, 1500)" class="bg-white/5 border border-white/10 text-white px-16 py-6 rounded-[25px] font-bold text-xl hover:bg-white/10 transition-all">من نحن</button>
+                </div>
             </div>
         </section>
 
-        <section id="units-section" class="tab-content py-20 container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-16 gap-8">
-                <h2 class="text-4xl font-black gold-text italic">المعروض حالياً</h2>
-                <input type="text" id="globalSearch" oninput="applyFilters()" placeholder="بحث بالكود أو المنطقة..." class="w-full md:w-96 bg-zinc-900 border border-zinc-800 p-4 rounded-2xl outline-none focus:border-gold">
+        <section id="properties-section" class="tab-content py-32 bg-[#070707]">
+            <div class="container mx-auto px-6">
+                <div class="flex flex-col lg:flex-row justify-between items-end mb-24 gap-12">
+                    <div>
+                        <h3 id="category-title" class="text-6xl font-black gold-text italic mb-6 leading-tight">العقارات المتاحة</h3>
+                        <p class="text-zinc-500 text-xl font-medium">استكشف أفخم الوحدات السكنية في أرقى المناطق</p>
+                    </div>
+                    <div class="w-full lg:w-[500px] relative group">
+                        <i class="fa fa-search absolute right-6 top-6 text-zinc-600 group-focus-within:text-gold transition-colors"></i>
+                        <input type="text" id="global-search-input" oninput="handleGlobalSearch()" placeholder="بحث برقم الكود، المنطقة، أو السعر..." 
+                               class="w-full bg-zinc-900/50 border border-zinc-800 p-6 pr-16 rounded-[30px] outline-none focus:border-gold focus:bg-zinc-900 transition-all text-lg shadow-2xl">
+                    </div>
+                </div>
+                
+                <div id="main-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12">
+                    </div>
+
+                <div id="no-results" class="hidden text-center py-40">
+                    <i class="fa fa-search-minus text-8xl text-zinc-800 mb-8"></i>
+                    <h4 class="text-3xl font-bold text-zinc-500 italic">عذراً، لم نجد نتائج تطابق بحثك...</h4>
+                </div>
             </div>
-            <div id="units-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10"></div>
         </section>
     </main>
 
-    <div id="adminPortal" class="modal">
-        <div class="flex h-screen">
-            <aside class="w-72 bg-zinc-950 border-l border-zinc-900 p-8 flex flex-col">
-                <img src="https://i.imgur.com/uVpX5Xp.png" class="h-16 mb-12 mx-auto">
-                <div class="flex-1 space-y-2">
-                    <div id="adm-inv" onclick="showAdminTab('inventory')" class="admin-sidebar-btn active"><i class="fa fa-home"></i> المخزون</div>
-                    <div id="adm-crm" onclick="showAdminTab('crm')" class="admin-sidebar-btn"><i class="fa fa-users"></i> العملاء (CRM)</div>
-                    <div id="adm-cms" onclick="showAdminTab('cms')" class="admin-sidebar-btn"><i class="fa fa-edit"></i> المحتوى</div>
-                    <div id="adm-add" onclick="showAdminTab('add')" class="admin-sidebar-btn text-green-500 font-bold"><i class="fa fa-plus"></i> إضافة وحدة</div>
+    <div id="adminPortalModal" class="full-modal">
+        <div class="flex h-full">
+            <aside class="admin-sidebar shadow-2xl">
+                <div class="text-center mb-16">
+                    <img src="https://i.imgur.com/uVpX5Xp.png" class="h-20 mx-auto mb-4">
+                    <p class="text-[10px] text-zinc-500 font-black uppercase tracking-[5px]">Admin Control Panel</p>
                 </div>
-                <button onclick="location.reload()" class="bg-red-900/10 text-red-500 py-4 rounded-2xl border border-red-900/20 font-bold">خروج</button>
+                <div class="space-y-4">
+                    <div id="adm-nav-inventory" onclick="renderAdminSection('inventory')" class="sidebar-btn active">
+                        <i class="fa fa-layer-group text-xl"></i> إدارة المخزون
+                    </div>
+                    <div id="adm-nav-crm" onclick="renderAdminSection('crm')" class="sidebar-btn">
+                        <i class="fa fa-user-tie text-xl"></i> إدارة العملاء CRM
+                    </div>
+                    <div id="adm-nav-add" onclick="renderAdminSection('add-unit')" class="sidebar-btn">
+                        <i class="fa fa-plus-circle text-xl"></i> إضافة وحدة جديدة
+                    </div>
+                    <div id="adm-nav-cms" onclick="renderAdminSection('settings')" class="sidebar-btn">
+                        <i class="fa fa-cog text-xl"></i> إعدادات الموقع
+                    </div>
+                </div>
+                
+                <div class="absolute bottom-10 left-8 right-8">
+                    <div class="bg-zinc-900 p-6 rounded-3xl border border-zinc-800 mb-6">
+                        <p class="text-xs text-zinc-500 mb-2 font-bold uppercase">المسؤول الحالي</p>
+                        <p id="active-user-name" class="font-black text-gold">Admin User</p>
+                    </div>
+                    <button onclick="secureLogout()" class="w-full bg-red-950/20 text-red-500 border border-red-900/30 py-4 rounded-2xl font-black hover:bg-red-500 hover:text-white transition-all">خروج آمن</button>
+                </div>
             </aside>
-            <main id="adminBody" class="flex-1 p-12 overflow-y-auto bg-[#080808]"></main>
+
+            <main class="flex-1 p-20 overflow-y-auto bg-[#0a0a0a]">
+                <div id="admin-main-container" class="max-w-6xl mx-auto">
+                    </div>
+            </main>
         </div>
     </div>
 
-    <div id="loginModal" class="modal flex items-center justify-center">
-        <div class="bg-zinc-900 p-12 rounded-[50px] border border-gold/20 w-full max-w-md text-center">
-            <img src="https://i.imgur.com/uVpX5Xp.png" class="h-24 mx-auto mb-10">
-            <input id="loginUser" type="text" placeholder="اسم المستخدم" class="w-full bg-black border border-zinc-800 p-5 mb-4 rounded-2xl outline-none focus:border-gold text-center">
-            <input id="loginPass" type="password" placeholder="كلمة المرور" class="w-full bg-black border border-zinc-800 p-5 mb-8 rounded-2xl outline-none focus:border-gold text-center">
-            <button onclick="processLogin()" class="w-full bg-gold text-black py-4 rounded-2xl font-black text-xl">دخول</button>
+    <div id="authModal" class="full-modal flex items-center justify-center p-8">
+        <div class="bg-zinc-900 w-full max-w-xl p-16 rounded-[60px] border border-gold/10 shadow-2xl text-center">
+            <img src="https://i.imgur.com/uVpX5Xp.png" class="h-28 mx-auto mb-12">
+            <h4 class="text-3xl font-black mb-12 gold-text italic">بوابة الوصول الآمن</h4>
+            <div class="space-y-6">
+                <div class="relative">
+                    <i class="fa fa-user absolute left-6 top-6 text-zinc-600"></i>
+                    <input type="text" id="auth-username" placeholder="اسم المستخدم" class="glass-input text-center font-bold pl-12">
+                </div>
+                <div class="relative">
+                    <i class="fa fa-lock absolute left-6 top-6 text-zinc-600"></i>
+                    <input type="password" id="auth-password" placeholder="كلمة المرور" class="glass-input text-center font-bold pl-12">
+                </div>
+                <button onclick="handleLoginAttempt()" class="w-full bg-gold text-black py-6 rounded-3xl font-black text-2xl shadow-xl hover:scale-105 active:scale-95 transition-all">دخول النظام</button>
+            </div>
+            <button onclick="closeModals()" class="mt-12 text-zinc-600 font-bold hover:text-zinc-400">إغلاق النافذة</button>
         </div>
     </div>
 
-    <a href="https://wa.me/201159333060" class="wa-float text-white"><i class="fab fa-whatsapp"></i></a>
+    <div id="detailModal" class="full-modal flex items-center justify-center p-6">
+        <div id="detail-container" class="bg-zinc-950 w-full max-w-7xl h-[85vh] rounded-[50px] overflow-hidden border border-zinc-800 flex flex-col md:flex-row shadow-2xl">
+            </div>
+    </div>
+
+    <a href="https://wa.me/201159333060" target="_blank" class="whatsapp-float text-white">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
     <script src="app.js"></script>
 </body>
 </html>
