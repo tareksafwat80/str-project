@@ -1,125 +1,132 @@
-// مصفوفة الوحدات (تقدر تزود فيها براحتك)
-const inventory = [
-    { code: "4001", zone: "B12", area: "78", status: "Instant", view: "North-facing Street View", price: "2,570,000", notes: "Paid + Over. Original contract 1.7M" },
-    { code: "4002", zone: "B14", area: "67", status: "2028", view: "Garden View", price: "866,000", notes: "Studio with private garden" },
-    { code: "70011", zone: "B2", area: "98", status: "Instant", view: "Garden view near mosque", price: "2,290,000", notes: "Special finishing including kitchen" }
+// بيانات الشركاء والمناطق (Placeholders)
+const partnersData = Array(16).fill({ name: "شريك استراتيجي", desc: "أقوى مطور عقاري في السوق المصري لخدمتكم." });
+const areasData = [
+    { ar: "مدينتي", en: "Madinaty" }, { ar: "الرحاب", en: "Al Rehab" },
+    { ar: "العاصمة الإدارية", en: "New Capital" }, { ar: "الساحل الشمالي", en: "North Coast" },
+    { ar: "راس الحكمة", en: "Ras El Hekma" }, { ar: "القاهرة الجديدة", en: "New Cairo" },
+    { ar: "العين السخنة", en: "Sokhna" }, { ar: "الشيخ زايد", en: "Zayed" }
 ];
 
-// الترجمات
-let currentLang = 'ar';
-const translations = {
-    ar: {
-        home: "الرئيسية", about: "عن الشركة", units: "الوحدات",
-        hero: "نخبة العقارات في مدينتي - ري سيل بأفضل الأسعار",
-        aboutTitle: "عن شركة STR",
-        aboutText: "تأسست شركة Summit Team Real Estate (STR) لتكون القمة في تقديم الخدمات العقارية المتكاملة بمدينة مدينتي. نحن نركز طاقتنا وخبرتنا داخل مدينتي لنقدم لعملائنا أدق التفاصيل حول كل منطقة.",
-        inventory: "المخزون المتاح", search: "ابحث بالكود أو المنطقة..."
-    },
-    en: {
-        home: "Home", about: "About", units: "Inventory",
-        hero: "Premium Madinaty Real Estate - Resale at Best Prices",
-        aboutTitle: "About STR",
-        aboutText: "STR was established to be the summit of real estate services in Madinaty. We focus our expertise to provide clients with accurate details across all zones.",
-        inventory: "Available Inventory", search: "Search by Code or Zone..."
+// داتا الوحدات (الديمو)
+let units = [];
+const types = ['resale', 'primary', 'rentals'];
+
+// توليد 30 وحدة تجريبية
+for(let i=1; i<=30; i++) {
+    units.push({
+        id: Date.now() + i,
+        code: `STR-${1000 + i}`,
+        type: types[i % 3],
+        price: (Math.random() * 5000000 + 1000000).toLocaleString(),
+        zone: areasData[i % 8].ar,
+        space: 100 + (i * 2),
+        model: "نموذج " + i,
+        view: "لاند سكيب",
+        status: "active",
+        featured: i % 10 === 0,
+        waClicks: Math.floor(Math.random() * 50),
+        images: ["https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"]
+    });
+}
+
+let currentTab = 'home';
+let currentPage = 1;
+const perPage = 24;
+
+function showTab(tabName) {
+    currentTab = tabName;
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active-tab'));
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    
+    // إذا كان التبويب أحد أقسام العقارات
+    if(['resale', 'primary', 'rentals'].includes(tabName)) {
+        document.getElementById('units-section').classList.add('active-tab');
+        renderUnits();
+    } else {
+        document.getElementById(tabName).classList.add('active-tab');
     }
-};
-
-function toggleLang() {
-    currentLang = currentLang === 'ar' ? 'en' : 'ar';
-    document.getElementById('mainHtml').dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-    document.getElementById('mainHtml').lang = currentLang;
-    updateUI();
+    event.currentTarget.classList.add('active');
 }
 
-function updateUI() {
-    const t = translations[currentLang];
-    document.getElementById('nav-home').innerText = t.home;
-    document.getElementById('nav-about').innerText = t.about;
-    document.getElementById('nav-units').innerText = t.units;
-    document.getElementById('hero-desc').innerText = t.hero;
-    document.getElementById('about-title').innerText = t.aboutTitle;
-    document.getElementById('about-text').innerHTML = t.aboutText;
-    document.getElementById('units-title').innerHTML = t.inventory;
-    document.getElementById('searchInput').placeholder = t.search;
-    document.getElementById('langBtn').innerText = currentLang === 'ar' ? 'EN' : 'AR';
-    renderUnits(inventory);
-}
-
-function renderUnits(data) {
+function renderUnits() {
     const grid = document.getElementById('units-grid');
-    const isAdmin = localStorage.getItem('isAdmin') === 'true';
-    grid.innerHTML = data.map(u => `
-        <div class="bg-[#111] rounded-3xl border border-gray-900 overflow-hidden card-hover transition-all cursor-pointer relative" onclick="openModal('${u.code}')">
-            ${isAdmin ? `<div class="absolute top-2 left-2 z-10 bg-red-600 text-white text-[8px] px-2 py-1 rounded cursor-help" title="Admin Mode">DELETE</div>` : ''}
-            <div class="relative h-64 overflow-hidden">
-                <img src="${u.code}/1.jpg" onerror="this.src='Str Black & Gold Logo 2.jpg'" class="w-full h-full object-cover opacity-80">
-                <div class="absolute top-4 right-4 bg-black/80 px-4 py-1 rounded-full text-[10px] gold-text font-bold">#${u.code}</div>
+    let filtered = units.filter(u => u.type === currentTab && u.status === 'active');
+    
+    // ترتيب: المميز بالنجمة أولاً ثم الأحدث
+    filtered.sort((a, b) => (b.featured - a.featured) || (b.id - a.id));
+
+    const start = (currentPage - 1) * perPage;
+    const paginated = filtered.slice(start, start + perPage);
+
+    grid.innerHTML = paginated.map(u => `
+        <div class="bg-zinc-900 rounded-xl overflow-hidden border border-gray-800 hover:border-gold transition group cursor-pointer" onclick="openUnit(${u.id})">
+            <div class="h-48 bg-cover bg-center relative" style="background-image:url('${u.images[0]}')">
+                ${u.featured ? '<div class="absolute top-2 left-2 text-gold"><i class="fa fa-star"></i></div>' : ''}
             </div>
-            <div class="p-6 text-right">
-                <h3 class="text-2xl font-bold gold-text mb-2">${u.price} <span class="text-xs text-white">EGP</span></h3>
-                <p class="text-gray-500 text-sm mb-4">${u.view}</p>
-                <div class="flex justify-between border-t border-gray-800 pt-4 text-xs text-gray-400">
-                    <span>${u.area} m²</span>
-                    <span>Zone: ${u.zone}</span>
-                </div>
+            <div class="p-4">
+                <p class="text-xs gold-text mb-1">${u.zone} - ${u.code}</p>
+                <h3 class="text-xl font-bold">${u.price} EGP</h3>
+                <p class="text-[10px] silver-text mt-2">${u.space}م | ${u.view}</p>
             </div>
         </div>
     `).join('');
+    renderPagination(filtered.length);
 }
 
-function filterUnits() {
-    const q = document.getElementById('searchInput').value.toLowerCase();
-    const res = inventory.filter(u => u.code.toLowerCase().includes(q) || u.zone.toLowerCase().includes(q));
-    renderUnits(res);
-}
-
-function openModal(code) {
-    const u = inventory.find(item => item.code === code);
-    const body = document.getElementById('modalBody');
-    body.innerHTML = `
-        <button onclick="closeModal()" class="absolute top-4 right-4 text-3xl text-gray-500">&times;</button>
-        <div class="grid md:grid-cols-2 gap-10 text-right">
-            <div>
-                <h2 class="text-4xl font-bold gold-text italic mb-6">CODE #${u.code}</h2>
-                <div class="space-y-4 text-lg border-b border-gray-900 pb-6 text-white">
-                    <p><span class="text-gray-500">Zone:</span> ${u.zone}</p>
-                    <p><span class="text-gray-500">Area:</span> ${u.area} m²</p>
-                    <p><span class="text-gray-500">Status:</span> ${u.status}</p>
-                </div>
-            </div>
-            <div class="bg-[#121212] p-8 rounded-3xl border border-gray-800">
-                <p class="text-3xl font-bold gold-text mb-6">${u.price} EGP</p>
-                <p class="text-gray-400 italic mb-8 border-r-4 border-gold-text pr-4">"${u.notes}"</p>
-                <a href="https://wa.me/201159333060?text=I am interested in Unit Code: ${u.code}" target="_blank" class="block w-full gold-bg text-black text-center py-4 rounded-xl font-bold">WHATSAPP NOW</a>
-            </div>
-        </div>
-    `;
+function openUnit(id) {
+    const u = units.find(u => u.id === id);
+    document.getElementById('m-code').innerText = u.code;
+    document.getElementById('m-address').innerText = `${u.zone} - ${u.model}`;
+    document.getElementById('m-specs').innerText = `${u.space} متر - ${u.view}`;
+    document.getElementById('m-finance').innerText = `السعر: ${u.price}`;
+    document.getElementById('m-dates').innerText = `تاريخ الإضافة: ${new Date(u.id).toLocaleDateString('ar-EG')}`;
+    
+    document.getElementById('wa-btn').onclick = () => {
+        u.waClicks++;
+        window.open(`https://wa.me/201159333060?text=استفسار عن الوحدة كود ${u.code}`);
+    };
+    
     document.getElementById('unitModal').style.display = 'block';
 }
 
-function closeModal() { document.getElementById('unitModal').style.display = 'none'; }
-function openLogin() { document.getElementById('loginModal').style.display = 'flex'; }
-function closeLogin() { document.getElementById('loginModal').style.display = 'none'; }
+function closeModal(e) {
+    document.getElementById('unitModal').style.display = 'none';
+}
 
-function checkAdmin() {
-    const pass = document.getElementById('adminPass').value;
-    if (pass === "str2025") {
-        localStorage.setItem('isAdmin', 'true');
-        document.getElementById('adminPanel').classList.remove('hidden');
-        closeLogin();
-        renderUnits(inventory);
-    } else {
-        document.getElementById('loginError').classList.remove('hidden');
+// Admin Logic
+function openAdmin() {
+    const pass = prompt("كلمة المرور:");
+    if(pass === "str2026") {
+        document.getElementById('adminModal').style.display = 'block';
+        updateAdminStats();
     }
 }
 
-function logoutAdmin() {
-    localStorage.removeItem('isAdmin');
-    document.getElementById('adminPanel').classList.add('hidden');
-    renderUnits(inventory);
+function updateAdminStats() {
+    const stats = document.getElementById('adminStats');
+    stats.innerHTML = `
+        <div class="bg-black p-4 rounded border border-gold text-center">
+            <p class="text-xs silver-text">إجمالي الوحدات</p>
+            <p class="text-2xl font-bold">${units.length}</p>
+        </div>
+        <div class="bg-black p-4 rounded border border-green-600 text-center">
+            <p class="text-xs silver-text">نقرات الواتساب</p>
+            <p class="text-2xl font-bold">${units.reduce((acc, curr) => acc + curr.waClicks, 0)}</p>
+        </div>
+        <div class="bg-black p-4 rounded border border-blue-600 text-center">
+            <p class="text-xs silver-text">نشط الآن</p>
+            <p class="text-2xl font-bold">${units.filter(u=>u.status==='active').length}</p>
+        </div>
+    `;
 }
 
+// 초기화
 window.onload = () => {
-    updateUI();
-    if(localStorage.getItem('isAdmin') === 'true') document.getElementById('adminPanel').classList.remove('hidden');
+    // رندر الشركاء والمناطق
+    document.getElementById('partners-grid').innerHTML = partnersData.map(p => `
+        <div class="bg-zinc-900 p-6 rounded-lg border border-gray-800 text-center hover:border-silver transition">
+            <div class="h-16 w-16 bg-zinc-800 rounded-full mx-auto mb-4"></div>
+            <p class="text-[10px] silver-text">${p.desc}</p>
+        </div>
+    `).join('');
 };
