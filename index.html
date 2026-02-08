@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STR - Summit Team Real Estate | Internal Management System 2026</title>
+    <title>STR - Summit Team Real Estate | Enterprise System</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
@@ -11,280 +11,394 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
     
     <style>
+        /* CSS متقدم وتفصيلي جداً */
         :root {
             --gold: #d4af37;
-            --gold-dark: #aa8c2c;
             --black: #050505;
-            --zinc-900: #18181b;
-            --zinc-800: #27272a;
-            --transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            --zinc-900: #121214;
+            --zinc-800: #202023;
         }
 
         body {
             font-family: 'Cairo', sans-serif;
             background-color: var(--black);
-            color: #ffffff;
+            color: white;
             margin: 0;
             overflow-x: hidden;
-            scroll-behavior: smooth;
         }
 
-        /* Scrollbar Styling */
-        ::-webkit-scrollbar { width: 8px; }
-        ::-webkit-scrollbar-track { background: var(--black); }
-        ::-webkit-scrollbar-thumb { background: var(--zinc-800); border-radius: 10px; }
-        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
-
-        /* Navigation Animations */
-        .nav-link {
-            position: relative;
-            cursor: pointer;
-            padding: 10px 20px;
-            color: #a1a1aa;
-            font-weight: 600;
-            transition: var(--transition);
+        /* Hero Animation */
+        .hero-title {
+            animation: slideUp 1s ease-out;
         }
-        .nav-link::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            width: 0;
-            height: 2px;
-            background: var(--gold);
-            transition: var(--transition);
-            transform: translateX(-50%);
-        }
-        .nav-link.active { color: var(--gold); }
-        .nav-link.active::after { width: 80%; }
-
-        /* Dynamic Tab Content */
-        .tab-content { display: none; opacity: 0; transform: translateY(20px); transition: var(--transition); }
-        .tab-content.active { display: block; opacity: 1; transform: translateY(0); }
-
-        /* Hero Background with Parallax Effect */
-        .hero-section {
-            height: 95vh;
-            background: linear-gradient(rgba(0,0,0,0.85), rgba(0,0,0,0.95)), 
-                        url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(50px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
-        /* Luxury Cards */
-        .property-card {
-            background: linear-gradient(145deg, #111, #080808);
-            border: 1px solid var(--zinc-800);
-            border-radius: 40px;
-            overflow: hidden;
-            transition: var(--transition);
+        /* Glassmorphism Classes */
+        .glass-card {
+            background: rgba(24, 24, 27, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.1);
+            transition: all 0.4s ease;
         }
-        .property-card:hover {
-            transform: translateY(-15px);
+        .glass-card:hover {
             border-color: var(--gold);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+            transform: translateY(-10px);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
         }
 
-        /* Admin Portal Sidebar */
-        .admin-sidebar {
-            width: 320px;
-            background: #0a0a0a;
-            border-left: 1px solid var(--zinc-800);
-            height: 100vh;
-            position: sticky;
-            top: 0;
-            padding: 40px 20px;
-        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: var(--black); }
+        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
 
-        .sidebar-btn {
+        /* Tab Transitions */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; animation: fadeIn 0.6s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+
+        /* Admin UI Extensions */
+        .sidebar-item {
+            padding: 15px 25px;
+            cursor: pointer;
+            border-radius: 15px;
+            margin-bottom: 8px;
+            transition: 0.3s;
             display: flex;
             align-items: center;
             gap: 15px;
-            padding: 18px 25px;
-            border-radius: 20px;
-            color: #71717a;
-            cursor: pointer;
-            transition: var(--transition);
-            margin-bottom: 10px;
-            font-weight: 700;
+            color: #888;
         }
-        .sidebar-btn:hover { background: rgba(255,255,255,0.05); color: #fff; }
-        .sidebar-btn.active { background: var(--gold); color: #000; box-shadow: 0 10px 20px rgba(212,175,55,0.2); }
+        .sidebar-item.active {
+            background: var(--gold);
+            color: black;
+            font-weight: 900;
+        }
 
-        /* Modal Overlays */
-        .full-modal {
+        .input-luxury {
+            background: #000;
+            border: 1px solid #333;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 15px;
+            width: 100%;
+            outline: none;
+            transition: 0.3s;
+        }
+        .input-luxury:focus { border-color: var(--gold); }
+
+        .modal-overlay {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.98);
-            z-index: 9999;
-            backdrop-blur: 10px;
-        }
-
-        /* Glassmorphism Inputs */
-        .glass-input {
-            background: rgba(255,255,255,0.03);
-            border: 1px solid var(--zinc-800);
-            color: #fff;
-            padding: 18px 25px;
-            border-radius: 20px;
-            width: 100%;
-            outline: none;
-            transition: var(--transition);
-        }
-        .glass-input:focus { border-color: var(--gold); background: rgba(255,255,255,0.05); }
-
-        /* Floating WhatsApp */
-        .whatsapp-float {
-            position: fixed;
-            bottom: 40px;
-            left: 40px;
-            background: #25d366;
-            width: 70px;
-            height: 70px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 35px;
-            box-shadow: 0 15px 30px rgba(37,211,102,0.4);
+            background: rgba(0,0,0,0.95);
             z-index: 1000;
-            transition: var(--transition);
+            overflow-y: auto;
+            padding: 40px;
         }
-        .whatsapp-float:hover { transform: scale(1.1) rotate(15deg); }
     </style>
 </head>
 <body>
 
-    <header class="fixed top-0 w-full z-50 bg-black/80 backdrop-blur-xl border-b border-zinc-900">
+    <nav class="fixed top-0 w-full z-[100] bg-black/80 backdrop-blur-md border-b border-zinc-900">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-8">
-                <img src="https://i.imgur.com/uVpX5Xp.png" class="h-[65px] cursor-pointer" onclick="showTab('home')">
-                <nav class="hidden lg:flex gap-2">
-                    <div class="nav-link active" id="nav-home" onclick="showTab('home')">الرئيسية</div>
-                    <div class="nav-link" id="nav-resale" onclick="showTab('resale')">ريسيل</div>
-                    <div class="nav-link" id="nav-primary" onclick="showTab('primary')">برايمري</div>
-                </nav>
+            <div class="flex items-center gap-10">
+                <img src="https://i.imgur.com/uVpX5Xp.png" class="h-16 cursor-pointer" onclick="switchTab('home')">
+                <div class="hidden md:flex gap-6">
+                    <span class="nav-link cursor-pointer font-bold hover:text-gold transition" onclick="switchTab('home')">الرئيسية</span>
+                    <span class="nav-link cursor-pointer font-bold hover:text-gold transition" onclick="switchCategory('resale')">ريسيل</span>
+                    <span class="nav-link cursor-pointer font-bold hover:text-gold transition" onclick="switchCategory('primary')">برايمري</span>
+                </div>
             </div>
-            <div class="flex items-center gap-4">
-                <button onclick="toggleAdminPortal()" class="bg-red-600/10 text-red-500 border border-red-600/20 px-6 py-3 rounded-2xl font-black text-sm hover:bg-red-600 hover:text-white transition-all duration-500">
-                    <i class="fa fa-shield-alt ml-2"></i> بوابة الإدارة
-                </button>
-            </div>
+            <button onclick="openAdmin()" class="bg-red-600/10 text-red-500 border border-red-900/30 px-6 py-2 rounded-xl text-sm font-black">لوحة التحكم</button>
         </div>
-    </header>
+    </nav>
 
-    <main>
-        <section id="home" class="tab-content active hero-section">
-            <div class="container mx-auto px-6">
-                <div class="inline-block px-6 py-2 border border-gold/30 rounded-full text-gold text-xs font-black tracking-widest uppercase mb-8">Premium Real Estate Management</div>
-                <h1 class="text-7xl md:text-[130px] font-black italic gold-text mb-4 leading-none tracking-tighter">SUMMIT TEAM</h1>
-                <h2 class="text-3xl md:text-6xl font-extrabold uppercase tracking-[20px] md:tracking-[40px] mb-12 text-white/90">Real Estate</h2>
-                <div class="w-32 h-1 bg-gold mx-auto mb-12 rounded-full shadow-[0_0_20px_#d4af37]"></div>
-                <p id="site-slogan-display" class="text-zinc-400 text-2xl md:text-3xl italic max-w-4xl mx-auto leading-relaxed font-light"></p>
-                <div class="mt-16 flex flex-wrap justify-center gap-8">
-                    <button onclick="showTab('resale')" class="bg-gold text-black px-16 py-6 rounded-[25px] font-black text-xl shadow-2xl hover:scale-105 active:scale-95 transition-all">تصفح المخزون العقاري</button>
-                    <button onclick="window.scrollTo(0, 1500)" class="bg-white/5 border border-white/10 text-white px-16 py-6 rounded-[25px] font-bold text-xl hover:bg-white/10 transition-all">من نحن</button>
+    <main class="mt-24">
+        
+        <section id="tab-home" class="tab-content active h-[85vh] flex items-center justify-center text-center">
+            <div class="hero-title">
+                <h1 class="text-7xl md:text-[120px] font-black italic text-[#d4af37] mb-4">SUMMIT TEAM</h1>
+                <h2 class="text-3xl md:text-5xl font-bold tracking-[20px] uppercase text-white/90">Real Estate</h2>
+                <div class="h-1 w-40 bg-gold mx-auto my-10 rounded-full"></div>
+                <p id="display-slogan" class="text-zinc-500 text-xl md:text-3xl italic max-w-4xl mx-auto leading-relaxed"></p>
+                <div class="mt-12 flex justify-center gap-6">
+                    <button onclick="switchCategory('resale')" class="bg-gold text-black px-12 py-5 rounded-2xl font-black text-xl hover:scale-105 transition">ابدأ البحث</button>
                 </div>
             </div>
         </section>
 
-        <section id="properties-section" class="tab-content py-32 bg-[#070707]">
-            <div class="container mx-auto px-6">
-                <div class="flex flex-col lg:flex-row justify-between items-end mb-24 gap-12">
-                    <div>
-                        <h3 id="category-title" class="text-6xl font-black gold-text italic mb-6 leading-tight">العقارات المتاحة</h3>
-                        <p class="text-zinc-500 text-xl font-medium">استكشف أفخم الوحدات السكنية في أرقى المناطق</p>
-                    </div>
-                    <div class="w-full lg:w-[500px] relative group">
-                        <i class="fa fa-search absolute right-6 top-6 text-zinc-600 group-focus-within:text-gold transition-colors"></i>
-                        <input type="text" id="global-search-input" oninput="handleGlobalSearch()" placeholder="بحث برقم الكود، المنطقة، أو السعر..." 
-                               class="w-full bg-zinc-900/50 border border-zinc-800 p-6 pr-16 rounded-[30px] outline-none focus:border-gold focus:bg-zinc-900 transition-all text-lg shadow-2xl">
-                    </div>
+        <section id="tab-inventory" class="tab-content py-20 container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+                <div>
+                    <h3 id="category-name" class="text-5xl font-black text-gold italic mb-4 uppercase">RESALE UNITS</h3>
+                    <p class="text-zinc-500 font-bold uppercase tracking-widest">Premium Collection By STR</p>
                 </div>
-                
-                <div id="main-grid" class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-12">
-                    </div>
-
-                <div id="no-results" class="hidden text-center py-40">
-                    <i class="fa fa-search-minus text-8xl text-zinc-800 mb-8"></i>
-                    <h4 class="text-3xl font-bold text-zinc-500 italic">عذراً، لم نجد نتائج تطابق بحثك...</h4>
+                <div class="relative w-full md:w-96">
+                    <input type="text" id="search-box" oninput="runSearch()" placeholder="بحث برقم الكود أو المنطقة..." class="w-full bg-zinc-900 border border-zinc-800 p-4 pr-12 rounded-2xl outline-none focus:border-gold">
+                    <i class="fa fa-search absolute right-4 top-5 text-zinc-600"></i>
                 </div>
             </div>
+            <div id="units-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
+                </div>
         </section>
+
     </main>
 
-    <div id="adminPortalModal" class="full-modal">
-        <div class="flex h-full">
-            <aside class="admin-sidebar shadow-2xl">
-                <div class="text-center mb-16">
-                    <img src="https://i.imgur.com/uVpX5Xp.png" class="h-20 mx-auto mb-4">
-                    <p class="text-[10px] text-zinc-500 font-black uppercase tracking-[5px]">Admin Control Panel</p>
+    <div id="admin-portal" class="modal-overlay">
+        <div class="flex h-full gap-10">
+            <aside class="w-80 bg-zinc-950 p-8 rounded-[40px] border border-zinc-900 flex flex-col shadow-2xl">
+                <img src="https://i.imgur.com/uVpX5Xp.png" class="h-16 mx-auto mb-10">
+                <div class="flex-1">
+                    <div id="side-inv" onclick="showAdminPage('inventory')" class="sidebar-item active"><i class="fa fa-home"></i> المخزون</div>
+                    <div id="side-crm" onclick="showAdminPage('crm')" class="sidebar-item"><i class="fa fa-users"></i> الـ CRM</div>
+                    <div id="side-add" onclick="showAdminPage('add')" class="sidebar-item text-green-500"><i class="fa fa-plus-circle"></i> إضافة وحدة</div>
+                    <div id="side-set" onclick="showAdminPage('settings')" class="sidebar-item"><i class="fa fa-cog"></i> الإعدادات</div>
                 </div>
-                <div class="space-y-4">
-                    <div id="adm-nav-inventory" onclick="renderAdminSection('inventory')" class="sidebar-btn active">
-                        <i class="fa fa-layer-group text-xl"></i> إدارة المخزون
-                    </div>
-                    <div id="adm-nav-crm" onclick="renderAdminSection('crm')" class="sidebar-btn">
-                        <i class="fa fa-user-tie text-xl"></i> إدارة العملاء CRM
-                    </div>
-                    <div id="adm-nav-add" onclick="renderAdminSection('add-unit')" class="sidebar-btn">
-                        <i class="fa fa-plus-circle text-xl"></i> إضافة وحدة جديدة
-                    </div>
-                    <div id="adm-nav-cms" onclick="renderAdminSection('settings')" class="sidebar-btn">
-                        <i class="fa fa-cog text-xl"></i> إعدادات الموقع
-                    </div>
-                </div>
-                
-                <div class="absolute bottom-10 left-8 right-8">
-                    <div class="bg-zinc-900 p-6 rounded-3xl border border-zinc-800 mb-6">
-                        <p class="text-xs text-zinc-500 mb-2 font-bold uppercase">المسؤول الحالي</p>
-                        <p id="active-user-name" class="font-black text-gold">Admin User</p>
-                    </div>
-                    <button onclick="secureLogout()" class="w-full bg-red-950/20 text-red-500 border border-red-900/30 py-4 rounded-2xl font-black hover:bg-red-500 hover:text-white transition-all">خروج آمن</button>
-                </div>
+                <button onclick="location.reload()" class="w-full bg-red-900/10 text-red-500 py-4 rounded-2xl font-black border border-red-900/20">خروج آمن</button>
             </aside>
-
-            <main class="flex-1 p-20 overflow-y-auto bg-[#0a0a0a]">
-                <div id="admin-main-container" class="max-w-6xl mx-auto">
-                    </div>
+            <main class="flex-1 bg-zinc-900/50 p-12 rounded-[40px] border border-zinc-900 overflow-y-auto">
+                <div id="admin-content"></div>
             </main>
         </div>
     </div>
 
-    <div id="authModal" class="full-modal flex items-center justify-center p-8">
-        <div class="bg-zinc-900 w-full max-w-xl p-16 rounded-[60px] border border-gold/10 shadow-2xl text-center">
-            <img src="https://i.imgur.com/uVpX5Xp.png" class="h-28 mx-auto mb-12">
-            <h4 class="text-3xl font-black mb-12 gold-text italic">بوابة الوصول الآمن</h4>
-            <div class="space-y-6">
-                <div class="relative">
-                    <i class="fa fa-user absolute left-6 top-6 text-zinc-600"></i>
-                    <input type="text" id="auth-username" placeholder="اسم المستخدم" class="glass-input text-center font-bold pl-12">
-                </div>
-                <div class="relative">
-                    <i class="fa fa-lock absolute left-6 top-6 text-zinc-600"></i>
-                    <input type="password" id="auth-password" placeholder="كلمة المرور" class="glass-input text-center font-bold pl-12">
-                </div>
-                <button onclick="handleLoginAttempt()" class="w-full bg-gold text-black py-6 rounded-3xl font-black text-2xl shadow-xl hover:scale-105 active:scale-95 transition-all">دخول النظام</button>
+    <div id="login-screen" class="modal-overlay flex items-center justify-center">
+        <div class="bg-zinc-900 p-16 rounded-[60px] border border-gold/10 w-full max-w-lg text-center shadow-2xl">
+            <img src="https://i.imgur.com/uVpX5Xp.png" class="h-24 mx-auto mb-12">
+            <div class="space-y-4">
+                <input id="user-in" type="text" placeholder="اسم المستخدم" class="input-luxury text-center">
+                <input id="pass-in" type="password" placeholder="كلمة المرور" class="input-luxury text-center">
+                <button onclick="tryLogin()" class="w-full bg-gold text-black py-5 rounded-2xl font-black text-2xl">دخول النظام</button>
             </div>
-            <button onclick="closeModals()" class="mt-12 text-zinc-600 font-bold hover:text-zinc-400">إغلاق النافذة</button>
+            <p onclick="closeAll()" class="mt-8 text-zinc-600 cursor-pointer font-bold">إلغاء</p>
         </div>
     </div>
 
-    <div id="detailModal" class="full-modal flex items-center justify-center p-6">
-        <div id="detail-container" class="bg-zinc-950 w-full max-w-7xl h-[85vh] rounded-[50px] overflow-hidden border border-zinc-800 flex flex-col md:flex-row shadow-2xl">
-            </div>
-    </div>
+    <a href="https://wa.me/201159333060" class="fixed bottom-10 left-10 bg-[#25D366] w-20 h-20 rounded-full flex items-center justify-center text-4xl shadow-2xl z-[1000]"><i class="fab fa-whatsapp"></i></a>
 
-    <a href="https://wa.me/201159333060" target="_blank" class="whatsapp-float text-white">
-        <i class="fab fa-whatsapp"></i>
-    </a>
+    <script>
+        // --- 1. State Management ---
+        const DB = {
+            settings: { slogan: "STR - قمة العقارات في مصر. نحن لا نبيع مجرد جدران، نحن نصنع مستقبلك الاستثماري والسكني بأعلى معايير الجودة والاحترافية | 2026" },
+            units: [],
+            leads: [],
+            agents: [
+                { id: 1, name: "إدارة STR", user: "admin", pass: "str2026", load: 0 },
+                { id: 2, name: "فريق Sales A", user: "sales1", pass: "123", load: 0 },
+                { id: 3, name: "فريق Sales B", user: "sales2", pass: "123", load: 0 }
+            ],
+            currentUser: null,
+            activeCat: 'resale'
+        };
 
-    <script src="app.js"></script>
+        // --- 2. Data Initialization (The Core) ---
+        function initializeSystem() {
+            const areas = ["مدينتي B8", "الرحاب 2", "التجمع الخامس", "نرجس عمارات", "R7 العاصمة"];
+            const imgs = [
+                "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800",
+                "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
+                "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800"
+            ];
+
+            // Generating 24 Sample Units
+            for (let i = 1; i <= 24; i++) {
+                DB.units.push({
+                    id: Date.now() + i,
+                    code: 1000 + i,
+                    title: `وحدة سكنية مميزة #${1000+i}`,
+                    area: areas[i % areas.length],
+                    price: 3800000 + (i * 150000),
+                    space: 120 + (i * 2),
+                    rooms: 3,
+                    type: i <= 12 ? 'resale' : 'primary',
+                    img: imgs[i % 3]
+                });
+            }
+            document.getElementById('display-slogan').innerText = DB.settings.slogan;
+            renderGrid();
+        }
+
+        // --- 3. UI Switches ---
+        window.switchTab = (tab) => {
+            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+            document.getElementById('tab-' + tab).classList.add('active');
+            window.scrollTo(0,0);
+        };
+
+        window.switchCategory = (cat) => {
+            DB.activeCat = cat;
+            document.getElementById('category-name').innerText = cat === 'resale' ? 'وحدات الريسيل' : 'وحدات البرايمري';
+            switchTab('inventory');
+            renderGrid();
+        };
+
+        // --- 4. Rendering Engine ---
+        function renderGrid(filtered = null) {
+            const grid = document.getElementById('units-grid');
+            const data = filtered || DB.units.filter(u => u.type === DB.activeCat);
+            
+            grid.innerHTML = data.map(u => `
+                <div class="glass-card rounded-[40px] overflow-hidden group">
+                    <div class="h-64 relative overflow-hidden">
+                        <img src="${u.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute top-5 right-5 bg-black/70 backdrop-blur-md px-4 py-1 rounded-full text-[10px] text-gold font-black border border-gold/20">CODE: ${u.code}</div>
+                    </div>
+                    <div class="p-8">
+                        <p class="text-zinc-500 text-[10px] font-black uppercase tracking-[3px] mb-2">${u.area}</p>
+                        <h4 class="text-3xl font-black mb-6">${u.price.toLocaleString()} <span class="text-xs gold-text">EGP</span></h4>
+                        <div class="flex justify-between py-4 border-y border-zinc-800/50 text-xs text-zinc-400 font-bold mb-8">
+                            <span><i class="fa fa-expand gold-text ml-2"></i>${u.space} م²</span>
+                            <span><i class="fa fa-bed gold-text ml-2"></i>${u.rooms} غرف</span>
+                        </div>
+                        <button onclick="handleLead(${u.code})" class="w-full bg-zinc-800 group-hover:bg-gold group-hover:text-black py-4 rounded-2xl font-black transition-all">ارسل استفسار</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        window.runSearch = () => {
+            const q = document.getElementById('search-box').value.toLowerCase();
+            const f = DB.units.filter(u => u.type === DB.activeCat && (u.code.toString().includes(q) || u.area.toLowerCase().includes(q)));
+            renderGrid(f);
+        };
+
+        // --- 5. Lead & CRM Logic ---
+        window.handleLead = (code) => {
+            // Fair distribution
+            DB.agents.sort((a, b) => a.load - b.load);
+            const agent = DB.agents[0];
+            agent.load++;
+            
+            DB.leads.unshift({
+                id: Date.now(),
+                code: code,
+                agent: agent.name,
+                time: new Date().toLocaleString('ar-EG')
+            });
+
+            alert(`سيتم تحويلك الآن لموظف المبيعات المسؤول: ${agent.name}`);
+            window.open(`https://wa.me/201159333060?text=استفسار عن الوحدة كود: ${code}`);
+        };
+
+        // --- 6. Admin Engine ---
+        window.openAdmin = () => {
+            if (!DB.currentUser) document.getElementById('login-screen').style.display = 'flex';
+            else document.getElementById('admin-portal').style.display = 'block';
+        };
+
+        window.tryLogin = () => {
+            const u = document.getElementById('user-in').value;
+            const p = document.getElementById('pass-in').value;
+            const found = DB.agents.find(a => a.user === u && a.pass === p);
+            
+            if (found) {
+                DB.currentUser = found;
+                document.getElementById('login-screen').style.display = 'none';
+                document.getElementById('admin-portal').style.display = 'block';
+                showAdminPage('inventory');
+            } else alert("بيانات غير صحيحة");
+        };
+
+        window.showAdminPage = (page) => {
+            const content = document.getElementById('admin-content');
+            document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
+            document.getElementById(`side-${page.split('-')[0]}`).classList.add('active');
+
+            if (page === 'inventory') {
+                content.innerHTML = `
+                    <div class="flex justify-between items-center mb-10">
+                        <h2 class="text-4xl font-black text-gold italic">إدارة المخزون (${DB.units.length})</h2>
+                        <button onclick="exportData()" class="bg-green-700 text-white px-8 py-3 rounded-xl font-bold">تصدير EXCEL</button>
+                    </div>
+                    <div class="space-y-4">
+                        ${DB.units.map(u => `
+                            <div class="bg-black/40 p-6 rounded-3xl border border-zinc-800 flex justify-between items-center">
+                                <div><span class="text-gold font-black">#${u.code}</span> - <span class="text-lg font-bold">${u.area}</span></div>
+                                <div class="flex gap-8 items-center">
+                                    <span class="font-black">${u.price.toLocaleString()} EGP</span>
+                                    <button onclick="deleteUnit(${u.id})" class="text-red-500"><i class="fa fa-trash"></i></button>
+                                </div>
+                            </div>
+                        `).join('')}
+                    </div>`;
+            } else if (page === 'crm') {
+                content.innerHTML = `
+                    <h2 class="text-4xl font-black text-gold italic mb-10">سجل العملاء CRM</h2>
+                    <div class="grid gap-4">
+                        ${DB.leads.length === 0 ? '<p class="text-zinc-600">لا يوجد ليدز حالياً</p>' : 
+                        DB.leads.map(l => `
+                            <div class="bg-black p-6 rounded-3xl border-r-8 border-gold">
+                                <h4 class="text-xl font-black">طلب استفسار عن الكود: ${l.code}</h4>
+                                <p class="text-zinc-500">تم التوجيه لـ: ${l.agent} | التاريخ: ${l.time}</p>
+                            </div>
+                        `).join('')}
+                    </div>`;
+            } else if (page === 'add') {
+                content.innerHTML = `
+                    <h2 class="text-4xl font-black text-gold italic mb-10">إضافة وحدة جديدة</h2>
+                    <div class="grid grid-cols-2 gap-6 bg-black/40 p-10 rounded-[40px] border border-zinc-800">
+                        <input id="add-c" type="number" placeholder="الكود" class="input-luxury">
+                        <input id="add-a" type="text" placeholder="المنطقة" class="input-luxury">
+                        <input id="add-p" type="number" placeholder="السعر" class="input-luxury">
+                        <select id="add-t" class="input-luxury"><option value="resale">ريسيل</option><option value="primary">برايمري</option></select>
+                        <button onclick="saveNewUnit()" class="col-span-2 bg-gold text-black py-5 rounded-2xl font-black text-xl">تأكيد الإضافة</button>
+                    </div>`;
+            } else if (page === 'settings') {
+                content.innerHTML = `
+                    <h2 class="text-4xl font-black text-gold italic mb-10">إعدادات الموقع</h2>
+                    <div class="bg-black/40 p-10 rounded-[40px] border border-zinc-800 max-w-2xl">
+                        <label class="block text-zinc-500 text-xs font-black mb-4">السلوجان الرئيسي (Slogan)</label>
+                        <textarea id="set-s" rows="5" class="input-luxury mb-8">${DB.settings.slogan}</textarea>
+                        <button onclick="saveSettings()" class="bg-gold text-black px-12 py-4 rounded-xl font-black">حفظ التغييرات</button>
+                    </div>`;
+            }
+        };
+
+        // --- 7. Admin Operations ---
+        window.saveNewUnit = () => {
+            const u = {
+                id: Date.now(),
+                code: document.getElementById('add-c').value,
+                area: document.getElementById('add-a').value,
+                price: parseInt(document.getElementById('add-p').value),
+                space: 150, rooms: 3,
+                type: document.getElementById('add-t').value,
+                img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+            };
+            DB.units.unshift(u);
+            alert("تمت الإضافة!");
+            showAdminPage('inventory');
+        };
+
+        window.deleteUnit = (id) => {
+            if(confirm("مسح الوحدة؟")) {
+                DB.units = DB.units.filter(u => u.id !== id);
+                showAdminPage('inventory');
+            }
+        };
+
+        window.saveSettings = () => {
+            DB.settings.slogan = document.getElementById('set-s').value;
+            document.getElementById('display-slogan').innerText = DB.settings.slogan;
+            alert("تم التحديث!");
+        };
+
+        window.exportData = () => {
+            const ws = XLSX.utils.json_to_sheet(DB.units);
+            const wb = XLSX.utils.book_new();
+            XLSX.utils.book_append_sheet(wb, ws, "STR_Inventory");
+            XLSX.writeFile(wb, "STR_Inventory_2026.xlsx");
+        };
+
+        window.closeAll = () => {
+            document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none');
+        };
+
+        // Start
+        window.onload = initializeSystem;
+    </script>
 </body>
 </html>
