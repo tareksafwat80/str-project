@@ -3,68 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STR - Smart Real Estate Management</title>
+    <title>STR - Summit Team Real Estate | Smart Management System</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&family=Poppins:wght@300;400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #d4af37; --silver: #c0c0c0; --black: #0a0a0a; }
+        :root { --gold: #d4af37; --silver: #c0c0c0; --black: #0a0a0a; --dark-zinc: #111111; }
         body { font-family: 'Cairo', 'Poppins', sans-serif; background-color: var(--black); color: white; scroll-behavior: smooth; overflow-x: hidden; }
         .gold-text { color: var(--gold); }
-        .tab-content { display: none; }
+        .gold-border { border-color: var(--gold); }
+        .tab-content { display: none; animation: fadeIn 0.5s ease-in-out; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
         .active-tab { display: block; }
-        .nav-btn { cursor: pointer; padding: 10px 12px; font-weight: bold; border-bottom: 2px solid transparent; transition: 0.3s; font-size: 13px; }
-        .nav-btn.active { border-bottom: 2px solid var(--gold); color: var(--gold); }
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.95); z-index: 1000; overflow-y: auto; }
+        .nav-btn { cursor: pointer; padding: 12px 16px; font-weight: bold; border-bottom: 2px solid transparent; transition: 0.3s; font-size: 14px; white-space: nowrap; }
+        .nav-btn.active { border-bottom: 2px solid var(--gold); color: var(--gold); background: rgba(212, 175, 55, 0.05); }
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 1000; overflow-y: auto; backdrop-filter: blur(10px); }
         
-        /* Logo Styling */
-        .logo-box { position: relative; width: 50px; height: 50px; border: 2px solid var(--gold); display: flex; align-items: center; justify-content: center; transform: rotate(45deg); transition: 0.5s; cursor: pointer; }
-        .logo-box:hover { transform: rotate(0deg); border-color: white; }
-        .logo-text { transform: rotate(-45deg); font-weight: 900; color: var(--gold); font-size: 18px; transition: 0.5s; }
-        .logo-box:hover .logo-text { transform: rotate(0deg); color: white; }
+        /* الشعار الهندسي المتطور */
+        .logo-container { position: relative; width: 60px; height: 60px; cursor: pointer; }
+        .logo-box { position: absolute; inset: 0; border: 2px solid var(--gold); transform: rotate(45deg); transition: 0.6s cubic-bezier(0.4, 0, 0.2, 1); display: flex; align-items: center; justify-content: center; }
+        .logo-container:hover .logo-box { transform: rotate(0deg); border-color: white; border-radius: 10px; }
+        .logo-text { transform: rotate(-45deg); font-weight: 900; color: var(--gold); font-size: 20px; transition: 0.6s; }
+        .logo-container:hover .logo-text { transform: rotate(0deg); color: white; scale: 1.1; }
 
-        /* Floating WA */
-        .floating-wa { position: fixed; bottom: 30px; left: 30px; background: #25d366; color: white; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 4px 20px rgba(0,0,0,0.5); z-index: 900; transition: 0.3s; }
-        .floating-wa:hover { transform: scale(1.1); }
+        /* الأزرار العائمة */
+        .floating-wa { position: fixed; bottom: 30px; left: 30px; background: #25d366; color: white; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 35px; box-shadow: 0 10px 30px rgba(37, 211, 102, 0.3); z-index: 900; transition: 0.4s ease; border: 2px solid white; }
+        .floating-wa:hover { transform: scale(1.1) rotate(15deg); }
 
-        .notify-badge { position: absolute; top: -5px; right: -5px; background: red; color: white; border-radius: 50%; padding: 2px 6px; font-size: 10px; }
-        .admin-sidebar-btn { width: 100%; text-align: start; padding: 12px; border-radius: 8px; margin-bottom: 5px; transition: 0.3s; color: #ccc; }
-        .admin-sidebar-btn.active { background: var(--gold); color: black; font-weight: bold; }
+        /* الجرس والإشعارات */
+        .notify-badge { position: absolute; top: -8px; right: -8px; background: #ff0000; color: white; border-radius: 50%; padding: 2px 7px; font-size: 11px; font-weight: bold; border: 2px solid var(--black); }
+        #notifyBox { animation: slideIn 0.3s ease-out; }
+        @keyframes slideIn { from { transform: translateY(10px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+
+        /* الإدارة */
+        .admin-sidebar-btn { width: 100%; text-align: start; padding: 15px 20px; border-radius: 12px; margin-bottom: 8px; transition: 0.3s; color: #888; display: flex; align-items: center; gap: 12px; }
+        .admin-sidebar-btn.active { background: var(--gold); color: black; font-weight: bold; box-shadow: 0 4px 15px rgba(212, 175, 55, 0.3); }
+        .admin-sidebar-btn:hover:not(.active) { background: rgba(255,255,255,0.05); color: white; }
+
+        /* كروت الوحدات */
+        .u-card { background: var(--dark-zinc); border: 1px solid #222; border-radius: 20px; overflow: hidden; transition: 0.4s; }
+        .u-card:hover { border-color: var(--gold); transform: translateY(-5px); box-shadow: 0 10px 40px rgba(0,0,0,0.5); }
+        
+        /* التجاوب */
+        @media (max-width: 768px) { .nav-btn { font-size: 12px; padding: 10px 8px; } }
     </style>
 </head>
 <body>
 
-    <div class="bg-zinc-950 border-b border-gray-900 py-2">
-        <div class="container mx-auto px-4 flex justify-between items-center text-xs">
-            <div class="flex gap-4">
-                <a href="#" class="hover:text-gold transition"><i class="fab fa-facebook-f"></i></a>
-                <a href="#" class="hover:text-gold transition"><i class="fab fa-instagram"></i></a>
-                <a href="#" class="hover:text-gold transition"><i class="fab fa-tiktok"></i></a>
-                <a href="#" class="hover:text-gold transition"><i class="fab fa-whatsapp"></i></a>
+    <div class="bg-zinc-950 border-b border-zinc-900 py-2 hidden md:block">
+        <div class="container mx-auto px-6 flex justify-between items-center text-xs">
+            <div class="flex gap-6 items-center">
+                <a href="tel:+201159333060" class="hover:text-gold transition"><i class="fa fa-phone ml-2"></i> +20 115 933 3060</a>
+                <span class="text-zinc-700">|</span>
+                <a href="mailto:info@summit-team.com" class="hover:text-gold transition"><i class="fa fa-envelope ml-2"></i> info@summit-team.com</a>
             </div>
-            <button onclick="toggleLanguage()" class="border border-gold px-3 py-1 rounded-full gold-text font-bold hover:bg-gold hover:text-black transition">
-                <i class="fa fa-globe ml-1"></i> <span id="langText">English</span>
-            </button>
+            <div class="flex gap-4 items-center">
+                <div class="flex gap-4 ml-6 border-l border-zinc-800 pl-6">
+                    <a href="#" class="hover:text-gold transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="hover:text-gold transition"><i class="fab fa-instagram"></i></a>
+                    <a href="#" class="hover:text-gold transition"><i class="fab fa-tiktok"></i></a>
+                    <a href="#" class="hover:text-gold transition"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+                <button onclick="toggleLanguage()" class="bg-zinc-900 border border-gold/30 px-4 py-1 rounded-full gold-text font-bold hover:bg-gold hover:text-black transition">
+                    <i class="fa fa-globe ml-2"></i> <span id="langText">English</span>
+                </button>
+            </div>
         </div>
     </div>
 
-    <nav class="bg-black/95 border-b border-gray-800 sticky top-0 z-50">
-        <div class="container mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center">
-            <div class="flex items-center gap-6 mb-4 md:mb-0">
-                <div onclick="showTab('home')"><div class="logo-box"><span class="logo-text">STR</span></div></div>
-                <input type="text" id="globalSearch" oninput="renderUnits()" placeholder="بحث سريع..." class="bg-zinc-900 border border-gray-700 rounded-full px-4 py-1 text-sm focus:border-gold outline-none w-40 md:w-56">
-                
-                <div class="relative cursor-pointer" onclick="toggleNotify()">
-                    <i class="fa fa-bell text-xl text-gray-500"></i>
-                    <span id="notifyCount" class="notify-badge">0</span>
-                    <div id="notifyBox" class="absolute top-10 right-0 bg-zinc-900 border border-gold w-72 rounded-xl hidden p-4 shadow-2xl z-50">
-                        <p class="border-b border-gray-800 pb-2 mb-2 gold-text font-bold text-sm" data-i18n="notifications">التنبيهات</p>
-                        <div id="notifyList" class="space-y-3 max-h-60 overflow-y-auto text-[10px]"></div>
+    <nav class="bg-black/90 sticky top-0 z-50 border-b border-zinc-800 backdrop-blur-md">
+        <div class="container mx-auto px-4 py-4 flex flex-col md:flex-row justify-between items-center">
+            <div class="flex items-center gap-8 w-full md:w-auto justify-between md:justify-start mb-4 md:mb-0">
+                <div onclick="showTab('home')" class="logo-container">
+                    <div class="logo-box"><span class="logo-text">STR</span></div>
+                </div>
+
+                <div class="flex items-center gap-4">
+                    <div class="relative">
+                        <i class="fa fa-search absolute right-3 top-2.5 text-zinc-500 text-sm"></i>
+                        <input type="text" id="globalSearch" oninput="renderUnits()" placeholder="بحث سريع عن كود أو منطقة..." class="bg-zinc-900 border border-zinc-700 rounded-full pr-10 pl-4 py-2 text-sm focus:border-gold outline-none w-44 md:w-64 transition-all focus:w-80">
+                    </div>
+                    
+                    <div class="relative cursor-pointer p-2" onclick="toggleNotify()">
+                        <i class="fa fa-bell text-2xl text-zinc-400"></i>
+                        <span id="notifyCount" class="notify-badge">0</span>
+                        <div id="notifyBox" class="absolute top-12 left-0 md:right-0 bg-zinc-900 border border-gold w-80 rounded-2xl hidden p-5 shadow-2xl z-50">
+                            <div class="flex justify-between items-center border-b border-zinc-800 pb-3 mb-3">
+                                <span class="gold-text font-bold" data-i18n="notifications">الإشعارات والتنبيهات</span>
+                                <button onclick="clearNotify()" class="text-[10px] text-zinc-500 hover:text-white">مسح الكل</button>
+                            </div>
+                            <div id="notifyList" class="space-y-3 max-h-80 overflow-y-auto pr-2"></div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="flex flex-wrap justify-center gap-1">
+            <div class="flex flex-wrap justify-center items-center bg-zinc-900/50 rounded-full px-2 py-1 border border-zinc-800">
                 <div class="nav-btn active" onclick="showTab('home')" data-i18n="nav_home">الرئيسية</div>
                 <div class="nav-btn" onclick="showTab('about')" data-i18n="nav_about">عن الشركة</div>
                 <div class="nav-btn" onclick="showTab('partners')" data-i18n="nav_partners">شركاؤنا</div>
@@ -72,65 +106,164 @@
                 <div class="nav-btn" onclick="showTab('resale')" data-i18n="nav_resale">ريسيل</div>
                 <div class="nav-btn" onclick="showTab('primary')" data-i18n="nav_primary">برايمري</div>
                 <div class="nav-btn" onclick="showTab('rentals')" data-i18n="nav_rentals">إيجار فندقي</div>
-                <div class="nav-btn text-red-500" onclick="openAdmin()" data-i18n="nav_admin">الإدارة</div>
+                <div class="nav-btn text-red-500 hover:bg-red-900/10 rounded-full px-4" onclick="openAdmin()" data-i18n="nav_admin">الإدارة</div>
             </div>
         </div>
     </nav>
 
-    <main class="container mx-auto px-4 py-8">
-        <section id="home" class="tab-content active-tab text-center py-24">
-            <h1 class="text-6xl md:text-8xl font-bold italic gold-text mb-4">SUMMIT TEAM</h1>
-            <h2 class="text-3xl md:text-5xl font-bold text-white mb-8 italic">REAL ESTATE</h2>
-            <p id="site-slogan" class="silver-text italic text-xl">حيث تؤدي كل خطوة إلى القمة</p>
+    <main class="container mx-auto px-4 py-12">
+        <section id="home" class="tab-content active-tab text-center py-32">
+            <div class="inline-block px-4 py-1 border border-gold/30 rounded-full gold-text text-sm mb-6 animate-pulse">Summit Team Real Estate</div>
+            <h1 class="text-7xl md:text-9xl font-extrabold italic gold-text mb-6 tracking-tighter">SUMMIT TEAM</h1>
+            <h2 class="text-4xl md:text-6xl font-bold text-white mb-10 italic">REAL ESTATE</h2>
+            <p id="site-slogan" class="silver-text italic text-2xl max-w-2xl mx-auto leading-relaxed">حيث تؤدي كل خطوة إلى القمة</p>
+            <div class="mt-16 flex justify-center gap-4">
+                <button onclick="showTab('resale')" class="bg-gold text-black px-8 py-4 rounded-xl font-bold hover:scale-105 transition">استكشف الوحدات</button>
+                <button onclick="showTab('about')" class="border border-zinc-700 px-8 py-4 rounded-xl font-bold hover:bg-white hover:text-black transition">تعرف علينا</button>
+            </div>
         </section>
+
         <section id="about" class="tab-content py-10"></section>
         <section id="partners" class="tab-content py-10"></section>
         <section id="areas" class="tab-content py-10"></section>
+
         <section id="units-section" class="tab-content">
-            <div id="units-grid" class="grid grid-cols-1 md:grid-cols-4 gap-6"></div>
+            <div class="bg-zinc-900/80 backdrop-blur p-6 rounded-3xl border border-zinc-800 mb-12 flex flex-wrap gap-4 items-center shadow-xl">
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10px] gold-text mr-2">تصفية حسب المنطقة</label>
+                    <select id="filterZone" onchange="renderUnits()" class="bg-black border border-zinc-700 p-3 rounded-xl text-sm text-white outline-none focus:border-gold w-48"></select>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10px] gold-text mr-2">عدد الغرف</label>
+                    <select id="filterRooms" onchange="renderUnits()" class="bg-black border border-zinc-700 p-3 rounded-xl text-sm text-white outline-none focus:border-gold w-32">
+                        <option value="">الكل</option><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4+</option>
+                    </select>
+                </div>
+                <div class="flex flex-col gap-1">
+                    <label class="text-[10px] gold-text mr-2">أقصى سعر (جنيه)</label>
+                    <input type="number" id="filterPrice" oninput="renderUnits()" placeholder="مثال: 5000000" class="bg-black border border-zinc-700 p-3 rounded-xl text-sm text-white w-48 focus:border-gold outline-none">
+                </div>
+                <button onclick="clearFilters()" class="mr-auto self-end bg-zinc-800 px-6 py-3 rounded-xl text-sm hover:bg-zinc-700 transition">مسح الفلاتر</button>
+            </div>
+            
+            <div id="units-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-8"></div>
         </section>
     </main>
 
-    <a href="https://wa.me/201159333060" target="_blank" class="floating-wa"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://wa.me/201159333060" target="_blank" class="floating-wa" title="تواصل معنا">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
-    <div id="adminModal" class="modal">
-        <div class="flex h-screen">
-            <div class="w-64 bg-zinc-950 border-l border-gray-800 p-6 flex flex-col">
-                <h2 class="gold-text font-bold text-xl mb-10 text-center">STR ADMIN</h2>
-                <button onclick="showAdminTab('inventory')" class="admin-sidebar-btn active">إدارة المخزون</button>
-                <button onclick="showAdminTab('crm')" class="admin-sidebar-btn">العملاء CRM</button>
-                <button onclick="showAdminTab('settings')" class="admin-sidebar-btn">تعديل المحتوى</button>
-                <button onclick="closeAdmin()" class="mt-auto bg-red-900 py-2 rounded font-bold">خروج</button>
-            </div>
-            <div class="flex-1 p-8 overflow-y-auto bg-black">
-                <div id="admin-inventory" class="admin-tab-content">
-                    <h1 class="text-2xl mb-6 font-bold">حصر الوحدات</h1>
-                    <table class="w-full text-right text-[11px] bg-zinc-900 rounded-xl overflow-hidden">
-                        <thead class="bg-zinc-800 text-gold">
-                            <tr><th class="p-4">الكود</th><th class="p-4">المنطقة</th><th class="p-4">المساحة</th><th class="p-4">السعر</th><th class="p-4">المقدم</th><th class="p-4">إجراء</th></tr>
-                        </thead>
-                        <tbody id="inventoryTable"></tbody>
-                    </table>
-                </div>
-                <div id="admin-settings" class="admin-tab-content hidden">
-                    <h1 class="text-2xl mb-6 font-bold">تعديل نصوص الموقع</h1>
-                    <div class="bg-zinc-900 p-6 rounded-xl space-y-4 max-w-lg">
-                        <input id="edit-slogan" class="w-full bg-black border border-gray-700 p-3 rounded text-white" placeholder="الشعار">
-                        <textarea id="edit-whoUs" class="w-full bg-black border border-gray-700 p-3 rounded h-32 text-white" placeholder="من نحن"></textarea>
-                        <button onclick="saveSettings()" class="bg-gold text-black w-full py-3 rounded font-bold">حفظ</button>
+    <div id="unitModal" class="modal" onclick="closeUnit()">
+        <div class="bg-zinc-950 max-w-4xl mx-auto my-10 rounded-[40px] overflow-hidden border border-zinc-800 shadow-2xl" onclick="event.stopPropagation()">
+            <div class="flex flex-col md:flex-row">
+                <div id="sliderWrapper" class="md:w-1/2 h-[400px] md:h-auto bg-black relative shadow-inner"></div>
+                <div class="md:w-1/2 p-10 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-6">
+                            <span id="m-code-badge" class="bg-red-900 text-white px-4 py-1 rounded-full text-xs font-bold tracking-widest uppercase">CODE: <span id="m-code"></span></span>
+                            <button onclick="closeUnit()" class="text-zinc-500 hover:text-white text-2xl">&times;</button>
+                        </div>
+                        <h2 id="m-title" class="text-3xl font-bold mb-4 gold-text">فيلة فاخرة في التجمع</h2>
+                        <p id="m-address" class="text-zinc-400 mb-8 flex items-center gap-2"><i class="fa fa-map-marker-alt text-gold"></i> <span></span></p>
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-8 text-sm">
+                            <div class="bg-zinc-900 p-4 rounded-2xl border border-zinc-800">
+                                <p class="text-zinc-500 text-[10px] uppercase mb-1">المساحة</p>
+                                <p id="m-space" class="font-bold"></p>
+                            </div>
+                            <div class="bg-zinc-900 p-4 rounded-2xl border border-zinc-800">
+                                <p class="text-zinc-500 text-[10px] uppercase mb-1">الغرف</p>
+                                <p id="m-rooms" class="font-bold"></p>
+                            </div>
+                            <div class="bg-zinc-900 p-4 rounded-2xl border border-zinc-800 col-span-2">
+                                <p class="text-zinc-500 text-[10px] uppercase mb-1">الماليات (السعر - المقدم - القسط)</p>
+                                <p id="m-finance" class="font-bold gold-text text-lg"></p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="space-y-3">
+                        <button id="wa-btn" class="w-full bg-green-600 hover:bg-green-500 py-5 rounded-2xl font-bold text-lg flex items-center justify-center gap-3 transition shadow-lg shadow-green-900/20">
+                            <i class="fab fa-whatsapp text-2xl"></i> تواصل عبر الواتساب للمعاينة
+                        </button>
+                        <p class="text-center text-xs text-zinc-500">سيتم تحويلك مباشرة لأحد مستشارينا العقاريين</p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="unitModal" class="modal" onclick="closeUnit()">
-        <div class="bg-zinc-900 max-w-lg mx-auto my-20 rounded-2xl overflow-hidden border border-gold" onclick="event.stopPropagation()">
-            <div id="sliderWrapper" class="h-64 bg-black"></div>
-            <div class="p-6 text-center">
-                <h3 id="m-code" class="text-2xl font-bold gold-text"></h3>
-                <p id="m-details" class="my-4 text-silver text-sm"></p>
-                <button id="wa-btn" class="w-full bg-green-600 py-4 rounded-xl font-bold flex items-center justify-center gap-2"><i class="fab fa-whatsapp text-2xl"></i> تواصل الآن</button>
+    <div id="adminModal" class="modal">
+        <div class="flex h-screen bg-[#050505]">
+            <div class="w-80 bg-zinc-950 border-l border-zinc-900 p-8 flex flex-col">
+                <div class="flex items-center gap-4 mb-12">
+                    <div class="w-12 h-12 border-2 border-gold rotate-45 flex items-center justify-center"><span class="rotate-[-45deg] gold-text font-black">S</span></div>
+                    <div><h2 class="gold-text font-bold text-xl tracking-tighter">STR OFFICE</h2><p class="text-[10px] text-zinc-600 tracking-[3px] uppercase">Control Panel</p></div>
+                </div>
+                
+                <div class="flex-1">
+                    <p class="text-[10px] text-zinc-700 font-bold mb-4 uppercase tracking-widest mr-4">Management</p>
+                    <button onclick="showAdminTab('inventory')" class="admin-sidebar-btn active"><i class="fa fa-layer-group"></i> إدارة المخزون (Units)</button>
+                    <button onclick="showAdminTab('crm')" class="admin-sidebar-btn"><i class="fa fa-user-tie"></i> توزيع الليدز (CRM)</button>
+                    
+                    <p class="text-[10px] text-zinc-700 font-bold mb-4 mt-10 uppercase tracking-widest mr-4">Customization</p>
+                    <button onclick="showAdminTab('settings')" class="admin-sidebar-btn"><i class="fa fa-pen-nib"></i> تعديل نصوص الموقع</button>
+                    <button onclick="showAdminTab('partners-edit')" class="admin-sidebar-btn"><i class="fa fa-handshake"></i> تعديل الشركاء</button>
+                </div>
+
+                <button onclick="closeAdmin()" class="bg-red-900/20 text-red-500 border border-red-900/30 w-full py-4 rounded-2xl font-bold hover:bg-red-500 hover:text-white transition">تسجيل الخروج</button>
+            </div>
+            
+            <div class="flex-1 p-12 overflow-y-auto">
+                <div id="admin-inventory" class="admin-tab-content">
+                    <div class="flex justify-between items-end mb-10">
+                        <div><h1 class="text-4xl font-black mb-2">إدارة المخزون العقاري</h1><p class="text-zinc-500">إضافة وتعديل وحذف الوحدات المتاحة في الأقسام الثلاثة.</p></div>
+                        <button class="bg-gold text-black px-8 py-3 rounded-xl font-bold shadow-xl shadow-gold/20 hover:scale-105 transition">+ إضافة وحدة جديدة</button>
+                    </div>
+                    
+                    <div class="bg-zinc-900/50 rounded-[30px] border border-zinc-800 overflow-hidden shadow-2xl">
+                        <table class="w-full text-right text-xs">
+                            <thead class="bg-zinc-900 text-gold font-bold uppercase tracking-wider">
+                                <tr>
+                                    <th class="p-5">الكود</th><th class="p-5">المنطقة</th><th class="p-5">النوع</th>
+                                    <th class="p-5">المساحة</th><th class="p-5">السعر</th><th class="p-5">المقدم</th>
+                                    <th class="p-5">الحالة</th><th class="p-5">إجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="inventoryTable" class="divide-y divide-zinc-800"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="admin-crm" class="admin-tab-content hidden">
+                    <h1 class="text-4xl font-black mb-10">نظام توزيع الليدز الذكي</h1>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12" id="crmStats"></div>
+                    
+                    <div class="bg-zinc-900/50 rounded-[30px] border border-zinc-800 overflow-hidden">
+                        <table class="w-full text-right text-xs">
+                            <thead class="bg-zinc-900 text-silver">
+                                <tr><th class="p-5">العميل</th><th class="p-5">كود الوحدة</th><th class="p-5">الموظف المسؤول</th><th class="p-5">الحالة</th><th class="p-5">التاريخ</th></tr>
+                            </thead>
+                            <tbody id="crmTable" class="divide-y divide-zinc-800"></tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div id="admin-settings" class="admin-tab-content hidden">
+                    <h1 class="text-4xl font-black mb-10">تعديل محتوى الواجهة</h1>
+                    <div class="max-w-2xl bg-zinc-900 p-10 rounded-[40px] border border-zinc-800">
+                        <div class="mb-8">
+                            <label class="block gold-text font-bold mb-3">شعار الموقع الرئيسي (Main Slogan)</label>
+                            <input id="edit-slogan" class="w-full bg-black border border-zinc-700 p-5 rounded-2xl text-white outline-none focus:border-gold transition">
+                        </div>
+                        <div class="mb-8">
+                            <label class="block gold-text font-bold mb-3">فقرة "من نحن" (About Us Section)</label>
+                            <textarea id="edit-whoUs" class="w-full bg-black border border-zinc-700 p-5 rounded-2xl text-white h-48 outline-none focus:border-gold transition leading-relaxed"></textarea>
+                        </div>
+                        <button onclick="saveSettings()" class="bg-gold text-black w-full py-5 rounded-2xl font-black text-lg shadow-xl shadow-gold/10 hover:brightness-110 transition">حفظ وتحديث الموقع فوراً</button>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
