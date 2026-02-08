@@ -1,132 +1,158 @@
-// بيانات الشركاء والمناطق (Placeholders)
-const partnersData = Array(16).fill({ name: "شريك استراتيجي", desc: "أقوى مطور عقاري في السوق المصري لخدمتكم." });
-const areasData = [
-    { ar: "مدينتي", en: "Madinaty" }, { ar: "الرحاب", en: "Al Rehab" },
-    { ar: "العاصمة الإدارية", en: "New Capital" }, { ar: "الساحل الشمالي", en: "North Coast" },
-    { ar: "راس الحكمة", en: "Ras El Hekma" }, { ar: "القاهرة الجديدة", en: "New Cairo" },
-    { ar: "العين السخنة", en: "Sokhna" }, { ar: "الشيخ زايد", en: "Zayed" }
+// 1. قاعدة البيانات والمحتوى الثابت
+const aboutData = {
+    title: "STR - Summit Team Real Estate",
+    vision: "تقديم أفضل قيمة مقابل سعر بالدمج بين الجودة والتميز في السوق المصري.",
+    whoUs: "نحن شركة رائدة متخصصة في الاستثمار العقاري، نوفر حلولاً سكنية واستثمارية في أرقى المناطق.",
+    team: "نخبة من الخبراء في مصر والوطن العربي يعملون لراحتكم."
+};
+
+const partners = [
+    "طلعت مصطفى", "إعمار", "سوديك", "نيو جيزة", "ماونتن فيو", "بالم هيلز", 
+    "أورا", "سيتي إيدج", "هايد بارك", "صبور", "مصر إيطاليا", "أوراسكوم"
 ];
 
-// داتا الوحدات (الديمو)
-let units = [];
-const types = ['resale', 'primary', 'rentals'];
+const areas = ["مدينتي", "الرحاب", "العاصمة الإدارية", "الساحل الشمالي", "راس الحكمة", "القاهرة الجديدة", "السخنة", "زايد"];
 
-// توليد 30 وحدة تجريبية
+// 2. توليد داتا تجريبية (الـ 30 كارت) مع الصور والبيانات الكاملة
+let units = [];
 for(let i=1; i<=30; i++) {
     units.push({
-        id: Date.now() + i,
-        code: `STR-${1000 + i}`,
-        type: types[i % 3],
-        price: (Math.random() * 5000000 + 1000000).toLocaleString(),
-        zone: areasData[i % 8].ar,
-        space: 100 + (i * 2),
-        model: "نموذج " + i,
-        view: "لاند سكيب",
+        id: i,
+        code: 7000 + i,
+        type: i <= 10 ? 'resale' : (i <= 20 ? 'primary' : 'rentals'),
+        price: i * 500000, 
+        zone: areas[i % areas.length],
+        space: 90 + (i * 5),
+        rooms: (i % 4) + 1,
+        view: "حديقة واسعة",
+        model: "نموذج " + (i + 10),
         status: "active",
-        featured: i % 10 === 0,
-        waClicks: Math.floor(Math.random() * 50),
-        images: ["https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"]
+        featured: i % 5 === 0,
+        waClicks: Math.floor(Math.random() * 20),
+        images: [
+            "https://images.unsplash.com/photo-1582408921715-18e7806365c1?w=500",
+            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500",
+            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500"
+        ]
     });
 }
 
-let currentTab = 'home';
-let currentPage = 1;
-const perPage = 24;
-
+// 3. وظائف العرض والتبويبات
 function showTab(tabName) {
-    currentTab = tabName;
-    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active-tab'));
-    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+    document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active', 'gold-text'));
     
-    // إذا كان التبويب أحد أقسام العقارات
     if(['resale', 'primary', 'rentals'].includes(tabName)) {
-        document.getElementById('units-section').classList.add('active-tab');
+        document.getElementById('units-section').style.display = 'block';
+        currentUnitTab = tabName;
         renderUnits();
     } else {
-        document.getElementById(tabName).classList.add('active-tab');
+        document.getElementById(tabName).style.display = 'block';
     }
-    event.currentTarget.classList.add('active');
+    
+    if(tabName === 'about') renderAbout();
+    if(tabName === 'partners') renderPartners();
+    if(tabName === 'areas') renderAreas();
 }
+
+let currentUnitTab = 'resale';
 
 function renderUnits() {
     const grid = document.getElementById('units-grid');
-    let filtered = units.filter(u => u.type === currentTab && u.status === 'active');
-    
-    // ترتيب: المميز بالنجمة أولاً ثم الأحدث
-    filtered.sort((a, b) => (b.featured - a.featured) || (b.id - a.id));
+    const searchTerm = document.getElementById('globalSearch').value.toLowerCase();
+    const maxPrice = document.getElementById('filterPrice').value;
+    const rooms = document.getElementById('filterRooms').value;
+    const zone = document.getElementById('filterZone').value;
 
-    const start = (currentPage - 1) * perPage;
-    const paginated = filtered.slice(start, start + perPage);
+    let filtered = units.filter(u => {
+        const matchesTab = u.type === currentUnitTab;
+        const matchesSearch = u.code.toString().includes(searchTerm) || u.zone.includes(searchTerm);
+        const matchesPrice = maxPrice ? u.price <= maxPrice : true;
+        const matchesRooms = rooms ? u.rooms == rooms : true;
+        const matchesZone = zone ? u.zone == zone : true;
+        return matchesTab && matchesSearch && matchesPrice && matchesRooms && matchesZone;
+    });
 
-    grid.innerHTML = paginated.map(u => `
-        <div class="bg-zinc-900 rounded-xl overflow-hidden border border-gray-800 hover:border-gold transition group cursor-pointer" onclick="openUnit(${u.id})">
-            <div class="h-48 bg-cover bg-center relative" style="background-image:url('${u.images[0]}')">
-                ${u.featured ? '<div class="absolute top-2 left-2 text-gold"><i class="fa fa-star"></i></div>' : ''}
-            </div>
-            <div class="p-4">
-                <p class="text-xs gold-text mb-1">${u.zone} - ${u.code}</p>
-                <h3 class="text-xl font-bold">${u.price} EGP</h3>
-                <p class="text-[10px] silver-text mt-2">${u.space}م | ${u.view}</p>
+    grid.innerHTML = filtered.map(u => `
+        <div class="bg-zinc-900 border border-gray-800 rounded-lg overflow-hidden cursor-pointer" onclick="openUnit(${u.id})">
+            <img src="${u.images[0]}" class="h-40 w-full object-cover">
+            <div class="p-3">
+                <div class="flex justify-between text-[10px] gold-text">
+                    <span>${u.code}</span>
+                    <span>${u.zone}</span>
+                </div>
+                <p class="font-bold text-lg">${u.price.toLocaleString()} EGP</p>
+                <p class="text-[10px] silver-text">${u.rooms} غرف | ${u.space}م</p>
             </div>
         </div>
     `).join('');
-    renderPagination(filtered.length);
 }
 
+// 4. نافذة كارت المواصفات (Modal) مع الـ Slide Show
+let currentImgIndex = 0;
 function openUnit(id) {
     const u = units.find(u => u.id === id);
-    document.getElementById('m-code').innerText = u.code;
-    document.getElementById('m-address').innerText = `${u.zone} - ${u.model}`;
-    document.getElementById('m-specs').innerText = `${u.space} متر - ${u.view}`;
-    document.getElementById('m-finance').innerText = `السعر: ${u.price}`;
-    document.getElementById('m-dates').innerText = `تاريخ الإضافة: ${new Date(u.id).toLocaleDateString('ar-EG')}`;
+    currentImgIndex = 0;
+    const slider = document.getElementById('modalSlider');
+    slider.innerHTML = `
+        <img src="${u.images[currentImgIndex]}" id="mainImg" class="w-full h-full object-cover">
+        <button onclick="changeImg(-1, ${id})" class="absolute left-2 top-1/2 bg-black/50 p-2"> < </button>
+        <button onclick="changeImg(1, ${id})" class="absolute right-2 top-1/2 bg-black/50 p-2"> > </button>
+    `;
     
-    document.getElementById('wa-btn').onclick = () => {
-        u.waClicks++;
-        window.open(`https://wa.me/201159333060?text=استفسار عن الوحدة كود ${u.code}`);
-    };
+    document.getElementById('m-code').innerText = u.code;
+    document.getElementById('m-address').innerText = u.zone + " - " + u.model;
+    document.getElementById('m-specs').innerText = `${u.rooms} غرف - ${u.space} متر - ${u.view}`;
+    document.getElementById('m-finance').innerText = `السعر الإجمالي: ${u.price.toLocaleString()} جنيه`;
+    document.getElementById('m-notes').innerText = "هذه الوحدة مطابقة للمواصفات الفندقية.";
     
     document.getElementById('unitModal').style.display = 'block';
 }
 
-function closeModal(e) {
-    document.getElementById('unitModal').style.display = 'none';
+function changeImg(step, id) {
+    const u = units.find(u => u.id === id);
+    currentImgIndex = (currentImgIndex + step + u.images.length) % u.images.length;
+    document.getElementById('mainImg').src = u.images[currentImgIndex];
 }
 
-// Admin Logic
+// 5. لوحة التحكم (Admin)
 function openAdmin() {
-    const pass = prompt("كلمة المرور:");
+    const pass = prompt("كلمة السر:");
     if(pass === "str2026") {
         document.getElementById('adminModal').style.display = 'block';
-        updateAdminStats();
+        const statsDiv = document.getElementById('adminStats');
+        statsDiv.innerHTML = `
+            <div class="p-4 bg-black border border-gold rounded">ريسيل: ${units.filter(u=>u.type==='resale').length}</div>
+            <div class="p-4 bg-black border border-silver rounded">برايمري: ${units.filter(u=>u.type==='primary').length}</div>
+            <div class="p-4 bg-black border border-white rounded">إيجار: ${units.filter(u=>u.type==='rentals').length}</div>
+        `;
     }
 }
 
-function updateAdminStats() {
-    const stats = document.getElementById('adminStats');
-    stats.innerHTML = `
-        <div class="bg-black p-4 rounded border border-gold text-center">
-            <p class="text-xs silver-text">إجمالي الوحدات</p>
-            <p class="text-2xl font-bold">${units.length}</p>
-        </div>
-        <div class="bg-black p-4 rounded border border-green-600 text-center">
-            <p class="text-xs silver-text">نقرات الواتساب</p>
-            <p class="text-2xl font-bold">${units.reduce((acc, curr) => acc + curr.waClicks, 0)}</p>
-        </div>
-        <div class="bg-black p-4 rounded border border-blue-600 text-center">
-            <p class="text-xs silver-text">نشط الآن</p>
-            <p class="text-2xl font-bold">${units.filter(u=>u.status==='active').length}</p>
-        </div>
-    `;
+function closeAdmin() { document.getElementById('adminModal').style.display = 'none'; }
+
+// 6. تهيئة الصفحات الفارغة
+function renderAbout() {
+    document.getElementById('about').innerHTML = `
+        <div class="max-w-2xl mx-auto text-center">
+            <h2 class="text-3xl gold-text mb-6">رؤيتنا</h2>
+            <p class="mb-10 text-lg">${aboutData.vision}</p>
+            <h2 class="text-3xl gold-text mb-6">من نحن</h2>
+            <p class="mb-10 text-lg">${aboutData.whoUs}</p>
+            <h2 class="text-3xl gold-text mb-6">الفريق</h2>
+            <p class="text-lg">${aboutData.team}</p>
+        </div>`;
 }
 
-// 초기화
-window.onload = () => {
-    // رندر الشركاء والمناطق
-    document.getElementById('partners-grid').innerHTML = partnersData.map(p => `
-        <div class="bg-zinc-900 p-6 rounded-lg border border-gray-800 text-center hover:border-silver transition">
-            <div class="h-16 w-16 bg-zinc-800 rounded-full mx-auto mb-4"></div>
-            <p class="text-[10px] silver-text">${p.desc}</p>
+function renderPartners() {
+    document.getElementById('partners-grid').innerHTML = partners.map(p => `
+        <div class="p-4 border border-gray-800 text-center rounded bg-zinc-900">
+            <div class="h-12 w-12 bg-gold/20 mx-auto rounded-full mb-2"></div>
+            <p class="text-sm font-bold">${p}</p>
+            <p class="text-[10px] silver-text">شريك معتمد لدى STR</p>
         </div>
     `).join('');
-};
+}
+
+// تشغيل البحث التلقائي
+document.getElementById('globalSearch').addEventListener('input', renderUnits);
