@@ -466,3 +466,114 @@ showAdminTab = function(tab) {
 
 // --- نهاية الكود الكامل ---حفظ تلقائي كل 30 ثانية
 });window.onload = () => showTab('home');
+
+// --- الجزء الخامس: المحرك الذكي ونظام التقارير المتقدمة ---
+
+/**
+ * 5. نظام حساب العمولات المتوقع (Commission Engine)
+ * بيساعد الموظفين يعرفوا عمولتهم التقريبية بناءً على سعر الوحدة
+ */
+function calculateCommission(price, type) {
+    // نسبة العمولة: ريسيل 2.5% ، برايمري 1.5% كمثال
+    const rate = type === 'resale' ? 0.025 : 0.015;
+    return price * rate;
+}
+
+/**
+ * 6. نظام إدارة الأخطاء وتأمين البيانات (Data Security)
+ */
+function validateData(data) {
+    if (!data.code || isNaN(data.price)) {
+        console.error("خطأ في البيانات: الكود أو السعر غير صالح");
+        return false;
+    }
+    return true;
+}
+
+/**
+ * 7. تحسين محرك البحث (Smart Filter Engine)
+ * لجعل البحث لحظي وأكثر دقة
+ */
+function smartSearch(query) {
+    const results = state.units.filter(u => 
+        u.code.toString().includes(query) || 
+        u.area.toLowerCase().includes(query.toLowerCase()) ||
+        u.type.toLowerCase().includes(query.toLowerCase())
+    );
+    renderUnitsGrid(results);
+}
+
+/**
+ * 8. نظام تصدير تقارير الأداء للموظفين (Performance Reports)
+ */
+function exportStaffReport() {
+    const reportData = state.team.map(member => ({
+        "الموظف": member.name,
+        "الدور الوظيفي": member.role,
+        "عدد الليدز": member.leadsCount,
+        "تقييم الأداء": member.leadsCount > 10 ? "ممتاز" : "نشط"
+    }));
+
+    const ws = XLSX.utils.json_to_sheet(reportData);
+    const wb = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, "Performance");
+    XLSX.writeFile(wb, `STR_Staff_Report_2026.xlsx`);
+}
+
+/**
+ * 9. وظيفة مساعدة لعرض الوحدات (Render Grid)
+ * دي اللي بتنظم شكل الكروت في الصفحة الرئيسية
+ */
+function renderUnitsGrid(data) {
+    const grid = document.getElementById('units-grid');
+    if (!grid) return;
+
+    grid.innerHTML = data.map(u => `
+        <div class="bg-zinc-900/50 border border-zinc-800 rounded-[35px] overflow-hidden group hover:border-gold transition-all duration-500 shadow-2xl">
+            <div class="relative overflow-hidden h-64">
+                <img src="${u.img}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700">
+                <div class="absolute top-4 right-4 bg-black/60 backdrop-blur-md px-4 py-1 rounded-full text-[10px] font-bold gold-text border border-gold/20">
+                    CODE: ${u.code}
+                </div>
+                ${u.type === 'resale' ? '<div class="absolute bottom-4 left-4 bg-red-600 text-white text-[10px] px-3 py-1 rounded-lg font-black uppercase">Resale</div>' : ''}
+            </div>
+            <div class="p-8">
+                <div class="flex justify-between items-start mb-4">
+                    <div>
+                        <p class="text-zinc-500 text-xs font-bold uppercase tracking-tighter">${u.area}</p>
+                        <h3 class="text-2xl font-black mt-1">${u.price.toLocaleString()} <span class="text-xs gold-text">EGP</span></h3>
+                    </div>
+                </div>
+                <div class="grid grid-cols-2 gap-4 py-4 border-y border-zinc-800/50 my-4">
+                    <div class="text-center">
+                        <p class="text-[10px] text-zinc-600 uppercase font-bold">Space</p>
+                        <p class="text-sm font-bold">${u.space}m²</p>
+                    </div>
+                    <div class="text-center border-r border-zinc-800/50">
+                        <p class="text-[10px] text-zinc-600 uppercase font-bold">Rooms</p>
+                        <p class="text-sm font-bold">${u.rooms} R</p>
+                    </div>
+                </div>
+                <button onclick="assignLead('${u.code}')" class="w-full bg-white/5 border border-white/10 py-4 rounded-2xl font-black text-sm group-hover:bg-gold group-hover:text-black transition-all">
+                    تواصل الآن <i class="fab fa-whatsapp mr-2"></i>
+                </button>
+            </div>
+        </div>
+    `).join('');
+}
+
+/**
+ * 10. نظام النسخ الاحتياطي اليدوي (Manual Backup)
+ */
+function downloadBackup() {
+    const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(state));
+    const downloadAnchorNode = document.createElement('a');
+    downloadAnchorNode.setAttribute("href", dataStr);
+    downloadAnchorNode.setAttribute("download", "str_backup_2026.json");
+    document.body.appendChild(downloadAnchorNode);
+    downloadAnchorNode.click();
+    downloadAnchorNode.remove();
+}
+
+// --- تشغيل التنبيهات التلقائية عند التحميل ---
+console.log("%c STR SYSTEM READY v2.0 ", "background: #d4af37; color: #000; font-weight: bold;");
