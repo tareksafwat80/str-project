@@ -1,158 +1,162 @@
-// 1. قاعدة البيانات والمحتوى الثابت
+// 1. قاعدة البيانات الشاملة (عن الشركة)
 const aboutData = {
-    title: "STR - Summit Team Real Estate",
-    vision: "تقديم أفضل قيمة مقابل سعر بالدمج بين الجودة والتميز في السوق المصري.",
-    whoUs: "نحن شركة رائدة متخصصة في الاستثمار العقاري، نوفر حلولاً سكنية واستثمارية في أرقى المناطق.",
-    team: "نخبة من الخبراء في مصر والوطن العربي يعملون لراحتكم."
+    vision: "تقديم أفضل قيمة مقابل أفضل سعر بالدمج بين عنصري الجودة والتميز، وتوفير كافة متطلبات عملائنا وصولاً لراحتهم ورضاهم.",
+    whoUs: "نحن شركة رائدة وناشئة بقوة، متخصصون في التسويق والاستثمار العقاري بالسوق المصري، ونمتلك خبرة واسعة في تلبية احتياجات العملاء بأرقى المناطق السكنية.",
+    team: "يتولى إدارة الشركة نخبة مميزة من أصحاب الكفاءات والخبرات المتنوعة في مصر والوطن العربي، مما يضمن احترافية التعامل ودقة التنفيذ.",
+    message: "نلتزم بتوفير حلول عقارية مبتكرة تضمن أعلى عائد استثماري لعملائنا وأفضل تجربة سكنية فندقية."
 };
 
-const partners = [
-    "طلعت مصطفى", "إعمار", "سوديك", "نيو جيزة", "ماونتن فيو", "بالم هيلز", 
-    "أورا", "سيتي إيدج", "هايد بارك", "صبور", "مصر إيطاليا", "أوراسكوم"
-];
+const partners = ["طلعت مصطفى", "إعمار", "سوديك", "نيو جيزة", "ماونتن فيو", "بالم هيلز", "أورا", "سيتي إيدج", "هايد بارك", "صبور", "مصر إيطاليا", "أوراسكوم", "مراسي", "لافيستا", "فاي", "مدينتي"];
+const areas = ["مدينتي", "الرحاب", "العاصمة الإدارية", "الساحل الشمالي", "رأس الحكمة", "القاهرة الجديدة", "العين السخنة", "الشيخ زايد"];
 
-const areas = ["مدينتي", "الرحاب", "العاصمة الإدارية", "الساحل الشمالي", "راس الحكمة", "القاهرة الجديدة", "السخنة", "زايد"];
-
-// 2. توليد داتا تجريبية (الـ 30 كارت) مع الصور والبيانات الكاملة
+// 2. توليد 30 كارت وحدة (10 لكل قسم)
 let units = [];
-for(let i=1; i<=30; i++) {
+const categories = ['resale', 'primary', 'rentals'];
+for(let i=0; i<30; i++) {
+    const cat = categories[Math.floor(i/10)];
     units.push({
-        id: i,
-        code: 7000 + i,
-        type: i <= 10 ? 'resale' : (i <= 20 ? 'primary' : 'rentals'),
-        price: i * 500000, 
+        id: Date.now() + i,
+        code: (cat === 'resale' ? 7000 : (cat === 'primary' ? 8000 : 9000)) + i,
+        type: cat,
+        price: (i + 1) * 750000,
         zone: areas[i % areas.length],
-        space: 90 + (i * 5),
-        rooms: (i % 4) + 1,
-        view: "حديقة واسعة",
+        space: 90 + (i * 10),
+        rooms: (i % 3) + 1,
+        view: "إطلالة مباشرة على الحديقة",
         model: "نموذج " + (i + 10),
         status: "active",
-        featured: i % 5 === 0,
-        waClicks: Math.floor(Math.random() * 20),
-        images: [
-            "https://images.unsplash.com/photo-1582408921715-18e7806365c1?w=500",
-            "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=500",
-            "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=500"
-        ]
+        featured: i % 8 === 0,
+        waClicks: Math.floor(Math.random() * 30),
+        images: ["https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800", "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800"]
     });
 }
 
-// 3. وظائف العرض والتبويبات
+// 3. وظائف التنقل (Tabs)
 function showTab(tabName) {
     document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active', 'gold-text'));
     
+    const target = document.getElementById(tabName === 'resale' || tabName === 'primary' || tabName === 'rentals' ? 'units-section' : tabName);
+    if(target) target.style.display = 'block';
+
     if(['resale', 'primary', 'rentals'].includes(tabName)) {
-        document.getElementById('units-section').style.display = 'block';
-        currentUnitTab = tabName;
+        window.currentTab = tabName;
         renderUnits();
-    } else {
-        document.getElementById(tabName).style.display = 'block';
     }
-    
     if(tabName === 'about') renderAbout();
     if(tabName === 'partners') renderPartners();
     if(tabName === 'areas') renderAreas();
 }
 
-let currentUnitTab = 'resale';
-
+// 4. عرض الوحدات والفلاتر
 function renderUnits() {
     const grid = document.getElementById('units-grid');
-    const searchTerm = document.getElementById('globalSearch').value.toLowerCase();
+    const search = document.getElementById('globalSearch').value.toLowerCase();
     const maxPrice = document.getElementById('filterPrice').value;
     const rooms = document.getElementById('filterRooms').value;
     const zone = document.getElementById('filterZone').value;
 
     let filtered = units.filter(u => {
-        const matchesTab = u.type === currentUnitTab;
-        const matchesSearch = u.code.toString().includes(searchTerm) || u.zone.includes(searchTerm);
-        const matchesPrice = maxPrice ? u.price <= maxPrice : true;
-        const matchesRooms = rooms ? u.rooms == rooms : true;
-        const matchesZone = zone ? u.zone == zone : true;
-        return matchesTab && matchesSearch && matchesPrice && matchesRooms && matchesZone;
+        return u.type === window.currentTab &&
+               (u.code.toString().includes(search) || u.zone.includes(search)) &&
+               (!maxPrice || u.price <= maxPrice) &&
+               (!rooms || u.rooms == rooms) &&
+               (!zone || u.zone == zone);
     });
 
     grid.innerHTML = filtered.map(u => `
-        <div class="bg-zinc-900 border border-gray-800 rounded-lg overflow-hidden cursor-pointer" onclick="openUnit(${u.id})">
+        <div class="bg-zinc-900 border border-gray-800 rounded-xl overflow-hidden cursor-pointer hover:border-gold transition" onclick="openUnit(${u.id})">
             <img src="${u.images[0]}" class="h-40 w-full object-cover">
-            <div class="p-3">
-                <div class="flex justify-between text-[10px] gold-text">
-                    <span>${u.code}</span>
-                    <span>${u.zone}</span>
-                </div>
-                <p class="font-bold text-lg">${u.price.toLocaleString()} EGP</p>
-                <p class="text-[10px] silver-text">${u.rooms} غرف | ${u.space}م</p>
+            <div class="p-4">
+                <div class="flex justify-between text-[10px] gold-text mb-1"><span>${u.code}</span><span>${u.zone}</span></div>
+                <p class="text-xl font-bold">${u.price.toLocaleString()} EGP</p>
+                <p class="text-xs silver-text">${u.rooms} غرف | ${u.space} م²</p>
             </div>
         </div>
     `).join('');
 }
 
-// 4. نافذة كارت المواصفات (Modal) مع الـ Slide Show
-let currentImgIndex = 0;
+// 5. نافذة التفاصيل (Slider)
+let activeImgs = [];
+let imgIdx = 0;
 function openUnit(id) {
     const u = units.find(u => u.id === id);
-    currentImgIndex = 0;
-    const slider = document.getElementById('modalSlider');
-    slider.innerHTML = `
-        <img src="${u.images[currentImgIndex]}" id="mainImg" class="w-full h-full object-cover">
-        <button onclick="changeImg(-1, ${id})" class="absolute left-2 top-1/2 bg-black/50 p-2"> < </button>
-        <button onclick="changeImg(1, ${id})" class="absolute right-2 top-1/2 bg-black/50 p-2"> > </button>
-    `;
-    
+    activeImgs = u.images;
+    imgIdx = 0;
+    updateSlider();
     document.getElementById('m-code').innerText = u.code;
     document.getElementById('m-address').innerText = u.zone + " - " + u.model;
     document.getElementById('m-specs').innerText = `${u.rooms} غرف - ${u.space} متر - ${u.view}`;
-    document.getElementById('m-finance').innerText = `السعر الإجمالي: ${u.price.toLocaleString()} جنيه`;
-    document.getElementById('m-notes').innerText = "هذه الوحدة مطابقة للمواصفات الفندقية.";
-    
+    document.getElementById('m-finance').innerText = `السعر: ${u.price.toLocaleString()} جنيه`;
+    document.getElementById('m-notes').innerText = u.view + "، تشطيب سوبر لوكس، استلام فوري.";
     document.getElementById('unitModal').style.display = 'block';
 }
 
-function changeImg(step, id) {
-    const u = units.find(u => u.id === id);
-    currentImgIndex = (currentImgIndex + step + u.images.length) % u.images.length;
-    document.getElementById('mainImg').src = u.images[currentImgIndex];
+function changeImg(n) {
+    imgIdx = (imgIdx + n + activeImgs.length) % activeImgs.length;
+    updateSlider();
 }
 
-// 5. لوحة التحكم (Admin)
+function updateSlider() {
+    document.getElementById('sliderWrapper').innerHTML = `<img src="${activeImgs[imgIdx]}" class="w-full h-full object-cover">`;
+}
+
+// 6. لوحة التحكم (Admin)
 function openAdmin() {
-    const pass = prompt("كلمة السر:");
-    if(pass === "str2026") {
+    const p = prompt("كلمة السر:");
+    if(p === "str2026") {
         document.getElementById('adminModal').style.display = 'block';
-        const statsDiv = document.getElementById('adminStats');
-        statsDiv.innerHTML = `
-            <div class="p-4 bg-black border border-gold rounded">ريسيل: ${units.filter(u=>u.type==='resale').length}</div>
-            <div class="p-4 bg-black border border-silver rounded">برايمري: ${units.filter(u=>u.type==='primary').length}</div>
-            <div class="p-4 bg-black border border-white rounded">إيجار: ${units.filter(u=>u.type==='rentals').length}</div>
+        const stats = document.getElementById('adminStats');
+        stats.innerHTML = `
+            <div class="p-4 bg-black border border-gold rounded text-center"><p class="text-xs silver-text">ريسيل</p><p class="text-xl font-bold">${units.filter(u=>u.type==='resale').length}</p></div>
+            <div class="p-4 bg-black border border-silver rounded text-center"><p class="text-xs silver-text">برايمري</p><p class="text-xl font-bold">${units.filter(u=>u.type==='primary').length}</p></div>
+            <div class="p-4 bg-black border border-white rounded text-center"><p class="text-xs silver-text">إيجار</p><p class="text-xl font-bold">${units.filter(u=>u.type==='rentals').length}</p></div>
+            <div class="p-4 bg-black border border-green-600 rounded text-center"><p class="text-xs silver-text">نقرات واتساب</p><p class="text-xl font-bold">${units.reduce((a,b)=>a+b.waClicks,0)}</p></div>
         `;
     }
 }
 
 function closeAdmin() { document.getElementById('adminModal').style.display = 'none'; }
+function closeModal() { document.getElementById('unitModal').style.display = 'none'; }
 
-// 6. تهيئة الصفحات الفارغة
+// 7. ملء الصفحات الأخرى
 function renderAbout() {
     document.getElementById('about').innerHTML = `
-        <div class="max-w-2xl mx-auto text-center">
-            <h2 class="text-3xl gold-text mb-6">رؤيتنا</h2>
-            <p class="mb-10 text-lg">${aboutData.vision}</p>
-            <h2 class="text-3xl gold-text mb-6">من نحن</h2>
-            <p class="mb-10 text-lg">${aboutData.whoUs}</p>
-            <h2 class="text-3xl gold-text mb-6">الفريق</h2>
-            <p class="text-lg">${aboutData.team}</p>
+        <div class="max-w-3xl mx-auto space-y-10">
+            <div class="text-center"><h2 class="text-3xl gold-text mb-4">من نحن</h2><p class="text-lg leading-relaxed">${aboutData.whoUs}</p></div>
+            <div class="text-center"><h2 class="text-3xl gold-text mb-4">رؤيتنا</h2><p class="text-lg leading-relaxed">${aboutData.vision}</p></div>
+            <div class="text-center"><h2 class="text-3xl gold-text mb-4">فريق العمل</h2><p class="text-lg leading-relaxed">${aboutData.team}</p></div>
         </div>`;
 }
 
 function renderPartners() {
     document.getElementById('partners-grid').innerHTML = partners.map(p => `
-        <div class="p-4 border border-gray-800 text-center rounded bg-zinc-900">
-            <div class="h-12 w-12 bg-gold/20 mx-auto rounded-full mb-2"></div>
-            <p class="text-sm font-bold">${p}</p>
-            <p class="text-[10px] silver-text">شريك معتمد لدى STR</p>
-        </div>
-    `).join('');
+        <div class="p-4 border border-gray-800 text-center rounded bg-zinc-900 hover:border-gold transition">
+            <div class="h-12 w-12 bg-gold/10 rounded-full mx-auto mb-2 flex items-center justify-center"><i class="fa fa-handshake gold-text"></i></div>
+            <p class="font-bold text-sm">${p}</p>
+        </div>`).join('');
 }
 
-// تشغيل البحث التلقائي
+function renderAreas() {
+    document.getElementById('areas-grid').innerHTML = areas.map(a => `
+        <div class="p-8 border border-gray-800 text-center rounded bg-zinc-900 hover:border-silver transition">
+            <i class="fa fa-map-marker-alt gold-text text-2xl mb-4"></i>
+            <h3 class="text-xl font-bold">${a}</h3>
+        </div>`).join('');
+}
+
+// تشغيل الفلاتر والسيرش
 document.getElementById('globalSearch').addEventListener('input', renderUnits);
+window.clearFilters = () => {
+    document.getElementById('filterPrice').value = '';
+    document.getElementById('filterRooms').value = '';
+    document.getElementById('filterZone').value = '';
+    renderUnits();
+};
+
+window.onload = () => {
+    // ملء قائمة المناطق في الفلتر تلقائياً
+    const zoneSelect = document.getElementById('filterZone');
+    areas.forEach(a => zoneSelect.innerHTML += `<option value="${a}">${a}</option>`);
+    showTab('home');
+};
