@@ -3,95 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STR - Summit Team Real Estate | 2026</title>
-    
+    <title>STR - Summit Team Real Estate | Pro System 2026</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
-    
     <style>
         :root { --gold: #d4af37; --black: #050505; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--black); color: white; margin: 0; }
+        body { font-family: 'Cairo', sans-serif; background: var(--black); color: white; margin: 0; overflow-x: hidden; }
         .gold-text { color: var(--gold); }
         .bg-gold { background-color: var(--gold); }
-        
-        /* تأثيرات الصفحة */
-        .tab-content { display: none; min-height: 80vh; }
-        .active-tab { display: block; }
-        .hero-bg { 
-            background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.9)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600'); 
-            background-size: cover; background-position: center; 
-        }
-        
-        /* النافبار */
-        .nav-btn { cursor: pointer; padding: 10px 15px; font-weight: bold; color: #777; transition: 0.3s; }
-        .nav-btn.active { color: var(--gold); border-bottom: 2px solid var(--gold); }
-
-        /* المودال (الواجهات المنبثقة) */
+        .tab-content { display: none; min-height: 85vh; }
+        .active-tab { display: block; animation: fadeIn 0.5s ease; }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        .hero-bg { background: linear-gradient(rgba(0,0,0,0.8), rgba(0,0,0,0.95)), url('https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1600'); background-size: cover; background-position: center; display: flex; align-items: center; justify-content: center; }
+        .nav-btn { cursor: pointer; padding: 12px 20px; font-weight: bold; color: #777; transition: 0.3s; border-radius: 12px; }
+        .nav-btn.active { color: var(--gold); background: rgba(212,175,55,0.1); }
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.98); z-index: 2000; overflow-y: auto; }
-        .admin-sidebar-btn { width: 100%; text-align: right; padding: 15px; color: #666; font-weight: bold; cursor: pointer; }
-        .admin-sidebar-btn.active { color: var(--gold); background: rgba(212,175,55,0.1); }
+        .admin-sidebar-btn { width: 100%; text-align: right; padding: 15px; cursor: pointer; border-radius: 12px; margin-bottom: 8px; display: flex; align-items: center; gap: 12px; transition: 0.3s; }
+        .admin-sidebar-btn.active { background: var(--gold); color: black; font-weight: 900; }
+        .wa-float { position: fixed; bottom: 30px; left: 30px; background: #25D366; width: 65px; height: 65px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; z-index: 1000; box-shadow: 0 10px 30px rgba(37,211,102,0.4); }
     </style>
 </head>
 <body>
-
-    <nav class="bg-black border-b border-zinc-800 sticky top-0 z-50 p-4">
+    <nav class="bg-black border-b border-zinc-900 sticky top-0 z-50 p-4">
         <div class="container mx-auto flex justify-between items-center">
-            <img src="https://i.imgur.com/uVpX5Xp.png" alt="STR Logo" style="height: 60px; cursor: pointer;" onclick="showTab('home')">
-            
-            <div class="flex gap-2 md:gap-6">
-                <div class="nav-btn active" onclick="showTab('home')">الرئيسية</div>
-                <div class="nav-btn" onclick="showTab('resale')">ريسيل</div>
-                <div class="nav-btn" onclick="showTab('primary')">برايمري</div>
-                <div class="nav-btn text-red-500 font-black border border-red-900/30 px-4 rounded-xl" onclick="openAdminPortal()">الإدارة</div>
+            <img src="https://i.imgur.com/uVpX5Xp.png" class="h-[60px] cursor-pointer" onclick="showTab('home')">
+            <div class="flex items-center gap-2 md:gap-4">
+                <div class="nav-btn active" id="btn-home" onclick="showTab('home')">الرئيسية</div>
+                <div class="nav-btn" id="btn-resale" onclick="showTab('resale')">ريسيل</div>
+                <div class="nav-btn" id="btn-primary" onclick="showTab('primary')">برايمري</div>
+                <div class="nav-btn text-red-500 border border-red-900/30 font-bold" onclick="openAdminPortal()">الإدارة</div>
             </div>
         </div>
     </nav>
 
     <main>
-        <section id="home" class="tab-content active-tab hero-bg flex items-center justify-center text-center">
-            <div>
-                <h1 class="text-6xl md:text-8xl font-black italic gold-text mb-2" style="background: linear-gradient(to bottom, #fff, #d4af37); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">SUMMIT TEAM</h1>
-                <h2 class="text-2xl md:text-4xl font-bold tracking-[10px] uppercase mb-8">Real Estate</h2>
-                <p id="site-slogan" class="text-zinc-400 text-xl italic border-t border-gold/20 pt-4"></p>
+        <section id="home" class="tab-content active-tab hero-bg h-[90vh]">
+            <div class="text-center px-4">
+                <h1 class="text-6xl md:text-[100px] font-black italic gold-text mb-2">SUMMIT TEAM</h1>
+                <h2 class="text-2xl md:text-5xl font-bold tracking-[15px] uppercase mb-12 text-white/80">Real Estate</h2>
+                <p id="site-slogan" class="text-zinc-400 text-xl md:text-2xl italic border-t border-gold/20 pt-8 max-w-3xl mx-auto"></p>
+                <button onclick="showTab('resale')" class="mt-12 bg-gold text-black px-12 py-4 rounded-2xl font-black text-xl hover:scale-105 transition shadow-2xl">استعرض الوحدات</button>
             </div>
         </section>
 
-        <section id="units-section" class="tab-content py-16 container mx-auto px-4">
-            <div id="units-grid" class="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-8">
-                </div>
+        <section id="units-section" class="tab-content py-20 container mx-auto px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center mb-16 gap-8">
+                <h2 class="text-4xl font-black gold-text italic">المعروض حالياً</h2>
+                <input type="text" id="globalSearch" oninput="applyFilters()" placeholder="بحث بالكود أو المنطقة..." class="w-full md:w-96 bg-zinc-900 border border-zinc-800 p-4 rounded-2xl outline-none focus:border-gold">
+            </div>
+            <div id="units-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10"></div>
         </section>
     </main>
 
-    <div id="loginModal" class="modal flex items-center justify-center p-4">
-        <div class="bg-zinc-900 p-10 rounded-[40px] border border-gold/20 w-full max-w-md text-center shadow-2xl">
-            <img src="https://i.imgur.com/uVpX5Xp.png" class="h-20 mx-auto mb-8">
-            <h3 class="gold-text font-bold mb-6">تسجيل دخول الموظفين</h3>
-            <input id="loginUser" type="text" placeholder="اسم المستخدم" class="w-full bg-black border border-zinc-800 p-4 mb-4 rounded-2xl outline-none focus:border-gold">
-            <input id="loginPass" type="password" placeholder="كلمة المرور" class="w-full bg-black border border-zinc-800 p-4 mb-6 rounded-2xl outline-none focus:border-gold">
-            <button onclick="processLogin()" class="w-full bg-gold text-black py-4 rounded-2xl font-black">دخول</button>
-            <button onclick="document.getElementById('loginModal').style.display='none'" class="mt-4 text-zinc-500 text-xs uppercase">إلغاء</button>
-        </div>
-    </div>
-
     <div id="adminPortal" class="modal">
-        <div class="flex h-screen overflow-hidden">
-            <aside class="w-64 bg-zinc-950 border-l border-zinc-900 flex flex-col p-6 shadow-2xl">
-                <img src="https://i.imgur.com/uVpX5Xp.png" class="h-16 mb-10">
+        <div class="flex h-screen">
+            <aside class="w-72 bg-zinc-950 border-l border-zinc-900 p-8 flex flex-col">
+                <img src="https://i.imgur.com/uVpX5Xp.png" class="h-16 mb-12 mx-auto">
                 <div class="flex-1 space-y-2">
-                    <div onclick="showAdminTab('inventory')" class="admin-sidebar-btn active"><i class="fa fa-home ml-2"></i> المخزون</div>
-                    <div onclick="showAdminTab('crm')" class="admin-sidebar-btn"><i class="fa fa-users ml-2"></i> العملاء CRM</div>
+                    <div id="adm-inv" onclick="showAdminTab('inventory')" class="admin-sidebar-btn active"><i class="fa fa-home"></i> المخزون</div>
+                    <div id="adm-crm" onclick="showAdminTab('crm')" class="admin-sidebar-btn"><i class="fa fa-users"></i> العملاء (CRM)</div>
+                    <div id="adm-cms" onclick="showAdminTab('cms')" class="admin-sidebar-btn"><i class="fa fa-edit"></i> المحتوى</div>
+                    <div id="adm-add" onclick="showAdminTab('add')" class="admin-sidebar-btn text-green-500 font-bold"><i class="fa fa-plus"></i> إضافة وحدة</div>
                 </div>
-                <button onclick="location.reload()" class="bg-red-900/20 text-red-500 py-4 rounded-xl border border-red-900/20 font-bold">تسجيل خروج</button>
+                <button onclick="location.reload()" class="bg-red-900/10 text-red-500 py-4 rounded-2xl border border-red-900/20 font-bold">خروج</button>
             </aside>
-            <main id="adminBody" class="flex-1 p-10 overflow-y-auto">
-                </main>
+            <main id="adminBody" class="flex-1 p-12 overflow-y-auto bg-[#080808]"></main>
         </div>
     </div>
 
-    <a href="https://wa.me/201159333060" class="fixed bottom-8 left-8 bg-[#25D366] w-16 h-16 rounded-full flex items-center justify-center text-3xl shadow-2xl z-[1000]"><i class="fab fa-whatsapp"></i></a>
+    <div id="loginModal" class="modal flex items-center justify-center">
+        <div class="bg-zinc-900 p-12 rounded-[50px] border border-gold/20 w-full max-w-md text-center">
+            <img src="https://i.imgur.com/uVpX5Xp.png" class="h-24 mx-auto mb-10">
+            <input id="loginUser" type="text" placeholder="اسم المستخدم" class="w-full bg-black border border-zinc-800 p-5 mb-4 rounded-2xl outline-none focus:border-gold text-center">
+            <input id="loginPass" type="password" placeholder="كلمة المرور" class="w-full bg-black border border-zinc-800 p-5 mb-8 rounded-2xl outline-none focus:border-gold text-center">
+            <button onclick="processLogin()" class="w-full bg-gold text-black py-4 rounded-2xl font-black text-xl">دخول</button>
+        </div>
+    </div>
 
+    <a href="https://wa.me/201159333060" class="wa-float text-white"><i class="fab fa-whatsapp"></i></a>
     <script src="app.js"></script>
 </body>
 </html>
