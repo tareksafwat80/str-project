@@ -6,37 +6,41 @@
     <title>STR - Summit Team Real Estate</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #d4af37; --dark: #0a0a0a; }
-        body { font-family: 'Cairo', 'Poppins', sans-serif; background: var(--dark); color: white; }
-        .gold-border { border-color: var(--gold); }
+        body { font-family: 'Cairo', sans-serif; background: var(--dark); color: white; scroll-behavior: smooth; }
         .gold-text { color: var(--gold); }
         .gold-bg { background-color: var(--gold); }
-        .nav-link:hover { color: var(--gold); transition: 0.3s; }
-        .modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.9); overflow-y: auto; padding: 20px; }
-        .floating-wa { position: fixed; bottom: 30px; left: 30px; z-index: 100; background: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
+        .modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.95); overflow-y: auto; padding: 20px; }
+        .floating-wa { position: fixed; bottom: 30px; left: 30px; z-index: 100; background: #25d366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 30px; box-shadow: 0 5px 20px rgba(0,0,0,0.4); }
+        .card-hover:hover { transform: translateY(-10px); transition: 0.4s; border-color: var(--gold); }
     </style>
 </head>
 <body>
 
-    <nav class="p-4 border-b border-gray-900 sticky top-0 bg-black/90 backdrop-blur-md z-50">
+    <nav class="p-4 border-b border-gray-900 sticky top-0 bg-black/95 backdrop-blur-md z-50">
         <div class="container mx-auto flex justify-between items-center">
             <img src="Str Black & Gold Logo 2.jpg" class="h-12" alt="STR Logo">
-            <div class="hidden md:flex space-x-reverse space-x-6 text-sm font-bold">
-                <a href="#home" class="nav-link" id="nav-home">الرئيسية</a>
-                <a href="#about" class="nav-link" id="nav-about">عن الشركة</a>
-                <a href="#units" class="nav-link" id="nav-units">الوحدات</a>
+            <div class="hidden md:flex space-x-reverse space-x-8 text-sm font-bold">
+                <a href="#home" class="hover:text-[#d4af37]" id="nav-home">الرئيسية</a>
+                <a href="#about" class="hover:text-[#d4af37]" id="nav-about">عن الشركة</a>
+                <a href="#units" class="hover:text-[#d4af37]" id="nav-units">الوحدات</a>
             </div>
-            <div class="flex items-center space-x-reverse space-x-4">
-                <button onclick="toggleLang()" class="border border-gold-text px-3 py-1 rounded text-xs gold-text font-bold" id="langBtn">EN</button>
-                <button onclick="openLogin()" class="text-gray-400 hover:text-white"><i class="fa fa-user-circle text-2xl"></i></button>
+            <div class="flex items-center gap-4">
+                <button onclick="toggleLang()" class="border border-[#d4af37] px-3 py-1 rounded text-xs gold-text font-bold" id="langBtn">EN</button>
+                <button onclick="openLogin()" class="text-gray-500 hover:text-white"><i class="fa fa-user-circle text-2xl"></i></button>
             </div>
         </div>
     </nav>
 
-    <section id="home" class="py-20 text-center bg-[url('bg-pattern.png')] bg-fixed">
-        <h1 class="text-5xl md:text-7xl font-bold mb-6 italic tracking-tighter uppercase gold-text">STR <span class="text-white">SUMMIT TEAM</span></h1>
+    <div id="adminPanel" class="hidden fixed top-20 right-5 z-[60] bg-black border border-gold-text p-4 rounded-2xl shadow-2xl">
+        <p class="text-[10px] gold-text font-bold mb-2 text-center uppercase">Admin Mode Active</p>
+        <button onclick="logoutAdmin()" class="bg-red-600 text-white text-[10px] px-4 py-2 rounded-lg font-bold w-full">خروج الأدمن</button>
+    </div>
+
+    <section id="home" class="py-24 text-center">
+        <h1 class="text-5xl md:text-7xl font-bold mb-6 italic gold-text">STR <span class="text-white">SUMMIT TEAM</span></h1>
         <p class="text-gray-400 max-w-xl mx-auto italic" id="hero-desc">نخبة العقارات في مدينتي - ري سيل بأفضل الأسعار</p>
     </section>
 
@@ -44,74 +48,68 @@
         <div class="container mx-auto px-6 grid md:grid-cols-2 gap-12 items-center text-right">
             <div>
                 <h2 class="text-3xl font-bold gold-text mb-6" id="about-title">عن شركة STR</h2>
-                <p class="text-gray-400 leading-relaxed text-lg mb-6" id="about-text">
-                    شركة Summit Team Real Estate (STR) هي شريكك الموثوق في السوق العقاري بمدينتي. نحن متخصصون في تقديم أفضل فرص "الري سيل" (Resale) بعوائد استثمارية حقيقية. نعتمد على الشفافية المطلقة، ونوفر لعملائنا بيانات حقيقية وصوراً واقعية لكل وحدة. رؤيتنا هي تسهيل عملية البيع والشراء من خلال حلول رقمية مبتكرة وتواجد ميداني قوي.
-                </p>
-                <div class="flex gap-4">
-                    <div class="bg-black p-4 rounded-xl border border-gray-800 flex-1 text-center">
-                        <h3 class="gold-text font-bold text-2xl">+500</h3>
-                        <p class="text-xs text-gray-500" id="stat-1">وحدة مباعة</p>
-                    </div>
-                    <div class="bg-black p-4 rounded-xl border border-gray-800 flex-1 text-center">
-                        <h3 class="gold-text font-bold text-2xl">100%</h3>
-                        <p class="text-xs text-gray-500" id="stat-2">بيانات حقيقية</p>
-                    </div>
+                <div class="text-gray-400 leading-relaxed space-y-4" id="about-text">
+                    <p>تأسست شركة Summit Team Real Estate (STR) لتكون القمة في تقديم الخدمات العقارية المتكاملة بمدينة مدينتي. نحن نركز طاقتنا وخبرتنا داخل مدينتي لنقدم لعملائنا أدق التفاصيل حول كل منطقة، من B1 إلى B14.</p>
+                    <p>رؤيتنا تعتمد على الشفافية المطلقة في حالة الوحدة القانونية والمالية، والسرعة في إنهاء الإجراءات.</p>
                 </div>
             </div>
-            <div class="relative group">
-                <img src="Str Black & Gold Logo 2.jpg" class="rounded-3xl border border-gray-800 shadow-2xl grayscale hover:grayscale-0 transition duration-500">
-                <div class="absolute -bottom-5 -right-5 gold-bg text-black p-6 rounded-2xl font-bold italic shadow-xl">EXPERIENCE THE SUMMIT</div>
-            </div>
+            <img src="Str Black & Gold Logo 2.jpg" class="rounded-3xl border border-gray-800 shadow-2xl grayscale hover:grayscale-0 transition duration-500">
         </div>
     </section>
 
     <section id="units" class="py-20 container mx-auto px-6">
         <div class="flex flex-col md:flex-row justify-between items-center mb-12 gap-6">
             <h2 class="text-3xl font-bold italic" id="units-title">المخزون المتاح <span class="gold-text">INVENTORY</span></h2>
-            <input type="text" id="searchInput" onkeyup="filterUnits()" placeholder="ابحث بالكود أو المنطقة..." class="bg-[#111] border border-gray-800 rounded-full py-3 px-8 w-full md:w-96 focus:border-gold-text outline-none shadow-lg">
+            <input type="text" id="searchInput" onkeyup="filterUnits()" placeholder="ابحث بالكود أو المنطقة..." class="bg-[#111] border border-gray-800 rounded-full py-3 px-8 w-full md:w-96 focus:border-gold-text outline-none text-white">
         </div>
-        <div id="units-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-            </div>
+        <div id="units-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10"></div>
     </section>
 
-    <footer class="bg-black border-t border-gray-900 py-16">
-        <div class="container mx-auto px-6 grid md:grid-cols-3 gap-12 text-center md:text-right">
+    <footer class="bg-black border-t border-gray-900 py-16 text-center md:text-right">
+        <div class="container mx-auto px-6 grid md:grid-cols-3 gap-12">
             <div>
                 <img src="Str Black & Gold Logo 2.jpg" class="h-16 mx-auto md:mx-0 mb-6">
-                <p class="text-gray-500 text-sm italic" id="footer-desc">Summit Team Real Estate - طريقك نحو القمة في عالم العقارات.</p>
+                <p class="text-gray-500 text-sm italic">STR Real Estate - نصل بك إلى قمة طموحك العقاري.</p>
             </div>
             <div>
-                <h4 class="gold-text font-bold mb-6 italic" id="footer-contact">تواصل معنا</h4>
-                <div class="space-y-4 text-gray-400">
+                <h4 class="gold-text font-bold mb-6 italic">تواصل مباشر</h4>
+                <div class="space-y-4 text-gray-400 text-sm">
                     <p><i class="fa fa-phone gold-text ml-3"></i> 01159333060</p>
                     <p><i class="fa fa-envelope gold-text ml-3"></i> info@strrealestate.net</p>
-                    <p><i class="fa fa-map-marker-alt gold-text ml-3"></i> مدينتي، القاهرة، مصر</p>
+                    <p><a href="https://maps.app.goo.gl/HgBD62orQzxMJjs89" target="_blank"><i class="fa fa-map-marker-alt gold-text ml-3"></i> موقعنا على الخريطة</a></p>
                 </div>
             </div>
             <div>
-                <h4 class="gold-text font-bold mb-6 italic" id="footer-social">تابعنا على</h4>
-                <div class="flex justify-center md:justify-start gap-6 text-2xl text-gray-500">
-                    <a href="#" class="hover:text-white transition"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="hover:text-white transition"><i class="fab fa-instagram"></i></a>
-                    <a href="#" class="hover:text-white transition"><i class="fab fa-linkedin"></i></a>
+                <h4 class="gold-text font-bold mb-6 italic">تابعنا</h4>
+                <div class="flex justify-center md:justify-start gap-4 text-2xl flex-wrap">
+                    <a href="https://www.facebook.com/summitteamrealestateeg" target="_blank" class="social-icon"><i class="fab fa-facebook"></i></a>
+                    <a href="https://www.instagram.com/str.summit.team/" target="_blank" class="social-icon"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.tiktok.com/@strsummitteam" target="_blank" class="social-icon"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://www.youtube.com/@strsummitteam" target="_blank" class="social-icon"><i class="fab fa-youtube"></i></a>
+                    <a href="https://x.com/strsummitteam" target="_blank" class="social-icon"><i class="fab fa-twitter"></i></a>
+                    <a href="https://www.linkedin.com/in/str-summitteam-6aa4aa342" target="_blank" class="social-icon"><i class="fab fa-linkedin"></i></a>
+                </div>
+                <div class="mt-6 flex justify-center md:justify-start gap-2">
+                    <a href="https://www.propertyfinder.eg/en/agent/summit-team-real-estate-str-51854" target="_blank" class="text-[10px] bg-gray-900 px-2 py-1 rounded border border-gray-800">Property Finder</a>
+                    <a href="https://aqarmap.com.eg/ar/user/5240697" target="_blank" class="text-[10px] bg-gray-900 px-2 py-1 rounded border border-gray-800">AqarMap</a>
                 </div>
             </div>
         </div>
     </footer>
 
-    <a href="https://wa.me/201159333060" target="_blank" class="floating-wa">
-        <i class="fab fa-whatsapp"></i>
-    </a>
-
-    <div id="unitModal" class="modal">
-        <div class="bg-[#0c0c0c] max-w-4xl mx-auto rounded-3xl border border-gray-800 overflow-hidden relative shadow-2xl mt-10">
-            <div class="p-5 bg-black flex justify-between items-center border-b border-gray-900">
-                <span class="gold-text font-bold italic tracking-widest uppercase">Property Details</span>
-                <button onclick="closeModal()" class="text-4xl text-gray-600 hover:text-white leading-none">&times;</button>
-            </div>
-            <div id="modalBody" class="p-8 md:p-12"></div>
+    <div id="unitModal" class="modal"><div id="modalBody" class="bg-[#0c0c0c] max-w-4xl mx-auto rounded-3xl border border-gray-800 overflow-hidden relative shadow-2xl mt-10 p-8"></div></div>
+    
+    <div id="loginModal" class="modal flex items-center justify-center">
+        <div class="bg-[#111] p-8 rounded-3xl border border-gray-800 w-full max-w-md relative text-center">
+            <button onclick="closeLogin()" class="absolute top-4 right-4 text-gray-500 hover:text-white">&times;</button>
+            <h2 class="text-2xl font-bold gold-text mb-6 italic">ADMIN LOGIN</h2>
+            <input type="password" id="adminPass" placeholder="كلمة المرور" class="w-full bg-black border border-gray-800 rounded-xl py-3 px-4 outline-none focus:border-gold-text text-center text-white mb-4">
+            <button onclick="checkAdmin()" class="w-full gold-bg text-black font-bold py-3 rounded-xl">دخول</button>
+            <p id="loginError" class="text-red-500 text-xs mt-4 hidden">كلمة المرور غير صحيحة</p>
         </div>
     </div>
+
+    <a href="https://wa.me/201159333060" target="_blank" class="floating-wa"><i class="fab fa-whatsapp"></i></a>
 
     <script src="app.js"></script>
 </body>
