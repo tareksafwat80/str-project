@@ -3,82 +3,135 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STR - Summit Team Real Estate | Enterprise System</title>
+    <title>STR | Summit Team Real Estate 2026 - Enterprise Pro</title>
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+
     <style>
-        /* CSS متقدم وتفصيلي جداً */
         :root {
             --gold: #d4af37;
+            --gold-dark: #aa8c2c;
             --black: #050505;
             --zinc-900: #121214;
-            --zinc-800: #202023;
+            --zinc-800: #1c1c1f;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
         }
 
         body {
-            font-family: 'Cairo', sans-serif;
             background-color: var(--black);
-            color: white;
-            margin: 0;
+            color: #ffffff;
             overflow-x: hidden;
+            line-height: 1.6;
         }
 
-        /* Hero Animation */
-        .hero-title {
-            animation: slideUp 1s ease-out;
-        }
-        @keyframes slideUp {
-            from { opacity: 0; transform: translateY(50px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* Glassmorphism Classes */
-        .glass-card {
-            background: rgba(24, 24, 27, 0.8);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(212, 175, 55, 0.1);
-            transition: all 0.4s ease;
-        }
-        .glass-card:hover {
-            border-color: var(--gold);
-            transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-        }
+        /* Animations */
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeIn 0.8s ease forwards; }
 
         /* Custom Scrollbar */
-        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar { width: 8px; }
         ::-webkit-scrollbar-track { background: var(--black); }
-        ::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb { background: var(--zinc-800); border-radius: 10px; }
+        ::-webkit-scrollbar-thumb:hover { background: var(--gold); }
 
-        /* Tab Transitions */
-        .tab-content { display: none; }
-        .tab-content.active { display: block; animation: fadeIn 0.6s ease; }
-        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        /* Navigation Luxury Effect */
+        nav {
+            background: rgba(5, 5, 5, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--zinc-800);
+            transition: all 0.3s;
+        }
 
-        /* Admin UI Extensions */
-        .sidebar-item {
-            padding: 15px 25px;
-            cursor: pointer;
-            border-radius: 15px;
-            margin-bottom: 8px;
+        .nav-link {
+            position: relative;
+            color: #a1a1aa;
+            font-weight: 700;
+            padding: 10px 15px;
             transition: 0.3s;
+        }
+        .nav-link:hover, .nav-link.active { color: var(--gold); }
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 0; height: 2px;
+            background: var(--gold);
+            transition: 0.3s;
+        }
+        .nav-link:hover::after, .nav-link.active::after { width: 100%; }
+
+        /* Hero Section */
+        .hero-bg {
+            background: linear-gradient(to bottom, rgba(5,5,5,0.7), rgba(5,5,5,1)), 
+                        url('https://images.unsplash.com/photo-1582407947304-fd86f028f716?q=80&w=2000');
+            background-size: cover;
+            background-position: center;
+            height: 100vh;
             display: flex;
             align-items: center;
-            gap: 15px;
-            color: #888;
-        }
-        .sidebar-item.active {
-            background: var(--gold);
-            color: black;
-            font-weight: 900;
+            justify-content: center;
         }
 
-        .input-luxury {
-            background: #000;
+        /* Property Cards */
+        .luxury-card {
+            background: var(--zinc-900);
+            border: 1px solid var(--zinc-800);
+            border-radius: 30px;
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        .luxury-card:hover {
+            transform: translateY(-15px);
+            border-color: var(--gold);
+            box-shadow: 0 25px 50px -12px rgba(212, 175, 55, 0.2);
+        }
+
+        .card-image-container {
+            height: 250px;
+            overflow: hidden;
+            position: relative;
+        }
+        .card-image-container img {
+            width: 100%; height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s;
+        }
+        .luxury-card:hover img { transform: scale(1.15); }
+
+        /* Admin Portal Sidebar */
+        .admin-sidebar {
+            width: 300px;
+            background: #080808;
+            border-left: 1px solid var(--zinc-800);
+            height: 100vh;
+            position: sticky; top: 0;
+            padding: 40px 20px;
+        }
+        .sidebar-btn {
+            display: flex; align-items: center; gap: 15px;
+            padding: 15px 20px;
+            border-radius: 15px;
+            color: #71717a;
+            margin-bottom: 10px;
+            cursor: pointer;
+            transition: 0.3s;
+            font-weight: 700;
+        }
+        .sidebar-btn:hover { background: rgba(255,255,255,0.05); color: white; }
+        .sidebar-btn.active { background: var(--gold); color: black; box-shadow: 0 10px 20px rgba(212,175,55,0.3); }
+
+        /* Inputs */
+        .luxury-input {
+            background: #111;
             border: 1px solid #333;
             color: white;
             padding: 15px 20px;
@@ -87,318 +140,456 @@
             outline: none;
             transition: 0.3s;
         }
-        .input-luxury:focus { border-color: var(--gold); }
+        .luxury-input:focus { border-color: var(--gold); box-shadow: 0 0 10px rgba(212,175,55,0.1); }
 
-        .modal-overlay {
+        /* Modals */
+        .modal-fullscreen {
             display: none;
             position: fixed;
             inset: 0;
-            background: rgba(0,0,0,0.95);
-            z-index: 1000;
+            background: rgba(0,0,0,0.98);
+            z-index: 9999;
             overflow-y: auto;
-            padding: 40px;
         }
+
+        /* Floating WhatsApp */
+        .wa-float {
+            position: fixed; bottom: 30px; left: 30px;
+            background: #25d366; color: white;
+            width: 65px; height: 65px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 30px; z-index: 1000;
+            box-shadow: 0 10px 25px rgba(37,211,102,0.4);
+            transition: 0.4s;
+        }
+        .wa-float:hover { transform: scale(1.1) rotate(15deg); }
+
+        .hidden { display: none !important; }
     </style>
 </head>
 <body>
 
-    <nav class="fixed top-0 w-full z-[100] bg-black/80 backdrop-blur-md border-b border-zinc-900">
+    <nav class="fixed top-0 w-full z-50">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-10">
-                <img src="https://i.imgur.com/uVpX5Xp.png" class="h-16 cursor-pointer" onclick="switchTab('home')">
-                <div class="hidden md:flex gap-6">
-                    <span class="nav-link cursor-pointer font-bold hover:text-gold transition" onclick="switchTab('home')">الرئيسية</span>
-                    <span class="nav-link cursor-pointer font-bold hover:text-gold transition" onclick="switchCategory('resale')">ريسيل</span>
-                    <span class="nav-link cursor-pointer font-bold hover:text-gold transition" onclick="switchCategory('primary')">برايمري</span>
+            <div class="flex items-center gap-12">
+                <div class="cursor-pointer group" onclick="navigateTo('home')">
+                    <span class="text-3xl font-black text-white group-hover:text-gold transition-colors">STR</span>
+                    <span class="block text-[10px] tracking-[4px] text-gold font-bold uppercase">Summit Team</span>
+                </div>
+                <div class="hidden lg:flex gap-8">
+                    <a href="javascript:void(0)" onclick="navigateTo('home')" id="link-home" class="nav-link active">الرئيسية</a>
+                    <a href="javascript:void(0)" onclick="switchCategory('resale')" id="link-resale" class="nav-link">ريسيل</a>
+                    <a href="javascript:void(0)" onclick="switchCategory('primary')" id="link-primary" class="nav-link">برايمري</a>
                 </div>
             </div>
-            <button onclick="openAdmin()" class="bg-red-600/10 text-red-500 border border-red-900/30 px-6 py-2 rounded-xl text-sm font-black">لوحة التحكم</button>
+            <div class="flex items-center gap-4">
+                <button onclick="handleAdminEntry()" class="bg-red-950/20 text-red-500 border border-red-900/30 px-6 py-2 rounded-xl text-xs font-black uppercase hover:bg-red-500 hover:text-white transition-all">بوابة الإدارة</button>
+            </div>
         </div>
     </nav>
 
-    <main class="mt-24">
-        
-        <section id="tab-home" class="tab-content active h-[85vh] flex items-center justify-center text-center">
-            <div class="hero-title">
-                <h1 class="text-7xl md:text-[120px] font-black italic text-[#d4af37] mb-4">SUMMIT TEAM</h1>
-                <h2 class="text-3xl md:text-5xl font-bold tracking-[20px] uppercase text-white/90">Real Estate</h2>
-                <div class="h-1 w-40 bg-gold mx-auto my-10 rounded-full"></div>
-                <p id="display-slogan" class="text-zinc-500 text-xl md:text-3xl italic max-w-4xl mx-auto leading-relaxed"></p>
-                <div class="mt-12 flex justify-center gap-6">
-                    <button onclick="switchCategory('resale')" class="bg-gold text-black px-12 py-5 rounded-2xl font-black text-xl hover:scale-105 transition">ابدأ البحث</button>
+    <main>
+        <section id="page-home" class="hero-bg flex flex-col justify-center items-center text-center p-6">
+            <div class="fade-in">
+                <h1 class="text-7xl md:text-[120px] font-black italic text-[#d4af37] leading-none mb-4">SUMMIT TEAM</h1>
+                <h2 class="text-3xl md:text-5xl font-extralight tracking-[20px] uppercase text-white/80 mb-10">Real Estate</h2>
+                <div class="w-24 h-1 bg-gold mx-auto mb-10 rounded-full shadow-[0_0_15px_#d4af37]"></div>
+                <p id="slogan-container" class="text-zinc-400 text-xl md:text-2xl italic max-w-3xl mx-auto leading-relaxed mb-12 font-medium"></p>
+                <div class="flex flex-wrap justify-center gap-6">
+                    <button onclick="switchCategory('resale')" class="bg-gold text-black px-12 py-5 rounded-2xl font-black text-xl hover:scale-105 active:scale-95 transition-all shadow-xl">تصفح الريسيل</button>
+                    <button onclick="switchCategory('primary')" class="bg-white/5 border border-white/10 text-white px-12 py-5 rounded-2xl font-bold text-xl hover:bg-white/10 transition-all">مشروعات البرايمري</button>
                 </div>
             </div>
         </section>
 
-        <section id="tab-inventory" class="tab-content py-20 container mx-auto px-6">
-            <div class="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+        <section id="page-catalog" class="hidden py-32 container mx-auto px-6 min-h-screen">
+            <div class="flex flex-col md:flex-row justify-between items-end mb-20 gap-8 border-b border-zinc-900 pb-12">
                 <div>
-                    <h3 id="category-name" class="text-5xl font-black text-gold italic mb-4 uppercase">RESALE UNITS</h3>
-                    <p class="text-zinc-500 font-bold uppercase tracking-widest">Premium Collection By STR</p>
+                    <h3 id="category-title" class="text-5xl font-black gold-text italic uppercase mb-4">Inventory</h3>
+                    <p class="text-zinc-500 font-bold uppercase tracking-[5px]">Premium Real Estate Solutions</p>
                 </div>
-                <div class="relative w-full md:w-96">
-                    <input type="text" id="search-box" oninput="runSearch()" placeholder="بحث برقم الكود أو المنطقة..." class="w-full bg-zinc-900 border border-zinc-800 p-4 pr-12 rounded-2xl outline-none focus:border-gold">
-                    <i class="fa fa-search absolute right-4 top-5 text-zinc-600"></i>
+                <div class="relative w-full md:w-[450px]">
+                    <i class="fa fa-search absolute right-6 top-6 text-zinc-600"></i>
+                    <input type="text" id="searchInput" oninput="executeSearch()" placeholder="بحث برقم الكود، السعر، أو المنطقة..." class="luxury-input pr-14 text-lg">
                 </div>
             </div>
-            <div id="units-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-10">
-                </div>
-        </section>
 
+            <div id="units-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-10">
+                </div>
+
+            <div id="no-results" class="hidden text-center py-40">
+                <i class="fa fa-search-minus text-8xl text-zinc-800 mb-6"></i>
+                <h4 class="text-3xl font-bold text-zinc-600 italic">عذراً، لم يتم العثور على نتائج تطابق بحثك...</h4>
+            </div>
+        </section>
     </main>
 
-    <div id="admin-portal" class="modal-overlay">
-        <div class="flex h-full gap-10">
-            <aside class="w-80 bg-zinc-950 p-8 rounded-[40px] border border-zinc-900 flex flex-col shadow-2xl">
-                <img src="https://i.imgur.com/uVpX5Xp.png" class="h-16 mx-auto mb-10">
-                <div class="flex-1">
-                    <div id="side-inv" onclick="showAdminPage('inventory')" class="sidebar-item active"><i class="fa fa-home"></i> المخزون</div>
-                    <div id="side-crm" onclick="showAdminPage('crm')" class="sidebar-item"><i class="fa fa-users"></i> الـ CRM</div>
-                    <div id="side-add" onclick="showAdminPage('add')" class="sidebar-item text-green-500"><i class="fa fa-plus-circle"></i> إضافة وحدة</div>
-                    <div id="side-set" onclick="showAdminPage('settings')" class="sidebar-item"><i class="fa fa-cog"></i> الإعدادات</div>
+    <div id="adminPortal" class="modal-fullscreen">
+        <div class="flex flex-col md:flex-row h-full">
+            <aside class="admin-sidebar shadow-2xl">
+                <div class="mb-16 text-center">
+                    <h4 class="text-2xl font-black text-gold italic">STR ADMIN</h4>
+                    <p class="text-[9px] text-zinc-500 tracking-[3px] uppercase">Control Panel v2.6</p>
                 </div>
-                <button onclick="location.reload()" class="w-full bg-red-900/10 text-red-500 py-4 rounded-2xl font-black border border-red-900/20">خروج آمن</button>
+                <div class="space-y-2">
+                    <div id="adm-nav-inv" onclick="loadAdminSection('inventory')" class="sidebar-btn active"><i class="fa fa-layer-group"></i> المخزون</div>
+                    <div id="adm-nav-crm" onclick="loadAdminSection('crm')" class="sidebar-btn"><i class="fa fa-user-tie"></i> سجل العملاء (CRM)</div>
+                    <div id="adm-nav-add" onclick="loadAdminSection('add')" class="sidebar-btn"><i class="fa fa-plus-circle"></i> إضافة وحدة</div>
+                    <div id="adm-nav-set" onclick="loadAdminSection('settings')" class="sidebar-btn"><i class="fa fa-cog"></i> إعدادات المنصة</div>
+                </div>
+                <div class="absolute bottom-10 left-6 right-6">
+                    <button onclick="secureLogout()" class="w-full bg-red-950/20 text-red-500 py-4 rounded-xl font-bold border border-red-900/20 hover:bg-red-500 hover:text-white transition-all">تسجيل خروج آمن</button>
+                </div>
             </aside>
-            <main class="flex-1 bg-zinc-900/50 p-12 rounded-[40px] border border-zinc-900 overflow-y-auto">
-                <div id="admin-content"></div>
+            <main class="flex-1 p-12 lg:p-20 overflow-y-auto">
+                <div id="admin-main-view" class="max-w-6xl mx-auto">
+                    </div>
             </main>
         </div>
     </div>
 
-    <div id="login-screen" class="modal-overlay flex items-center justify-center">
-        <div class="bg-zinc-900 p-16 rounded-[60px] border border-gold/10 w-full max-w-lg text-center shadow-2xl">
-            <img src="https://i.imgur.com/uVpX5Xp.png" class="h-24 mx-auto mb-12">
-            <div class="space-y-4">
-                <input id="user-in" type="text" placeholder="اسم المستخدم" class="input-luxury text-center">
-                <input id="pass-in" type="password" placeholder="كلمة المرور" class="input-luxury text-center">
-                <button onclick="tryLogin()" class="w-full bg-gold text-black py-5 rounded-2xl font-black text-2xl">دخول النظام</button>
+    <div id="loginOverlay" class="modal-fullscreen flex items-center justify-center p-6">
+        <div class="bg-zinc-950 border border-zinc-800 p-12 md:p-20 rounded-[50px] w-full max-w-xl text-center shadow-2xl">
+            <h3 class="text-3xl font-black gold-text italic mb-12">بوابة الدخول الآمنة</h3>
+            <div class="space-y-6">
+                <input type="text" id="login-user" placeholder="اسم المستخدم" class="luxury-input text-center font-bold">
+                <input type="password" id="login-pass" placeholder="كلمة المرور" class="luxury-input text-center font-bold">
+                <button onclick="processLogin()" class="w-full bg-gold text-black py-6 rounded-2xl font-black text-2xl shadow-xl hover:scale-105 transition-all">دخول النظام</button>
             </div>
-            <p onclick="closeAll()" class="mt-8 text-zinc-600 cursor-pointer font-bold">إلغاء</p>
+            <p onclick="closeAllModals()" class="mt-10 text-zinc-600 cursor-pointer font-bold hover:text-white">إلغاء العملية</p>
         </div>
     </div>
 
-    <a href="https://wa.me/201159333060" class="fixed bottom-10 left-10 bg-[#25D366] w-20 h-20 rounded-full flex items-center justify-center text-4xl shadow-2xl z-[1000]"><i class="fab fa-whatsapp"></i></a>
+    <a href="https://wa.me/201159333060" target="_blank" class="wa-float">
+        <i class="fab fa-whatsapp"></i>
+    </a>
 
     <script>
-        // --- 1. State Management ---
-        const DB = {
-            settings: { slogan: "STR - قمة العقارات في مصر. نحن لا نبيع مجرد جدران، نحن نصنع مستقبلك الاستثماري والسكني بأعلى معايير الجودة والاحترافية | 2026" },
-            units: [],
+        /**
+         * SUMMIT TEAM REAL ESTATE - MASTER SYSTEM
+         * Version: 2.6.0
+         * Date: Feb 2026
+         */
+
+        // 1. Data Store (The "Brain")
+        const STR_DATA = {
+            config: {
+                slogan: "STR - قمة العقارات في مصر. نحن لا نوفر مجرد مسكن، بل نبني لك مستقبلاً مشرقاً وعائداً استثمارياً مضموناً في أرقى مدن الجيل الرابع. انضم إلى عملاء النخبة مع STR | 2026",
+                adminPass: "str2026",
+                whatsapp: "201159333060"
+            },
+            inventory: [],
             leads: [],
-            agents: [
-                { id: 1, name: "إدارة STR", user: "admin", pass: "str2026", load: 0 },
-                { id: 2, name: "فريق Sales A", user: "sales1", pass: "123", load: 0 },
-                { id: 3, name: "فريق Sales B", user: "sales2", pass: "123", load: 0 }
+            team: [
+                {id: 1, name: "إدارة STR المركزية", user: "admin", load: 0},
+                {id: 2, name: "فريق مبيعات A", user: "sales1", load: 0},
+                {id: 3, name: "فريق مبيعات B", user: "sales2", load: 0}
             ],
-            currentUser: null,
-            activeCat: 'resale'
+            session: { isLogged: false, activeUser: null },
+            ui: { activePage: 'home', activeCategory: 'resale' }
         };
 
-        // --- 2. Data Initialization (The Core) ---
-        function initializeSystem() {
-            const areas = ["مدينتي B8", "الرحاب 2", "التجمع الخامس", "نرجس عمارات", "R7 العاصمة"];
-            const imgs = [
-                "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?w=800",
-                "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800",
-                "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800"
+        // 2. Data Seeding (توليد البيانات الافتراضية)
+        function generateInitialData() {
+            const regions = ["مدينتي - B8", "الرحاب - المرحلة 2", "التجمع - النرجس", "العاصمة - R7", "اللوتس الشمالية"];
+            const images = [
+                "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=1000",
+                "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?q=80&w=1000",
+                "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1000",
+                "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=1000"
             ];
 
-            // Generating 24 Sample Units
-            for (let i = 1; i <= 24; i++) {
-                DB.units.push({
-                    id: Date.now() + i,
-                    code: 1000 + i,
-                    title: `وحدة سكنية مميزة #${1000+i}`,
-                    area: areas[i % areas.length],
-                    price: 3800000 + (i * 150000),
-                    space: 120 + (i * 2),
-                    rooms: 3,
-                    type: i <= 12 ? 'resale' : 'primary',
-                    img: imgs[i % 3]
+            for(let i=1; i<=32; i++) {
+                STR_DATA.inventory.push({
+                    uid: 'UNIT-' + Math.random().toString(36).substr(2, 9).toUpperCase(),
+                    code: 9000 + i,
+                    title: `وحدة سكنية فاخرة #${9000+i}`,
+                    area: regions[i % regions.length],
+                    price: 3200000 + (Math.floor(Math.random() * 60) * 100000),
+                    space: 115 + (i * 2),
+                    rooms: (i % 3) + 2,
+                    type: i <= 16 ? 'resale' : 'primary',
+                    thumbnail: images[i % images.length],
+                    timestamp: new Date().toLocaleDateString('ar-EG')
                 });
             }
-            document.getElementById('display-slogan').innerText = DB.settings.slogan;
+            refreshSloganDisplay();
+        }
+
+        // 3. Navigation & Routing
+        function navigateTo(target) {
+            STR_DATA.ui.activePage = target;
+            
+            // UI Toggle
+            document.querySelectorAll('section').forEach(s => s.classList.add('hidden'));
+            document.getElementById(`page-${target}`).classList.remove('hidden');
+            
+            // Link Highlighting
+            document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+            const activeLink = document.getElementById(`link-${target}`);
+            if(activeLink) activeLink.classList.add('active');
+
+            if(target === 'catalog') renderGrid();
+            window.scrollTo({top: 0, behavior: 'smooth'});
+        }
+
+        function switchCategory(cat) {
+            STR_DATA.ui.activeCategory = cat;
+            document.getElementById('category-title').innerText = cat === 'resale' ? 'وحدات الاستلام الفوري' : 'مشروعات البرايمري';
+            navigateTo('catalog');
             renderGrid();
         }
 
-        // --- 3. UI Switches ---
-        window.switchTab = (tab) => {
-            document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
-            document.getElementById('tab-' + tab).classList.add('active');
-            window.scrollTo(0,0);
-        };
-
-        window.switchCategory = (cat) => {
-            DB.activeCat = cat;
-            document.getElementById('category-name').innerText = cat === 'resale' ? 'وحدات الريسيل' : 'وحدات البرايمري';
-            switchTab('inventory');
-            renderGrid();
-        };
-
-        // --- 4. Rendering Engine ---
-        function renderGrid(filtered = null) {
+        // 4. Rendering Engine
+        function renderGrid(filteredData = null) {
             const grid = document.getElementById('units-grid');
-            const data = filtered || DB.units.filter(u => u.type === DB.activeCat);
-            
-            grid.innerHTML = data.map(u => `
-                <div class="glass-card rounded-[40px] overflow-hidden group">
-                    <div class="h-64 relative overflow-hidden">
-                        <img src="${u.img}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                        <div class="absolute top-5 right-5 bg-black/70 backdrop-blur-md px-4 py-1 rounded-full text-[10px] text-gold font-black border border-gold/20">CODE: ${u.code}</div>
+            const noResults = document.getElementById('no-results');
+            const source = filteredData || STR_DATA.inventory.filter(u => u.type === STR_DATA.ui.activeCategory);
+
+            if(source.length === 0) {
+                grid.innerHTML = "";
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            noResults.classList.add('hidden');
+            grid.innerHTML = source.map(unit => `
+                <div class="luxury-card group">
+                    <div class="card-image-container">
+                        <img src="${unit.thumbnail}" alt="STR Real Estate">
+                        <div class="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80"></div>
+                        <div class="absolute top-5 right-5 bg-black/60 backdrop-blur-md px-4 py-1 rounded-full border border-gold/30">
+                            <span class="text-gold text-[10px] font-black italic tracking-widest">CODE: ${unit.code}</span>
+                        </div>
                     </div>
                     <div class="p-8">
-                        <p class="text-zinc-500 text-[10px] font-black uppercase tracking-[3px] mb-2">${u.area}</p>
-                        <h4 class="text-3xl font-black mb-6">${u.price.toLocaleString()} <span class="text-xs gold-text">EGP</span></h4>
-                        <div class="flex justify-between py-4 border-y border-zinc-800/50 text-xs text-zinc-400 font-bold mb-8">
-                            <span><i class="fa fa-expand gold-text ml-2"></i>${u.space} م²</span>
-                            <span><i class="fa fa-bed gold-text ml-2"></i>${u.rooms} غرف</span>
+                        <p class="text-zinc-500 text-[10px] font-black uppercase tracking-[3px] mb-2">${unit.area}</p>
+                        <h4 class="text-3xl font-black mb-6 gold-text">${unit.price.toLocaleString()} <span class="text-[10px] text-zinc-500 italic">EGP</span></h4>
+                        
+                        <div class="flex justify-between items-center py-5 border-y border-zinc-800/50 text-xs text-zinc-400 font-bold mb-8">
+                            <span><i class="fa fa-ruler-combined gold-text ml-2"></i>${unit.space} م²</span>
+                            <span><i class="fa fa-bed gold-text ml-2"></i>${unit.rooms} غرف</span>
+                            <span><i class="fa fa-check-circle gold-text ml-2"></i>متاح</span>
                         </div>
-                        <button onclick="handleLead(${u.code})" class="w-full bg-zinc-800 group-hover:bg-gold group-hover:text-black py-4 rounded-2xl font-black transition-all">ارسل استفسار</button>
+
+                        <div class="flex gap-3">
+                            <button onclick="initiateLead(${unit.code})" class="flex-1 bg-gold text-black py-4 rounded-2xl font-black text-sm hover:brightness-110 active:scale-95 transition-all">تواصل واتساب</button>
+                            <button class="w-14 bg-zinc-800 text-white rounded-2xl flex items-center justify-center hover:bg-zinc-700 transition-all"><i class="fa fa-info-circle"></i></button>
+                        </div>
                     </div>
                 </div>
             `).join('');
         }
 
-        window.runSearch = () => {
-            const q = document.getElementById('search-box').value.toLowerCase();
-            const f = DB.units.filter(u => u.type === DB.activeCat && (u.code.toString().includes(q) || u.area.toLowerCase().includes(q)));
-            renderGrid(f);
-        };
+        function executeSearch() {
+            const query = document.getElementById('searchInput').value.toLowerCase();
+            const results = STR_DATA.inventory.filter(unit => {
+                return unit.type === STR_DATA.ui.activeCategory && 
+                       (unit.code.toString().includes(query) || 
+                        unit.area.toLowerCase().includes(query) ||
+                        unit.price.toString().includes(query));
+            });
+            renderGrid(results);
+        }
 
-        // --- 5. Lead & CRM Logic ---
-        window.handleLead = (code) => {
-            // Fair distribution
-            DB.agents.sort((a, b) => a.load - b.load);
-            const agent = DB.agents[0];
-            agent.load++;
+        // 5. CRM & Lead Management (Round Robin System)
+        function initiateLead(code) {
+            // Find Agent with minimum load
+            const agents = STR_DATA.team.filter(a => a.user !== 'admin');
+            agents.sort((a, b) => a.load - b.load);
+            const targetAgent = agents[0];
             
-            DB.leads.unshift({
+            targetAgent.load++;
+            STR_DATA.leads.unshift({
                 id: Date.now(),
-                code: code,
-                agent: agent.name,
-                time: new Date().toLocaleString('ar-EG')
+                unitCode: code,
+                assignedTo: targetAgent.name,
+                time: new Date().toLocaleString('ar-EG'),
+                status: 'جديد'
             });
 
-            alert(`سيتم تحويلك الآن لموظف المبيعات المسؤول: ${agent.name}`);
-            window.open(`https://wa.me/201159333060?text=استفسار عن الوحدة كود: ${code}`);
-        };
-
-        // --- 6. Admin Engine ---
-        window.openAdmin = () => {
-            if (!DB.currentUser) document.getElementById('login-screen').style.display = 'flex';
-            else document.getElementById('admin-portal').style.display = 'block';
-        };
-
-        window.tryLogin = () => {
-            const u = document.getElementById('user-in').value;
-            const p = document.getElementById('pass-in').value;
-            const found = DB.agents.find(a => a.user === u && a.pass === p);
+            const msg = `مرحباً STR، أود الاستفسار عن تفاصيل الوحدة رقم: ${code}. هل يمكن تزويدي بالتفاصيل؟`;
+            const url = `https://wa.me/${STR_DATA.config.whatsapp}?text=${encodeURIComponent(msg)}`;
             
-            if (found) {
-                DB.currentUser = found;
-                document.getElementById('login-screen').style.display = 'none';
-                document.getElementById('admin-portal').style.display = 'block';
-                showAdminPage('inventory');
-            } else alert("بيانات غير صحيحة");
-        };
+            alert(`سيتم تحويلك لمسؤول المبيعات: ${targetAgent.name}`);
+            window.open(url, '_blank');
+        }
 
-        window.showAdminPage = (page) => {
-            const content = document.getElementById('admin-content');
-            document.querySelectorAll('.sidebar-item').forEach(i => i.classList.remove('active'));
-            document.getElementById(`side-${page.split('-')[0]}`).classList.add('active');
+        // 6. Admin Portal Logic
+        function handleAdminEntry() {
+            if(STR_DATA.session.isLogged) {
+                document.getElementById('adminPortal').style.display = 'block';
+                loadAdminSection('inventory');
+            } else {
+                document.getElementById('loginOverlay').style.display = 'flex';
+            }
+        }
 
-            if (page === 'inventory') {
-                content.innerHTML = `
-                    <div class="flex justify-between items-center mb-10">
-                        <h2 class="text-4xl font-black text-gold italic">إدارة المخزون (${DB.units.length})</h2>
-                        <button onclick="exportData()" class="bg-green-700 text-white px-8 py-3 rounded-xl font-bold">تصدير EXCEL</button>
+        function processLogin() {
+            const u = document.getElementById('login-user').value;
+            const p = document.getElementById('login-pass').value;
+
+            if(u === 'admin' && p === STR_DATA.config.adminPass) {
+                STR_DATA.session.isLogged = true;
+                STR_DATA.session.activeUser = "إدارة النظام";
+                closeAllModals();
+                handleAdminEntry();
+            } else {
+                alert("بيانات الدخول غير صحيحة! يرجى المحاولة مرة أخرى.");
+            }
+        }
+
+        function loadAdminSection(section) {
+            const main = document.getElementById('admin-main-view');
+            
+            // Sidebar styling
+            document.querySelectorAll('.sidebar-btn').forEach(btn => btn.classList.remove('active'));
+            document.getElementById(`adm-nav-${section.substr(0,3)}`).classList.add('active');
+
+            if(section === 'inventory') {
+                main.innerHTML = `
+                    <div class="flex justify-between items-center mb-16">
+                        <h2 class="text-4xl font-black gold-text italic">إدارة المخزون الحالي</h2>
+                        <button onclick="exportToExcel()" class="bg-green-700 text-white px-8 py-3 rounded-xl font-bold hover:bg-green-600 transition-all"><i class="fa fa-file-excel ml-2"></i> تصدير إكسيل</button>
                     </div>
-                    <div class="space-y-4">
-                        ${DB.units.map(u => `
-                            <div class="bg-black/40 p-6 rounded-3xl border border-zinc-800 flex justify-between items-center">
-                                <div><span class="text-gold font-black">#${u.code}</span> - <span class="text-lg font-bold">${u.area}</span></div>
-                                <div class="flex gap-8 items-center">
-                                    <span class="font-black">${u.price.toLocaleString()} EGP</span>
-                                    <button onclick="deleteUnit(${u.id})" class="text-red-500"><i class="fa fa-trash"></i></button>
+                    <div class="grid gap-4">
+                        ${STR_DATA.inventory.map(u => `
+                            <div class="bg-zinc-900/50 p-6 rounded-3xl border border-zinc-800 flex items-center justify-between group hover:border-gold/50 transition-all">
+                                <div class="flex items-center gap-8">
+                                    <img src="${u.thumbnail}" class="w-20 h-20 rounded-2xl object-cover">
+                                    <div>
+                                        <h5 class="text-xl font-black">${u.title}</h5>
+                                        <p class="text-zinc-500 text-sm font-bold">كود: ${u.code} | ${u.area}</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-12">
+                                    <span class="text-gold font-black text-xl">${u.price.toLocaleString()} EGP</span>
+                                    <button onclick="deleteUnit('${u.uid}')" class="w-12 h-12 bg-red-950/20 text-red-500 rounded-xl hover:bg-red-500 hover:text-white transition-all"><i class="fa fa-trash"></i></button>
                                 </div>
                             </div>
                         `).join('')}
-                    </div>`;
-            } else if (page === 'crm') {
-                content.innerHTML = `
-                    <h2 class="text-4xl font-black text-gold italic mb-10">سجل العملاء CRM</h2>
-                    <div class="grid gap-4">
-                        ${DB.leads.length === 0 ? '<p class="text-zinc-600">لا يوجد ليدز حالياً</p>' : 
-                        DB.leads.map(l => `
-                            <div class="bg-black p-6 rounded-3xl border-r-8 border-gold">
-                                <h4 class="text-xl font-black">طلب استفسار عن الكود: ${l.code}</h4>
-                                <p class="text-zinc-500">تم التوجيه لـ: ${l.agent} | التاريخ: ${l.time}</p>
+                    </div>
+                `;
+            } else if(section === 'crm') {
+                main.innerHTML = `
+                    <h2 class="text-4xl font-black gold-text italic mb-16">سجل تحويلات العملاء</h2>
+                    <div class="grid gap-6">
+                        ${STR_DATA.leads.length === 0 ? '<p class="text-center py-20 text-zinc-600 italic">لا يوجد سجل عملاء حالياً</p>' : 
+                        STR_DATA.leads.map(l => `
+                            <div class="bg-zinc-900 p-8 rounded-[40px] border-r-8 border-gold shadow-2xl flex justify-between items-center">
+                                <div>
+                                    <h4 class="text-2xl font-black mb-2 italic text-white">اهتمام بالوحدة #${l.unitCode}</h4>
+                                    <p class="text-sm text-zinc-500 font-bold uppercase tracking-[2px]">الموظف المسؤول: <span class="text-gold">${l.assignedTo}</span></p>
+                                </div>
+                                <div class="text-left">
+                                    <p class="text-xs text-zinc-600 font-bold mb-2">${l.time}</p>
+                                    <span class="bg-gold/10 text-gold px-4 py-1 rounded-full text-[10px] font-black uppercase">طلب جديد</span>
+                                </div>
                             </div>
                         `).join('')}
-                    </div>`;
-            } else if (page === 'add') {
-                content.innerHTML = `
-                    <h2 class="text-4xl font-black text-gold italic mb-10">إضافة وحدة جديدة</h2>
-                    <div class="grid grid-cols-2 gap-6 bg-black/40 p-10 rounded-[40px] border border-zinc-800">
-                        <input id="add-c" type="number" placeholder="الكود" class="input-luxury">
-                        <input id="add-a" type="text" placeholder="المنطقة" class="input-luxury">
-                        <input id="add-p" type="number" placeholder="السعر" class="input-luxury">
-                        <select id="add-t" class="input-luxury"><option value="resale">ريسيل</option><option value="primary">برايمري</option></select>
-                        <button onclick="saveNewUnit()" class="col-span-2 bg-gold text-black py-5 rounded-2xl font-black text-xl">تأكيد الإضافة</button>
-                    </div>`;
-            } else if (page === 'settings') {
-                content.innerHTML = `
-                    <h2 class="text-4xl font-black text-gold italic mb-10">إعدادات الموقع</h2>
-                    <div class="bg-black/40 p-10 rounded-[40px] border border-zinc-800 max-w-2xl">
-                        <label class="block text-zinc-500 text-xs font-black mb-4">السلوجان الرئيسي (Slogan)</label>
-                        <textarea id="set-s" rows="5" class="input-luxury mb-8">${DB.settings.slogan}</textarea>
-                        <button onclick="saveSettings()" class="bg-gold text-black px-12 py-4 rounded-xl font-black">حفظ التغييرات</button>
-                    </div>`;
+                    </div>
+                `;
+            } else if(section === 'add') {
+                main.innerHTML = `
+                    <h2 class="text-4xl font-black gold-text italic mb-16">إضافة وحدة عقارية جديدة</h2>
+                    <div class="bg-zinc-900/50 p-12 rounded-[50px] border border-zinc-800">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+                            <input type="number" id="in-code" placeholder="كود الوحدة" class="luxury-input">
+                            <input type="text" id="in-title" placeholder="عنوان الوحدة" class="luxury-input">
+                            <input type="text" id="in-area" placeholder="المنطقة" class="luxury-input">
+                            <input type="number" id="in-price" placeholder="السعر الكلي" class="luxury-input">
+                            <input type="number" id="in-space" placeholder="المساحة" class="luxury-input">
+                            <select id="in-type" class="luxury-input">
+                                <option value="resale">ريسيل (استلام فوري)</option>
+                                <option value="primary">برايمري (تحت الإنشاء)</option>
+                            </select>
+                        </div>
+                        <button onclick="commitNewUnit()" class="w-full bg-gold text-black py-6 rounded-3xl font-black text-xl shadow-2xl hover:brightness-110">حفظ وإضافة للمخزون</button>
+                    </div>
+                `;
+            } else if(section === 'settings') {
+                main.innerHTML = `
+                    <h2 class="text-4xl font-black gold-text italic mb-16">إعدادات المنصة</h2>
+                    <div class="bg-zinc-900/50 p-12 rounded-[50px] border border-zinc-800 max-w-2xl">
+                        <div class="mb-10">
+                            <label class="block text-zinc-500 font-bold mb-4 uppercase text-xs tracking-widest">رسالة السلوجان الرئيسية</label>
+                            <textarea id="set-slogan" rows="8" class="luxury-input leading-relaxed">${STR_DATA.config.slogan}</textarea>
+                        </div>
+                        <button onclick="updateSettings()" class="bg-gold text-black px-12 py-5 rounded-2xl font-black shadow-xl">تحديث إعدادات الموقع</button>
+                    </div>
+                `;
             }
-        };
+        }
 
-        // --- 7. Admin Operations ---
-        window.saveNewUnit = () => {
-            const u = {
-                id: Date.now(),
-                code: document.getElementById('add-c').value,
-                area: document.getElementById('add-a').value,
-                price: parseInt(document.getElementById('add-p').value),
-                space: 150, rooms: 3,
-                type: document.getElementById('add-t').value,
-                img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
-            };
-            DB.units.unshift(u);
-            alert("تمت الإضافة!");
-            showAdminPage('inventory');
-        };
+        // 7. Data Actions
+        function commitNewUnit() {
+            const c = document.getElementById('in-code').value;
+            const t = document.getElementById('in-title').value;
+            const a = document.getElementById('in-area').value;
+            const p = document.getElementById('in-price').value;
+            const ty = document.getElementById('in-type').value;
 
-        window.deleteUnit = (id) => {
-            if(confirm("مسح الوحدة؟")) {
-                DB.units = DB.units.filter(u => u.id !== id);
-                showAdminPage('inventory');
+            if(!c || !t || !a || !p) return alert("يرجى إدخال البيانات الأساسية!");
+
+            STR_DATA.inventory.unshift({
+                uid: 'UNIT-' + Date.now(),
+                code: parseInt(c),
+                title: t,
+                area: a,
+                price: parseInt(p),
+                space: 140,
+                rooms: 3,
+                type: ty,
+                thumbnail: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?q=80&w=1000",
+                timestamp: new Date().toLocaleDateString('ar-EG')
+            });
+
+            alert("تمت إضافة الوحدة بنجاح!");
+            loadAdminSection('inventory');
+        }
+
+        function deleteUnit(uid) {
+            if(confirm("هل أنت متأكد من حذف هذه الوحدة؟")) {
+                STR_DATA.inventory = STR_DATA.inventory.filter(u => u.uid !== uid);
+                loadAdminSection('inventory');
             }
-        };
+        }
 
-        window.saveSettings = () => {
-            DB.settings.slogan = document.getElementById('set-s').value;
-            document.getElementById('display-slogan').innerText = DB.settings.slogan;
-            alert("تم التحديث!");
-        };
+        function updateSettings() {
+            STR_DATA.config.slogan = document.getElementById('set-slogan').value;
+            refreshSloganDisplay();
+            alert("تم تحديث السلوجان بنجاح!");
+        }
 
-        window.exportData = () => {
-            const ws = XLSX.utils.json_to_sheet(DB.units);
+        function refreshSloganDisplay() {
+            document.getElementById('slogan-container').innerText = STR_DATA.config.slogan;
+        }
+
+        function exportToExcel() {
+            const ws = XLSX.utils.json_to_sheet(STR_DATA.inventory);
             const wb = XLSX.utils.book_new();
-            XLSX.utils.book_append_sheet(wb, ws, "STR_Inventory");
+            XLSX.utils.book_append_sheet(wb, ws, "Inventory");
             XLSX.writeFile(wb, "STR_Inventory_2026.xlsx");
+        }
+
+        function secureLogout() {
+            STR_DATA.session.isLogged = false;
+            STR_DATA.session.activeUser = null;
+            document.getElementById('adminPortal').style.display = 'none';
+        }
+
+        function closeAllModals() {
+            document.querySelectorAll('.modal-fullscreen').forEach(m => m.style.display = 'none');
+        }
+
+        // 8. Bootstrap
+        window.onload = () => {
+            console.log("STR Engine Initialization...");
+            generateInitialData();
+            navigateTo('home');
         };
 
-        window.closeAll = () => {
-            document.querySelectorAll('.modal-overlay').forEach(m => m.style.display = 'none');
-        };
-
-        // Start
-        window.onload = initializeSystem;
     </script>
 </body>
 </html>
