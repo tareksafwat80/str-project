@@ -449,6 +449,7 @@
                 <button class="admin-tab-btn active" onclick="showAdminTab('stats')">الإحصائيات</button>
                 <button class="admin-tab-btn" onclick="showAdminTab('units')">إدارة الوحدات</button>
                 <button class="admin-tab-btn" onclick="showAdminTab('crm')">إدارة CRM</button>
+                <button class="admin-tab-btn" onclick="showAdminTab('employees')">الموظفين</button>
                 <button class="admin-tab-btn" onclick="showAdminTab('import')">استيراد البيانات</button>
             </div>
 
@@ -527,6 +528,35 @@
                 <div class="mt-8">
                     <h3 class="gold-text text-xl mb-4 font-bold">قائمة Leads</h3>
                     <div id="leadsList" class="bg-zinc-900 rounded-xl border border-gold/30 overflow-x-auto"></div>
+                </div>
+            </div>
+
+            <!-- Employees Tab -->
+            <div id="admin-employees" class="admin-tab-content">
+                <div class="grid md:grid-cols-2 gap-8">
+                    <div class="bg-zinc-900 p-6 rounded-xl border border-gold/30">
+                        <h3 class="gold-text text-xl mb-4 font-bold">إضافة موظف</h3>
+                        <form onsubmit="addEmployee(event)" class="space-y-4">
+                            <input type="text" placeholder="الاسم" required class="form-input">
+                            <input type="tel" placeholder="الهاتف" required class="form-input">
+                            <input type="email" placeholder="البريد الإلكتروني" required class="form-input">
+                            <select required class="form-input">
+                                <option value="">اختر الدور</option>
+                                <option value="sales">سيلز</option>
+                                <option value="manager">مدير مبيعات</option>
+                                <option value="admin">مدير</option>
+                            </select>
+                            <label class="flex items-center gap-2 text-white cursor-pointer">
+                                <input type="checkbox" class="w-4 h-4">
+                                <span>صلاحية إضافة وحدات</span>
+                            </label>
+                            <button type="submit" class="w-full btn-primary">إضافة موظف</button>
+                        </form>
+                    </div>
+                </div>
+                <div class="mt-8">
+                    <h3 class="gold-text text-xl mb-4 font-bold">قائمة الموظفين</h3>
+                    <div id="employeesList" class="bg-zinc-900 rounded-xl border border-gold/30 overflow-x-auto"></div>
                 </div>
             </div>
 
