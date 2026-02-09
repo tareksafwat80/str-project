@@ -1293,3 +1293,38 @@ function openUnit(id) {
     
     document.getElementById('unitModal').style.display = 'block';
 }
+// --- إضافات تحسينية لملف app.js (أضفها في النهاية) ---
+
+// تحسين البحث ليشمل المنطقة والكود ونوع العقار معاً
+function advancedSearch() {
+    const query = document.getElementById('searchQuery').value.toLowerCase();
+    const filtered = units.filter(unit => 
+        unit.code.toLowerCase().includes(query) || 
+        unit.zone.toLowerCase().includes(query) || 
+        unit.type.toLowerCase().includes(query)
+    );
+    renderFilteredUnits(filtered);
+}
+
+// دالة لإخفاء شاشة التحميل عند انتهاء تحميل الصفحة
+window.addEventListener('load', () => {
+    const loader = document.getElementById('loader');
+    if (loader) {
+        loader.classList.add('loader-hidden');
+        setTimeout(() => loader.style.display = 'none', 500);
+    }
+});
+
+// زر العودة للأعلى
+window.onscroll = function() {
+    const btn = document.getElementById('backToTop');
+    if (document.body.scrollTop > 300 || document.documentElement.scrollTop > 300) {
+        btn.style.display = "block";
+    } else {
+        btn.style.display = "none";
+    }
+};
+
+function scrollToTop() {
+    window.scrollTo({top: 0, behavior: 'smooth'});
+}
