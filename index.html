@@ -3,28 +3,29 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>STR - Summit Team Real Estate 2026</title>
+    <title>STR - Summit Team Real Estate | النسخة الكاملة</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700;900&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #d4af37; --black: #0a0a0a; --zinc: #18181b; }
-        body { font-family: 'Cairo', sans-serif; background-color: var(--black); color: white; scroll-behavior: smooth; }
+        body { font-family: 'Cairo', sans-serif; background-color: var(--black); color: white; overflow-x: hidden; }
         .gold-text { color: var(--gold); }
         .bg-gold { background-color: var(--gold); color: black; }
         .tab-content { display: none; }
         .active-tab { display: block; }
         .nav-btn { cursor: pointer; transition: 0.3s; padding: 10px 15px; border-bottom: 2px solid transparent; font-weight: bold; font-size: 14px; color: #a1a1aa; }
-        .nav-btn:hover, .nav-btn.active { border-bottom: 2px solid var(--gold); color: var(--gold); }
-        
-        /* Unit Cards */
-        .unit-card { background: var(--zinc); border: 1px solid #27272a; border-radius: 15px; overflow: hidden; transition: 0.3s; }
+        .nav-btn.active { border-bottom: 2px solid var(--gold); color: var(--gold); }
+        .unit-card { background: var(--zinc); border: 1px solid #27272a; border-radius: 15px; overflow: hidden; transition: 0.3s; cursor: pointer; }
         .unit-card:hover { border-color: var(--gold); transform: translateY(-5px); }
-
-        /* Modals */
-        .modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.95); overflow-y: auto; padding: 20px; }
-        .admin-sidebar { background: #000; border-left: 1px solid #27272a; height: 100vh; padding: 30px 15px; }
+        
+        /* Slider & Modal Custom */
+        .modal { display: none; position: fixed; z-index: 1000; inset: 0; background: rgba(0,0,0,0.98); overflow-y: auto; padding: 20px; }
+        .slider-img { width: 100%; height: 300px; object-fit: cover; display: none; }
+        .slider-img.active { display: block; }
+        .spec-box { background: #1a1a1a; border: 1px solid #333; padding: 12px; border-radius: 10px; text-align: center; }
+        
         input, select, textarea { background: #1a1a1a !important; border: 1px solid #333 !important; color: white !important; padding: 12px; border-radius: 12px; outline: none; width: 100%; }
     </style>
 </head>
@@ -34,16 +35,16 @@
         <div class="container mx-auto px-4 py-3 flex flex-col md:flex-row justify-between items-center">
             <div class="flex items-center gap-4 mb-4 md:mb-0" onclick="showTab('home')" style="cursor:pointer">
                 <div class="text-3xl font-black gold-text italic">STR</div>
-                <input type="text" id="globalSearch" placeholder="بحث بالكود أو المنطقة..." class="bg-zinc-900 border border-zinc-700 rounded-full px-4 py-1 text-sm focus:border-gold outline-none w-40 md:w-64">
+                <input type="text" id="globalSearch" oninput="renderUnits()" placeholder="بحث عام..." class="bg-zinc-900 border border-zinc-700 rounded-full px-4 py-1 text-sm focus:border-gold outline-none w-40 md:w-64">
             </div>
-
             <div class="flex flex-wrap justify-center gap-1">
                 <div class="nav-btn active" onclick="showTab('home')">الرئيسية</div>
                 <div class="nav-btn" onclick="showTab('about')">عن الشركة</div>
+                <div class="nav-btn" onclick="showTab('partners')">شركاؤنا</div>
                 <div class="nav-btn" onclick="showTab('resale')">ريسيل</div>
                 <div class="nav-btn" onclick="showTab('primary')">برايمري</div>
                 <div class="nav-btn" onclick="showTab('rentals')">إيجار فندقي</div>
-                <button onclick="openAdmin()" class="bg-red-900/20 text-red-500 px-4 py-2 rounded-xl text-xs font-bold border border-red-900/30 mr-2">لوحة التحكم</button>
+                <button onclick="openAdmin()" class="bg-red-900/20 text-red-500 px-4 py-2 rounded-xl text-xs font-bold border border-red-900/30 mr-2">الأدمن</button>
             </div>
         </div>
     </nav>
@@ -51,96 +52,119 @@
     <main class="container mx-auto px-4 py-8">
         <section id="home" class="tab-content active-tab text-center py-24">
             <h1 class="text-7xl md:text-9xl font-black italic gold-text mb-4 uppercase">Summit Team</h1>
-            <h2 class="text-3xl md:text-5xl font-light tracking-[15px] text-white/80 mb-10">REAL ESTATE</h2>
-            <div class="w-20 h-1 bg-gold mx-auto mb-10 shadow-[0_0_10px_#d4af37]"></div>
             <p id="slogan-display" class="text-zinc-400 italic text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed"></p>
         </section>
 
         <section id="about" class="tab-content py-10"></section>
-        <section id="partners" class="tab-content py-10"></section>
-        <section id="areas" class="tab-content py-10"></section>
+
+        <section id="partners" class="tab-content py-10">
+            <h2 class="text-3xl gold-text text-center mb-10 font-bold italic">شركاء النجاح</h2>
+            <div id="partners-grid" class="grid grid-cols-2 md:grid-cols-4 gap-4"></div>
+        </section>
 
         <section id="units-section" class="tab-content">
-            <div class="flex flex-col md:flex-row justify-between items-center mb-10 gap-4">
-                <h3 id="category-title" class="text-3xl font-bold gold-text italic"></h3>
-                <div class="flex gap-2">
-                    <select id="filterZone" onchange="renderUnits()" class="w-32 text-xs"></select>
-                    <input type="number" id="filterPrice" oninput="renderUnits()" placeholder="أقصى سعر..." class="w-32 text-xs">
-                </div>
+            <div class="bg-zinc-900 p-6 rounded-2xl border border-zinc-800 mb-10 flex flex-wrap gap-4 items-center">
+                <select id="filterZone" onchange="renderUnits()" class="w-40 text-xs"></select>
+                <select id="filterRooms" onchange="renderUnits()" class="w-32 text-xs">
+                    <option value="">عدد الغرف</option>
+                    <option value="1">1 غرف</option><option value="2">2 غرف</option><option value="3">3 غرف</option><option value="4">4+ غرف</option>
+                </select>
+                <input type="number" id="filterPrice" oninput="renderUnits()" placeholder="أقصى سعر..." class="w-40 text-xs">
+                <button onclick="clearFilters()" class="mr-auto text-xs text-zinc-500 border border-zinc-700 px-4 py-2 rounded-xl hover:text-white">مسح الفلاتر</button>
             </div>
             <div id="units-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
         </section>
     </main>
 
+    <div id="unitModal" class="modal" onclick="closeModal()">
+        <div class="max-w-2xl mx-auto bg-zinc-900 rounded-3xl overflow-hidden border border-gold/30" onclick="event.stopPropagation()">
+            <div id="slider-container" class="relative bg-black h-[300px]">
+                <button onclick="prevImg()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full gold-text z-10">❮</button>
+                <button onclick="nextImg()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full gold-text z-10">❯</button>
+            </div>
+            <div class="bg-red-900 text-white px-6 py-3 flex justify-between font-black italic">
+                <span id="m-code"></span><span>CODE</span>
+            </div>
+            <div class="p-6">
+                <div class="grid grid-cols-2 gap-3 mb-6">
+                    <div class="spec-box"><p class="text-[10px] gold-text">العنوان</p><p id="m-address" class="text-sm font-bold"></p></div>
+                    <div class="spec-box"><p class="text-[10px] gold-text">المواصفات</p><p id="m-specs" class="text-sm font-bold"></p></div>
+                    <div class="spec-box"><p class="text-[10px] gold-text">الماليات</p><p id="m-finance" class="text-sm font-bold text-green-500"></p></div>
+                    <div class="spec-box"><p class="text-[10px] gold-text">نظام التقسيط</p><p id="m-plan" class="text-sm font-bold"></p></div>
+                </div>
+                <div class="bg-black/40 p-4 rounded-xl mb-6">
+                    <p id="m-notes" class="text-xs text-zinc-400 leading-relaxed"></p>
+                </div>
+                <button id="wa-btn" class="w-full bg-green-600 py-4 rounded-2xl font-black flex items-center justify-center gap-3 text-lg hover:bg-green-500 transition">
+                    <i class="fab fa-whatsapp"></i> تواصل مع المستشار العقاري
+                </button>
+            </div>
+        </div>
+    </div>
+
     <div id="adminModal" class="modal">
         <div class="flex flex-col md:flex-row min-h-screen">
-            <aside class="w-full md:w-64 admin-sidebar">
-                <h2 class="text-2xl font-black gold-text mb-10 text-center">إدارة STR</h2>
+            <aside class="w-full md:w-64 p-6 border-l border-zinc-800">
+                <h2 class="text-2xl font-black gold-text mb-10 italic">STR ADMIN</h2>
                 <div class="space-y-2">
-                    <button onclick="renderAdmin('inventory')" class="w-full text-right p-4 rounded-xl hover:bg-zinc-900 transition">📦 الوحدات</button>
-                    <button onclick="renderAdmin('crm')" class="w-full text-right p-4 rounded-xl hover:bg-zinc-900 transition text-blue-400">👥 سجل التحويلات (CRM)</button>
+                    <button onclick="renderAdmin('inv')" class="w-full text-right p-4 rounded-xl hover:bg-zinc-800">📦 المخزون</button>
+                    <button onclick="renderAdmin('crm')" class="w-full text-right p-4 rounded-xl hover:bg-zinc-800">👥 سجل التحويلات</button>
                     <button onclick="renderAdmin('add')" class="w-full text-right p-4 rounded-xl bg-green-900/20 text-green-500">➕ إضافة وحدة</button>
-                    <button onclick="renderAdmin('settings')" class="w-full text-right p-4 rounded-xl hover:bg-zinc-900 transition">⚙️ الإعدادات</button>
+                    <button onclick="renderAdmin('set')" class="w-full text-right p-4 rounded-xl hover:bg-zinc-800">⚙️ الإعدادات</button>
                 </div>
-                <button onclick="closeAdmin()" class="mt-20 w-full p-4 text-zinc-500 border border-zinc-800 rounded-xl">خروج للموقع</button>
+                <button onclick="closeAdmin()" class="mt-20 w-full p-4 text-zinc-500 border border-zinc-800 rounded-xl font-bold">خروج للموقع</button>
             </aside>
-            <main id="admin-main-content" class="flex-1 p-8 md:p-16"></main>
+            <main id="admin-view" class="flex-1 p-8 md:p-16"></main>
         </div>
     </div>
 
     <script>
-        // دمج البيانات والتعديلات
         const state = {
-            slogan: "STR - قمة العقارات في مصر. نحن نوفر لك أفضل الفرص الاستثمارية والسكنية بأعلى معايير الجودة | 2026",
+            slogan: "STR - قمة العقارات في مصر. نوفر لك أفضل الفرص السكنية والاستثمارية بأعلى معايير الجودة | 2026",
             units: [],
             leads: [],
-            team: [
-                { name: "فريق مبيعات مدينتي", user: "sales1", load: 0 },
-                { name: "فريق مبيعات التجمع", user: "sales2", load: 0 }
-            ],
-            areas: ["مدينتي", "الرحاب", "العاصمة الإدارية", "التجمع", "الشيخ زايد", "الساحل الشمالي"],
-            currentTab: 'home',
-            currentCat: 'resale'
+            team: [{ name: "فريق مبيعات A", load: 0 }, { name: "فريق مبيعات B", load: 0 }],
+            partners: ["طلعت مصطفى", "إعمار", "سوديك", "نيو جيزة", "ماونتن فيو", "بالم هيلز", "أورا", "سيتي إيدج"],
+            areas: ["مدينتي", "الرحاب", "العاصمة الإدارية", "التجمع", "الساحل الشمالي"],
+            currentIdx: 0
         };
 
-        // توليد بيانات تجريبية (30 وحدة)
-        function initData() {
-            const categories = ['resale', 'primary', 'rentals'];
-            for(let i=0; i<30; i++) {
-                const cat = categories[Math.floor(i/10)];
+        function init() {
+            const cats = ['resale', 'primary', 'rentals'];
+            for(let i=0; i<30; i++){
+                const cat = cats[Math.floor(i/10)];
                 state.units.push({
                     id: Date.now() + i,
                     code: (cat === 'resale' ? 7000 : (cat === 'primary' ? 8000 : 9000)) + i,
                     type: cat,
-                    price: (i + 1) * 850000,
+                    price: (i + 1) * 900000,
                     zone: state.areas[i % state.areas.length],
-                    space: 90 + (i * 10),
+                    space: 100 + (i * 5),
                     rooms: (i % 3) + 1,
-                    img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
+                    downPayment: (i + 1) * 100000,
+                    installments: 7,
+                    waClicks: Math.floor(Math.random() * 15),
+                    imgs: ["https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800", "https://images.unsplash.com/photo-1600585154340-be6161a56a0c?w=800"]
                 });
             }
             document.getElementById('slogan-display').innerText = state.slogan;
-            const zs = document.getElementById('filterZone');
-            zs.innerHTML = '<option value="">كل المناطق</option>' + state.areas.map(a => `<option value="${a}">${a}</option>`).join('');
+            document.getElementById('filterZone').innerHTML = '<option value="">كل المناطق</option>' + state.areas.map(a => `<option value="${a}">${a}</option>`).join('');
+            renderPartners();
         }
 
         function showTab(tab) {
-            state.currentTab = tab;
             document.querySelectorAll('.tab-content').forEach(s => s.classList.remove('active-tab'));
             document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
             
             if(['resale', 'primary', 'rentals'].includes(tab)) {
                 state.currentCat = tab;
                 document.getElementById('units-section').classList.add('active-tab');
-                document.getElementById('category-title').innerText = tab === 'resale' ? 'وحدات ريسيل' : (tab === 'primary' ? 'وحدات برايمري' : 'إيجار فندقي');
                 renderUnits();
             } else {
                 document.getElementById(tab).classList.add('active-tab');
                 if(tab === 'about') renderAbout();
             }
-            
-            // Highlight active button
-            const btn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.innerText.includes(tab === 'resale' ? 'ريسيل' : ''));
+            const btn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.innerText.toLowerCase().includes(tab.slice(0,3)));
             if(btn) btn.classList.add('active');
         }
 
@@ -148,146 +172,103 @@
             const grid = document.getElementById('units-grid');
             const search = document.getElementById('globalSearch').value.toLowerCase();
             const maxPrice = document.getElementById('filterPrice').value;
+            const rooms = document.getElementById('filterRooms').value;
             const zone = document.getElementById('filterZone').value;
 
             const filtered = state.units.filter(u => 
                 u.type === state.currentCat &&
                 (u.code.toString().includes(search) || u.zone.includes(search)) &&
                 (!maxPrice || u.price <= maxPrice) &&
+                (!rooms || u.rooms == rooms) &&
                 (!zone || u.zone === zone)
             );
 
             grid.innerHTML = filtered.map(u => `
-                <div class="unit-card">
-                    <img src="${u.img}" class="h-44 w-full object-cover">
+                <div class="unit-card" onclick="openUnit(${u.id})">
+                    <img src="${u.imgs[0]}" class="h-44 w-full object-cover">
                     <div class="p-5">
-                        <div class="flex justify-between text-[10px] gold-text mb-2 font-bold uppercase"><span>CODE: ${u.code}</span><span>${u.zone}</span></div>
+                        <div class="flex justify-between text-[10px] gold-text mb-2 font-bold"><span>CODE: ${u.code}</span><span>${u.zone}</span></div>
                         <h4 class="text-xl font-black mb-1">${u.price.toLocaleString()} EGP</h4>
-                        <p class="text-xs text-zinc-500 mb-6">${u.rooms} غرف | ${u.space} م²</p>
-                        <button onclick="handleWhatsApp(${u.code})" class="w-full bg-gold py-3 rounded-xl font-bold hover:brightness-110 transition">واتساب الآن</button>
+                        <p class="text-[10px] text-zinc-500">${u.rooms} غرف | ${u.space} م²</p>
                     </div>
                 </div>
             `).join('');
         }
 
-        // نظام الـ CRM وتوزيع الموظفين (Round Robin)
-        function handleWhatsApp(code) {
-            state.team.sort((a, b) => a.load - b.load); // الأقل ضغطاً أولاً
-            const agent = state.team[0];
-            agent.load++;
+        function openUnit(id) {
+            const u = state.units.find(u => u.id === id);
+            state.activeUnit = u;
+            state.currentIdx = 0;
             
-            state.leads.unshift({
-                code, 
-                agent: agent.name, 
-                time: new Date().toLocaleString('ar-EG')
-            });
-
-            window.open(`https://wa.me/201159333060?text=استفسار عن الوحدة كود: ${code}`);
+            document.getElementById('slider-container').innerHTML = u.imgs.map((img, i) => `<img src="${img}" class="slider-img ${i===0?'active':''}">`).join('') + 
+                `<button onclick="prevImg()" class="absolute left-4 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full gold-text">❮</button>
+                 <button onclick="nextImg()" class="absolute right-4 top-1/2 -translate-y-1/2 bg-black/50 p-2 rounded-full gold-text">❯</button>`;
+            
+            document.getElementById('m-code').innerText = u.code;
+            document.getElementById('m-address').innerText = u.zone;
+            document.getElementById('m-specs').innerText = `${u.rooms} غرف - ${u.space} م²`;
+            document.getElementById('m-finance').innerText = `الإجمالي: ${u.price.toLocaleString()} EGP`;
+            document.getElementById('m-plan').innerText = `مقدم: ${u.downPayment.toLocaleString()} | تقسيط ${u.installments} سنوات`;
+            document.getElementById('m-notes').innerText = "هذه الوحدة تخضع لمعايير الجودة الفائقة من STR، استلام فوري أو تعاقد بنظام مريح.";
+            
+            document.getElementById('unitModal').style.display = 'block';
+            document.getElementById('wa-btn').onclick = () => handleWA(u);
         }
 
-        // لوحة التحكم (Admin)
-        function openAdmin() {
-            const p = prompt("كلمة السر:");
-            if(p === "str2026") {
-                document.getElementById('adminModal').style.display = 'block';
-                renderAdmin('inventory');
-            }
+        function nextImg() {
+            const imgs = document.querySelectorAll('.slider-img');
+            imgs[state.currentIdx].classList.remove('active');
+            state.currentIdx = (state.currentIdx + 1) % imgs.length;
+            imgs[state.currentIdx].classList.add('active');
         }
 
-        function closeAdmin() { document.getElementById('adminModal').style.display = 'none'; }
+        function prevImg() {
+            const imgs = document.querySelectorAll('.slider-img');
+            imgs[state.currentIdx].classList.remove('active');
+            state.currentIdx = (state.currentIdx - 1 + imgs.length) % imgs.length;
+            imgs[state.currentIdx].classList.add('active');
+        }
+
+        function handleWA(u) {
+            u.waClicks++;
+            state.team.sort((a,b) => a.load - b.load);
+            state.team[0].load++;
+            state.leads.unshift({ code: u.code, agent: state.team[0].name, time: new Date().toLocaleString('ar-EG') });
+            window.open(`https://wa.me/201159333060?text=استفسار عن الوحدة كود: ${u.code}`);
+        }
 
         function renderAdmin(page) {
-            const content = document.getElementById('admin-main-content');
-            if(page === 'inventory') {
-                content.innerHTML = `
-                    <div class="flex justify-between items-center mb-10">
-                        <h2 class="text-3xl font-bold gold-text">المخزون (${state.units.length})</h2>
-                        <button onclick="exportExcel()" class="bg-green-700 text-white px-6 py-2 rounded-xl text-sm font-bold">تصدير EXCEL</button>
-                    </div>
-                    <div class="space-y-3">
-                        ${state.units.slice(0, 15).map(u => `<div class="p-4 bg-zinc-900 rounded-xl flex justify-between"><span>#${u.code} - ${u.zone}</span><button onclick="deleteUnit(${u.id})" class="text-red-500">حذف</button></div>`).join('')}
-                        <p class="text-center text-zinc-500 mt-4 italic">يتم عرض أول 15 وحدة فقط...</p>
-                    </div>`;
+            const view = document.getElementById('admin-view');
+            if(page === 'inv') {
+                view.innerHTML = `<div class="flex justify-between items-center mb-10"><h2 class="text-3xl font-bold gold-text">المخزون</h2><button onclick="exportExcel()" class="bg-green-700 px-6 py-2 rounded-xl font-bold">تصدير EXCEL</button></div>
+                <div class="grid gap-3">${state.units.map(u => `<div class="p-4 bg-zinc-900 rounded-xl flex justify-between items-center"><span>#${u.code} - ${u.zone}</span><span class="text-xs gold-text">واتساب: ${u.waClicks}</span><button onclick="deleteUnit(${u.id})" class="text-red-500">حذف</button></div>`).join('')}</div>`;
             } else if(page === 'crm') {
-                content.innerHTML = `
-                    <h2 class="text-3xl font-bold gold-text mb-10">سجل التحويلات (CRM)</h2>
-                    <div class="space-y-4">
-                        ${state.leads.length === 0 ? '<p>لا يوجد تحويلات اليوم</p>' : state.leads.map(l => `
-                            <div class="p-6 bg-zinc-900 rounded-2xl border-r-4 border-gold">
-                                <p class="font-bold">عميل مهتم بالكود: ${l.code}</p>
-                                <p class="text-xs text-zinc-500">تم التحويل لـ: ${l.agent} | الساعة: ${l.time}</p>
-                            </div>
-                        `).join('')}
-                    </div>`;
-            } else if(page === 'settings') {
-                content.innerHTML = `
-                    <h2 class="text-3xl font-bold gold-text mb-10">إعدادات المنصة</h2>
-                    <div class="max-w-xl space-y-6">
-                        <div>
-                            <label class="block mb-2 text-zinc-500">سلوجان الصفحة الرئيسية</label>
-                            <textarea id="new-slogan" rows="4">${state.slogan}</textarea>
-                        </div>
-                        <button onclick="saveSettings()" class="bg-gold px-10 py-3 rounded-xl font-bold">حفظ التغييرات</button>
-                    </div>`;
+                view.innerHTML = `<h2 class="text-3xl font-bold gold-text mb-10 italic">سجل العملاء</h2>
+                <div class="space-y-4">${state.leads.map(l => `<div class="p-4 bg-zinc-900 rounded-xl border-r-4 border-gold"><p>كود ${l.code} -> ${l.agent}</p><small class="text-zinc-500">${l.time}</small></div>`).join('')}</div>`;
             } else if(page === 'add') {
-                content.innerHTML = `<h2 class="text-3xl font-bold gold-text mb-10">إضافة وحدة جديدة</h2>
-                <div class="grid md:grid-cols-2 gap-4 max-w-2xl">
-                    <input id="add-c" placeholder="كود الوحدة">
-                    <select id="add-z">${state.areas.map(a=>`<option>${a}</option>`)}</select>
-                    <input id="add-p" placeholder="السعر">
-                    <select id="add-t"><option value="resale">ريسيل</option><option value="primary">برايمري</option></select>
-                    <button onclick="saveNewUnit()" class="md:col-span-2 bg-gold py-4 rounded-xl font-bold mt-4">إضافة للموقع</button>
-                </div>`;
+                view.innerHTML = `<h2 class="text-3xl font-bold gold-text mb-10">إضافة وحدة</h2>
+                <div class="grid md:grid-cols-2 gap-4 max-w-xl"><input id="ac" placeholder="الكود"><input id="az" placeholder="المنطقة"><input id="ap" placeholder="السعر"><input id="ad" placeholder="المقدم"><select id="at"><option value="resale">ريسيل</option><option value="primary">برايمري</option></select><button onclick="saveUnit()" class="md:col-span-2 bg-gold py-4 rounded-xl font-black">إضافة للموقع</button></div>`;
             }
-        }
-
-        function saveSettings() {
-            state.slogan = document.getElementById('new-slogan').value;
-            document.getElementById('slogan-display').innerText = state.slogan;
-            alert("تم التحديث!");
-        }
-
-        function saveNewUnit() {
-            state.units.unshift({
-                id: Date.now(),
-                code: document.getElementById('add-c').value,
-                zone: document.getElementById('add-z').value,
-                price: parseInt(document.getElementById('add-p').value),
-                type: document.getElementById('add-t').value,
-                img: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"
-            });
-            alert("تمت الإضافة!");
-            renderAdmin('inventory');
-        }
-
-        function deleteUnit(id) {
-            state.units = state.units.filter(u => u.id !== id);
-            renderAdmin('inventory');
         }
 
         function exportExcel() {
             const ws = XLSX.utils.json_to_sheet(state.units);
             const wb = XLSX.utils.book_new();
             XLSX.utils.book_append_sheet(wb, ws, "Inventory");
-            XLSX.writeFile(wb, "STR_Inventory_2026.xlsx");
+            XLSX.writeFile(wb, "STR_Full_Report_2026.xlsx");
         }
 
-        function renderAbout() {
-            document.getElementById('about').innerHTML = `
-                <div class="max-w-4xl mx-auto text-center space-y-10">
-                    <div class="p-10 bg-zinc-900 rounded-3xl border border-zinc-800">
-                        <h2 class="text-3xl gold-text mb-6 font-black">رؤية STR</h2>
-                        <p class="leading-relaxed">نحن نؤمن بأن العقار ليس مجرد جدران، بل هو استثمار في المستقبل. نسعى لتقديم أدق التفاصيل لعملائنا لضمان اتخاذ القرار الصحيح.</p>
-                    </div>
-                </div>`;
+        function renderPartners() {
+            document.getElementById('partners-grid').innerHTML = state.partners.map(p => `
+                <div class="p-6 bg-zinc-900 border border-zinc-800 rounded-xl text-center hover:border-gold transition">
+                    <i class="fa fa-building gold-text mb-2 text-xl"></i><p class="text-xs font-bold">${p}</p>
+                </div>`).join('');
         }
 
-        // تشغيل النظام
-        window.onload = () => {
-            initData();
-            showTab('home');
-        };
-        document.getElementById('globalSearch').oninput = renderUnits;
+        function closeModal() { document.getElementById('unitModal').style.display = 'none'; }
+        function openAdmin() { if(prompt("كلمة السر:") === "str2026") { document.getElementById('adminModal').style.display = 'block'; renderAdmin('inv'); } }
+        function closeAdmin() { document.getElementById('adminModal').style.display = 'none'; }
+        window.onload = init;
     </script>
 </body>
 </html>
