@@ -408,6 +408,61 @@ function renderDashboard() {
     `;
 }
 
+// ==================== ADMIN PANEL ====================
+
+function openAdminLogin() {
+    document.getElementById('adminLoginModal').style.display = 'block';
+}
+
+function closeModal() {
+    document.getElementById('adminLoginModal').style.display = 'none';
+    document.getElementById('adminPassword').value = '';
+}
+
+function closeAdmin() {
+    document.getElementById('adminModal').style.display = 'none';
+}
+
+function checkAdminPassword() {
+    const password = document.getElementById('adminPassword').value;
+    if (password === ADMIN_PASSWORD) {
+        document.getElementById('adminLoginModal').style.display = 'none';
+        document.getElementById('adminModal').style.display = 'block';
+        showAdminTab('stats');
+        renderAdminStats();
+    } else {
+        alert('كلمة السر غير صحيحة!');
+        document.getElementById('adminPassword').value = '';
+    }
+}
+
+function renderAdminStats() {
+    const statsDiv = document.getElementById('adminStats');
+    const totalUnits = units.length;
+    const totalLeads = leads.length;
+    const newLeads = leads.filter(l => l.status === 'new').length;
+    const convertedLeads = leads.filter(l => l.status === 'converted').length;
+    
+    statsDiv.innerHTML = `
+        <div class="bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">إجمالي الوحدات</p>
+            <p class="text-3xl font-bold gold-text">${totalUnits}</p>
+        </div>
+        <div class="bg-gradient-to-br from-blue-900/20 to-blue-900/5 border border-blue-500/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">إجمالي Leads</p>
+            <p class="text-3xl font-bold text-blue-400">${totalLeads}</p>
+        </div>
+        <div class="bg-gradient-to-br from-yellow-900/20 to-yellow-900/5 border border-yellow-500/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">Leads جديد</p>
+            <p class="text-3xl font-bold text-yellow-400">${newLeads}</p>
+        </div>
+        <div class="bg-gradient-to-br from-green-900/20 to-green-900/5 border border-green-500/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">Leads محول</p>
+            <p class="text-3xl font-bold text-green-400">${convertedLeads}</p>
+        </div>
+    `;
+}
+
 // ==================== INITIALIZATION ====================
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -467,3 +522,184 @@ document.addEventListener('click', (e) => {
         }
     }
 });
+
+
+// ==================== LANGUAGE SWITCH ====================
+
+let lang = 'ar';
+
+function toggleLanguage() {
+    lang = lang === 'ar' ? 'en' : 'ar';
+    document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    document.documentElement.lang = lang;
+    document.getElementById('langToggle').textContent = lang === 'ar' ? 'English' : 'عربي';
+    renderAbout();
+}
+
+function switchUnitTab(tab) {
+    currentUnitTab = tab;
+    const btns = document.querySelectorAll('.nav-btn');
+    btns.forEach(b => b.classList.remove('active'));
+    event.target.classList.add('active');
+    renderUnits();
+}
+
+// ==================== MISSING FUNCTIONS ====================
+
+function renderAbout() {
+    const about = document.getElementById('about');
+    const isAr = lang === 'ar';
+    about.innerHTML = `
+        <h1 class="text-4xl font-bold text-center mb-8 gold-text">${isAr ? 'عن الشركة' : 'About Us'}</h1>
+        <p class="text-center silver-text text-xl mb-12">${aboutData.tagline}</p>
+        <div class="max-w-4xl mx-auto space-y-8">
+            <div class="bg-zinc-900 border border-gold/30 rounded-xl p-8">
+                <h2 class="text-2xl font-bold gold-text mb-4">${isAr ? 'رسالتنا' : 'Our Mission'}</h2>
+                <p class="text-white leading-relaxed">${isAr ? aboutData.aboutUs.ar : aboutData.aboutUs.en}</p>
+            </div>
+            <div class="bg-zinc-900 border border-gold/30 rounded-xl p-8">
+                <h2 class="text-2xl font-bold gold-text mb-4">${isAr ? 'رؤيتنا' : 'Our Vision'}</h2>
+                <p class="text-white leading-relaxed">${isAr ? aboutData.vision.ar : aboutData.vision.en}</p>
+            </div>
+            <div class="bg-zinc-900 border border-gold/30 rounded-xl p-8">
+                <h2 class="text-2xl font-bold gold-text mb-4">${isAr ? 'فريقنا' : 'Our Team'}</h2>
+                <p class="text-white leading-relaxed">${isAr ? aboutData.team.ar : aboutData.team.en}</p>
+            </div>
+            <div class="bg-gold/10 border border-gold/30 rounded-xl p-8">
+                <p class="text-white leading-relaxed">${isAr ? aboutData.closing.ar : aboutData.closing.en}</p>
+            </div>
+        </div>
+    `;
+}
+
+function addLead(e) {
+    e.preventDefault();
+    const form = e.target;
+    const inputs = form.querySelectorAll('input, select');
+    
+    const newLead = {
+        id: Date.now(),
+        name: inputs[0].value,
+        phone: inputs[1].value,
+        email: inputs[2].value,
+        unitCode: inputs[3].value,
+        status: inputs[4].value,
+        source: "admin",
+        createdAt: new Date().toISOString(),
+        notes: ""
+    };
+    
+    leads.push(newLead);
+    saveLead(newLead);
+    form.reset();
+    alert('تمت إضافة Lead بنجاح!');
+    renderLeadsList();
+}
+
+function renderLeadsList() {
+    const list = document.getElementById('leadsList');
+    if(leads.length === 0) {
+        list.innerHTML = '<div class="p-4 text-center text-silver">لا توجد leads</div>';
+        return;
+    }
+    
+    list.innerHTML = `
+        <table class="w-full text-sm">
+            <thead class="bg-gold/10 border-b border-gold/30">
+                <tr>
+                    <th class="p-3 text-right">الاسم</th>
+                    <th class="p-3 text-right">الهاتف</th>
+                    <th class="p-3 text-right">البريد</th>
+                    <th class="p-3 text-right">الحالة</th>
+                    <th class="p-3 text-right">التاريخ</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${leads.map(l => `
+                    <tr class="border-b border-gold/20 hover:bg-black/50">
+                        <td class="p-3">${l.name}</td>
+                        <td class="p-3">${l.phone}</td>
+                        <td class="p-3 text-xs">${l.email}</td>
+                        <td class="p-3"><span class="px-2 py-1 rounded text-xs ${l.status === 'converted' ? 'bg-green-900 text-green-200' : 'bg-yellow-900 text-yellow-200'}">${l.status}</span></td>
+                        <td class="p-3 text-xs">${new Date(l.createdAt).toLocaleDateString('ar-EG')}</td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `;
+}
+
+function renderUnitsList() {
+    const list = document.getElementById('unitsList');
+    if(units.length === 0) {
+        list.innerHTML = '<div class="p-4 text-center text-silver">لا توجد وحدات</div>';
+        return;
+    }
+    
+    list.innerHTML = `
+        <table class="w-full text-sm">
+            <thead class="bg-gold/10 border-b border-gold/30">
+                <tr>
+                    <th class="p-3 text-right">الكود</th>
+                    <th class="p-3 text-right">النوع</th>
+                    <th class="p-3 text-right">السعر</th>
+                    <th class="p-3 text-right">المنطقة</th>
+                    <th class="p-3 text-right">الغرف</th>
+                    <th class="p-3 text-right">المساحة</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${units.map(u => `
+                    <tr class="border-b border-gold/20 hover:bg-black/50">
+                        <td class="p-3 gold-text font-bold">${u.code}</td>
+                        <td class="p-3">${u.type}</td>
+                        <td class="p-3">${u.price.toLocaleString()}</td>
+                        <td class="p-3">${u.zone}</td>
+                        <td class="p-3">${u.rooms}</td>
+                        <td class="p-3">${u.space} م²</td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `;
+}
+
+function exportUnits() {
+    const csv = 'كود,النوع,السعر,المنطقة,الغرف,المساحة\n' + 
+        units.map(u => `${u.code},${u.type},${u.price},${u.zone},${u.rooms},${u.space}`).join('\n');
+    
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'units.csv';
+    a.click();
+}
+
+function exportLeads() {
+    const csv = 'الاسم,الهاتف,البريد,كود الوحدة,الحالة,التاريخ\n' + 
+        leads.map(l => `${l.name},${l.phone},${l.email},${l.unitCode},${l.status},${l.createdAt}`).join('\n');
+    
+    const blob = new Blob([csv], { type: 'text/csv' });
+    const url = window.URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'leads.csv';
+    a.click();
+}
+
+function bulkImport(e) {
+    alert('وظيفة الاستيراد من Excel قيد التطوير');
+}
+
+function importLeads(e) {
+    alert('وظيفة استيراد Leads قيد التطوير');
+}
+
+function saveLead(lead) {
+    localStorage.setItem('leads', JSON.stringify(leads));
+}
+
+function saveUnits() {
+    localStorage.setItem('units', JSON.stringify(units));
+}
