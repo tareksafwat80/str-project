@@ -703,3 +703,593 @@ function saveLead(lead) {
 function saveUnits() {
     localStorage.setItem('units', JSON.stringify(units));
 }
+
+
+// ==================== EMPLOYEES MANAGEMENT ====================
+
+let employees = JSON.parse(localStorage.getItem('employees')) || [];
+let currentUser = null;
+
+// Employee roles and permissions
+const ROLES = {
+    admin: { name: 'مدير', permissions: ['add_unit', 'edit_unit', 'delete_unit', 'assign_lead', 'manage_employees', 'view_all'] },
+    sales: { name: 'سيلز', permissions: ['view_assigned_leads', 'convert_lead', 'view_units'] },
+    manager: { name: 'مدير مبيعات', permissions: ['add_unit', 'assign_lead', 'view_all', 'view_assigned_leads', 'convert_lead'] }
+};
+
+function showAdminTab(tabName) {
+    document.querySelectorAll('.admin-tab-content').forEach(t => t.classList.remove('active-admin-tab'));
+    document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
+    
+    document.getElementById('admin-' + tabName).classList.add('active-admin-tab');
+    event.target.classList.add('active');
+    
+    if(tabName === 'stats') renderAdminStats();
+    if(tabName === 'units') {
+        renderUnitsList();
+        renderUnits();
+    }
+    if(tabName === 'crm') renderLeadsList();
+    if(tabName === 'employees') renderEmployeesList();
+}
+
+function addEmployee(e) {
+    e.preventDefault();
+    const form = e.target;
+    const inputs = form.querySelectorAll('input, select');
+    
+    const newEmployee = {
+        id: Date.now(),
+        name: inputs[0].value,
+        phone: inputs[1].value,
+        email: inputs[2].value,
+        role: inputs[3].value,
+        canAddUnits: inputs[4].checked,
+        createdAt: new Date().toISOString(),
+        assignedLeads: [],
+        convertedLeads: 0
+    };
+    
+    employees.push(newEmployee);
+    localStorage.setItem('employees', JSON.stringify(employees));
+    form.reset();
+    alert('تمت إضافة موظف بنجاح!');
+    renderEmployeesList();
+}
+
+function renderEmployeesList() {
+    const list = document.getElementById('employeesList') || document.createElement('div');
+    if(employees.length === 0) {
+        list.innerHTML = '<div class="p-4 text-center text-silver">لا يوجد موظفين</div>';
+        return;
+    }
+    
+    list.innerHTML = `
+        <table class="w-full text-sm">
+            <thead class="bg-gold/10 border-b border-gold/30">
+                <tr>
+                    <th class="p-3 text-right">الاسم</th>
+                    <th class="p-3 text-right">الهاتف</th>
+                    <th class="p-3 text-right">الدور</th>
+                    <th class="p-3 text-right">إضافة وحدات</th>
+                    <th class="p-3 text-right">Leads مسندة</th>
+                    <th class="p-3 text-right">محولة</th>
+                    <th class="p-3 text-right">إجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${employees.map(emp => `
+                    <tr class="border-b border-gold/20 hover:bg-black/50">
+                        <td class="p-3">${emp.name}</td>
+                        <td class="p-3">${emp.phone}</td>
+                        <td class="p-3"><span class="px-2 py-1 rounded text-xs bg-gold/20 text-gold">${ROLES[emp.role].name}</span></td>
+                        <td class="p-3">${emp.canAddUnits ? '✅' : '❌'}</td>
+                        <td class="p-3">${emp.assignedLeads.length}</td>
+                        <td class="p-3">${emp.convertedLeads}</td>
+                        <td class="p-3 flex gap-2">
+                            <button onclick="deleteEmployee(${emp.id})" class="text-red-500 hover:text-red-700 text-xs">حذف</button>
+                            <button onclick="editEmployee(${emp.id})" class="text-gold hover:text-gold-light text-xs">تعديل</button>
+                        </td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `;
+}
+
+function deleteEmployee(id) {
+    if(confirm('هل تريد حذف هذا الموظف؟')) {
+        employees = employees.filter(e => e.id !== id);
+        localStorage.setItem('employees', JSON.stringify(employees));
+        renderEmployeesList();
+    }
+}
+
+function editEmployee(id) {
+    alert('وظيفة التعديل قيد التطوير');
+}
+
+function assignLeadToEmployee(leadId, employeeId) {
+    const employee = employees.find(e => e.id === employeeId);
+    const lead = leads.find(l => l.id === leadId);
+    
+    if(employee && lead) {
+        if(!employee.assignedLeads.includes(leadId)) {
+            employee.assignedLeads.push(leadId);
+            lead.assignedTo = employeeId;
+            lead.status = 'assigned';
+            localStorage.setItem('employees', JSON.stringify(employees));
+            localStorage.setItem('leads', JSON.stringify(leads));
+            alert(`تم تسند Lead إلى ${employee.name}`);
+            renderLeadsList();
+        }
+    }
+}
+
+// ==================== ENHANCED UNITS & LEADS MANAGEMENT ====================
+
+function editUnit(id) {
+    const unit = units.find(u => u.id === id);
+    if(!unit) return;
+    
+    const newPrice = prompt('السعر الجديد:', unit.price);
+    if(newPrice) {
+        unit.price = parseInt(newPrice);
+        unit.updatedAt = new Date().toISOString();
+        saveUnits();
+        renderUnitsList();
+        alert('تم تحديث الوحدة بنجاح');
+    }
+}
+
+function deleteUnit(id) {
+    if(confirm('هل تريد حذف هذه الوحدة؟')) {
+        units = units.filter(u => u.id !== id);
+        saveUnits();
+        renderUnitsList();
+        alert('تم حذف الوحدة');
+    }
+}
+
+function toggleFeaturedUnit(id) {
+    const unit = units.find(u => u.id === id);
+    if(unit) {
+        unit.featured = !unit.featured;
+        saveUnits();
+        renderUnitsList();
+        renderUnits();
+    }
+}
+
+function editLead(id) {
+    const lead = leads.find(l => l.id === id);
+    if(!lead) return;
+    
+    const newStatus = prompt('الحالة الجديدة (new/assigned/converted):', lead.status);
+    if(newStatus) {
+        lead.status = newStatus;
+        if(newStatus === 'converted') lead.convertedLeads = (lead.convertedLeads || 0) + 1;
+        saveLead(lead);
+        renderLeadsList();
+        alert('تم تحديث Lead');
+    }
+}
+
+function deleteLead(id) {
+    if(confirm('هل تريد حذف هذا Lead؟')) {
+        leads = leads.filter(l => l.id !== id);
+        localStorage.setItem('leads', JSON.stringify(leads));
+        renderLeadsList();
+        alert('تم حذف Lead');
+    }
+}
+
+function toggleFeaturedLead(id) {
+    const lead = leads.find(l => l.id === id);
+    if(lead) {
+        lead.featured = !lead.featured;
+        localStorage.setItem('leads', JSON.stringify(leads));
+        renderLeadsList();
+    }
+}
+
+// ==================== ENHANCED RENDERING ====================
+
+function renderUnits() {
+    const grid = document.getElementById('units-grid');
+    if(!grid) return;
+    
+    let filtered = units.filter(u => u.type === currentUnitTab);
+    
+    // Featured first
+    filtered.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+    
+    // Apply filters
+    const codeFilter = document.getElementById('filterCode')?.value;
+    const priceFilter = document.getElementById('filterPrice')?.value;
+    const roomsFilter = document.getElementById('filterRooms')?.value;
+    const zoneFilter = document.getElementById('filterZone')?.value;
+    
+    if(codeFilter) filtered = filtered.filter(u => u.code.toString().includes(codeFilter));
+    if(priceFilter) filtered = filtered.filter(u => u.price <= parseInt(priceFilter));
+    if(roomsFilter) filtered = filtered.filter(u => u.rooms == roomsFilter);
+    if(zoneFilter) filtered = filtered.filter(u => u.zone === zoneFilter);
+    
+    grid.innerHTML = filtered.map(unit => `
+        <div class="bg-zinc-900 border ${unit.featured ? 'border-gold-light' : 'border-gold/30'} rounded-xl overflow-hidden hover:border-gold transition hover:shadow-lg hover:shadow-gold/20 ${unit.featured ? 'ring-2 ring-gold/50' : ''}">
+            <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-40 flex items-center justify-center border-b border-gold/30 relative">
+                ${unit.featured ? '<div class="absolute top-2 right-2 bg-gold text-black px-2 py-1 rounded text-xs font-bold">⭐ مميز</div>' : ''}
+                <i class="fas fa-building text-4xl gold-text"></i>
+            </div>
+            <div class="p-4">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-lg font-bold gold-text">كود: ${unit.code}</h3>
+                    <span class="text-xs bg-gold/20 text-gold px-2 py-1 rounded">${unit.type}</span>
+                </div>
+                <p class="text-sm silver-text mb-2">${unit.zone}</p>
+                <div class="spec-grid mb-3">
+                    <div class="spec-box text-xs">
+                        <p class="text-silver">غرف</p>
+                        <p class="gold-text font-bold">${unit.rooms}</p>
+                    </div>
+                    <div class="spec-box text-xs">
+                        <p class="text-silver">مساحة</p>
+                        <p class="gold-text font-bold">${unit.space}م²</p>
+                    </div>
+                </div>
+                <p class="text-lg font-bold gold-text mb-3">${unit.price.toLocaleString()} EGP</p>
+                <button onclick="openUnit(${unit.id})" class="w-full btn-primary text-sm mb-2">عرض التفاصيل</button>
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderUnitsList() {
+    const list = document.getElementById('unitsList');
+    if(!list) return;
+    
+    if(units.length === 0) {
+        list.innerHTML = '<div class="p-4 text-center text-silver">لا توجد وحدات</div>';
+        return;
+    }
+    
+    list.innerHTML = `
+        <table class="w-full text-sm">
+            <thead class="bg-gold/10 border-b border-gold/30">
+                <tr>
+                    <th class="p-3 text-right">الكود</th>
+                    <th class="p-3 text-right">النوع</th>
+                    <th class="p-3 text-right">السعر</th>
+                    <th class="p-3 text-right">المنطقة</th>
+                    <th class="p-3 text-right">الغرف</th>
+                    <th class="p-3 text-right">المساحة</th>
+                    <th class="p-3 text-right">إجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${units.map(u => `
+                    <tr class="border-b border-gold/20 hover:bg-black/50 ${u.featured ? 'bg-gold/5' : ''}">
+                        <td class="p-3 gold-text font-bold">${u.code} ${u.featured ? '⭐' : ''}</td>
+                        <td class="p-3">${u.type}</td>
+                        <td class="p-3">${u.price.toLocaleString()}</td>
+                        <td class="p-3">${u.zone}</td>
+                        <td class="p-3">${u.rooms}</td>
+                        <td class="p-3">${u.space} م²</td>
+                        <td class="p-3 flex gap-2 text-xs">
+                            <button onclick="toggleFeaturedUnit(${u.id})" class="text-yellow-500 hover:text-yellow-700">${u.featured ? 'إلغاء' : 'تمييز'}</button>
+                            <button onclick="editUnit(${u.id})" class="text-gold hover:text-gold-light">تعديل</button>
+                            <button onclick="deleteUnit(${u.id})" class="text-red-500 hover:text-red-700">حذف</button>
+                        </td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `;
+}
+
+function renderLeadsList() {
+    const list = document.getElementById('leadsList');
+    if(!list) return;
+    
+    if(leads.length === 0) {
+        list.innerHTML = '<div class="p-4 text-center text-silver">لا توجد leads</div>';
+        return;
+    }
+    
+    list.innerHTML = `
+        <table class="w-full text-sm">
+            <thead class="bg-gold/10 border-b border-gold/30">
+                <tr>
+                    <th class="p-3 text-right">الاسم</th>
+                    <th class="p-3 text-right">الهاتف</th>
+                    <th class="p-3 text-right">البريد</th>
+                    <th class="p-3 text-right">الحالة</th>
+                    <th class="p-3 text-right">مسند لـ</th>
+                    <th class="p-3 text-right">التاريخ</th>
+                    <th class="p-3 text-right">إجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${leads.map(l => `
+                    <tr class="border-b border-gold/20 hover:bg-black/50 ${l.featured ? 'bg-gold/5' : ''}">
+                        <td class="p-3">${l.name} ${l.featured ? '⭐' : ''}</td>
+                        <td class="p-3">${l.phone}</td>
+                        <td class="p-3 text-xs">${l.email}</td>
+                        <td class="p-3"><span class="px-2 py-1 rounded text-xs ${l.status === 'converted' ? 'bg-green-900 text-green-200' : l.status === 'assigned' ? 'bg-blue-900 text-blue-200' : 'bg-yellow-900 text-yellow-200'}">${l.status}</span></td>
+                        <td class="p-3 text-xs">${l.assignedTo ? employees.find(e => e.id === l.assignedTo)?.name : 'غير مسند'}</td>
+                        <td class="p-3 text-xs">${new Date(l.createdAt).toLocaleDateString('ar-EG')}</td>
+                        <td class="p-3 flex gap-2 text-xs">
+                            <button onclick="toggleFeaturedLead(${l.id})" class="text-yellow-500 hover:text-yellow-700">${l.featured ? 'إلغاء' : 'تمييز'}</button>
+                            <button onclick="editLead(${l.id})" class="text-gold hover:text-gold-light">تعديل</button>
+                            <button onclick="deleteLead(${l.id})" class="text-red-500 hover:text-red-700">حذف</button>
+                        </td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `;
+}
+
+
+// ==================== ADVANCED IMPORT/EXPORT ====================
+
+function bulkImport(e) {
+    const file = e.target.files[0];
+    if(!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        try {
+            const csv = event.target.result;
+            const lines = csv.split('\n');
+            const headers = lines[0].split('\t').map(h => h.trim());
+            
+            let importedCount = 0;
+            
+            for(let i = 1; i < lines.length; i++) {
+                if(!lines[i].trim()) continue;
+                
+                const values = lines[i].split('\t');
+                const row = {};
+                
+                headers.forEach((header, idx) => {
+                    row[header] = values[idx] ? values[idx].trim() : '';
+                });
+                
+                // Map columns to unit object - matching exact Excel format
+                const unit = {
+                    id: Date.now() + i,
+                    code: row['code'] || row['كود'] || '',
+                    category: row['Category'] || '',
+                    type: row['Category']?.toLowerCase().includes('villa') ? 'primary' : 
+                          row['Category']?.toLowerCase().includes('resale') ? 'resale' : 'rentals',
+                    city: row['City'] || row['منطقة'] || 'مدينتي',
+                    zone: row['منطقة'] || row['City'] || '',
+                    building: row['عمارة'] || row['مجموعة'] || '',
+                    unit: row['وحدة'] || '',
+                    floor: row['الدور'] || '',
+                    model: row['النموذج'] || '',
+                    delivery: row['الاستلام'] || '',
+                    facade: row['الواجهة'] || '',
+                    space: parseInt(row['مساحة']?.replace(/,/g, '') || 0),
+                    garden: row['جاردن'] || '',
+                    rooms: parseInt(row['غرف نوم'] || 0),
+                    bathroom: row['حمام'] || '',
+                    bookingDate: row['تاريخ الحجز'] || '',
+                    installmentPeriod: row['مدة القسط'] || '',
+                    payments: parseInt(row['مدفوعات']?.replace(/,/g, '') || 0),
+                    offerPrice: parseInt(row['اوفر برايس']?.replace(/,/g, '') || 0),
+                    totalPayments: parseInt(row['مدفوعات + اوفر']?.replace(/,/g, '') || 0),
+                    installmentDetails: row['تفاصيل الاقساط'] || '',
+                    price: parseInt(row['اصل العقد او ثمن الكاش']?.replace(/,/g, '') || row['مدفوعات']?.replace(/,/g, '') || 0),
+                    notes: row['ملاحظات'] || '',
+                    clientName: row['client name'] || '',
+                    clientPhone: row['phone'] || '',
+                    status: row['Status'] || 'available',
+                    source: row['Source'] || 'imported',
+                    createdAt: new Date().toISOString(),
+                    featured: false
+                };
+                
+                // Only add if has code and price
+                if(unit.code && unit.price > 0) {
+                    units.push(unit);
+                    importedCount++;
+                }
+            }
+            
+            if(importedCount > 0) {
+                saveUnits();
+                alert(`تم استيراد ${importedCount} وحدة بنجاح!`);
+                renderUnitsList();
+                renderUnits();
+            } else {
+                alert('لم يتم العثور على وحدات صحيحة للاستيراد');
+            }
+        } catch(err) {
+            alert('خطأ في قراءة الملف: ' + err.message);
+            console.error(err);
+        }
+    };
+    
+    reader.readAsText(file);
+    e.target.value = '';
+}
+
+function importLeads(e) {
+    const file = e.target.files[0];
+    if(!file) return;
+    
+    const reader = new FileReader();
+    reader.onload = function(event) {
+        try {
+            const csv = event.target.result;
+            const lines = csv.split('\n');
+            const headers = lines[0].split('\t').map(h => h.trim());
+            
+            let importedCount = 0;
+            
+            for(let i = 1; i < lines.length; i++) {
+                if(!lines[i].trim()) continue;
+                
+                const values = lines[i].split('\t');
+                const row = {};
+                
+                headers.forEach((header, idx) => {
+                    row[header] = values[idx] ? values[idx].trim() : '';
+                });
+                
+                // Map columns to lead object - matching exact Excel format
+                const lead = {
+                    id: Date.now() + i,
+                    period: row['الفترة'] || '',
+                    name: row['الاسم'] || '',
+                    phone: row['تليفون'] || '',
+                    source: row['مصدر الليد'] || 'imported',
+                    contactMethod: row['طريقة تواصل العميل'] || '',
+                    ad: row['الاعلان'] || '',
+                    customerRequest: row['طلب العميل'] || '',
+                    rating: row['تقييم من 1 ل 10'] || '',
+                    salesPerson: row['Sales'] || '',
+                    whatsapp: row['واتس'] || '',
+                    phone2: row['فون'] || '',
+                    followUpResult: row['نتيجة متابعة السيلز'] || '',
+                    status: 'new',
+                    createdAt: new Date().toISOString(),
+                    featured: false,
+                    assignedTo: null
+                };
+                
+                if(lead.name && lead.phone) {
+                    leads.push(lead);
+                    importedCount++;
+                }
+            }
+            
+            if(importedCount > 0) {
+                localStorage.setItem('leads', JSON.stringify(leads));
+                alert(`تم استيراد ${importedCount} lead بنجاح!`);
+                renderLeadsList();
+            } else {
+                alert('لم يتم العثور على leads صحيحة للاستيراد');
+            }
+        } catch(err) {
+            alert('خطأ في قراءة الملف: ' + err.message);
+            console.error(err);
+        }
+    };
+    
+    reader.readAsText(file);
+    e.target.value = '';
+}
+
+function exportUnits() {
+    const headers = ['الكود', 'النوع', 'السعر', 'المنطقة', 'الغرف', 'المساحة', 'الجاردن', 'الواجهة', 'الاستلام', 'الحالة', 'اسم العميل', 'هاتف العميل', 'ملاحظات'];
+    
+    const rows = units.map(u => [
+        u.code,
+        u.type,
+        u.price,
+        u.zone,
+        u.rooms,
+        u.space,
+        u.garden || '--',
+        u.facade || '--',
+        u.delivery || '--',
+        u.status,
+        u.clientName || '--',
+        u.clientPhone || '--',
+        u.notes || '--'
+    ]);
+    
+    const csv = [headers, ...rows].map(row => row.join('\t')).join('\n');
+    
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', `units_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function exportLeads() {
+    const headers = ['الاسم', 'الهاتف', 'البريد', 'كود الوحدة', 'الحالة', 'المصدر', 'التاريخ', 'ملاحظات'];
+    
+    const rows = leads.map(l => [
+        l.name,
+        l.phone,
+        l.email || '--',
+        l.unitCode || '--',
+        l.status,
+        l.source,
+        new Date(l.createdAt).toLocaleDateString('ar-EG'),
+        l.notes || '--'
+    ]);
+    
+    const csv = [headers, ...rows].map(row => row.join('\t')).join('\n');
+    
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', `leads_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// ==================== UNIT OPERATIONS ====================
+
+function addUnit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const inputs = form.querySelectorAll('input, select');
+    
+    const newUnit = {
+        id: Date.now(),
+        code: inputs[0].value,
+        type: inputs[1].value,
+        price: parseInt(inputs[2].value),
+        zone: inputs[3].value,
+        rooms: parseInt(inputs[4].value),
+        space: parseInt(inputs[5].value),
+        createdAt: new Date().toISOString(),
+        featured: false,
+        status: 'available'
+    };
+    
+    units.push(newUnit);
+    saveUnits();
+    form.reset();
+    alert('تمت إضافة الوحدة بنجاح!');
+    renderUnitsList();
+    renderUnits();
+}
+
+function openUnit(id) {
+    const unit = units.find(u => u.id === id);
+    if(!unit) return;
+    
+    document.getElementById('m-code').textContent = unit.code;
+    document.getElementById('m-address').textContent = unit.zone;
+    document.getElementById('m-specs').textContent = `${unit.rooms} غرف | ${unit.space} م²`;
+    document.getElementById('m-finance').textContent = `${unit.price.toLocaleString()} EGP`;
+    document.getElementById('m-dates').textContent = `تاريخ الإضافة: ${new Date(unit.createdAt).toLocaleDateString('ar-EG')}`;
+    document.getElementById('m-notes').textContent = unit.notes || 'لا توجد ملاحظات';
+    
+    const waBtn = document.getElementById('wa-btn');
+    waBtn.onclick = () => {
+        const message = `مرحباً، أنا مهتم بالوحدة رقم ${unit.code} في ${unit.zone}`;
+        window.open(`https://wa.me/201159333060?text=${encodeURIComponent(message)}`, '_blank');
+    };
+    
+    document.getElementById('unitModal').style.display = 'block';
+}
