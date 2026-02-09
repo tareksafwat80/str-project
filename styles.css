@@ -430,24 +430,3 @@ body {
 @media (min-width: 1024px) {
     .lg\:grid-cols-4 { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
-/* تحسينات بصرية إضافية */
-.loader-hidden {
-    opacity: 0;
-    visibility: hidden;
-    transition: all 0.5s ease-out;
-}
-
-#backToTop {
-    border: 2px solid var(--gold);
-    cursor: pointer;
-}
-
-/* تأثير احترافي عند التمرير على كروت الوحدات */
-.unit-card {
-    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
-}
-
-.unit-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 15px 30px rgba(212, 175, 55, 0.2) !important;
-}
