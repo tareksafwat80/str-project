@@ -20,6 +20,22 @@
                     <img src="logo.jpg" alt="STR Logo" class="h-12 w-auto object-contain">
                 </div>
 
+                <!-- Language Switch & Social Media -->
+                <div class="flex items-center gap-3">
+                    <button onclick="toggleLanguage()" class="px-3 py-2 border border-gold/30 rounded-lg hover:border-gold transition text-sm gold-text font-bold">
+                        <span id="langToggle">English</span>
+                    </button>
+                    <a href="https://facebook.com" target="_blank" class="text-gold hover:text-gold-light transition text-lg">
+                        <i class="fab fa-facebook"></i>
+                    </a>
+                    <a href="https://instagram.com" target="_blank" class="text-gold hover:text-gold-light transition text-lg">
+                        <i class="fab fa-instagram"></i>
+                    </a>
+                    <a href="https://whatsapp.com" target="_blank" class="text-gold hover:text-gold-light transition text-lg">
+                        <i class="fab fa-whatsapp"></i>
+                    </a>
+                </div>
+
                 <!-- Notifications Bell -->
                 <div class="relative">
                     <button onclick="toggleNotifications()" class="relative p-2 hover:text-gold transition">
@@ -71,6 +87,48 @@
 
         <!-- About Tab -->
         <section id="about" class="tab-content py-10"></section>
+
+        <!-- Units Section (Resale, Primary, Rentals) -->
+        <div id="units-section" style="display:none;">
+            <div class="mb-8">
+                <div class="flex gap-2 mb-6 border-b border-gold/30 pb-4 flex-wrap">
+                    <button class="nav-btn active" onclick="switchUnitTab('resale')">ريسيل</button>
+                    <button class="nav-btn" onclick="switchUnitTab('primary')">برايمري</button>
+                    <button class="nav-btn" onclick="switchUnitTab('rentals')">إيجار</button>
+                </div>
+
+                <!-- Filters -->
+                <div class="grid md:grid-cols-4 gap-4 mb-8">
+                    <input type="number" id="filterCode" placeholder="كود الوحدة" class="filter-input">
+                    <select id="filterPrice" class="filter-input">
+                        <option value="">السعر</option>
+                        <option value="2000000">تحت 2 مليون</option>
+                        <option value="5000000">تحت 5 مليون</option>
+                        <option value="10000000">تحت 10 مليون</option>
+                    </select>
+                    <select id="filterRooms" class="filter-input">
+                        <option value="">عدد الغرف</option>
+                        <option value="1">غرفة واحدة</option>
+                        <option value="2">غرفتان</option>
+                        <option value="3">ثلاث غرف</option>
+                    </select>
+                    <select id="filterZone" class="filter-input">
+                        <option value="">المنطقة</option>
+                        <option value="مدينتي">مدينتي</option>
+                        <option value="الرحاب">الرحاب</option>
+                        <option value="العاصمة الإدارية">العاصمة الإدارية</option>
+                        <option value="الساحل الشمالي">الساحل الشمالي</option>
+                        <option value="رأس الحكمة">رأس الحكمة</option>
+                        <option value="القاهرة الجديدة">القاهرة الجديدة</option>
+                        <option value="العين السخنة">العين السخنة</option>
+                        <option value="الشيخ زايد">الشيخ زايد</option>
+                    </select>
+                </div>
+
+                <!-- Units Grid -->
+                <div id="units-grid" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
+            </div>
+        </div>
 
         <!-- Services Area Tab -->
         <section id="services" class="tab-content py-10">
@@ -200,7 +258,6 @@
             </div>
         </section>
 
-
         <!-- Partners Tab -->
         <section id="partners" class="tab-content py-10">
             <h1 class="text-4xl font-bold text-center mb-2 gold-text">شركاؤنا</h1>
@@ -304,67 +361,38 @@
                 </div>
             </div>
         </section>
-
-
-        <!-- Units Section (Resale, Primary, Rentals) -->
-        <section id="units-section" class="tab-content">
-            <!-- Filters -->
-            <div class="bg-zinc-900 p-4 rounded-xl border border-gold/30 mb-8">
-                <div class="grid grid-cols-1 md:grid-cols-5 gap-3">
-                    <select id="filterZone" onchange="renderUnits()" class="filter-input">
-                        <option value="">كل المناطق</option>
-                    </select>
-                    <select id="filterRooms" onchange="renderUnits()" class="filter-input">
-                        <option value="">عدد الغرف</option>
-                        <option value="1">1 غرفة</option>
-                        <option value="2">2 غرفة</option>
-                        <option value="3">3 غرف</option>
-                        <option value="4">4+ غرف</option>
-                    </select>
-                    <input type="number" id="filterPrice" placeholder="أقصى سعر..." onchange="renderUnits()" class="filter-input">
-                    <input type="text" id="filterCode" placeholder="رقم الوحدة..." onchange="renderUnits()" class="filter-input">
-                    <button onclick="clearFilters()" class="btn-secondary text-sm">مسح الفلاتر</button>
-                </div>
-            </div>
-
-            <!-- Units Grid -->
-            <div id="units-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"></div>
-        </section>
     </main>
 
     <!-- Unit Modal -->
-    <div id="unitModal" class="modal" onclick="closeModal()">
+    <div id="unitModal" class="modal" onclick="if(event.target.id==='unitModal') document.getElementById('unitModal').style.display='none'">
         <div class="unit-card-container" onclick="event.stopPropagation()">
-            <button onclick="closeModal()" class="absolute top-2 right-2 text-white bg-black/50 rounded-full w-8 h-8 flex items-center justify-center">×</button>
-            <div id="sliderWrapper" class="h-64 bg-black relative"></div>
-            <div class="bg-red-800 text-white flex justify-between px-4 py-2 font-bold">
-                <span id="m-code"></span><span>CODE</span>
+            <div id="sliderWrapper" class="h-64 bg-black"></div>
+            <div class="p-6">
+                <div class="spec-grid">
+                    <div class="spec-box">
+                        <p class="text-xs silver-text mb-1">الكود</p>
+                        <p id="m-code" class="text-lg font-bold gold-text"></p>
+                    </div>
+                    <div class="spec-box">
+                        <p class="text-xs silver-text mb-1">العنوان</p>
+                        <p id="m-address" class="text-sm text-white"></p>
+                    </div>
+                    <div class="spec-box">
+                        <p class="text-xs silver-text mb-1">المواصفات</p>
+                        <p id="m-specs" class="text-sm text-white"></p>
+                    </div>
+                    <div class="spec-box">
+                        <p class="text-xs silver-text mb-1">المالية</p>
+                        <p id="m-finance" class="text-sm text-white"></p>
+                    </div>
+                </div>
+                <p class="text-xs silver-text my-4" id="m-dates"></p>
+                <p class="text-sm text-white mb-6" id="m-notes"></p>
+                <button id="wa-btn" class="w-full btn-primary mb-2">
+                    <i class="fab fa-whatsapp ml-2"></i> تواصل عبر واتس
+                </button>
+                <button onclick="document.getElementById('unitModal').style.display='none'" class="w-full btn-secondary">إغلاق</button>
             </div>
-            <div class="spec-grid">
-                <div class="spec-box"><p class="text-[10px] gold-text">العنوان</p><p id="m-address" class="text-xs"></p></div>
-                <div class="spec-box"><p class="text-[10px] gold-text">المواصفات</p><p id="m-specs" class="text-xs"></p></div>
-                <div class="spec-box"><p class="text-[10px] gold-text">الماليات</p><p id="m-finance" class="text-xs"></p></div>
-                <div class="spec-box"><p class="text-[10px] gold-text">التواريخ</p><p id="m-dates" class="text-xs"></p></div>
-            </div>
-            <div class="p-4 bg-zinc-900"><p id="m-notes" class="text-xs leading-relaxed"></p></div>
-            <button id="wa-btn" class="w-full bg-green-600 hover:bg-green-700 py-3 font-bold flex items-center justify-center gap-2 transition">
-                <i class="fab fa-whatsapp text-xl"></i> تواصل واتساب
-            </button>
-        </div>
-    </div>
-
-    <!-- Contact Modal -->
-    <div id="contactModal" class="modal" onclick="if(event.target.id==='contactModal') closeModal()">
-        <div class="bg-black border border-gold rounded-xl p-8 max-w-md mx-auto mt-20" onclick="event.stopPropagation()">
-            <h3 class="text-2xl gold-text font-bold mb-6">تواصل معنا</h3>
-            <form onsubmit="submitContact(event)">
-                <input type="text" placeholder="الاسم" required class="w-full bg-zinc-900 border border-gold/30 rounded-lg px-4 py-2 mb-3 text-white">
-                <input type="email" placeholder="البريد الإلكتروني" required class="w-full bg-zinc-900 border border-gold/30 rounded-lg px-4 py-2 mb-3 text-white">
-                <input type="tel" placeholder="رقم الهاتف" required class="w-full bg-zinc-900 border border-gold/30 rounded-lg px-4 py-2 mb-3 text-white">
-                <textarea placeholder="الرسالة" rows="4" class="w-full bg-zinc-900 border border-gold/30 rounded-lg px-4 py-2 mb-3 text-white"></textarea>
-                <button type="submit" class="w-full btn-primary">إرسال</button>
-            </form>
-            <button onclick="closeModal()" class="w-full mt-2 btn-secondary">إغلاق</button>
         </div>
     </div>
 
@@ -387,7 +415,7 @@
             </div>
 
             <!-- Admin Tabs -->
-            <div class="flex gap-2 mb-8 border-b border-gold/30 pb-4">
+            <div class="flex gap-2 mb-8 border-b border-gold/30 pb-4 flex-wrap">
                 <button class="admin-tab-btn active" onclick="showAdminTab('stats')">الإحصائيات</button>
                 <button class="admin-tab-btn" onclick="showAdminTab('units')">إدارة الوحدات</button>
                 <button class="admin-tab-btn" onclick="showAdminTab('crm')">إدارة CRM</button>
@@ -399,31 +427,41 @@
                 <div id="adminStats" class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8"></div>
             </div>
 
-            <!-- Units Management Tab -->
+            <!-- Units Tab -->
             <div id="admin-units" class="admin-tab-content">
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="bg-zinc-900 p-6 rounded-xl border border-gold/30">
                         <h3 class="gold-text text-xl mb-4 font-bold">إضافة وحدة جديدة</h3>
-                        <form onsubmit="addUnit(event)" class="space-y-3">
-                            <input type="text" placeholder="رقم الكود" required class="w-full form-input">
-                            <select required class="w-full form-input">
-                                <option value="">اختر النوع</option>
+                        <form onsubmit="addUnit(event)" class="space-y-4">
+                            <input type="number" placeholder="كود الوحدة" required class="form-input">
+                            <select required class="form-input">
+                                <option value="">نوع الوحدة</option>
                                 <option value="resale">ريسيل</option>
                                 <option value="primary">برايمري</option>
                                 <option value="rentals">إيجار</option>
                             </select>
-                            <input type="number" placeholder="السعر" required class="w-full form-input">
-                            <input type="text" placeholder="المنطقة" required class="w-full form-input">
-                            <input type="number" placeholder="عدد الغرف" required class="w-full form-input">
-                            <input type="number" placeholder="المساحة (م²)" required class="w-full form-input">
-                            <button type="submit" class="w-full btn-primary">إضافة وحدة</button>
+                            <input type="number" placeholder="السعر" required class="form-input">
+                            <select required class="form-input">
+                                <option value="">المنطقة</option>
+                                <option value="مدينتي">مدينتي</option>
+                                <option value="الرحاب">الرحاب</option>
+                                <option value="العاصمة الإدارية">العاصمة الإدارية</option>
+                                <option value="الساحل الشمالي">الساحل الشمالي</option>
+                                <option value="رأس الحكمة">رأس الحكمة</option>
+                                <option value="القاهرة الجديدة">القاهرة الجديدة</option>
+                                <option value="العين السخنة">العين السخنة</option>
+                                <option value="الشيخ زايد">الشيخ زايد</option>
+                            </select>
+                            <input type="number" placeholder="عدد الغرف" required class="form-input">
+                            <input type="number" placeholder="المساحة (م²)" required class="form-input">
+                            <button type="submit" class="w-full btn-primary">إضافة الوحدة</button>
                         </form>
                     </div>
                     <div class="bg-zinc-900 p-6 rounded-xl border border-gold/30">
-                        <h3 class="gold-text text-xl mb-4 font-bold">إجراءات سريعة</h3>
-                        <button onclick="document.getElementById('importFile').click()" class="w-full btn-secondary mb-2">استيراد من Excel</button>
-                        <button onclick="exportUnits()" class="w-full btn-secondary">تصدير البيانات</button>
-                        <input type="file" id="importFile" accept=".csv,.xlsx" style="display:none" onchange="importUnits(event)">
+                        <h3 class="gold-text text-xl mb-4 font-bold">استيراد الوحدات</h3>
+                        <button onclick="document.getElementById('bulkImportFile').click()" class="w-full btn-secondary mb-2">استيراد من Excel</button>
+                        <button onclick="exportUnits()" class="w-full btn-secondary">تصدير الوحدات</button>
+                        <input type="file" id="bulkImportFile" accept=".csv,.xlsx" style="display:none" onchange="bulkImport(event)">
                     </div>
                 </div>
                 <div class="mt-8">
@@ -436,18 +474,16 @@
             <div id="admin-crm" class="admin-tab-content">
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="bg-zinc-900 p-6 rounded-xl border border-gold/30">
-                        <h3 class="gold-text text-xl mb-4 font-bold">إضافة Lead يدوياً</h3>
-                        <form onsubmit="addLead(event)" class="space-y-3">
-                            <input type="text" placeholder="الاسم" required class="w-full form-input">
-                            <input type="email" placeholder="البريد الإلكتروني" class="w-full form-input">
-                            <input type="tel" placeholder="رقم الهاتف" required class="w-full form-input">
-                            <select required class="w-full form-input">
-                                <option value="">الحالة</option>
+                        <h3 class="gold-text text-xl mb-4 font-bold">إضافة Lead</h3>
+                        <form onsubmit="addLead(event)" class="space-y-4">
+                            <input type="text" placeholder="الاسم" required class="form-input">
+                            <input type="tel" placeholder="الهاتف" required class="form-input">
+                            <input type="email" placeholder="البريد الإلكتروني" required class="form-input">
+                            <input type="text" placeholder="كود الوحدة" class="form-input">
+                            <select class="form-input">
                                 <option value="new">جديد</option>
-                                <option value="contacted">تم التواصل</option>
-                                <option value="closed">مغلق</option>
+                                <option value="converted">محول</option>
                             </select>
-                            <textarea placeholder="ملاحظات" class="w-full form-input" rows="3"></textarea>
                             <button type="submit" class="w-full btn-primary">إضافة Lead</button>
                         </form>
                     </div>
