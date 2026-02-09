@@ -75,13 +75,43 @@
     <main class="container mx-auto px-4 py-8">
         
         <!-- Home Tab -->
-        <section id="home" class="tab-content active-tab text-center py-20">
-            <h1 class="text-6xl md:text-8xl font-bold gold-text mb-4">Summit Team</h1>
-            <h2 class="text-3xl md:text-5xl font-bold text-white mb-8">REAL ESTATE</h2>
-            <p class="silver-text text-xl mb-12">حيث تؤدي كل خطوة إلى القمة</p>
-            <div class="flex gap-4 justify-center flex-wrap">
-                <button onclick="showTab('resale')" class="btn-primary">استعرض الوحدات</button>
-                <button onclick="document.getElementById('contactModal').style.display='block'" class="btn-secondary">تواصل معنا</button>
+        <section id="home" class="tab-content active-tab">
+            <div class="grid md:grid-cols-2 gap-8 items-center mb-16 py-12">
+                <!-- Left: Logo & Text -->
+                <div class="text-center md:text-right">
+                    <img src="logo.jpg" alt="STR Logo" class="h-32 w-auto object-contain mx-auto md:mx-0 mb-6">
+                    <h1 class="text-6xl md:text-7xl font-bold gold-text mb-4">Summit Team</h1>
+                    <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">REAL ESTATE</h2>
+                    <p class="silver-text text-xl mb-8">حيث تؤدي كل خطوة إلى القمة</p>
+                    <div class="flex gap-4 justify-center md:justify-start flex-wrap">
+                        <button onclick="showTab('resale')" class="btn-primary">استعرض الوحدات</button>
+                        <button onclick="showTab('partners')" class="btn-secondary">الشركاء</button>
+                    </div>
+                </div>
+                <!-- Right: Hero Image -->
+                <div class="relative h-96 rounded-xl overflow-hidden border-2 border-gold/30">
+                    <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop" alt="Real Estate" class="w-full h-full object-cover">
+                    <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
+                </div>
+            </div>
+
+            <!-- Features Section -->
+            <div class="grid md:grid-cols-3 gap-6 mb-16">
+                <div class="bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/30 rounded-xl p-8 text-center">
+                    <i class="fas fa-building text-5xl gold-text mb-4"></i>
+                    <h3 class="text-xl font-bold text-white mb-2">مشاريع متنوعة</h3>
+                    <p class="text-silver text-sm">نوفر أفضل المشاريع السكنية والتجارية</p>
+                </div>
+                <div class="bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/30 rounded-xl p-8 text-center">
+                    <i class="fas fa-handshake text-5xl gold-text mb-4"></i>
+                    <h3 class="text-xl font-bold text-white mb-2">خدمة متميزة</h3>
+                    <p class="text-silver text-sm">فريق محترف لتلبية احتياجاتك</p>
+                </div>
+                <div class="bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/30 rounded-xl p-8 text-center">
+                    <i class="fas fa-star text-5xl gold-text mb-4"></i>
+                    <h3 class="text-xl font-bold text-white mb-2">أفضل الأسعار</h3>
+                    <p class="text-silver text-sm">أفضل قيمة مقابل السعر</p>
+                </div>
             </div>
         </section>
 
@@ -512,6 +542,114 @@
             </div>
         </div>
     </div>
+
+    <!-- Footer -->
+    <footer class="bg-black border-t border-gold/30 mt-16 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid md:grid-cols-4 gap-8 mb-12">
+                <!-- Company Info -->
+                <div>
+                    <h3 class="text-xl font-bold gold-text mb-4">عن STR</h3>
+                    <p class="text-silver text-sm leading-relaxed">شركة Summit Team Real Estate متخصصة في التسويق العقاري والاستثمار في السوق المصري بمعايير عالمية.</p>
+                </div>
+                
+                <!-- Quick Links -->
+                <div>
+                    <h3 class="text-xl font-bold gold-text mb-4">روابط سريعة</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="#" onclick="showTab('home')" class="text-silver hover:text-gold transition">الرئيسية</a></li>
+                        <li><a href="#" onclick="showTab('about')" class="text-silver hover:text-gold transition">عن الشركة</a></li>
+                        <li><a href="#" onclick="showTab('services')" class="text-silver hover:text-gold transition">مناطق عملنا</a></li>
+                        <li><a href="#" onclick="showTab('partners')" class="text-silver hover:text-gold transition">الشركاء</a></li>
+                    </ul>
+                </div>
+                
+                <!-- Contact Info -->
+                <div>
+                    <h3 class="text-xl font-bold gold-text mb-4">بيانات التواصل</h3>
+                    <ul class="space-y-3 text-sm">
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-phone text-gold"></i>
+                            <div>
+                                <p class="text-silver">01159333060</p>
+                                <p class="text-gray-400 text-xs">الرئيسي وWhatsApp</p>
+                            </div>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-phone text-gold"></i>
+                            <p class="text-silver">01222108383</p>
+                        </li>
+                        <li class="flex items-center gap-2">
+                            <i class="fas fa-envelope text-gold"></i>
+                            <p class="text-silver text-xs">admin@str-summitteam.com</p>
+                        </li>
+                    </ul>
+                </div>
+                
+                <!-- Address -->
+                <div>
+                    <h3 class="text-xl font-bold gold-text mb-4">العنوان</h3>
+                    <p class="text-silver text-sm leading-relaxed mb-4">East Hub Mall, Building 16, Madinaty, New Cairo</p>
+                    <a href="https://maps.app.goo.gl/HgBD62orQzxMJjs89" target="_blank" class="inline-flex items-center gap-2 text-gold hover:text-gold-light transition">
+                        <i class="fas fa-map-location-dot"></i>
+                        افتح على الخريطة
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Social Media Links -->
+            <div class="border-t border-gold/30 pt-8">
+                <h3 class="text-xl font-bold gold-text mb-6 text-center">تابعنا على وسائل التواصل</h3>
+                <div class="flex justify-center gap-6 flex-wrap">
+                    <a href="https://www.facebook.com/summitteamrealestateeg" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition text-white font-bold">
+                        <i class="fab fa-facebook"></i>
+                        Facebook
+                    </a>
+                    <a href="https://www.instagram.com/str.summit.team/" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-purple-600 to-pink-600 hover:from-purple-700 hover:to-pink-700 rounded-lg transition text-white font-bold">
+                        <i class="fab fa-instagram"></i>
+                        Instagram
+                    </a>
+                    <a href="https://www.tiktok.com/@strsummitteam" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-black border-2 border-white hover:bg-gray-900 rounded-lg transition text-white font-bold">
+                        <i class="fab fa-tiktok"></i>
+                        TikTok
+                    </a>
+                    <a href="https://www.youtube.com/@strsummitteam" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-red-600 hover:bg-red-700 rounded-lg transition text-white font-bold">
+                        <i class="fab fa-youtube"></i>
+                        YouTube
+                    </a>
+                    <a href="https://x.com/strsummitteam" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-black border-2 border-white hover:bg-gray-900 rounded-lg transition text-white font-bold">
+                        <i class="fab fa-x-twitter"></i>
+                        Twitter
+                    </a>
+                    <a href="https://www.linkedin.com/in/str-summitteam-6aa4aa342?utm" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-blue-700 hover:bg-blue-800 rounded-lg transition text-white font-bold">
+                        <i class="fab fa-linkedin"></i>
+                        LinkedIn
+                    </a>
+                </div>
+                
+                <!-- Property Platforms -->
+                <div class="mt-8 pt-8 border-t border-gold/30">
+                    <h4 class="text-lg font-bold gold-text mb-4 text-center">ابحث عن عقاراتنا على</h4>
+                    <div class="flex justify-center gap-4 flex-wrap">
+                        <a href="https://aqarmap.com.eg/ar/user/5240697" target="_blank" class="px-4 py-2 border border-gold hover:bg-gold/10 rounded-lg transition text-silver hover:text-gold font-bold">
+                            AqarMap
+                        </a>
+                        <a href="https://www.propertyfinder.eg/en/agent/summit-team-real-estate-str-51854" target="_blank" class="px-4 py-2 border border-gold hover:bg-gold/10 rounded-lg transition text-silver hover:text-gold font-bold">
+                            Property Finder
+                        </a>
+                        <a href="https://www.bayut.eg/en/property/details-501731005.html" target="_blank" class="px-4 py-2 border border-gold hover:bg-gold/10 rounded-lg transition text-silver hover:text-gold font-bold">
+                            Bayut
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Copyright -->
+            <div class="text-center mt-8 pt-8 border-t border-gold/30">
+                <p class="text-silver text-sm">&copy; 2026 Summit Team Real Estate. جميع الحقوق محفوظة.</p>
+            </div>
+        </div>
+    </footer>
 
     <script src="app.js"></script>
 </body>
