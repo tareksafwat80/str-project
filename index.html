@@ -396,10 +396,7 @@
     <!-- Unit Modal -->
     <div id="unitModal" class="modal" onclick="if(event.target.id==='unitModal') document.getElementById('unitModal').style.display='none'">
         <div class="unit-card-container" onclick="event.stopPropagation()">
-            <div id="sliderWrapper" class="h-64 bg-black relative">
-                <img id="mainUnitImage" src="" alt="Unit" class="w-full h-full object-cover">
-                <div id="imageGallery" class="flex gap-2 absolute bottom-2 left-2 right-2 overflow-x-auto"></div>
-            </div>
+            <div id="sliderWrapper" class="h-64 bg-black"></div>
             <div class="p-6">
                 <div class="spec-grid">
                     <div class="spec-box">
@@ -494,10 +491,8 @@
                     <div class="bg-zinc-900 p-6 rounded-xl border border-gold/30">
                         <h3 class="gold-text text-xl mb-4 font-bold">استيراد الوحدات</h3>
                         <button onclick="document.getElementById('bulkImportFile').click()" class="w-full btn-secondary mb-2">استيراد من Excel</button>
-                        <button onclick="exportUnits()" class="w-full btn-secondary mb-2">تصدير الوحدات</button>
-                        <button onclick="document.getElementById('unitImagesFile').click()" class="w-full btn-primary">رفع صور الوحدات</button>
+                        <button onclick="exportUnits()" class="w-full btn-secondary">تصدير الوحدات</button>
                         <input type="file" id="bulkImportFile" accept=".csv,.xlsx" style="display:none" onchange="bulkImport(event)">
-                        <input type="file" id="unitImagesFile" accept="image/*" multiple style="display:none" onchange="uploadUnitImages(event)">
                     </div>
                 </div>
                 <div class="mt-8">
