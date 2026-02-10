@@ -80,6 +80,27 @@ body {
 
 /* ==================== NAVIGATION ====================  */
 
+nav {
+    background-color: #f5f5f5 !important;
+    border-bottom: 2px solid var(--gold);
+}
+
+nav * {
+    color: var(--black) !important;
+}
+
+nav .nav-btn {
+    color: var(--black) !important;
+}
+
+nav .nav-btn:hover {
+    color: var(--gold) !important;
+}
+
+nav .nav-btn.active {
+    color: var(--gold) !important;
+}
+
 .nav-btn {
     cursor: pointer;
     transition: all 0.3s ease;
@@ -87,7 +108,7 @@ body {
     border-bottom: 2px solid transparent;
     font-weight: bold;
     font-size: 14px;
-    color: var(--white);
+    color: var(--black);
     background: none;
     border: none;
 }
@@ -99,6 +120,26 @@ body {
 .nav-btn.active {
     border-bottom: 2px solid var(--gold);
     color: var(--gold);
+}
+
+/* ==================== FOOTER ====================  */
+
+footer {
+    background-color: #f5f5f5 !important;
+    border-top: 2px solid var(--gold);
+    color: var(--black) !important;
+}
+
+footer * {
+    color: var(--black) !important;
+}
+
+footer a {
+    color: var(--gold) !important;
+}
+
+footer a:hover {
+    color: var(--gold-light) !important;
 }
 
 /* ==================== TABS ====================  */
