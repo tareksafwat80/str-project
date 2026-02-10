@@ -57,6 +57,7 @@
                     <button class="nav-btn" onclick="showTab('services')">مناطق عملنا</button>
                     <button class="nav-btn" onclick="showTab('partners')">شركاؤنا</button>
                     <button class="nav-btn text-red-500 font-bold" onclick="openAdminLogin()">الأدمن</button>
+                    <button class="nav-btn text-blue-500 font-bold" onclick="openEmployeeLogin()">الموظف</button>
                 </div>
             </div>
         </div>
@@ -417,6 +418,81 @@
         </div>
     </div>
 
+    <!-- Edit Unit Modal -->
+    <div id="editUnitModal" class="modal" onclick="if(event.target.id==='editUnitModal') closeEditUnitModal()">
+        <div class="bg-black border border-gold rounded-xl p-8 max-w-2xl mx-auto mt-10 max-h-screen overflow-y-auto" onclick="event.stopPropagation()">
+            <h3 class="text-2xl gold-text font-bold mb-6">تعديل الوحدة</h3>
+            <form onsubmit="saveUnitEdit(event)" class="space-y-4">
+                <input type="hidden" id="editUnitId">
+                <input type="number" id="editUnitCode" placeholder="كود الوحدة" required class="form-input">
+                <select id="editUnitType" required class="form-input">
+                    <option value="">نوع الوحدة</option>
+                    <option value="resale">ريسيل</option>
+                    <option value="primary">برايمري</option>
+                    <option value="rentals">إيجار</option>
+                </select>
+                <input type="number" id="editUnitPrice" placeholder="السعر" required class="form-input">
+                <input type="text" id="editUnitZone" placeholder="المنطقة" required class="form-input">
+                <input type="number" id="editUnitRooms" placeholder="عدد الغرف" required class="form-input">
+                <input type="number" id="editUnitSpace" placeholder="المساحة" required class="form-input">
+                <textarea id="editUnitNotes" placeholder="ملاحظات" class="form-input h-20"></textarea>
+                <div class="flex gap-2">
+                    <button type="submit" class="flex-1 btn-primary">حفظ التعديلات</button>
+                    <button type="button" onclick="closeEditUnitModal()" class="flex-1 btn-secondary">إغلاق</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Lead Modal -->
+    <div id="editLeadModal" class="modal" onclick="if(event.target.id==='editLeadModal') closeEditLeadModal()">
+        <div class="bg-black border border-gold rounded-xl p-8 max-w-2xl mx-auto mt-10 max-h-screen overflow-y-auto" onclick="event.stopPropagation()">
+            <h3 class="text-2xl gold-text font-bold mb-6">تعديل الـ Lead</h3>
+            <form onsubmit="saveLeadEdit(event)" class="space-y-4">
+                <input type="hidden" id="editLeadId">
+                <input type="text" id="editLeadName" placeholder="الاسم" required class="form-input">
+                <input type="tel" id="editLeadPhone" placeholder="الهاتف" required class="form-input">
+                <input type="email" id="editLeadEmail" placeholder="البريد الإلكتروني" class="form-input">
+                <select id="editLeadStatus" required class="form-input">
+                    <option value="new">جديد</option>
+                    <option value="follow-up">متابعة</option>
+                    <option value="converted">محول</option>
+                </select>
+                <textarea id="editLeadNotes" placeholder="ملاحظات" class="form-input h-20"></textarea>
+                <div class="flex gap-2">
+                    <button type="submit" class="flex-1 btn-primary">حفظ التعديلات</button>
+                    <button type="button" onclick="closeEditLeadModal()" class="flex-1 btn-secondary">إغلاق</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- Edit Employee Modal -->
+    <div id="editEmployeeModal" class="modal" onclick="if(event.target.id==='editEmployeeModal') closeEditEmployeeModal()">
+        <div class="bg-black border border-gold rounded-xl p-8 max-w-2xl mx-auto mt-10 max-h-screen overflow-y-auto" onclick="event.stopPropagation()">
+            <h3 class="text-2xl gold-text font-bold mb-6">تعديل الموظف</h3>
+            <form onsubmit="saveEmployeeEdit(event)" class="space-y-4">
+                <input type="hidden" id="editEmployeeId">
+                <input type="text" id="editEmployeeName" placeholder="الاسم" required class="form-input">
+                <input type="tel" id="editEmployeePhone" placeholder="الهاتف" required class="form-input">
+                <input type="email" id="editEmployeeEmail" placeholder="البريد الإلكتروني" required class="form-input">
+                <input type="password" id="editEmployeePassword" placeholder="كلمة السر" class="form-input">
+                <select id="editEmployeeRole" required class="form-input">
+                    <option value="sales">سيلز</option>
+                    <option value="manager">مدير مبيعات</option>
+                    <option value="admin">مدير</option>
+                </select>
+                <label class="flex items-center gap-2 text-white cursor-pointer">
+                    <input type="checkbox" id="editEmployeeCanAddUnits" class="w-4 h-4">
+                    <span>صلاحية إضافة وحدات</span>
+                </label>
+                <div class="flex gap-2">
+                    <button type="submit" class="flex-1 btn-primary">حفظ التعديلات</button>
+                    <button type="button" onclick="closeEditEmployeeModal()" class="flex-1 btn-secondary">إغلاق</button>
+                </div>
+            </form>
+        </div>
+    </div>
     <!-- Admin Login Modal -->
     <div id="adminLoginModal" class="modal" onclick="if(event.target.id==='adminLoginModal') closeModal()">
         <div class="bg-black border border-gold rounded-xl p-8 max-w-sm mx-auto mt-20" onclick="event.stopPropagation()">
@@ -427,6 +503,45 @@
         </div>
     </div>
 
+    <!-- Employee Login Modal -->
+    <div id="employeeLoginModal" class="modal" onclick="if(event.target.id==='employeeLoginModal') closeEmployeeLoginModal()">
+        <div class="bg-black border border-gold rounded-xl p-8 max-w-sm mx-auto mt-20" onclick="event.stopPropagation()">
+            <h3 class="text-2xl gold-text font-bold mb-6 text-center">تسجيل دخول الموظف</h3>
+            <input type="email" id="employeeEmail" placeholder="البريد الإلكتروني" class="w-full bg-zinc-900 border border-gold/30 rounded-lg px-4 py-2 mb-4 text-white">
+            <input type="password" id="employeePassword" placeholder="كلمة السر" class="w-full bg-zinc-900 border border-gold/30 rounded-lg px-4 py-2 mb-4 text-white">
+            <button onclick="checkEmployeeLogin()" class="w-full btn-primary mb-2">دخول</button>
+            <button onclick="closeEmployeeLoginModal()" class="w-full btn-secondary">إغلاق</button>
+        </div>
+    </div>
+
+    <!-- Employee Dashboard Modal -->
+    <div id="employeeDashboardModal" class="modal">
+        <div class="container mx-auto px-4 py-10 max-h-screen overflow-y-auto">
+            <div class="flex justify-between items-center border-b border-gold pb-6 mb-8">
+                <div>
+                    <h1 class="text-4xl font-bold gold-text">لوحة الموظف</h1>
+                    <p class="text-silver mt-2">مرحباً <span id="employeeName" class="gold-text font-bold"></span></p>
+                </div>
+                <button onclick="logoutEmployee()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-full font-bold transition">تسجيل خروج</button>
+            </div>
+
+            <!-- Employee Tabs -->
+            <div class="flex gap-2 mb-8 border-b border-gold/30 pb-4 flex-wrap">
+                <button class="admin-tab-btn active" onclick="showEmployeeTab('leads')">الـ Leads المسندة</button>
+                <button class="admin-tab-btn" onclick="showEmployeeTab('stats')">الإحصائيات</button>
+            </div>
+
+            <!-- Employee Leads Tab -->
+            <div id="employee-leads" class="admin-tab-content active-admin-tab">
+                <div id="employeeLeadsList" class="bg-zinc-900 rounded-xl border border-gold/30 overflow-x-auto"></div>
+            </div>
+
+            <!-- Employee Stats Tab -->
+            <div id="employee-stats" class="admin-tab-content">
+                <div id="employeeStats" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"></div>
+            </div>
+        </div>
+    </div>
     <!-- Admin Dashboard Modal -->
     <div id="adminModal" class="modal">
         <div class="container mx-auto px-4 py-10 max-h-screen overflow-y-auto">
@@ -476,9 +591,21 @@
                             </select>
                             <input type="number" placeholder="عدد الغرف" required class="form-input">
                             <input type="number" placeholder="المساحة (ممبر)" required class="form-input">
-                            <input type="file" id="unitImages" accept="image/*" multiple placeholder="الصور" class="form-input">
-                            <input type="file" id="unitVideos" accept="video/*" multiple placeholder="الفيديوهات" class="form-input">
-                            <input type="file" id="unitPDFs" accept=".pdf" multiple placeholder="ملفات PDF" class="form-input">
+                            <div class="space-y-2">
+                                <label class="block text-silver text-sm">الصور (حتى 10 ملفات)</label>
+                                <input type="file" id="unitImages" accept="image/*" multiple class="form-input" onchange="updateFileCount('unitImages', 'imageCount')">
+                                <span id="imageCount" class="text-xs text-silver">0 ملف</span>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-silver text-sm">الفيديوهات (حتى 10 ملفات)</label>
+                                <input type="file" id="unitVideos" accept="video/*" multiple class="form-input" onchange="updateFileCount('unitVideos', 'videoCount')">
+                                <span id="videoCount" class="text-xs text-silver">0 ملف</span>
+                            </div>
+                            <div class="space-y-2">
+                                <label class="block text-silver text-sm">ملفات PDF (حتى 10 ملفات)</label>
+                                <input type="file" id="unitPDFs" accept=".pdf" multiple class="form-input" onchange="updateFileCount('unitPDFs', 'pdfCount')">
+                                <span id="pdfCount" class="text-xs text-silver">0 ملف</span>
+                            </div>
                             <button type="submit" class="w-full btn-primary">إضافة الوحدة</button>
                         </form>
                     </div>
@@ -595,6 +722,95 @@
                             <textarea id="companyDescEn" placeholder="Company description in English" class="form-input h-24"></textarea>
                         </div>
                         <button type="submit" class="w-full btn-primary">حفظ الإعدادات</button>
+                    </form>
+                </div>
+
+                <!-- About Page Editor -->
+                <div class="bg-zinc-900 p-8 rounded-xl border border-gold/30 mt-6">
+                    <h2 class="text-2xl font-bold gold-text mb-6">تعديل صفحة "عن الشركة"</h2>
+                    <form onsubmit="saveAboutData(event)" class="space-y-8">
+                        
+                        <!-- Mission Section -->
+                        <div class="border border-gold/20 rounded-lg p-6">
+                            <h3 class="text-lg font-bold gold-text mb-4"><i class="fas fa-bullseye ml-2"></i> رسالتنا | Our Mission</h3>
+                            <div class="mb-4">
+                                <label class="block text-silver mb-2">صورة القسم</label>
+                                <input type="file" id="aboutMissionImage" accept="image/*" onchange="previewAboutImage(this, 'missionPreview')" class="form-input">
+                                <img id="missionPreview" class="mt-2 h-24 rounded-lg hidden" alt="">
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-silver mb-2">النص العربي</label>
+                                    <textarea id="aboutMissionAr" class="form-input h-32" dir="rtl"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-silver mb-2">English Text</label>
+                                    <textarea id="aboutMissionEn" class="form-input h-32" dir="ltr"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Vision Section -->
+                        <div class="border border-gold/20 rounded-lg p-6">
+                            <h3 class="text-lg font-bold gold-text mb-4"><i class="fas fa-eye ml-2"></i> رؤيتنا | Our Vision</h3>
+                            <div class="mb-4">
+                                <label class="block text-silver mb-2">صورة القسم</label>
+                                <input type="file" id="aboutVisionImage" accept="image/*" onchange="previewAboutImage(this, 'visionPreview')" class="form-input">
+                                <img id="visionPreview" class="mt-2 h-24 rounded-lg hidden" alt="">
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-silver mb-2">النص العربي</label>
+                                    <textarea id="aboutVisionAr" class="form-input h-32" dir="rtl"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-silver mb-2">English Text</label>
+                                    <textarea id="aboutVisionEn" class="form-input h-32" dir="ltr"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Team Section -->
+                        <div class="border border-gold/20 rounded-lg p-6">
+                            <h3 class="text-lg font-bold gold-text mb-4"><i class="fas fa-users ml-2"></i> فريقنا | Our Team</h3>
+                            <div class="mb-4">
+                                <label class="block text-silver mb-2">صورة القسم</label>
+                                <input type="file" id="aboutTeamImage" accept="image/*" onchange="previewAboutImage(this, 'teamPreview')" class="form-input">
+                                <img id="teamPreview" class="mt-2 h-24 rounded-lg hidden" alt="">
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-silver mb-2">النص العربي</label>
+                                    <textarea id="aboutTeamAr" class="form-input h-32" dir="rtl"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-silver mb-2">English Text</label>
+                                    <textarea id="aboutTeamEn" class="form-input h-32" dir="ltr"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- Closing Section -->
+                        <div class="border border-gold/20 rounded-lg p-6">
+                            <h3 class="text-lg font-bold gold-text mb-4"><i class="fas fa-trophy ml-2"></i> لماذا نحن؟ | Why Us?</h3>
+                            <div class="mb-4">
+                                <label class="block text-silver mb-2">صورة القسم</label>
+                                <input type="file" id="aboutClosingImage" accept="image/*" onchange="previewAboutImage(this, 'closingPreview')" class="form-input">
+                                <img id="closingPreview" class="mt-2 h-24 rounded-lg hidden" alt="">
+                            </div>
+                            <div class="grid md:grid-cols-2 gap-4">
+                                <div>
+                                    <label class="block text-silver mb-2">النص العربي</label>
+                                    <textarea id="aboutClosingAr" class="form-input h-32" dir="rtl"></textarea>
+                                </div>
+                                <div>
+                                    <label class="block text-silver mb-2">English Text</label>
+                                    <textarea id="aboutClosingEn" class="form-input h-32" dir="ltr"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button type="submit" class="w-full btn-primary">حفظ تعديلات صفحة "عن الشركة"</button>
                     </form>
                 </div>
             </div>
