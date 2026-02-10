@@ -533,7 +533,51 @@ function toggleLanguage() {
     document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
     document.documentElement.lang = lang;
     document.getElementById('langToggle').textContent = lang === 'ar' ? 'English' : 'عربي';
+    updateFilterLabels();
     renderAbout();
+    renderUnits();
+}
+
+function updateFilterLabels() {
+    const isAr = lang === 'ar';
+    
+    // Update Category filter
+    const categoryLabel = document.querySelector('label[for="category"]');
+    if (categoryLabel) {
+        categoryLabel.textContent = isAr ? 'النوع:' : 'Category:';
+    }
+    
+    // Update Category select options
+    const categorySelect = document.getElementById('category');
+    if (categorySelect) {
+        const options = categorySelect.querySelectorAll('option');
+        options.forEach(opt => {
+            if (opt.value === 'resale') opt.textContent = isAr ? 'إعادة بيع' : 'Resale';
+            if (opt.value === 'primary') opt.textContent = isAr ? 'أولي' : 'Primary';
+            if (opt.value === 'rentals') opt.textContent = isAr ? 'إيجار' : 'Rentals';
+        });
+    }
+    
+    // Update Zone filter
+    const zoneLabel = document.querySelector('label[for="zone"]');
+    if (zoneLabel) {
+        zoneLabel.textContent = isAr ? 'المنطقة:' : 'Zone:';
+    }
+    
+    // Update Zone select options
+    const zoneSelect = document.getElementById('zone');
+    if (zoneSelect) {
+        const options = zoneSelect.querySelectorAll('option');
+        options.forEach(opt => {
+            if (opt.value === 'all') opt.textContent = isAr ? 'الكل' : 'All';
+            if (opt.value === 'العاصمة الإدارية الجديدة') opt.textContent = isAr ? 'العاصمة الإدارية الجديدة' : 'New Capital';
+            if (opt.value === 'الساحل الشمالي') opt.textContent = isAr ? 'الساحل الشمالي' : 'North Coast';
+            if (opt.value === 'رأس الحكمة') opt.textContent = isAr ? 'رأس الحكمة' : 'Ras El Hekma';
+            if (opt.value === 'القاهرة الجديدة') opt.textContent = isAr ? 'القاهرة الجديدة' : 'New Cairo';
+            if (opt.value === 'العين السخنة') opt.textContent = isAr ? 'العين السخنة' : 'Ain El Sokhna';
+            if (opt.value === 'الشيخ زايد') opt.textContent = isAr ? 'الشيخ زايد' : 'Sheikh Zayed';
+        });
+    }
 }
 
 function switchUnitTab(tab) {
@@ -743,8 +787,9 @@ function addEmployee(e) {
         name: inputs[0].value,
         phone: inputs[1].value,
         email: inputs[2].value,
-        role: inputs[3].value,
-        canAddUnits: inputs[4].checked,
+        password: inputs[3].value,
+        role: inputs[4].value,
+        canAddUnits: inputs[5].checked,
         createdAt: new Date().toISOString(),
         assignedLeads: [],
         convertedLeads: 0
@@ -1251,7 +1296,22 @@ function exportLeads() {
 function addUnit(e) {
     e.preventDefault();
     const form = e.target;
-    const inputs = form.querySelectorAll('input, select');
+    const inputs = form.querySelectorAll('input[type="number"], select');
+    
+    const imagesInput = document.getElementById('unitImages');
+    const videosInput = document.getElementById('unitVideos');
+    const pdfsInput = document.getElementById('unitPDFs');
+    
+    const images = [];
+    const videos = [];
+    const pdfs = [];
+    let filesProcessed = 0;
+    let totalFiles = 0;
+    
+    // Count total files
+    if(imagesInput) totalFiles += imagesInput.files.length;
+    if(videosInput) totalFiles += videosInput.files.length;
+    if(pdfsInput) totalFiles += pdfsInput.files.length;
     
     const newUnit = {
         id: Date.now(),
@@ -1261,17 +1321,75 @@ function addUnit(e) {
         zone: inputs[3].value,
         rooms: parseInt(inputs[4].value),
         space: parseInt(inputs[5].value),
+        images: images,
+        videos: videos,
+        pdfs: pdfs,
         createdAt: new Date().toISOString(),
         featured: false,
         status: 'available'
     };
     
-    units.push(newUnit);
-    saveUnits();
-    form.reset();
-    alert('تمت إضافة الوحدة بنجاح!');
-    renderUnitsList();
-    renderUnits();
+    function processFile(file, type) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                if(type === 'image') {
+                    images.push({name: file.name, data: e.target.result});
+                } else if(type === 'video') {
+                    videos.push({name: file.name, data: e.target.result});
+                } else if(type === 'pdf') {
+                    pdfs.push({name: file.name, data: e.target.result});
+                }
+                filesProcessed++;
+                resolve();
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+    
+    async function processAllFiles() {
+        const promises = [];
+        
+        if(imagesInput && imagesInput.files.length > 0) {
+            for(let file of imagesInput.files) {
+                promises.push(processFile(file, 'image'));
+            }
+        }
+        
+        if(videosInput && videosInput.files.length > 0) {
+            for(let file of videosInput.files) {
+                promises.push(processFile(file, 'video'));
+            }
+        }
+        
+        if(pdfsInput && pdfsInput.files.length > 0) {
+            for(let file of pdfsInput.files) {
+                promises.push(processFile(file, 'pdf'));
+            }
+        }
+        
+        if(promises.length > 0) {
+            await Promise.all(promises);
+        }
+        
+        units.push(newUnit);
+        saveUnits();
+        form.reset();
+        alert('تمت إضافة الوحدة بنجاح!');
+        renderUnitsList();
+        renderUnits();
+    }
+    
+    if(totalFiles > 0) {
+        processAllFiles();
+    } else {
+        units.push(newUnit);
+        saveUnits();
+        form.reset();
+        alert('تمت إضافة الوحدة بنجاح!');
+        renderUnitsList();
+        renderUnits();
+    }
 }
 
 function openUnit(id) {
@@ -1293,3 +1411,58 @@ function openUnit(id) {
     
     document.getElementById('unitModal').style.display = 'block';
 }
+
+
+// ==================== COMPANY SETTINGS ====================
+
+function saveCompanySettings(e) {
+    e.preventDefault();
+    
+    const settings = {
+        companyName: document.getElementById('companyName').value,
+        companyEmail: document.getElementById('companyEmail').value,
+        companyPhone1: document.getElementById('companyPhone1').value,
+        companyPhone2: document.getElementById('companyPhone2').value,
+        companyAddress: document.getElementById('companyAddress').value,
+        companyLogo: document.getElementById('companyLogo').value,
+        companyDescAr: document.getElementById('companyDescAr').value,
+        companyDescEn: document.getElementById('companyDescEn').value
+    };
+    
+    localStorage.setItem('companySettings', JSON.stringify(settings));
+    alert('تم حفظ إعدادات الشركة بنجاح!');
+}
+
+function loadCompanySettings() {
+    const settings = JSON.parse(localStorage.getItem('companySettings')) || {};
+    
+    if(document.getElementById('companyName')) {
+        document.getElementById('companyName').value = settings.companyName || 'Summit Team Real Estate';
+    }
+    if(document.getElementById('companyEmail')) {
+        document.getElementById('companyEmail').value = settings.companyEmail || 'admin@str-summitteam.com';
+    }
+    if(document.getElementById('companyPhone1')) {
+        document.getElementById('companyPhone1').value = settings.companyPhone1 || '01159333060';
+    }
+    if(document.getElementById('companyPhone2')) {
+        document.getElementById('companyPhone2').value = settings.companyPhone2 || '01222108383';
+    }
+    if(document.getElementById('companyAddress')) {
+        document.getElementById('companyAddress').value = settings.companyAddress || 'East Hub Mall, Building 16, Madinaty, New Cairo';
+    }
+    if(document.getElementById('companyLogo')) {
+        document.getElementById('companyLogo').value = settings.companyLogo || 'logo.jpg';
+    }
+    if(document.getElementById('companyDescAr')) {
+        document.getElementById('companyDescAr').value = settings.companyDescAr || '';
+    }
+    if(document.getElementById('companyDescEn')) {
+        document.getElementById('companyDescEn').value = settings.companyDescEn || '';
+    }
+}
+
+// Load settings when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    loadCompanySettings();
+});
