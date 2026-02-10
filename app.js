@@ -1,25 +1,29 @@
 // ==================== DATA MANAGEMENT ====================
 
 // Company Data - Updated with full profile
-const aboutData = {
+let aboutData = JSON.parse(localStorage.getItem('aboutData')) || {
     tagline: "Where Every Step Leads To The Summit | حيث تؤدي كل خطوة إلى القمة",
     
     aboutUs: {
+        image: '',
         en: "Our company is a pioneer and emerging strongly and specialized in the field of marketing and real estate investment in the Egyptian market. Our company was established by a professional loyal team in the field of marketing and real estate development. Our company also has all the required permits and approvals. Our company is a pioneer in effective solutions with high quality. We are always working to use the latest technology and systems available in the field. We differ a lot from our competitors in terms of the quality of our services, the efficiency of our human elements and the diversity of our products. And our commitment to providing the best value in the market always. We provide strict control systems (human / physical) for the company's employees to ensure and confirm the quality of our services.",
         ar: "شركتنا رائدة وناشئة بقوة و متخصصة فى مجال التسويق والإستثمار العقاري بالسوق المصري. تأسست شركتنا بواسطة فريق مخلص محترف فى مجال التسويق والتطوير العقاري. كما أن شركتنا حاصلة على كافة التصاريح والموافقات المطلوبة. شركتنا رائدة فى الحلول الفعالة ذات الجودة العالية ونعمل دائماً على إستخدام أحدث تكنولوجيا وأنظمة متاحة فى المجال. نختلف كثيراً عن منافسينا من حيث جودة خدماتنا وكفاءة عناصرنا البشرية وتنوع منتجاتنا وإلتزامنا بتقديم أفضل قيمة بالسوق دائماً. ونوفر أنظمة مراقبة صارمة (بشرية / مادية) للعاملين بالشركة لضمان وتأكيد جودة خدماتنا."
     },
     
     vision: {
+        image: '',
         en: "Providing the best value for the best price in the field of real estate marketing by combining elements of quality and excellence with excellent and competitive financial value. To be our company your primary source for meeting all your needs in the field of real estate investment and to be a leader without competition in the comfort and satisfaction of its clients. We believe that complete customer satisfaction is a goal that can be achieved through trust, hard teamwork, and follow-up under the overarching theme of professionalism. Our strict measures for cost control and customer service enable us to provide the best diverse and competitive value in the field, while delivering the highest level of service.",
         ar: "تقديم أفضل قيمة مقابل افضل سعر فى مجال التسويق العقاري بالدمج بين عنصرى الجودة والتميز مقابل القيمة المالية الممتازة والتنافسية. أن تكون شركتنا مصدرك الأول لتلبية جميع إحتياجاتك في مجال الاستثمار العقاري وأن تكون رائده بلا منافس فى راحة ورضا عملائها. نؤمن أن رضا عملاؤنا الكامل هو هدف يمكن بلوغه و تحقيقة من خلال الثقة والعمل الجماعى الجاد والمتابعة تحت عنوان كبير وهو الإحتراف. إجراءاتنا الصارمة لمراقبة التكاليف وخدمة العملاء تمكننا من توفير أفضل قيمة متنوعة وتنافسية فى المجال مع تقديم أعلى مستوى للخدمة."
     },
     
     team: {
+        image: '',
         en: "A distinguished selection of skilled and experienced individuals from Egypt and several Arab countries manages the company. We take pride in our employees as they are carefully selected from those with extensive experience in investment and real estate marketing. Our employees are trained and have the best advanced and specialized training programs. Other than the internal training programs provided by the company. Our company has a strong corporate culture that creates shared values of responsibility, ownership and entrepreneurship among its employees. In general, our staff are multi-skilled, adept and have a lot of experience. And you can benefit from our services in more ways than you think.",
         ar: "يتولى إدارة الشركة نخبة مميزة منتقاه من أصحاب الكفاءات والخبرات المتنوعة فى مصر و عدد من الدول العربية. نفخر بموظفينا حيث يتم إختيارهم بعناية فائقة من ذوى الخبرات الكبيرة فى مجال الاستثمار والتسويق العقاري. موظفينا مدربون وحاصلون على أفضل البرامج التدريبية المتطورة والمتخصصة بخلاف برامج التدريب الداخلية التى تقدمها الشركة. شركتنا لديها ثقافة الشركات القوية التى تخلق القيم المشتركة للمسئولية والملكية و روح المبادره بين موظفيها. بصفة عامة موظفينا متعددو المهارات وبارعون ولديهم الكثير من الخبرة ويمكنك الإستفاده من خدماتنا بطرق أكثر مما تظن."
     },
     
     closing: {
+        image: '',
         en: "Finally.. We are committed to providing all the requirements of our customers. While providing the best value in the real estate field. And we all work under the title of professionalism. To reach the main goal of our company... The comfort and satisfaction of our customers.",
         ar: "وأخيراً.. نحن نلتزم بتوفير كافة متطلبات عملائنا.. مع توفير أفضل قيمة فى المجال العقاري.. و نعمل جميعاً تحت عنوان الإحتراف.. وصولاً لهدف شركتنا الرئيسى… راحة ورضا عملاؤنا."
     }
@@ -84,275 +88,16 @@ function showTab(tabName) {
     }
 }
 
-function showAdminTab(tabName) {
-    document.querySelectorAll('.admin-tab-content').forEach(t => t.classList.remove('active-admin-tab'));
-    document.querySelectorAll('.admin-tab-btn').forEach(b => b.classList.remove('active'));
-    
-    document.getElementById('admin-' + tabName).classList.add('active-admin-tab');
-    event.target.classList.add('active');
-
-    if(tabName === 'units') renderUnitsList();
-    if(tabName === 'crm') renderLeadsList();
-}
-
 // ==================== UNITS MANAGEMENT ====================
-
-function renderUnits() {
-    const grid = document.getElementById('units-grid');
-    const search = document.getElementById('globalSearch').value.toLowerCase();
-    const maxPrice = document.getElementById('filterPrice').value;
-    const rooms = document.getElementById('filterRooms').value;
-    const zone = document.getElementById('filterZone').value;
-    const code = document.getElementById('filterCode').value;
-
-    let filtered = units.filter(u => {
-        return u.type === currentUnitTab &&
-               u.status === 'active' &&
-               (u.code.toString().includes(search) || u.zone.includes(search) || !search) &&
-               (!maxPrice || u.price <= maxPrice) &&
-               (!rooms || u.rooms == rooms) &&
-               (!zone || u.zone == zone) &&
-               (!code || u.code.toString().includes(code));
-    });
-
-    grid.innerHTML = filtered.length > 0 ? filtered.map(u => `
-        <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden cursor-pointer hover:border-gold transition hover:shadow-lg hover:shadow-gold/20" onclick="openUnit(${u.id})">
-            <img src="${u.images[0]}" class="h-40 w-full object-cover">
-            <div class="p-4">
-                <div class="flex justify-between text-[10px] gold-text mb-2"><span>${u.code}</span><span>${u.zone}</span></div>
-                <p class="text-lg font-bold text-white mb-2">${u.price.toLocaleString()} EGP</p>
-                <p class="text-[10px] silver-text">${u.rooms} غرف | ${u.space} م²</p>
-            </div>
-        </div>
-    `).join('') : '<div class="col-span-full text-center py-12"><p class="text-silver">لا توجد وحدات متاحة</p></div>';
-}
-
-function openUnit(id) {
-    const u = units.find(u => u.id === id);
-    if(!u) return;
-    
-    document.getElementById('sliderWrapper').innerHTML = `<img src="${u.images[0]}" class="w-full h-full object-cover">`;
-    document.getElementById('m-code').innerText = u.code;
-    document.getElementById('m-address').innerText = u.zone + " - " + u.model;
-    document.getElementById('m-specs').innerText = `${u.rooms} غرف - ${u.space} متر - ${u.view}`;
-    document.getElementById('m-finance').innerText = `السعر: ${u.price.toLocaleString()} جنيه`;
-    document.getElementById('m-dates').innerText = "متاح للاستلام الفوري";
-    document.getElementById('m-notes').innerText = "وحدة مميزة بتشطيب الترا سوبر لوكس، قريبة من جميع الخدمات والمرافق.";
-    
-    document.getElementById('unitModal').style.display = 'block';
-    document.getElementById('wa-btn').onclick = () => {
-        const lead = {
-            id: Date.now(),
-            name: "زائر الموقع",
-            phone: "غير محدد",
-            email: "غير محدد",
-            unitCode: u.code,
-            status: "new",
-            source: "website",
-            createdAt: new Date().toISOString(),
-            notes: `استفسار عن الوحدة ${u.code}`
-        };
-        leads.push(lead);
-        saveLead(lead);
-        window.open(`https://wa.me/201159333060?text=استفسار عن كود ${u.code}`);
-    };
-}
-
-function addUnit(e) {
-    e.preventDefault();
-    const form = e.target;
-    const inputs = form.querySelectorAll('input, select');
-    
-    const newUnit = {
-        id: Date.now(),
-        code: parseInt(inputs[0].value),
-        type: inputs[1].value,
-        price: parseInt(inputs[2].value),
-        zone: inputs[3].value,
-        rooms: parseInt(inputs[4].value),
-        space: parseInt(inputs[5].value),
-        view: "إطلالة مميزة",
-        model: "نموذج جديد",
-        images: ["https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800"],
-        createdAt: new Date().toISOString(),
-        status: "active"
-    };
-    
-    units.push(newUnit);
-    saveUnits();
-    form.reset();
-    updateNotifications();
-    alert('تمت إضافة الوحدة بنجاح!');
-    renderUnitsList();
-}
-
-function renderUnitsList() {
-    const list = document.getElementById('unitsList');
-    list.innerHTML = `
-        <table class="w-full text-sm">
-            <thead class="bg-black border-b border-gold">
-                <tr class="text-gold">
-                    <th class="p-3 text-right">الكود</th>
-                    <th class="p-3 text-right">النوع</th>
-                    <th class="p-3 text-right">السعر</th>
-                    <th class="p-3 text-right">المنطقة</th>
-                    <th class="p-3 text-right">الغرف</th>
-                    <th class="p-3 text-right">الإجراءات</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${units.map(u => `
-                    <tr class="border-b border-gold/20 hover:bg-black/50">
-                        <td class="p-3">${u.code}</td>
-                        <td class="p-3">${u.type}</td>
-                        <td class="p-3">${u.price.toLocaleString()}</td>
-                        <td class="p-3">${u.zone}</td>
-                        <td class="p-3">${u.rooms}</td>
-                        <td class="p-3">
-                            <button onclick="deleteUnit(${u.id})" class="text-red-500 hover:text-red-700 text-xs">حذف</button>
-                        </td>
-                    </tr>
-                `).join('')}
-            </tbody>
-        </table>
-    `;
-}
-
-function deleteUnit(id) {
-    if(confirm('هل تريد حذف هذه الوحدة؟')) {
-        units = units.filter(u => u.id !== id);
-        saveUnits();
-        renderUnitsList();
-    }
-}
-
-function exportUnits() {
-    const csv = 'الكود,النوع,السعر,المنطقة,الغرف,المساحة\n' +
-                units.map(u => `${u.code},${u.type},${u.price},${u.zone},${u.rooms},${u.space}`).join('\n');
-    downloadCSV(csv, 'units.csv');
-}
 
 // ==================== CRM MANAGEMENT ====================
 
-function addLead(e) {
-    e.preventDefault();
-    const form = e.target;
-    const inputs = form.querySelectorAll('input, select, textarea');
-    
-    const newLead = {
-        id: Date.now(),
-        name: inputs[0].value,
-        email: inputs[1].value,
-        phone: inputs[2].value,
-        status: inputs[3].value,
-        notes: inputs[4].value,
-        source: "manual",
-        createdAt: new Date().toISOString()
-    };
-    
-    leads.push(newLead);
-    saveLeads();
-    form.reset();
-    alert('تمت إضافة Lead بنجاح!');
-    renderLeadsList();
-}
-
-function renderLeadsList() {
-    const list = document.getElementById('leadsList');
-    list.innerHTML = `
-        <table class="w-full text-sm">
-            <thead class="bg-black border-b border-gold">
-                <tr class="text-gold">
-                    <th class="p-3 text-right">الاسم</th>
-                    <th class="p-3 text-right">الهاتف</th>
-                    <th class="p-3 text-right">البريد</th>
-                    <th class="p-3 text-right">الحالة</th>
-                    <th class="p-3 text-right">المصدر</th>
-                    <th class="p-3 text-right">التاريخ</th>
-                    <th class="p-3 text-right">الإجراءات</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${leads.map(l => `
-                    <tr class="border-b border-gold/20 hover:bg-black/50">
-                        <td class="p-3">${l.name}</td>
-                        <td class="p-3">${l.phone}</td>
-                        <td class="p-3 text-xs">${l.email}</td>
-                        <td class="p-3"><span class="px-2 py-1 rounded text-xs ${l.status === 'new' ? 'bg-blue-900 text-blue-200' : 'bg-green-900 text-green-200'}">${l.status}</span></td>
-                        <td class="p-3 text-xs">${l.source}</td>
-                        <td class="p-3 text-xs">${new Date(l.createdAt).toLocaleDateString('ar-EG')}</td>
-                        <td class="p-3">
-                            <button onclick="deleteLead(${l.id})" class="text-red-500 hover:text-red-700 text-xs">حذف</button>
-                        </td>
-                    </tr>
-                `).join('')}
-            </tbody>
-        </table>
-    `;
-}
-
-function deleteLead(id) {
-    if(confirm('هل تريد حذف هذا Lead؟')) {
-        leads = leads.filter(l => l.id !== id);
-        saveLeads();
-        renderLeadsList();
-    }
-}
-
-function exportLeads() {
-    const csv = 'الاسم,الهاتف,البريد,الحالة,المصدر,التاريخ\n' +
-                leads.map(l => `${l.name},${l.phone},${l.email},${l.status},${l.source},${new Date(l.createdAt).toLocaleDateString('ar-EG')}`).join('\n');
-    downloadCSV(csv, 'leads.csv');
-}
-
 // ==================== ABOUT PAGE ====================
-
-function renderAbout() {
-    const aboutSection = document.getElementById('about');
-    const lang = document.documentElement.lang === 'ar' ? 'ar' : 'en';
-    
-    aboutSection.innerHTML = `
-        <div class="max-w-6xl mx-auto px-4 py-12">
-            <h1 class="text-4xl font-bold text-center mb-2 gold-text">${lang === 'ar' ? 'عن الشركة' : 'About Us'}</h1>
-            <p class="text-center silver-text mb-12">${aboutData.tagline}</p>
-            
-            <div class="grid md:grid-cols-2 gap-8 mb-12">
-                <div class="bg-zinc-900 border border-gold/30 rounded-xl p-8">
-                    <h2 class="text-2xl font-bold gold-text mb-4">${lang === 'ar' ? 'من نحن' : 'Who We Are'}</h2>
-                    <p class="text-silver leading-relaxed">${aboutData.aboutUs[lang]}</p>
-                </div>
-                
-                <div class="bg-zinc-900 border border-gold/30 rounded-xl p-8">
-                    <h2 class="text-2xl font-bold gold-text mb-4">${lang === 'ar' ? 'رؤيتنا' : 'Our Vision'}</h2>
-                    <p class="text-silver leading-relaxed">${aboutData.vision[lang]}</p>
-                </div>
-            </div>
-            
-            <div class="bg-zinc-900 border border-gold/30 rounded-xl p-8 mb-12">
-                <h2 class="text-2xl font-bold gold-text mb-4">${lang === 'ar' ? 'فريق عملنا' : 'Our Team'}</h2>
-                <p class="text-silver leading-relaxed">${aboutData.team[lang]}</p>
-            </div>
-            
-            <div class="bg-black border border-gold rounded-xl p-8 text-center">
-                <p class="text-lg text-white leading-relaxed">${aboutData.closing[lang]}</p>
-            </div>
-        </div>
-    `;
-}
 
 // ==================== STORAGE ====================
 
-function saveUnits() {
-    localStorage.setItem('units', JSON.stringify(units));
-}
-
 function saveLeads() {
     localStorage.setItem('leads', JSON.stringify(leads));
-}
-
-function saveLead(lead) {
-    leads.push(lead);
-    saveLeads();
 }
 
 function downloadCSV(csv, filename) {
@@ -438,12 +183,26 @@ function checkAdminPassword() {
 
 function renderAdminStats() {
     const statsDiv = document.getElementById('adminStats');
+    
+    // Units by type
+    const resaleUnits = units.filter(u => u.type === 'resale').length;
+    const resaleFeatured = units.filter(u => u.type === 'resale' && u.featured).length;
+    
+    const primaryUnits = units.filter(u => u.type === 'primary').length;
+    const primaryFeatured = units.filter(u => u.type === 'primary' && u.featured).length;
+    
+    const rentalUnits = units.filter(u => u.type === 'rentals').length;
+    const rentalFeatured = units.filter(u => u.type === 'rentals' && u.featured).length;
+    
     const totalUnits = units.length;
+    
+    // Leads stats
     const totalLeads = leads.length;
     const newLeads = leads.filter(l => l.status === 'new').length;
     const convertedLeads = leads.filter(l => l.status === 'converted').length;
     
     statsDiv.innerHTML = `
+        <!-- Row 1: Main Stats -->
         <div class="bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/30 rounded-lg p-6">
             <p class="text-silver text-sm mb-2">إجمالي الوحدات</p>
             <p class="text-3xl font-bold gold-text">${totalUnits}</p>
@@ -459,6 +218,27 @@ function renderAdminStats() {
         <div class="bg-gradient-to-br from-green-900/20 to-green-900/5 border border-green-500/30 rounded-lg p-6">
             <p class="text-silver text-sm mb-2">Leads محول</p>
             <p class="text-3xl font-bold text-green-400">${convertedLeads}</p>
+        </div>
+        
+        <!-- Row 2: Resale Units -->
+        <div class="bg-gradient-to-br from-purple-900/20 to-purple-900/5 border border-purple-500/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">وحدات ريسيل</p>
+            <p class="text-3xl font-bold text-purple-400">${resaleUnits}</p>
+            <p class="text-xs text-purple-300 mt-1">مميز: ${resaleFeatured}</p>
+        </div>
+        
+        <!-- Row 2: Primary Units -->
+        <div class="bg-gradient-to-br from-cyan-900/20 to-cyan-900/5 border border-cyan-500/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">وحدات برايمري</p>
+            <p class="text-3xl font-bold text-cyan-400">${primaryUnits}</p>
+            <p class="text-xs text-cyan-300 mt-1">مميز: ${primaryFeatured}</p>
+        </div>
+        
+        <!-- Row 2: Rental Units -->
+        <div class="bg-gradient-to-br from-orange-900/20 to-orange-900/5 border border-orange-500/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">وحدات إيجار</p>
+            <p class="text-3xl font-bold text-orange-400">${rentalUnits}</p>
+            <p class="text-xs text-orange-300 mt-1">مميز: ${rentalFeatured}</p>
         </div>
     `;
 }
@@ -522,7 +302,6 @@ document.addEventListener('click', (e) => {
         }
     }
 });
-
 
 // ==================== LANGUAGE SWITCH ====================
 
@@ -592,26 +371,79 @@ function switchUnitTab(tab) {
 
 function renderAbout() {
     const about = document.getElementById('about');
-    const isAr = lang === 'ar';
+    
+    function sectionImage(img, fallbackIcon, fallbackColor) {
+        if(img) {
+            return `<div class="flex items-center justify-center p-4 overflow-hidden"><img src="${img}" class="w-full h-48 object-cover rounded-lg" alt=""></div>`;
+        }
+        return `<div class="bg-gradient-to-br ${fallbackColor} flex items-center justify-center p-10"><i class="fas ${fallbackIcon} text-6xl gold-text"></i></div>`;
+    }
+    
     about.innerHTML = `
-        <h1 class="text-4xl font-bold text-center mb-8 gold-text">${isAr ? 'عن الشركة' : 'About Us'}</h1>
-        <p class="text-center silver-text text-xl mb-12">${aboutData.tagline}</p>
-        <div class="max-w-4xl mx-auto space-y-8">
-            <div class="bg-zinc-900 border border-gold/30 rounded-xl p-8">
-                <h2 class="text-2xl font-bold gold-text mb-4">${isAr ? 'رسالتنا' : 'Our Mission'}</h2>
-                <p class="text-white leading-relaxed">${isAr ? aboutData.aboutUs.ar : aboutData.aboutUs.en}</p>
+        <h1 class="text-4xl font-bold text-center mb-2 gold-text">عن الشركة | About Us</h1>
+        <p class="text-center silver-text text-xl mb-12">حيث تؤدي كل خطوة إلى القمة | Where every step leads to the summit</p>
+        <div class="max-w-6xl mx-auto space-y-10">
+            
+            <!-- Mission Section -->
+            <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden">
+                <div class="grid md:grid-cols-5 gap-0">
+                    ${sectionImage(aboutData.aboutUs.image, 'fa-bullseye', 'from-gold/20 to-gold/5')}
+                    <div class="md:col-span-2 p-6 border-b md:border-b-0 md:border-l border-gold/20" dir="rtl">
+                        <h2 class="text-2xl font-bold gold-text mb-3">رسالتنا</h2>
+                        <p class="text-white leading-relaxed text-sm">${aboutData.aboutUs.ar}</p>
+                    </div>
+                    <div class="md:col-span-2 p-6" dir="ltr">
+                        <h2 class="text-2xl font-bold gold-text mb-3">Our Mission</h2>
+                        <p class="text-silver leading-relaxed text-sm">${aboutData.aboutUs.en}</p>
+                    </div>
+                </div>
             </div>
-            <div class="bg-zinc-900 border border-gold/30 rounded-xl p-8">
-                <h2 class="text-2xl font-bold gold-text mb-4">${isAr ? 'رؤيتنا' : 'Our Vision'}</h2>
-                <p class="text-white leading-relaxed">${isAr ? aboutData.vision.ar : aboutData.vision.en}</p>
+            
+            <!-- Vision Section -->
+            <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden">
+                <div class="grid md:grid-cols-5 gap-0">
+                    <div class="md:col-span-2 p-6 border-b md:border-b-0 md:border-l border-gold/20" dir="rtl">
+                        <h2 class="text-2xl font-bold gold-text mb-3">رؤيتنا</h2>
+                        <p class="text-white leading-relaxed text-sm">${aboutData.vision.ar}</p>
+                    </div>
+                    <div class="md:col-span-2 p-6 border-b md:border-b-0 md:border-l border-gold/20" dir="ltr">
+                        <h2 class="text-2xl font-bold gold-text mb-3">Our Vision</h2>
+                        <p class="text-silver leading-relaxed text-sm">${aboutData.vision.en}</p>
+                    </div>
+                    ${sectionImage(aboutData.vision.image, 'fa-eye', 'from-purple-900/20 to-purple-900/5')}
+                </div>
             </div>
-            <div class="bg-zinc-900 border border-gold/30 rounded-xl p-8">
-                <h2 class="text-2xl font-bold gold-text mb-4">${isAr ? 'فريقنا' : 'Our Team'}</h2>
-                <p class="text-white leading-relaxed">${isAr ? aboutData.team.ar : aboutData.team.en}</p>
+            
+            <!-- Team Section -->
+            <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden">
+                <div class="grid md:grid-cols-5 gap-0">
+                    ${sectionImage(aboutData.team.image, 'fa-users', 'from-cyan-900/20 to-cyan-900/5')}
+                    <div class="md:col-span-2 p-6 border-b md:border-b-0 md:border-l border-gold/20" dir="rtl">
+                        <h2 class="text-2xl font-bold gold-text mb-3">فريقنا</h2>
+                        <p class="text-white leading-relaxed text-sm">${aboutData.team.ar}</p>
+                    </div>
+                    <div class="md:col-span-2 p-6" dir="ltr">
+                        <h2 class="text-2xl font-bold gold-text mb-3">Our Team</h2>
+                        <p class="text-silver leading-relaxed text-sm">${aboutData.team.en}</p>
+                    </div>
+                </div>
             </div>
-            <div class="bg-gold/10 border border-gold/30 rounded-xl p-8">
-                <p class="text-white leading-relaxed">${isAr ? aboutData.closing.ar : aboutData.closing.en}</p>
+            
+            <!-- Closing Section -->
+            <div class="bg-gold/10 border border-gold/30 rounded-xl overflow-hidden">
+                <div class="grid md:grid-cols-5 gap-0">
+                    <div class="md:col-span-2 p-6 border-b md:border-b-0 md:border-l border-gold/20" dir="rtl">
+                        <h2 class="text-2xl font-bold gold-text mb-3">لماذا نحن؟</h2>
+                        <p class="text-white leading-relaxed text-sm">${aboutData.closing.ar}</p>
+                    </div>
+                    <div class="md:col-span-2 p-6 border-b md:border-b-0 md:border-l border-gold/20" dir="ltr">
+                        <h2 class="text-2xl font-bold gold-text mb-3">Why Us?</h2>
+                        <p class="text-silver leading-relaxed text-sm">${aboutData.closing.en}</p>
+                    </div>
+                    ${sectionImage(aboutData.closing.image, 'fa-trophy', 'from-green-900/20 to-green-900/5')}
+                </div>
             </div>
+            
         </div>
     `;
 }
@@ -640,106 +472,6 @@ function addLead(e) {
     renderLeadsList();
 }
 
-function renderLeadsList() {
-    const list = document.getElementById('leadsList');
-    if(leads.length === 0) {
-        list.innerHTML = '<div class="p-4 text-center text-silver">لا توجد leads</div>';
-        return;
-    }
-    
-    list.innerHTML = `
-        <table class="w-full text-sm">
-            <thead class="bg-gold/10 border-b border-gold/30">
-                <tr>
-                    <th class="p-3 text-right">الاسم</th>
-                    <th class="p-3 text-right">الهاتف</th>
-                    <th class="p-3 text-right">البريد</th>
-                    <th class="p-3 text-right">الحالة</th>
-                    <th class="p-3 text-right">التاريخ</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${leads.map(l => `
-                    <tr class="border-b border-gold/20 hover:bg-black/50">
-                        <td class="p-3">${l.name}</td>
-                        <td class="p-3">${l.phone}</td>
-                        <td class="p-3 text-xs">${l.email}</td>
-                        <td class="p-3"><span class="px-2 py-1 rounded text-xs ${l.status === 'converted' ? 'bg-green-900 text-green-200' : 'bg-yellow-900 text-yellow-200'}">${l.status}</span></td>
-                        <td class="p-3 text-xs">${new Date(l.createdAt).toLocaleDateString('ar-EG')}</td>
-                    </tr>
-                `).join('')}
-            </tbody>
-        </table>
-    `;
-}
-
-function renderUnitsList() {
-    const list = document.getElementById('unitsList');
-    if(units.length === 0) {
-        list.innerHTML = '<div class="p-4 text-center text-silver">لا توجد وحدات</div>';
-        return;
-    }
-    
-    list.innerHTML = `
-        <table class="w-full text-sm">
-            <thead class="bg-gold/10 border-b border-gold/30">
-                <tr>
-                    <th class="p-3 text-right">الكود</th>
-                    <th class="p-3 text-right">النوع</th>
-                    <th class="p-3 text-right">السعر</th>
-                    <th class="p-3 text-right">المنطقة</th>
-                    <th class="p-3 text-right">الغرف</th>
-                    <th class="p-3 text-right">المساحة</th>
-                </tr>
-            </thead>
-            <tbody>
-                ${units.map(u => `
-                    <tr class="border-b border-gold/20 hover:bg-black/50">
-                        <td class="p-3 gold-text font-bold">${u.code}</td>
-                        <td class="p-3">${u.type}</td>
-                        <td class="p-3">${u.price.toLocaleString()}</td>
-                        <td class="p-3">${u.zone}</td>
-                        <td class="p-3">${u.rooms}</td>
-                        <td class="p-3">${u.space} م²</td>
-                    </tr>
-                `).join('')}
-            </tbody>
-        </table>
-    `;
-}
-
-function exportUnits() {
-    const csv = 'كود,النوع,السعر,المنطقة,الغرف,المساحة\n' + 
-        units.map(u => `${u.code},${u.type},${u.price},${u.zone},${u.rooms},${u.space}`).join('\n');
-    
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'units.csv';
-    a.click();
-}
-
-function exportLeads() {
-    const csv = 'الاسم,الهاتف,البريد,كود الوحدة,الحالة,التاريخ\n' + 
-        leads.map(l => `${l.name},${l.phone},${l.email},${l.unitCode},${l.status},${l.createdAt}`).join('\n');
-    
-    const blob = new Blob([csv], { type: 'text/csv' });
-    const url = window.URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = 'leads.csv';
-    a.click();
-}
-
-function bulkImport(e) {
-    alert('وظيفة الاستيراد من Excel قيد التطوير');
-}
-
-function importLeads(e) {
-    alert('وظيفة استيراد Leads قيد التطوير');
-}
-
 function saveLead(lead) {
     localStorage.setItem('leads', JSON.stringify(leads));
 }
@@ -747,7 +479,6 @@ function saveLead(lead) {
 function saveUnits() {
     localStorage.setItem('units', JSON.stringify(units));
 }
-
 
 // ==================== EMPLOYEES MANAGEMENT ====================
 
@@ -775,6 +506,7 @@ function showAdminTab(tabName) {
     }
     if(tabName === 'crm') renderLeadsList();
     if(tabName === 'employees') renderEmployeesList();
+    if(tabName === 'settings') loadAboutEditor();
 }
 
 function addEmployee(e) {
@@ -833,7 +565,7 @@ function renderEmployeesList() {
                         <td class="p-3">${emp.convertedLeads}</td>
                         <td class="p-3 flex gap-2">
                             <button onclick="deleteEmployee(${emp.id})" class="text-red-500 hover:text-red-700 text-xs">حذف</button>
-                            <button onclick="editEmployee(${emp.id})" class="text-gold hover:text-gold-light text-xs">تعديل</button>
+                            <button onclick="openEditEmployeeModal(${emp.id})" class="text-gold hover:text-gold-light text-xs">تعديل</button>
                         </td>
                     </tr>
                 `).join('')}
@@ -848,10 +580,6 @@ function deleteEmployee(id) {
         localStorage.setItem('employees', JSON.stringify(employees));
         renderEmployeesList();
     }
-}
-
-function editEmployee(id) {
-    alert('وظيفة التعديل قيد التطوير');
 }
 
 function assignLeadToEmployee(leadId, employeeId) {
@@ -960,7 +688,15 @@ function renderUnits() {
     if(roomsFilter) filtered = filtered.filter(u => u.rooms == roomsFilter);
     if(zoneFilter) filtered = filtered.filter(u => u.zone === zoneFilter);
     
-    grid.innerHTML = filtered.map(unit => `
+    // Pagination
+    const itemsPerPage = 20;
+    const currentPage = window.currentUnitPage || 1;
+    const totalPages = Math.ceil(filtered.length / itemsPerPage);
+    const startIdx = (currentPage - 1) * itemsPerPage;
+    const endIdx = startIdx + itemsPerPage;
+    const paginatedUnits = filtered.slice(startIdx, endIdx);
+    
+    grid.innerHTML = paginatedUnits.map(unit => `
         <div class="bg-zinc-900 border ${unit.featured ? 'border-gold-light' : 'border-gold/30'} rounded-xl overflow-hidden hover:border-gold transition hover:shadow-lg hover:shadow-gold/20 ${unit.featured ? 'ring-2 ring-gold/50' : ''}">
             <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-40 flex items-center justify-center border-b border-gold/30 relative">
                 ${unit.featured ? '<div class="absolute top-2 right-2 bg-gold text-black px-2 py-1 rounded text-xs font-bold">⭐ مميز</div>' : ''}
@@ -987,6 +723,9 @@ function renderUnits() {
             </div>
         </div>
     `).join('');
+    
+    // Add pagination controls
+    addPaginationControls(grid, currentPage, totalPages, 'goToUnitPage');
 }
 
 function renderUnitsList() {
@@ -1022,7 +761,7 @@ function renderUnitsList() {
                         <td class="p-3">${u.space} م²</td>
                         <td class="p-3 flex gap-2 text-xs">
                             <button onclick="toggleFeaturedUnit(${u.id})" class="text-yellow-500 hover:text-yellow-700">${u.featured ? 'إلغاء' : 'تمييز'}</button>
-                            <button onclick="editUnit(${u.id})" class="text-gold hover:text-gold-light">تعديل</button>
+                            <button onclick="openEditUnitModal(${u.id})" class="text-gold hover:text-gold-light">تعديل</button>
                             <button onclick="deleteUnit(${u.id})" class="text-red-500 hover:text-red-700">حذف</button>
                         </td>
                     </tr>
@@ -1065,7 +804,7 @@ function renderLeadsList() {
                         <td class="p-3 text-xs">${new Date(l.createdAt).toLocaleDateString('ar-EG')}</td>
                         <td class="p-3 flex gap-2 text-xs">
                             <button onclick="toggleFeaturedLead(${l.id})" class="text-yellow-500 hover:text-yellow-700">${l.featured ? 'إلغاء' : 'تمييز'}</button>
-                            <button onclick="editLead(${l.id})" class="text-gold hover:text-gold-light">تعديل</button>
+                            <button onclick="openEditLeadModal(${l.id})" class="text-gold hover:text-gold-light">تعديل</button>
                             <button onclick="deleteLead(${l.id})" class="text-red-500 hover:text-red-700">حذف</button>
                         </td>
                     </tr>
@@ -1074,7 +813,6 @@ function renderLeadsList() {
         </table>
     `;
 }
-
 
 // ==================== ADVANCED IMPORT/EXPORT ====================
 
@@ -1412,7 +1150,6 @@ function openUnit(id) {
     document.getElementById('unitModal').style.display = 'block';
 }
 
-
 // ==================== COMPANY SETTINGS ====================
 
 function saveCompanySettings(e) {
@@ -1466,3 +1203,424 @@ function loadCompanySettings() {
 document.addEventListener('DOMContentLoaded', () => {
     loadCompanySettings();
 });
+
+// ==================== EMPLOYEE LOGIN SYSTEM ====================
+
+function openEmployeeLogin() {
+    document.getElementById('employeeLoginModal').style.display = 'flex';
+}
+
+function closeEmployeeLoginModal() {
+    document.getElementById('employeeLoginModal').style.display = 'none';
+    document.getElementById('employeeEmail').value = '';
+    document.getElementById('employeePassword').value = '';
+}
+
+function checkEmployeeLogin() {
+    const email = document.getElementById('employeeEmail').value;
+    const password = document.getElementById('employeePassword').value;
+    
+    if(!email || !password) {
+        alert('الرجاء إدخال البريد الإلكتروني وكلمة السر');
+        return;
+    }
+    
+    const employee = employees.find(e => e.email === email && e.password === password);
+    
+    if(employee) {
+        currentUser = employee;
+        localStorage.setItem('currentEmployee', JSON.stringify(employee));
+        closeEmployeeLoginModal();
+        showEmployeeDashboard();
+    } else {
+        alert('البريد الإلكتروني أو كلمة السر غير صحيحة');
+    }
+}
+
+function showEmployeeDashboard() {
+    document.getElementById('employeeDashboardModal').style.display = 'flex';
+    document.getElementById('employeeName').textContent = currentUser.name;
+    showEmployeeTab('leads');
+}
+
+function showEmployeeTab(tabName) {
+    document.querySelectorAll('#employeeDashboardModal .admin-tab-content').forEach(t => t.classList.remove('active-admin-tab'));
+    document.querySelectorAll('#employeeDashboardModal .admin-tab-btn').forEach(b => b.classList.remove('active'));
+    
+    document.getElementById('employee-' + tabName).classList.add('active-admin-tab');
+    event.target.classList.add('active');
+    
+    if(tabName === 'leads') renderEmployeeLeads();
+    if(tabName === 'stats') renderEmployeeStats();
+}
+
+function renderEmployeeLeads() {
+    const list = document.getElementById('employeeLeadsList');
+    const assignedLeads = leads.filter(l => l.assignedTo === currentUser.id);
+    
+    if(assignedLeads.length === 0) {
+        list.innerHTML = '<div class="p-4 text-center text-silver">لا توجد Leads مسندة</div>';
+        return;
+    }
+    
+    list.innerHTML = `
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="border-b border-gold/30">
+                    <th class="p-4 text-right gold-text">الاسم</th>
+                    <th class="p-4 text-right gold-text">الهاتف</th>
+                    <th class="p-4 text-right gold-text">الحالة</th>
+                    <th class="p-4 text-right gold-text">الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${assignedLeads.map(lead => `
+                    <tr class="border-b border-gold/20 hover:bg-gold/5">
+                        <td class="p-4 text-white">${lead.name}</td>
+                        <td class="p-4 text-silver">${lead.phone}</td>
+                        <td class="p-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold ${
+                                lead.status === 'new' ? 'bg-yellow-900/30 text-yellow-400' :
+                                lead.status === 'converted' ? 'bg-green-900/30 text-green-400' :
+                                'bg-blue-900/30 text-blue-400'
+                            }">
+                                ${lead.status === 'new' ? 'جديد' : lead.status === 'converted' ? 'محول' : 'متابعة'}
+                            </span>
+                        </td>
+                        <td class="p-4">
+                            <button onclick="convertLead(${lead.id})" class="text-green-400 hover:text-green-300 text-xs">تحويل</button>
+                        </td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `;
+}
+
+function renderEmployeeStats() {
+    const stats = document.getElementById('employeeStats');
+    const assignedLeads = leads.filter(l => l.assignedTo === currentUser.id);
+    const convertedLeads = assignedLeads.filter(l => l.status === 'converted').length;
+    const newLeads = assignedLeads.filter(l => l.status === 'new').length;
+    
+    stats.innerHTML = `
+        <div class="bg-gradient-to-br from-blue-900/20 to-blue-900/5 border border-blue-500/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">إجمالي Leads</p>
+            <p class="text-3xl font-bold text-blue-400">${assignedLeads.length}</p>
+        </div>
+        <div class="bg-gradient-to-br from-yellow-900/20 to-yellow-900/5 border border-yellow-500/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">Leads جديد</p>
+            <p class="text-3xl font-bold text-yellow-400">${newLeads}</p>
+        </div>
+        <div class="bg-gradient-to-br from-green-900/20 to-green-900/5 border border-green-500/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">Leads محول</p>
+            <p class="text-3xl font-bold text-green-400">${convertedLeads}</p>
+        </div>
+    `;
+}
+
+function convertLead(leadId) {
+    const lead = leads.find(l => l.id === leadId);
+    if(lead) {
+        lead.status = 'converted';
+        localStorage.setItem('leads', JSON.stringify(leads));
+        currentUser.convertedLeads = (currentUser.convertedLeads || 0) + 1;
+        localStorage.setItem('currentEmployee', JSON.stringify(currentUser));
+        alert('تم تحويل الـ Lead بنجاح!');
+        renderEmployeeLeads();
+        renderEmployeeStats();
+    }
+}
+
+function logoutEmployee() {
+    currentUser = null;
+    localStorage.removeItem('currentEmployee');
+    document.getElementById('employeeDashboardModal').style.display = 'none';
+    alert('تم تسجيل الخروج بنجاح');
+}
+
+// Check if employee is already logged in
+window.addEventListener('load', () => {
+    const savedEmployee = localStorage.getItem('currentEmployee');
+    if(savedEmployee) {
+        currentUser = JSON.parse(savedEmployee);
+        // Optionally show dashboard
+    }
+});
+
+// ==================== ENHANCED FILE UPLOAD SYSTEM ====================
+
+function updateFileCount(inputId, countId) {
+    const input = document.getElementById(inputId);
+    const count = input.files.length;
+    const countSpan = document.getElementById(countId);
+    
+    if(count > 10) {
+        alert('يمكنك اختيار حتى 10 ملفات فقط!');
+        input.value = '';
+        countSpan.textContent = '0 ملف';
+        return;
+    }
+    
+    countSpan.textContent = count + ' ملف';
+}
+
+function processFilesAsync(files, type) {
+    return Promise.all(Array.from(files).map(file => {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                resolve({
+                    name: file.name,
+                    size: file.size,
+                    type: file.type,
+                    data: e.target.result
+                });
+            };
+            reader.readAsDataURL(file);
+        });
+    }));
+}
+
+// ==================== EDIT FUNCTIONALITY ====================
+
+// ===== UNIT EDIT =====
+function openEditUnitModal(unitId) {
+    const unit = units.find(u => u.id === unitId);
+    if(!unit) return;
+    
+    document.getElementById('editUnitId').value = unit.id;
+    document.getElementById('editUnitCode').value = unit.code;
+    document.getElementById('editUnitType').value = unit.type;
+    document.getElementById('editUnitPrice').value = unit.price;
+    document.getElementById('editUnitZone').value = unit.zone;
+    document.getElementById('editUnitRooms').value = unit.rooms;
+    document.getElementById('editUnitSpace').value = unit.space;
+    document.getElementById('editUnitNotes').value = unit.notes || '';
+    
+    document.getElementById('editUnitModal').style.display = 'flex';
+}
+
+function closeEditUnitModal() {
+    document.getElementById('editUnitModal').style.display = 'none';
+}
+
+function saveUnitEdit(e) {
+    e.preventDefault();
+    
+    const unitId = parseInt(document.getElementById('editUnitId').value);
+    const unit = units.find(u => u.id === unitId);
+    
+    if(unit) {
+        unit.code = document.getElementById('editUnitCode').value;
+        unit.type = document.getElementById('editUnitType').value;
+        unit.price = parseInt(document.getElementById('editUnitPrice').value);
+        unit.zone = document.getElementById('editUnitZone').value;
+        unit.rooms = parseInt(document.getElementById('editUnitRooms').value);
+        unit.space = parseInt(document.getElementById('editUnitSpace').value);
+        unit.notes = document.getElementById('editUnitNotes').value;
+        
+        saveUnits();
+        alert('تم تحديث الوحدة بنجاح!');
+        closeEditUnitModal();
+        renderUnitsList();
+        renderUnits();
+    }
+}
+
+// ===== LEAD EDIT =====
+function openEditLeadModal(leadId) {
+    const lead = leads.find(l => l.id === leadId);
+    if(!lead) return;
+    
+    document.getElementById('editLeadId').value = lead.id;
+    document.getElementById('editLeadName').value = lead.name;
+    document.getElementById('editLeadPhone').value = lead.phone;
+    document.getElementById('editLeadEmail').value = lead.email || '';
+    document.getElementById('editLeadStatus').value = lead.status;
+    document.getElementById('editLeadNotes').value = lead.notes || '';
+    
+    document.getElementById('editLeadModal').style.display = 'flex';
+}
+
+function closeEditLeadModal() {
+    document.getElementById('editLeadModal').style.display = 'none';
+}
+
+function saveLeadEdit(e) {
+    e.preventDefault();
+    
+    const leadId = parseInt(document.getElementById('editLeadId').value);
+    const lead = leads.find(l => l.id === leadId);
+    
+    if(lead) {
+        lead.name = document.getElementById('editLeadName').value;
+        lead.phone = document.getElementById('editLeadPhone').value;
+        lead.email = document.getElementById('editLeadEmail').value;
+        lead.status = document.getElementById('editLeadStatus').value;
+        lead.notes = document.getElementById('editLeadNotes').value;
+        
+        localStorage.setItem('leads', JSON.stringify(leads));
+        alert('تم تحديث الـ Lead بنجاح!');
+        closeEditLeadModal();
+        renderLeadsList();
+    }
+}
+
+// ===== EMPLOYEE EDIT =====
+function openEditEmployeeModal(employeeId) {
+    const employee = employees.find(e => e.id === employeeId);
+    if(!employee) return;
+    
+    document.getElementById('editEmployeeId').value = employee.id;
+    document.getElementById('editEmployeeName').value = employee.name;
+    document.getElementById('editEmployeePhone').value = employee.phone;
+    document.getElementById('editEmployeeEmail').value = employee.email;
+    document.getElementById('editEmployeeRole').value = employee.role;
+    document.getElementById('editEmployeeCanAddUnits').checked = employee.canAddUnits || false;
+    
+    document.getElementById('editEmployeeModal').style.display = 'flex';
+}
+
+function closeEditEmployeeModal() {
+    document.getElementById('editEmployeeModal').style.display = 'none';
+}
+
+function saveEmployeeEdit(e) {
+    e.preventDefault();
+    
+    const employeeId = parseInt(document.getElementById('editEmployeeId').value);
+    const employee = employees.find(e => e.id === employeeId);
+    
+    if(employee) {
+        employee.name = document.getElementById('editEmployeeName').value;
+        employee.phone = document.getElementById('editEmployeePhone').value;
+        employee.email = document.getElementById('editEmployeeEmail').value;
+        employee.role = document.getElementById('editEmployeeRole').value;
+        employee.canAddUnits = document.getElementById('editEmployeeCanAddUnits').checked;
+        
+        const newPassword = document.getElementById('editEmployeePassword').value;
+        if(newPassword) {
+            employee.password = newPassword;
+        }
+        
+        localStorage.setItem('employees', JSON.stringify(employees));
+        alert('تم تحديث الموظف بنجاح!');
+        closeEditEmployeeModal();
+        renderEmployeesList();
+    }
+}
+
+// Add pagination controls
+function addPaginationControls(grid, currentPage, totalPages, pageCallback) {
+    if(totalPages <= 1) return;
+    
+    let paginationHTML = '<div class="flex justify-center gap-2 mt-8 flex-wrap">';
+    
+    if(currentPage > 1) {
+        paginationHTML += `<button onclick="${pageCallback}(${currentPage - 1})" class="btn-secondary px-4 py-2 text-sm">السابق</button>`;
+    }
+    
+    for(let i = 1; i <= totalPages; i++) {
+        if(i === currentPage) {
+            paginationHTML += `<button class="btn-primary px-4 py-2 text-sm">${i}</button>`;
+        } else {
+            paginationHTML += `<button onclick="${pageCallback}(${i})" class="btn-secondary px-4 py-2 text-sm">${i}</button>`;
+        }
+    }
+    
+    if(currentPage < totalPages) {
+        paginationHTML += `<button onclick="${pageCallback}(${currentPage + 1})" class="btn-secondary px-4 py-2 text-sm">التالي</button>`;
+    }
+    
+    paginationHTML += '</div>';
+    grid.parentElement.insertAdjacentHTML('afterend', paginationHTML);
+}
+
+function goToUnitPage(page) {
+    window.currentUnitPage = page;
+    renderUnits();
+    document.getElementById('units-grid').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ==================== ABOUT PAGE EDITOR ====================
+
+function previewAboutImage(input, previewId) {
+    const preview = document.getElementById(previewId);
+    if(input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function loadAboutEditor() {
+    // Fill textareas with current data
+    document.getElementById('aboutMissionAr').value = aboutData.aboutUs.ar;
+    document.getElementById('aboutMissionEn').value = aboutData.aboutUs.en;
+    document.getElementById('aboutVisionAr').value = aboutData.vision.ar;
+    document.getElementById('aboutVisionEn').value = aboutData.vision.en;
+    document.getElementById('aboutTeamAr').value = aboutData.team.ar;
+    document.getElementById('aboutTeamEn').value = aboutData.team.en;
+    document.getElementById('aboutClosingAr').value = aboutData.closing.ar;
+    document.getElementById('aboutClosingEn').value = aboutData.closing.en;
+    
+    // Show existing images
+    if(aboutData.aboutUs.image) {
+        const p = document.getElementById('missionPreview');
+        p.src = aboutData.aboutUs.image; p.classList.remove('hidden');
+    }
+    if(aboutData.vision.image) {
+        const p = document.getElementById('visionPreview');
+        p.src = aboutData.vision.image; p.classList.remove('hidden');
+    }
+    if(aboutData.team.image) {
+        const p = document.getElementById('teamPreview');
+        p.src = aboutData.team.image; p.classList.remove('hidden');
+    }
+    if(aboutData.closing.image) {
+        const p = document.getElementById('closingPreview');
+        p.src = aboutData.closing.image; p.classList.remove('hidden');
+    }
+}
+
+function saveAboutData(e) {
+    e.preventDefault();
+    
+    // Update text
+    aboutData.aboutUs.ar = document.getElementById('aboutMissionAr').value;
+    aboutData.aboutUs.en = document.getElementById('aboutMissionEn').value;
+    aboutData.vision.ar = document.getElementById('aboutVisionAr').value;
+    aboutData.vision.en = document.getElementById('aboutVisionEn').value;
+    aboutData.team.ar = document.getElementById('aboutTeamAr').value;
+    aboutData.team.en = document.getElementById('aboutTeamEn').value;
+    aboutData.closing.ar = document.getElementById('aboutClosingAr').value;
+    aboutData.closing.en = document.getElementById('aboutClosingEn').value;
+    
+    // Update images
+    const missionPreview = document.getElementById('missionPreview');
+    if(missionPreview.src && !missionPreview.classList.contains('hidden')) {
+        aboutData.aboutUs.image = missionPreview.src;
+    }
+    const visionPreview = document.getElementById('visionPreview');
+    if(visionPreview.src && !visionPreview.classList.contains('hidden')) {
+        aboutData.vision.image = visionPreview.src;
+    }
+    const teamPreview = document.getElementById('teamPreview');
+    if(teamPreview.src && !teamPreview.classList.contains('hidden')) {
+        aboutData.team.image = teamPreview.src;
+    }
+    const closingPreview = document.getElementById('closingPreview');
+    if(closingPreview.src && !closingPreview.classList.contains('hidden')) {
+        aboutData.closing.image = closingPreview.src;
+    }
+    
+    // Save to localStorage
+    localStorage.setItem('aboutData', JSON.stringify(aboutData));
+    
+    alert('تم حفظ تعديلات صفحة "عن الشركة" بنجاح!');
+    renderAbout();
+}
