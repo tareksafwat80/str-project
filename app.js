@@ -1285,6 +1285,13 @@ function openUnit(id) {
     document.getElementById('m-dates').textContent = `تاريخ الإضافة: ${new Date(unit.createdAt).toLocaleDateString('ar-EG')}`;
     document.getElementById('m-notes').textContent = unit.notes || 'لا توجد ملاحظات';
     
+    const mainImage = getMainImage(unit.id);
+    document.getElementById('mainUnitImage').src = mainImage;
+    
+    const images = getUnitImages(unit.id);
+    const gallery = document.getElementById('imageGallery');
+    gallery.innerHTML = images.map((img, idx) => `<img src="${img.data}" alt="صورة ${idx + 1}" class="w-16 h-16 rounded cursor-pointer hover:opacity-80 transition" onclick="document.getElementById('mainUnitImage').src = this.src">`).join('');
+    
     const waBtn = document.getElementById('wa-btn');
     waBtn.onclick = () => {
         const message = `مرحباً، أنا مهتم بالوحدة رقم ${unit.code} في ${unit.zone}`;
@@ -1293,3 +1300,152 @@ function openUnit(id) {
     
     document.getElementById('unitModal').style.display = 'block';
 }
+
+
+// ==================== IMAGE MANAGEMENT ====================
+
+let unitImages = JSON.parse(localStorage.getItem('unitImages')) || {};
+
+function uploadUnitImages(e) {
+    const files = e.target.files;
+    if(!files.length) return;
+    
+    const unitId = prompt('أدخل كود الوحدة:');
+    if(!unitId) return;
+    
+    const unit = units.find(u => u.code == unitId);
+    if(!unit) {
+        alert('الوحدة غير موجودة!');
+        return;
+    }
+    
+    if(!unitImages[unit.id]) {
+        unitImages[unit.id] = [];
+    }
+    
+    let uploadedCount = 0;
+    
+    for(let file of files) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            const imageData = {
+                id: Date.now() + Math.random(),
+                name: file.name,
+                data: event.target.result,
+                size: file.size,
+                type: file.type,
+                uploadedAt: new Date().toISOString()
+            };
+            
+            unitImages[unit.id].push(imageData);
+            uploadedCount++;
+            
+            if(uploadedCount === files.length) {
+                localStorage.setItem('unitImages', JSON.stringify(unitImages));
+                alert(`تم رفع ${uploadedCount} صور بنجاح!`);
+                renderUnitsList();
+                renderUnits();
+            }
+        };
+        reader.readAsDataURL(file);
+    }
+    
+    e.target.value = '';
+}
+
+function setMainImage(unitId, imageId) {
+    const unit = units.find(u => u.id === unitId);
+    if(unit) {
+        unit.mainImageId = imageId;
+        saveUnits();
+        renderUnits();
+    }
+}
+
+function deleteUnitImage(unitId, imageId) {
+    if(unitImages[unitId]) {
+        unitImages[unitId] = unitImages[unitId].filter(img => img.id !== imageId);
+        localStorage.setItem('unitImages', JSON.stringify(unitImages));
+        renderUnitsList();
+        renderUnits();
+    }
+}
+
+function getMainImage(unitId) {
+    if(!unitImages[unitId] || unitImages[unitId].length === 0) {
+        return 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop';
+    }
+    
+    const unit = units.find(u => u.id === unitId);
+    if(unit?.mainImageId) {
+        const mainImg = unitImages[unitId].find(img => img.id === unit.mainImageId);
+        if(mainImg) return mainImg.data;
+    }
+    
+    return unitImages[unitId][0]?.data || 'https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop';
+}
+
+function getUnitImages(unitId) {
+    return unitImages[unitId] || [];
+}
+
+// ==================== UPDATED RENDER FUNCTIONS WITH IMAGES ====================
+
+function renderUnitsUpdated() {
+    const grid = document.getElementById('units-grid');
+    if(!grid) return;
+    
+    let filtered = units.filter(u => u.type === currentUnitTab);
+    
+    // Featured first
+    filtered.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+    
+    // Apply filters
+    const codeFilter = document.getElementById('filterCode')?.value;
+    const priceFilter = document.getElementById('filterPrice')?.value;
+    const roomsFilter = document.getElementById('filterRooms')?.value;
+    const zoneFilter = document.getElementById('filterZone')?.value;
+    
+    if(codeFilter) filtered = filtered.filter(u => u.code.toString().includes(codeFilter));
+    if(priceFilter) filtered = filtered.filter(u => u.price <= parseInt(priceFilter));
+    if(roomsFilter) filtered = filtered.filter(u => u.rooms == roomsFilter);
+    if(zoneFilter) filtered = filtered.filter(u => u.zone === zoneFilter);
+    
+    grid.innerHTML = filtered.map(unit => {
+        const mainImage = getMainImage(unit.id);
+        const images = getUnitImages(unit.id);
+        
+        return `
+            <div class="bg-zinc-900 border ${unit.featured ? 'border-gold-light' : 'border-gold/30'} rounded-xl overflow-hidden hover:border-gold transition hover:shadow-lg hover:shadow-gold/20 ${unit.featured ? 'ring-2 ring-gold/50' : ''}">
+                <div class="relative h-40 bg-black overflow-hidden">
+                    <img src="${mainImage}" alt="Unit ${unit.code}" class="w-full h-full object-cover hover:scale-110 transition duration-300">
+                    ${unit.featured ? '<div class="absolute top-2 right-2 bg-gold text-black px-2 py-1 rounded text-xs font-bold">⭐ مميز</div>' : ''}
+                    ${images.length > 0 ? `<div class="absolute bottom-2 left-2 bg-black/70 text-gold text-xs px-2 py-1 rounded">${images.length} صور</div>` : ''}
+                </div>
+                <div class="p-4">
+                    <div class="flex justify-between items-start mb-2">
+                        <h3 class="text-lg font-bold gold-text">كود: ${unit.code}</h3>
+                        <span class="text-xs bg-gold/20 text-gold px-2 py-1 rounded">${unit.type}</span>
+                    </div>
+                    <p class="text-sm silver-text mb-2">${unit.zone}</p>
+                    <div class="spec-grid mb-3">
+                        <div class="spec-box text-xs">
+                            <p class="text-silver">غرف</p>
+                            <p class="gold-text font-bold">${unit.rooms}</p>
+                        </div>
+                        <div class="spec-box text-xs">
+                            <p class="text-silver">مساحة</p>
+                            <p class="gold-text font-bold">${unit.space}م²</p>
+                        </div>
+                    </div>
+                    <p class="text-lg font-bold gold-text mb-3">${unit.price.toLocaleString()} EGP</p>
+                    <button onclick="openUnit(${unit.id})" class="w-full btn-primary text-sm mb-2">عرض التفاصيل</button>
+                </div>
+            </div>
+        `;
+    }).join('');
+}
+
+// Override renderUnits with updated version
+const originalRenderUnits = renderUnits;
+renderUnits = renderUnitsUpdated;
