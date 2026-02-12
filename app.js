@@ -67,25 +67,42 @@ function generateDemoUnits() {
 
 function showTab(tabName) {
     currentTab = tabName;
+    // Hide all tab content sections
     document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
+    // Also hide units-section explicitly
+    document.getElementById('units-section').style.display = 'none';
+    // Remove active from all nav buttons
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     
-    const activeBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => 
-        b.textContent.includes(tabName === 'home' ? 'الرئيسية' : 
-                              tabName === 'about' ? 'عن الشركة' :
-                              tabName === 'resale' ? 'ريسيل' :
-                              tabName === 'primary' ? 'برايمري' : 'إيجار')
-    );
-    if(activeBtn) activeBtn.classList.add('active');
+    // Map tab names to button text
+    const tabLabels = {
+        'home': 'الرئيسية',
+        'about': 'عن الشركة',
+        'resale': 'ريسيل',
+        'primary': 'برايمري',
+        'rentals': 'إيجار',
+        'services': 'مناطق عملنا',
+        'partners': 'شركاؤنا'
+    };
+    const label = tabLabels[tabName];
+    if(label) {
+        const activeBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.textContent.trim() === label);
+        if(activeBtn) activeBtn.classList.add('active');
+    }
 
     if(['resale', 'primary', 'rentals'].includes(tabName)) {
         currentUnitTab = tabName;
         document.getElementById('units-section').style.display = 'block';
         renderUnits();
     } else {
-        document.getElementById(tabName).style.display = 'block';
-        if(tabName === 'about') renderAbout();
+        const section = document.getElementById(tabName);
+        if(section) {
+            section.style.display = 'block';
+            if(tabName === 'about') renderAbout();
+        }
     }
+    // Scroll to top
+    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ==================== UNITS MANAGEMENT ====================
@@ -320,36 +337,45 @@ function toggleLanguage() {
 function updateFilterLabels() {
     const isAr = lang === 'ar';
     
-    // Update Category filter
-    const categoryLabel = document.querySelector('label[for="category"]');
-    if (categoryLabel) {
-        categoryLabel.textContent = isAr ? 'النوع:' : 'Category:';
+    // Update Code input placeholder
+    const codeInput = document.getElementById('filterCode');
+    if (codeInput) {
+        codeInput.placeholder = isAr ? 'كود الوحدة' : 'Unit Code';
     }
     
-    // Update Category select options
-    const categorySelect = document.getElementById('category');
-    if (categorySelect) {
-        const options = categorySelect.querySelectorAll('option');
+    // Update Price filter
+    const priceSelect = document.getElementById('filterPrice');
+    if (priceSelect) {
+        const options = priceSelect.querySelectorAll('option');
         options.forEach(opt => {
-            if (opt.value === 'resale') opt.textContent = isAr ? 'إعادة بيع' : 'Resale';
-            if (opt.value === 'primary') opt.textContent = isAr ? 'أولي' : 'Primary';
-            if (opt.value === 'rentals') opt.textContent = isAr ? 'إيجار' : 'Rentals';
+            if (opt.value === '') opt.textContent = isAr ? 'السعر' : 'Price';
+            if (opt.value === '2000000') opt.textContent = isAr ? 'تحت 2 مليون' : 'Under 2M';
+            if (opt.value === '5000000') opt.textContent = isAr ? 'تحت 5 مليون' : 'Under 5M';
+            if (opt.value === '10000000') opt.textContent = isAr ? 'تحت 10 مليون' : 'Under 10M';
+        });
+    }
+    
+    // Update Rooms filter
+    const roomsSelect = document.getElementById('filterRooms');
+    if (roomsSelect) {
+        const options = roomsSelect.querySelectorAll('option');
+        options.forEach(opt => {
+            if (opt.value === '') opt.textContent = isAr ? 'عدد الغرف' : 'Rooms';
+            if (opt.value === '1') opt.textContent = isAr ? 'غرفة واحدة' : '1 Room';
+            if (opt.value === '2') opt.textContent = isAr ? 'غرفتان' : '2 Rooms';
+            if (opt.value === '3') opt.textContent = isAr ? 'ثلاث غرف' : '3 Rooms';
         });
     }
     
     // Update Zone filter
-    const zoneLabel = document.querySelector('label[for="zone"]');
-    if (zoneLabel) {
-        zoneLabel.textContent = isAr ? 'المنطقة:' : 'Zone:';
-    }
-    
-    // Update Zone select options
-    const zoneSelect = document.getElementById('zone');
+    const zoneSelect = document.getElementById('filterZone');
     if (zoneSelect) {
         const options = zoneSelect.querySelectorAll('option');
         options.forEach(opt => {
-            if (opt.value === 'all') opt.textContent = isAr ? 'الكل' : 'All';
-            if (opt.value === 'العاصمة الإدارية الجديدة') opt.textContent = isAr ? 'العاصمة الإدارية الجديدة' : 'New Capital';
+            if (opt.value === '') opt.textContent = isAr ? 'المنطقة' : 'Zone';
+            if (opt.value === 'مدينتي') opt.textContent = isAr ? 'مدينتي' : 'Madinaty';
+            if (opt.value === 'الرحاب') opt.textContent = isAr ? 'الرحاب' : 'Al Rehab';
+            if (opt.value === 'العاصمة الإدارية') opt.textContent = isAr ? 'العاصمة الإدارية' : 'New Capital';
             if (opt.value === 'الساحل الشمالي') opt.textContent = isAr ? 'الساحل الشمالي' : 'North Coast';
             if (opt.value === 'رأس الحكمة') opt.textContent = isAr ? 'رأس الحكمة' : 'Ras El Hekma';
             if (opt.value === 'القاهرة الجديدة') opt.textContent = isAr ? 'القاهرة الجديدة' : 'New Cairo';
@@ -357,6 +383,20 @@ function updateFilterLabels() {
             if (opt.value === 'الشيخ زايد') opt.textContent = isAr ? 'الشيخ زايد' : 'Sheikh Zayed';
         });
     }
+    
+    // Update unit tab buttons
+    const unitTabBtns = document.querySelectorAll('#units-section .nav-btn');
+    unitTabBtns.forEach(btn => {
+        if (btn.textContent.includes('ريسيل') || btn.textContent.includes('Resale')) {
+            btn.textContent = isAr ? 'ريسيل' : 'Resale';
+        }
+        if (btn.textContent.includes('برايمري') || btn.textContent.includes('Primary')) {
+            btn.textContent = isAr ? 'برايمري' : 'Primary';
+        }
+        if (btn.textContent.includes('إيجار') || btn.textContent.includes('Rentals')) {
+            btn.textContent = isAr ? 'إيجار' : 'Rentals';
+        }
+    });
 }
 
 function switchUnitTab(tab) {
@@ -503,6 +543,7 @@ function showAdminTab(tabName) {
     if(tabName === 'units') {
         renderUnitsList();
         renderUnits();
+        renderAdminUnitsTable();
     }
     if(tabName === 'crm') renderLeadsList();
     if(tabName === 'employees') renderEmployeesList();
@@ -842,34 +883,34 @@ function bulkImport(e) {
                 // Map columns to unit object - matching exact Excel format
                 const unit = {
                     id: Date.now() + i,
-                    code: row['code'] || row['كود'] || '',
-                    category: row['Category'] || '',
-                    type: row['Category']?.toLowerCase().includes('villa') ? 'primary' : 
-                          row['Category']?.toLowerCase().includes('resale') ? 'resale' : 'rentals',
-                    city: row['City'] || row['منطقة'] || 'مدينتي',
-                    zone: row['منطقة'] || row['City'] || '',
-                    building: row['عمارة'] || row['مجموعة'] || '',
-                    unit: row['وحدة'] || '',
-                    floor: row['الدور'] || '',
-                    model: row['النموذج'] || '',
-                    delivery: row['الاستلام'] || '',
-                    facade: row['الواجهة'] || '',
-                    space: parseInt(row['مساحة']?.replace(/,/g, '') || 0),
-                    garden: row['جاردن'] || '',
-                    rooms: parseInt(row['غرف نوم'] || 0),
-                    bathroom: row['حمام'] || '',
-                    bookingDate: row['تاريخ الحجز'] || '',
-                    installmentPeriod: row['مدة القسط'] || '',
-                    payments: parseInt(row['مدفوعات']?.replace(/,/g, '') || 0),
-                    offerPrice: parseInt(row['اوفر برايس']?.replace(/,/g, '') || 0),
-                    totalPayments: parseInt(row['مدفوعات + اوفر']?.replace(/,/g, '') || 0),
-                    installmentDetails: row['تفاصيل الاقساط'] || '',
-                    price: parseInt(row['اصل العقد او ثمن الكاش']?.replace(/,/g, '') || row['مدفوعات']?.replace(/,/g, '') || 0),
-                    notes: row['ملاحظات'] || '',
+                    code: row['code :'] || row['code'] || row['كود'] || '',
+                    category: row['Category :'] || row['Category'] || '',
+                    type: row['Category :']?.toLowerCase().includes('villa') ? 'primary' : 
+                          row['Category :']?.toLowerCase().includes('resale') ? 'resale' : 'rentals',
+                    city: row['City :'] || row['City'] || 'Madinaty',
+                    zone: row['منطقة :'] || row['منطقة'] || '',
+                    building: row['عمارة :'] || row['عمارة'] || row['مجموعة :'] || row['مجموعة'] || '',
+                    unit: row['وحدة :'] || row['وحدة'] || '',
+                    floor: row['الدور :'] || row['الدور'] || '',
+                    model: row['النموذج :'] || row['النموذج'] || '',
+                    delivery: row['الاستلام :'] || row['الاستلام'] || '',
+                    facade: row['الواجهة :'] || row['الواجهة'] || '',
+                    space: parseInt((row['مساحة :'] || row['مساحة'] || '0')?.toString().replace(/,/g, '')) || 0,
+                    garden: row['جاردن :'] || row['جاردن'] || '',
+                    rooms: parseInt(row['غرف نوم :'] || row['غرف نوم'] || 0),
+                    bathroom: row['حمام :'] || row['حمام'] || '',
+                    bookingDate: row['تاريخ الحجز :'] || row['تاريخ الحجز'] || '',
+                    installmentPeriod: row['مدة القسط :'] || row['مدة القسط'] || '',
+                    payments: parseInt((row['مدفوعات :'] || row['مدفوعات'] || '0')?.toString().replace(/,/g, '')) || 0,
+                    offerPrice: parseInt((row['اوفر برايس :'] || row['اوفر برايس'] || '0')?.toString().replace(/,/g, '')) || 0,
+                    totalPayments: parseInt((row['مدفوعات + اوفر :'] || row['مدفوعات + اوفر'] || '0')?.toString().replace(/,/g, '')) || 0,
+                    installmentDetails: row['تفاصيل الاقساط :'] || row['تفاصيل الاقساط'] || '',
+                    price: parseInt((row['اصل العقد او ثمن الكاش :'] || row['اصل العقد او ثمن الكاش'] || row['مدفوعات :'] || row['مدفوعات'] || '0')?.toString().replace(/,/g, '')) || 0,
+                    notes: row['ملاحظات :'] || row['ملاحظات'] || '',
                     clientName: row['client name'] || '',
-                    clientPhone: row['phone'] || '',
-                    status: row['Status'] || 'available',
-                    source: row['Source'] || 'imported',
+                    clientPhone: row['phone'] || row['phone 2'] || '',
+                    status: row['Status :'] || row['Status'] || 'available',
+                    source: row['Source :'] || row['Source'] || 'imported',
                     createdAt: new Date().toISOString(),
                     featured: false
                 };
@@ -1398,7 +1439,9 @@ function openEditUnitModal(unitId) {
     document.getElementById('editUnitSpace').value = unit.space;
     document.getElementById('editUnitNotes').value = unit.notes || '';
     
-    document.getElementById('editUnitModal').style.display = 'flex';
+    const modal = document.getElementById('editUnitModal');
+    modal.style.display = 'flex';
+    modal.scrollTop = 0;
 }
 
 function closeEditUnitModal() {
@@ -1440,7 +1483,9 @@ function openEditLeadModal(leadId) {
     document.getElementById('editLeadStatus').value = lead.status;
     document.getElementById('editLeadNotes').value = lead.notes || '';
     
-    document.getElementById('editLeadModal').style.display = 'flex';
+    const modal = document.getElementById('editLeadModal');
+    modal.style.display = 'flex';
+    modal.scrollTop = 0;
 }
 
 function closeEditLeadModal() {
@@ -1479,7 +1524,9 @@ function openEditEmployeeModal(employeeId) {
     document.getElementById('editEmployeeRole').value = employee.role;
     document.getElementById('editEmployeeCanAddUnits').checked = employee.canAddUnits || false;
     
-    document.getElementById('editEmployeeModal').style.display = 'flex';
+    const modal = document.getElementById('editEmployeeModal');
+    modal.style.display = 'flex';
+    modal.scrollTop = 0;
 }
 
 function closeEditEmployeeModal() {
@@ -1623,4 +1670,246 @@ function saveAboutData(e) {
     
     alert('تم حفظ تعديلات صفحة "عن الشركة" بنجاح!');
     renderAbout();
+}
+// Function to download Excel template for units import
+function downloadUnitsTemplate() {
+    // Create CSV content with proper headers
+    const headers = [
+        'code',
+        'Category',
+        'منطقة',
+        'عمارة',
+        'وحدة',
+        'الدور',
+        'النموذج',
+        'الاستلام',
+        'الواجهة',
+        'مساحة',
+        'جاردن',
+        'غرف نوم',
+        'حمام',
+        'تاريخ الحجز',
+        'مدة القسط',
+        'مدفوعات',
+        'اوفر برايس',
+        'مدفوعات + اوفر',
+        'تفاصيل الاقساط',
+        'اصل العقد او ثمن الكاش',
+        'ملاحظات',
+        'client name',
+        'phone',
+        'Status'
+    ];
+    
+    // Create sample data
+    const sampleData = [
+        [
+            'U001',
+            'villa',
+            'مدينتي',
+            'أ',
+            '101',
+            '1',
+            'A',
+            '2025-12-31',
+            'شرقية',
+            '250',
+            '50',
+            '3',
+            '2',
+            '2025-01-15',
+            '10 سنوات',
+            '500000',
+            '50000',
+            '550000',
+            'شهري',
+            '5000000',
+            'وحدة جديدة',
+            'أحمد محمد',
+            '01001234567',
+            'available'
+        ],
+        [
+            'U002',
+            'resale',
+            'الرحاب',
+            'ب',
+            '202',
+            '2',
+            'B',
+            '2024-06-30',
+            'غربية',
+            '200',
+            '30',
+            '2',
+            '1',
+            '2024-01-10',
+            '8 سنوات',
+            '300000',
+            '30000',
+            '330000',
+            'شهري',
+            '3000000',
+            'وحدة مستعملة',
+            'فاطمة علي',
+            '01001234568',
+            'available'
+        ],
+        [
+            'U003',
+            'apartment',
+            'العاصمة الإدارية',
+            'ج',
+            '303',
+            '3',
+            'C',
+            '2025-09-15',
+            'شمالية',
+            '150',
+            '0',
+            '1',
+            '1',
+            '2025-02-20',
+            '5 سنوات',
+            '200000',
+            '20000',
+            '220000',
+            'شهري',
+            '2000000',
+            'شقة صغيرة',
+            'محمود حسن',
+            '01001234569',
+            'available'
+        ]
+    ];
+    
+    // Create CSV string
+    let csvContent = headers.join('\t') + '\n';
+    sampleData.forEach(row => {
+        csvContent += row.join('\t') + '\n';
+    });
+    
+    // Create blob and download
+    const blob = new Blob([csvContent], { type: 'text/tab-separated-values;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'units_template.tsv');
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    alert('تم تحميل التيمبلت بنجاح! ✅\n\nالتعليمات:\n1. افتح الملف بـ Excel\n2. امسح الأمثلة وأضف وحداتك\n3. احفظ الملف\n4. ارجع وارفعه في التطبيق');
+}
+
+// Function to download Leads template
+function downloadLeadsTemplate() {
+    const headers = [
+        'name',
+        'phone',
+        'email',
+        'status',
+        'notes',
+        'assigned_to'
+    ];
+    
+    const sampleData = [
+        ['أحمد محمد', '01001234567', 'ahmed@email.com', 'new', 'عميل جديد', 'محمود'],
+        ['فاطمة علي', '01001234568', 'fatima@email.com', 'follow-up', 'في انتظار الرد', 'سارة'],
+        ['محمود حسن', '01001234569', 'mahmoud@email.com', 'converted', 'عميل محول', 'محمود']
+    ];
+    
+    let csvContent = headers.join('\t') + '\n';
+    sampleData.forEach(row => {
+        csvContent += row.join('\t') + '\n';
+    });
+    
+    const blob = new Blob([csvContent], { type: 'text/tab-separated-values;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'leads_template.tsv');
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    
+    alert('تم تحميل تيمبلت الـ Leads بنجاح! ✅');
+}
+// Function to render customer-facing unit cards (simplified view with 9 fields)
+function renderCustomerUnits() {
+    const container = document.getElementById('unitsList');
+    if (!container) return;
+    
+    let filtered = units.filter(u => u.status !== 'Sold');
+    
+    // Sort: featured first, then by price
+    filtered.sort((a, b) => {
+        if (b.featured !== a.featured) return b.featured - a.featured;
+        return a.price - b.price;
+    });
+    
+    // Pagination
+    const itemsPerPage = 20;
+    const totalPages = Math.ceil(filtered.length / itemsPerPage);
+    const start = (currentUnitPage - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const paginatedUnits = filtered.slice(start, end);
+    
+    let html = '<div class="grid md:grid-cols-4 gap-6">';
+    
+    paginatedUnits.forEach(unit => {
+        const imageUrl = unit.images && unit.images[0] ? unit.images[0] : 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="300" height="200"%3E%3Crect fill="%23333" width="300" height="200"/%3E%3Ctext x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23999" font-size="16"%3ENo Image%3C/text%3E%3C/svg%3E';
+        
+        html += `
+            <div class="bg-zinc-900 rounded-lg overflow-hidden border border-gold/30 hover:border-gold transition">
+                <img src="${imageUrl}" alt="${unit.code}" class="w-full h-48 object-cover">
+                <div class="p-4 space-y-2">
+                    ${unit.featured ? '<div class="text-gold text-sm">⭐ مميز</div>' : ''}
+                    <h3 class="gold-text font-bold">${unit.zone} - ${unit.building}</h3>
+                    <div class="text-silver text-sm space-y-1">
+                        <p>📍 المنطقة: ${unit.zone}</p>
+                        <p>🏢 المجموعة: ${unit.building}</p>
+                        <p>🛏️ الغرف: ${unit.rooms}</p>
+                        <p>📐 المساحة: ${unit.space} م²</p>
+                        <p>💰 السعر: ${unit.price?.toLocaleString()} جنيه</p>
+                        ${unit.offerPrice ? `<p>🎁 اوفر برايس: ${unit.offerPrice?.toLocaleString()} جنيه</p>` : ''}
+                        <p>📅 التقسيط: ${unit.installmentPeriod}</p>
+                        <p>🚚 الاستلام: ${unit.delivery}</p>
+                    </div>
+                    <button onclick="contactAboutUnit('${unit.code}')" class="w-full btn-primary mt-2">تواصل معنا</button>
+                </div>
+            </div>
+        `;
+    });
+    
+    html += '</div>';
+    
+    // Add pagination
+    if (totalPages > 1) {
+        html += '<div class="flex justify-center gap-2 mt-6">';
+        if (currentUnitPage > 1) {
+            html += `<button onclick="currentUnitPage--; renderCustomerUnits()" class="btn-secondary">السابق</button>`;
+        }
+        for (let i = 1; i <= totalPages; i++) {
+            html += `<button onclick="currentUnitPage=${i}; renderCustomerUnits()" class="btn-${currentUnitPage === i ? 'primary' : 'secondary'}">${i}</button>`;
+        }
+        if (currentUnitPage < totalPages) {
+            html += `<button onclick="currentUnitPage++; renderCustomerUnits()" class="btn-secondary">التالي</button>`;
+        }
+        html += '</div>';
+    }
+    
+    container.innerHTML = html;
+}
+
+// Contact function for customers
+function contactAboutUnit(code) {
+    const message = `أنا مهتم بالوحدة رقم ${code}`;
+    window.open(`https://wa.me/201159333060?text=${encodeURIComponent(message)}`, '_blank');
 }
