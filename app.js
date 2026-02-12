@@ -1673,138 +1673,24 @@ function saveAboutData(e) {
 }
 // Function to download Excel template for units import
 function downloadUnitsTemplate() {
-    // Create CSV content with proper headers
-    const headers = [
-        'code',
-        'Category',
-        'منطقة',
-        'عمارة',
-        'وحدة',
-        'الدور',
-        'النموذج',
-        'الاستلام',
-        'الواجهة',
-        'مساحة',
-        'جاردن',
-        'غرف نوم',
-        'حمام',
-        'تاريخ الحجز',
-        'مدة القسط',
-        'مدفوعات',
-        'اوفر برايس',
-        'مدفوعات + اوفر',
-        'تفاصيل الاقساط',
-        'اصل العقد او ثمن الكاش',
-        'ملاحظات',
-        'client name',
-        'phone',
-        'Status'
-    ];
-    
-    // Create sample data
+    const headers = ['Category :', 'City :', 'Status :', 'Source :', 'code :', 'منطقة :', 'مجموعة :', 'عمارة :', 'وحدة :', 'الدور :', 'النموذج :', 'الاستلام :', 'الواجهة :', 'مساحة :', 'جاردن :', 'غرف نوم :', 'حمام :', 'تاريخ الحجز :', 'مدة القسط :', 'مدفوعات :', 'اوفر برايس :', 'مدفوعات + اوفر :', 'تفاصيل الاقساط :', 'اصل العقد او ثمن الكاش :', 'ملاحظات :', 'client name', 'phone', 'phone 2'];
     const sampleData = [
-        [
-            'U001',
-            'villa',
-            'مدينتي',
-            'أ',
-            '101',
-            '1',
-            'A',
-            '2025-12-31',
-            'شرقية',
-            '250',
-            '50',
-            '3',
-            '2',
-            '2025-01-15',
-            '10 سنوات',
-            '500000',
-            '50000',
-            '550000',
-            'شهري',
-            '5000000',
-            'وحدة جديدة',
-            'أحمد محمد',
-            '01001234567',
-            'available'
-        ],
-        [
-            'U002',
-            'resale',
-            'الرحاب',
-            'ب',
-            '202',
-            '2',
-            'B',
-            '2024-06-30',
-            'غربية',
-            '200',
-            '30',
-            '2',
-            '1',
-            '2024-01-10',
-            '8 سنوات',
-            '300000',
-            '30000',
-            '330000',
-            'شهري',
-            '3000000',
-            'وحدة مستعملة',
-            'فاطمة علي',
-            '01001234568',
-            'available'
-        ],
-        [
-            'U003',
-            'apartment',
-            'العاصمة الإدارية',
-            'ج',
-            '303',
-            '3',
-            'C',
-            '2025-09-15',
-            'شمالية',
-            '150',
-            '0',
-            '1',
-            '1',
-            '2025-02-20',
-            '5 سنوات',
-            '200000',
-            '20000',
-            '220000',
-            'شهري',
-            '2000000',
-            'شقة صغيرة',
-            'محمود حسن',
-            '01001234569',
-            'available'
-        ]
+        ['Apt Resale', 'Madinaty', 'Refreshed', 'M 3bdalla', '4001', 'B12', '125', '71', '22', '2', 'شقة سكنية', 'استلام فوري', 'واجهه بحرى صريح', '78', '--', '2', '1', '--', '7', '1270000', '1300000', '2570000', 'سنوي 450.000', '1700000', 'مثال على وحدة', 'Gehan Shalaby', '01121112501', ''],
+        ['Apt Resale', 'Madinaty', 'Refreshed', 'M 3bdalla', '4002', 'B14', '144', '32', '1', 'G', 'شقة سكنية', '2028', 'فيو جاردن', '67', '35', '1', '--', 'مارس 2025', '10', '666000', '200000', '866000', 'شهري 25.605', '6883570', 'ستوديو ارضي بجاردن', 'Salah Selim', '01272227233', '']
     ];
-    
-    // Create CSV string
-    let csvContent = headers.join('\t') + '\n';
-    sampleData.forEach(row => {
-        csvContent += row.join('\t') + '\n';
-    });
-    
-    // Create blob and download
-    const blob = new Blob([csvContent], { type: 'text/tab-separated-values;charset=utf-8;' });
+    let csvContent = headers.join(',') + '\n';
+    sampleData.forEach(row => { csvContent += row.map(cell => `"${cell}"`).join(',') + '\n'; });
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
     const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
-    
     link.setAttribute('href', url);
-    link.setAttribute('download', 'units_template.tsv');
+    link.setAttribute('download', 'units_template_STR.csv');
     link.style.visibility = 'hidden';
-    
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
-    
     alert('تم تحميل التيمبلت بنجاح! ✅\n\nالتعليمات:\n1. افتح الملف بـ Excel\n2. امسح الأمثلة وأضف وحداتك\n3. احفظ الملف\n4. ارجع وارفعه في التطبيق');
 }
-
 // Function to download Leads template
 function downloadLeadsTemplate() {
     const headers = [
