@@ -420,7 +420,7 @@
 
     <!-- Edit Unit Modal -->
     <div id="editUnitModal" class="modal" onclick="if(event.target.id==='editUnitModal') closeEditUnitModal()">
-        <div class="bg-black border border-gold rounded-xl p-8 max-w-2xl mx-auto mt-10 max-h-screen overflow-y-auto" onclick="event.stopPropagation()">
+        <div class="bg-black border border-gold rounded-xl p-8 max-w-2xl w-full mx-auto max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
             <h3 class="text-2xl gold-text font-bold mb-6">تعديل الوحدة</h3>
             <form onsubmit="saveUnitEdit(event)" class="space-y-4">
                 <input type="hidden" id="editUnitId">
@@ -446,7 +446,7 @@
 
     <!-- Edit Lead Modal -->
     <div id="editLeadModal" class="modal" onclick="if(event.target.id==='editLeadModal') closeEditLeadModal()">
-        <div class="bg-black border border-gold rounded-xl p-8 max-w-2xl mx-auto mt-10 max-h-screen overflow-y-auto" onclick="event.stopPropagation()">
+        <div class="bg-black border border-gold rounded-xl p-8 max-w-2xl w-full mx-auto max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
             <h3 class="text-2xl gold-text font-bold mb-6">تعديل الـ Lead</h3>
             <form onsubmit="saveLeadEdit(event)" class="space-y-4">
                 <input type="hidden" id="editLeadId">
@@ -469,7 +469,7 @@
 
     <!-- Edit Employee Modal -->
     <div id="editEmployeeModal" class="modal" onclick="if(event.target.id==='editEmployeeModal') closeEditEmployeeModal()">
-        <div class="bg-black border border-gold rounded-xl p-8 max-w-2xl mx-auto mt-10 max-h-screen overflow-y-auto" onclick="event.stopPropagation()">
+        <div class="bg-black border border-gold rounded-xl p-8 max-w-2xl w-full mx-auto max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
             <h3 class="text-2xl gold-text font-bold mb-6">تعديل الموظف</h3>
             <form onsubmit="saveEmployeeEdit(event)" class="space-y-4">
                 <input type="hidden" id="editEmployeeId">
@@ -516,7 +516,7 @@
 
     <!-- Employee Dashboard Modal -->
     <div id="employeeDashboardModal" class="modal">
-        <div class="container mx-auto px-4 py-10 max-h-screen overflow-y-auto">
+        <div class="container mx-auto px-4 py-10">
             <div class="flex justify-between items-center border-b border-gold pb-6 mb-8">
                 <div>
                     <h1 class="text-4xl font-bold gold-text">لوحة الموظف</h1>
@@ -544,7 +544,7 @@
     </div>
     <!-- Admin Dashboard Modal -->
     <div id="adminModal" class="modal">
-        <div class="container mx-auto px-4 py-10 max-h-screen overflow-y-auto">
+        <div class="container mx-auto px-4 py-10">
             <div class="flex justify-between items-center border-b border-gold pb-6 mb-8">
                 <h1 class="text-4xl font-bold gold-text">لوحة التحكم STR</h1>
                 <button onclick="closeAdmin()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-full font-bold transition">إغلاق</button>
@@ -611,14 +611,21 @@
                     </div>
                     <div class="bg-zinc-900 p-6 rounded-xl border border-gold/30">
                         <h3 class="gold-text text-xl mb-4 font-bold">استيراد الوحدات</h3>
+                        <button onclick="downloadUnitsTemplate()" class="w-full btn-primary mb-2">📥 تحميل تيمبلت</button>
                         <button onclick="document.getElementById('bulkImportFile').click()" class="w-full btn-secondary mb-2">استيراد من Excel</button>
                         <button onclick="exportUnits()" class="w-full btn-secondary">تصدير الوحدات</button>
-                        <input type="file" id="bulkImportFile" accept=".csv,.xlsx" style="display:none" onchange="bulkImport(event)">
+                        <input type="file" id="bulkImportFile" accept=".csv,.xlsx,.tsv" style="display:none" onchange="bulkImport(event)">
                     </div>
                 </div>
                 <div class="mt-8">
                     <h3 class="gold-text text-xl mb-4 font-bold">قائمة الوحدات</h3>
                     <div id="unitsList" class="bg-zinc-900 rounded-xl border border-gold/30 overflow-x-auto"></div>
+                </div>
+                
+                <!-- Admin Units Table -->
+                <div class="mt-8">
+                    <h3 class="gold-text text-xl mb-4 font-bold">جدول الوحدات الكامل (للأدمن)</h3>
+                    <div id="adminUnitsList" class="bg-zinc-900 rounded-xl border border-gold/30 overflow-x-auto max-h-[70vh]"></div>
                 </div>
             </div>
 
@@ -641,9 +648,10 @@
                     </div>
                     <div class="bg-zinc-900 p-6 rounded-xl border border-gold/30">
                         <h3 class="gold-text text-xl mb-4 font-bold">استيراد Leads</h3>
+                        <button onclick="downloadLeadsTemplate()" class="w-full btn-primary mb-2">📥 تحميل تيمبلت</button>
                         <button onclick="document.getElementById('importLeadsFile').click()" class="w-full btn-secondary mb-2">استيراد من Excel</button>
                         <button onclick="exportLeads()" class="w-full btn-secondary">تصدير Leads</button>
-                        <input type="file" id="importLeadsFile" accept=".csv,.xlsx" style="display:none" onchange="importLeads(event)">
+                        <input type="file" id="importLeadsFile" accept=".csv,.xlsx,.tsv" style="display:none" onchange="importLeads(event)">
                     </div>
                 </div>
                 <div class="mt-8">
