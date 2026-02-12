@@ -1,23 +1,12 @@
+body {
+    background-color: black;
+}
+
 .card {
     background-color: gold;
     border: 1px solid white;
     color: white;
-    padding: 15px;
-    margin: 10px 0;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin: 10px;
+    border-radius: 5px;
 }
-
-.services {
-    /* Existing styles */
-}
-
-.partners {
-    /* Existing styles */
-}
-
-.units {
-    /* Existing styles */
-}
-
-/* Insert all existing CSS rules here */
