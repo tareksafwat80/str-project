@@ -186,11 +186,14 @@ footer a:hover {
 .modal {
     display: none;
     position: fixed;
-    z-index: 1000;
+    z-index: 9999;
     inset: 0;
     background: rgba(0, 0, 0, 0.95);
     overflow-y: auto;
     animation: fadeIn 0.3s ease;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 2rem 1rem;
 }
 
 .unit-card-container {
