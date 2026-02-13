@@ -866,14 +866,24 @@ function bulkImport(e) {
         try {
             const csv = event.target.result;
             const lines = csv.split('\n');
-            const headers = lines[0].split('\t').map(h => h.trim());
+            // Detect delimiter (Tab or Comma)
+            const firstLine = lines[0];
+            const delimiter = firstLine.includes('\t') ? '\t' : ',';
+            const headers = firstLine.split(delimiter).map(h => h.trim().replace(/^"|"$/g, ''));
             
             let importedCount = 0;
             
             for(let i = 1; i < lines.length; i++) {
                 if(!lines[i].trim()) continue;
                 
-                const values = lines[i].split('\t');
+                let values = [];
+                if (delimiter === ',') {
+                    // Simple CSV parser for quoted values
+                    values = lines[i].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || lines[i].split(',');
+                    values = values.map(v => v.trim().replace(/^"|"$/g, ''));
+                } else {
+                    values = lines[i].split('\t').map(v => v.trim());
+                }
                 const row = {};
                 
                 headers.forEach((header, idx) => {
@@ -949,14 +959,24 @@ function importLeads(e) {
         try {
             const csv = event.target.result;
             const lines = csv.split('\n');
-            const headers = lines[0].split('\t').map(h => h.trim());
+            // Detect delimiter (Tab or Comma)
+            const firstLine = lines[0];
+            const delimiter = firstLine.includes('\t') ? '\t' : ',';
+            const headers = firstLine.split(delimiter).map(h => h.trim().replace(/^"|"$/g, ''));
             
             let importedCount = 0;
             
             for(let i = 1; i < lines.length; i++) {
                 if(!lines[i].trim()) continue;
                 
-                const values = lines[i].split('\t');
+                let values = [];
+                if (delimiter === ',') {
+                    // Simple CSV parser for quoted values
+                    values = lines[i].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || lines[i].split(',');
+                    values = values.map(v => v.trim().replace(/^"|"$/g, ''));
+                } else {
+                    values = lines[i].split('\t').map(v => v.trim());
+                }
                 const row = {};
                 
                 headers.forEach((header, idx) => {
@@ -1678,13 +1698,13 @@ function downloadUnitsTemplate() {
         ['Apt Resale', 'Madinaty', 'Refreshed', 'M 3bdalla', '4001', 'B12', '125', '71', '22', '2', 'شقة سكنية', 'استلام فوري', 'واجهه بحرى صريح', '78', '--', '2', '1', '--', '7', '1270000', '1300000', '2570000', 'سنوي 450.000', '1700000', 'مثال على وحدة', 'Gehan Shalaby', '01121112501', ''],
         ['Apt Resale', 'Madinaty', 'Refreshed', 'M 3bdalla', '4002', 'B14', '144', '32', '1', 'G', 'شقة سكنية', '2028', 'فيو جاردن', '67', '35', '1', '--', 'مارس 2025', '10', '666000', '200000', '866000', 'شهري 25.605', '6883570', 'ستوديو ارضي بجاردن', 'Salah Selim', '01272227233', '']
     ];
-    let csvContent = headers.join(',') + '\n';
-    sampleData.forEach(row => { csvContent += row.map(cell => `"${cell}"`).join(',') + '\n'; });
-    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    let csvContent = headers.join('\t') + '\n';
+    sampleData.forEach(row => { csvContent += row.join('\t') + '\n'; });
+    const blob = new Blob([csvContent], { type: 'text/tab-separated-values;charset=utf-8;' });
     const link = document.createElement('a');
     const url = URL.createObjectURL(blob);
     link.setAttribute('href', url);
-    link.setAttribute('download', 'units_template_STR.csv');
+    link.setAttribute('download', 'units_template_STR.tsv');
     link.style.visibility = 'hidden';
     document.body.appendChild(link);
     link.click();
