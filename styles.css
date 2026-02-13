@@ -10,8 +10,10 @@
     --white: #ffffff;
     --white-off: #f5f5f5;
     --dark-bg: #0f0f0f;
-    --card-bg: #1a1a1a;
-    --card-hover: #252525;
+    --card-bg: #d4af37;
+    --card-hover: #e8c547;
+    --card-text: #ffffff;
+    --card-border: #ffffff;
 }
 
 /* ==================== GLOBAL STYLES ====================  */
@@ -33,7 +35,7 @@ body {
 /* ==================== TEXT UTILITIES ====================  */
 
 .gold-text {
-    color: var(--gold);
+    color: var(--card-text);
 }
 
 .silver-text {
@@ -198,7 +200,7 @@ footer a:hover {
 
 .unit-card-container {
     background: linear-gradient(135deg, var(--card-bg), var(--card-hover));
-    border: 2px solid var(--gold);
+    border: 2px solid var(--card-border);
     max-width: 500px;
     margin: 20px auto;
     border-radius: 15px;
