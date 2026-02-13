@@ -22,7 +22,7 @@
 
                 <!-- Language Switch -->
                 <div class="flex items-center gap-3">
-                    <button onclick="toggleLanguage()" class="px-3 py-2 border border-gold/30 rounded-lg hover:border-gold transition text-sm gold-text font-bold">
+                    <button onclick="toggleLanguage()" class="px-3 py-2 border border-gold/30 rounded-lg hover:border-gold transition text-sm text-black font-bold">
                         <span id="langToggle">English</span>
                     </button>
                 </div>
@@ -35,7 +35,7 @@
                     </button>
                     <div id="notificationPanel" class="hidden absolute top-12 right-0 bg-zinc-900 border border-gold/30 rounded-lg shadow-lg w-80 max-h-96 overflow-y-auto z-50">
                         <div class="p-4 border-b border-gold/30">
-                            <h3 class="gold-text font-bold">آخر الوحدات المضافة</h3>
+                            <h3 class="text-black font-bold">آخر الوحدات المضافة</h3>
                         </div>
                         <div id="notificationsList" class="p-2"></div>
                     </div>
@@ -74,7 +74,7 @@
                     <img src="logo.jpg" alt="STR Logo" class="h-32 w-auto object-contain mx-auto md:mx-0 mb-6">
                     <h1 class="text-6xl md:text-7xl font-bold gold-text mb-4">Summit Team</h1>
                     <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">REAL ESTATE</h2>
-                    <p class="silver-text text-xl mb-8">حيث تؤدي كل خطوة إلى القمة</p>
+                    <p class="text-white text-xl mb-8 font-bold">حيث تؤدي كل خطوة إلى القمة</p>
                     <div class="flex gap-4 justify-center md:justify-start flex-wrap">
                         <button onclick="showTab('resale')" class="btn-primary">استعرض الوحدات</button>
                         <button onclick="showTab('partners')" class="btn-secondary">الشركاء</button>
@@ -89,20 +89,20 @@
 
             <!-- Features Section -->
             <div class="grid md:grid-cols-3 gap-6 mb-16">
-                <div class="bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/30 rounded-xl p-8 text-center">
+                <div class="bg-gold-card border-2 border-black rounded-xl p-8 text-center shadow-lg">
                     <i class="fas fa-building text-5xl gold-text mb-4"></i>
-                    <h3 class="text-xl font-bold text-white mb-2">مشاريع متنوعة</h3>
-                    <p class="text-silver text-sm">نوفر أفضل المشاريع السكنية والتجارية</p>
+                    <h3 class="text-xl font-bold text-black mb-2">مشاريع متنوعة</h3>
+                    <p class="text-black text-sm font-medium">نوفر أفضل المشاريع السكنية والتجارية</p>
                 </div>
-                <div class="bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/30 rounded-xl p-8 text-center">
+                <div class="bg-gold-card border-2 border-black rounded-xl p-8 text-center shadow-lg">
                     <i class="fas fa-handshake text-5xl gold-text mb-4"></i>
-                    <h3 class="text-xl font-bold text-white mb-2">خدمة متميزة</h3>
-                    <p class="text-silver text-sm">فريق محترف لتلبية احتياجاتك</p>
+                    <h3 class="text-xl font-bold text-black mb-2">خدمة متميزة</h3>
+                    <p class="text-black text-sm font-medium">فريق محترف لتلبية احتياجاتك</p>
                 </div>
-                <div class="bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/30 rounded-xl p-8 text-center">
+                <div class="bg-gold-card border-2 border-black rounded-xl p-8 text-center shadow-lg">
                     <i class="fas fa-star text-5xl gold-text mb-4"></i>
-                    <h3 class="text-xl font-bold text-white mb-2">أفضل الأسعار</h3>
-                    <p class="text-silver text-sm">أفضل قيمة مقابل السعر</p>
+                    <h3 class="text-xl font-bold text-black mb-2">أفضل الأسعار</h3>
+                    <p class="text-black text-sm font-medium">أفضل قيمة مقابل السعر</p>
                 </div>
             </div>
         </section>
@@ -159,122 +159,122 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
                 <!-- New Capital -->
-                <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden hover:border-gold transition hover:shadow-lg hover:shadow-gold/20">
-                    <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-48 flex items-center justify-center border-b border-gold/30">
+                <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg">
+                    <div class="bg-gold-light h-48 flex items-center justify-center border-b-2 border-black">
                         <div class="text-center">
                             <i class="fas fa-map-location-dot text-4xl gold-text mb-3"></i>
                             <p class="text-sm silver-text">خريطة المنطقة</p>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-bold gold-text mb-2">العاصمة الإدارية الجديدة</h3>
-                        <p class="text-sm silver-text mb-3">New Capital</p>
-                        <p class="text-xs text-gray-400">مشاريع سكنية وتجارية متميزة</p>
+                        <h3 class="text-lg font-bold text-black mb-2">العاصمة الإدارية الجديدة</h3>
+                        <p class="text-sm text-black/80 mb-3 font-bold">New Capital</p>
+                        <p class="text-xs text-black/70 font-bold">مشاريع سكنية وتجارية متميزة</p>
                     </div>
                 </div>
 
                 <!-- Ras El Hekma -->
-                <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden hover:border-gold transition hover:shadow-lg hover:shadow-gold/20">
-                    <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-48 flex items-center justify-center border-b border-gold/30">
+                <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg">
+                    <div class="bg-gold-light h-48 flex items-center justify-center border-b-2 border-black">
                         <div class="text-center">
                             <i class="fas fa-map-location-dot text-4xl gold-text mb-3"></i>
                             <p class="text-sm silver-text">خريطة المنطقة</p>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-bold gold-text mb-2">راس الحكمة</h3>
-                        <p class="text-sm silver-text mb-3">Ras El Hekma</p>
-                        <p class="text-xs text-gray-400">مدينة ساحلية حديثة ومتطورة</p>
+                        <h3 class="text-lg font-bold text-black mb-2">راس الحكمة</h3>
+                        <p class="text-sm text-black/80 mb-3 font-bold">Ras El Hekma</p>
+                        <p class="text-xs text-black/70 font-bold">مدينة ساحلية حديثة ومتطورة</p>
                     </div>
                 </div>
 
                 <!-- Madinaty -->
-                <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden hover:border-gold transition hover:shadow-lg hover:shadow-gold/20">
-                    <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-48 flex items-center justify-center border-b border-gold/30">
+                <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg">
+                    <div class="bg-gold-light h-48 flex items-center justify-center border-b-2 border-black">
                         <div class="text-center">
                             <i class="fas fa-map-location-dot text-4xl gold-text mb-3"></i>
                             <p class="text-sm silver-text">خريطة المنطقة</p>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-bold gold-text mb-2">مدينتي</h3>
-                        <p class="text-sm silver-text mb-3">Madinaty</p>
-                        <p class="text-xs text-gray-400">مجتمع عمراني متكامل</p>
+                        <h3 class="text-lg font-bold text-black mb-2">مدينتي</h3>
+                        <p class="text-sm text-black/80 mb-3 font-bold">Madinaty</p>
+                        <p class="text-xs text-black/70 font-bold">مجتمع عمراني متكامل</p>
                     </div>
                 </div>
 
                 <!-- Al Rehab -->
-                <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden hover:border-gold transition hover:shadow-lg hover:shadow-gold/20">
-                    <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-48 flex items-center justify-center border-b border-gold/30">
+                <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg">
+                    <div class="bg-gold-light h-48 flex items-center justify-center border-b-2 border-black">
                         <div class="text-center">
                             <i class="fas fa-map-location-dot text-4xl gold-text mb-3"></i>
                             <p class="text-sm silver-text">خريطة المنطقة</p>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-bold gold-text mb-2">الرحاب</h3>
-                        <p class="text-sm silver-text mb-3">Al Rehab</p>
-                        <p class="text-xs text-gray-400">منطقة سكنية راقية</p>
+                        <h3 class="text-lg font-bold text-black mb-2">الرحاب</h3>
+                        <p class="text-sm text-black/80 mb-3 font-bold">Al Rehab</p>
+                        <p class="text-xs text-black/70 font-bold">منطقة سكنية راقية</p>
                     </div>
                 </div>
 
                 <!-- New Cairo City -->
-                <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden hover:border-gold transition hover:shadow-lg hover:shadow-gold/20">
-                    <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-48 flex items-center justify-center border-b border-gold/30">
+                <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg">
+                    <div class="bg-gold-light h-48 flex items-center justify-center border-b-2 border-black">
                         <div class="text-center">
                             <i class="fas fa-map-location-dot text-4xl gold-text mb-3"></i>
                             <p class="text-sm silver-text">خريطة المنطقة</p>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-bold gold-text mb-2">القاهرة الجديدة</h3>
-                        <p class="text-sm silver-text mb-3">New Cairo City</p>
-                        <p class="text-xs text-gray-400">منطقة حيوية ومتطورة</p>
+                        <h3 class="text-lg font-bold text-black mb-2">القاهرة الجديدة</h3>
+                        <p class="text-sm text-black/80 mb-3 font-bold">New Cairo City</p>
+                        <p class="text-xs text-black/70 font-bold">منطقة حيوية ومتطورة</p>
                     </div>
                 </div>
 
                 <!-- North Coast -->
-                <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden hover:border-gold transition hover:shadow-lg hover:shadow-gold/20">
-                    <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-48 flex items-center justify-center border-b border-gold/30">
+                <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg">
+                    <div class="bg-gold-light h-48 flex items-center justify-center border-b-2 border-black">
                         <div class="text-center">
                             <i class="fas fa-map-location-dot text-4xl gold-text mb-3"></i>
                             <p class="text-sm silver-text">خريطة المنطقة</p>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-bold gold-text mb-2">الساحل الشمالي</h3>
-                        <p class="text-sm silver-text mb-3">North Coast</p>
-                        <p class="text-xs text-gray-400">وجهة سياحية وسكنية</p>
+                        <h3 class="text-lg font-bold text-black mb-2">الساحل الشمالي</h3>
+                        <p class="text-sm text-black/80 mb-3 font-bold">North Coast</p>
+                        <p class="text-xs text-black/70 font-bold">وجهة سياحية وسكنية</p>
                     </div>
                 </div>
 
                 <!-- Ain Sokhna -->
-                <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden hover:border-gold transition hover:shadow-lg hover:shadow-gold/20">
-                    <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-48 flex items-center justify-center border-b border-gold/30">
+                <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg">
+                    <div class="bg-gold-light h-48 flex items-center justify-center border-b-2 border-black">
                         <div class="text-center">
                             <i class="fas fa-map-location-dot text-4xl gold-text mb-3"></i>
                             <p class="text-sm silver-text">خريطة المنطقة</p>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-bold gold-text mb-2">العين السخنة</h3>
-                        <p class="text-sm silver-text mb-3">Ain Sokhna</p>
-                        <p class="text-xs text-gray-400">منتجع ساحلي متميز</p>
+                        <h3 class="text-lg font-bold text-black mb-2">العين السخنة</h3>
+                        <p class="text-sm text-black/80 mb-3 font-bold">Ain Sokhna</p>
+                        <p class="text-xs text-black/70 font-bold">منتجع ساحلي متميز</p>
                     </div>
                 </div>
 
                 <!-- Sheikh Zayed -->
-                <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden hover:border-gold transition hover:shadow-lg hover:shadow-gold/20">
-                    <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-48 flex items-center justify-center border-b border-gold/30">
+                <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg">
+                    <div class="bg-gold-light h-48 flex items-center justify-center border-b-2 border-black">
                         <div class="text-center">
                             <i class="fas fa-map-location-dot text-4xl gold-text mb-3"></i>
                             <p class="text-sm silver-text">خريطة المنطقة</p>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-bold gold-text mb-2">الشيخ زايد</h3>
-                        <p class="text-sm silver-text mb-3">Sheikh Zayed</p>
-                        <p class="text-xs text-gray-400">منطقة سكنية فاخرة</p>
+                        <h3 class="text-lg font-bold text-black mb-2">الشيخ زايد</h3>
+                        <p class="text-sm text-black/80 mb-3 font-bold">Sheikh Zayed</p>
+                        <p class="text-xs text-black/70 font-bold">منطقة سكنية فاخرة</p>
                     </div>
                 </div>
             </div>
@@ -287,72 +287,72 @@
             
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
                 <!-- Partner 1: Emaar -->
-                <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden hover:border-gold transition hover:shadow-lg hover:shadow-gold/20">
+                <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg">
                     <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-40 flex items-center justify-center border-b border-gold/30">
                         <div class="text-center">
                             <div class="text-5xl font-bold gold-text">E</div>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-bold gold-text mb-2">Emaar</h3>
+                        <h3 class="text-lg font-bold text-black mb-2">Emaar</h3>
                         <p class="text-xs silver-text mb-3 leading-relaxed">شركة عملاقة متخصصة في تطوير المشاريع السكنية والتجارية الفاخرة. تتمتع بخبرة عقود في بناء مجتمعات عمرانية متكاملة.</p>
-                        <p class="text-xs text-gray-400">مطور عقاري رائد</p>
+                        <p class="text-xs text-black/70 font-bold">مطور عقاري رائد</p>
                     </div>
                 </div>
 
                 <!-- Partner 2: Tatweer Misr -->
-                <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden hover:border-gold transition hover:shadow-lg hover:shadow-gold/20">
+                <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg">
                     <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-40 flex items-center justify-center border-b border-gold/30">
                         <div class="text-center">
                             <div class="text-5xl font-bold gold-text">T</div>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-bold gold-text mb-2">Tatweer Misr</h3>
+                        <h3 class="text-lg font-bold text-black mb-2">Tatweer Misr</h3>
                         <p class="text-xs silver-text mb-3 leading-relaxed">متخصصة في تطوير المشاريع السكنية المتميزة والمناطق السياحية. تركز على الجودة والاستدامة في جميع مشاريعها.</p>
-                        <p class="text-xs text-gray-400">مطور عقاري مبتكر</p>
+                        <p class="text-xs text-black/70 font-bold">مطور عقاري مبتكر</p>
                     </div>
                 </div>
 
                 <!-- Partner 3: Palm Hills -->
-                <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden hover:border-gold transition hover:shadow-lg hover:shadow-gold/20">
+                <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg">
                     <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-40 flex items-center justify-center border-b border-gold/30">
                         <div class="text-center">
                             <div class="text-5xl font-bold gold-text">P</div>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-bold gold-text mb-2">Palm Hills</h3>
+                        <h3 class="text-lg font-bold text-black mb-2">Palm Hills</h3>
                         <p class="text-xs silver-text mb-3 leading-relaxed">رائدة في تطوير المجتمعات السكنية المتكاملة بتصاميم معمارية عصرية. معروفة بالتزامها بالجودة والخدمات المتميزة.</p>
-                        <p class="text-xs text-gray-400">مطور عقاري متخصص</p>
+                        <p class="text-xs text-black/70 font-bold">مطور عقاري متخصص</p>
                     </div>
                 </div>
 
                 <!-- Partner 4: Sodic -->
-                <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden hover:border-gold transition hover:shadow-lg hover:shadow-gold/20">
+                <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg">
                     <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-40 flex items-center justify-center border-b border-gold/30">
                         <div class="text-center">
                             <div class="text-5xl font-bold gold-text">S</div>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-bold gold-text mb-2">Sodic</h3>
+                        <h3 class="text-lg font-bold text-black mb-2">Sodic</h3>
                         <p class="text-xs silver-text mb-3 leading-relaxed">متخصصة في تطوير مشاريع سكنية وتجارية عالية الجودة. تتميز بالابتكار والتصاميم المستدامة والخدمات العملاء المتقدمة.</p>
-                        <p class="text-xs text-gray-400">مطور عقاري عصري</p>
+                        <p class="text-xs text-black/70 font-bold">مطور عقاري عصري</p>
                     </div>
                 </div>
 
                 <!-- Partner 5: Zamalek -->
-                <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden hover:border-gold transition hover:shadow-lg hover:shadow-gold/20">
+                <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg">
                     <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-40 flex items-center justify-center border-b border-gold/30">
                         <div class="text-center">
                             <div class="text-5xl font-bold gold-text">Z</div>
                         </div>
                     </div>
                     <div class="p-4">
-                        <h3 class="text-lg font-bold gold-text mb-2">Zamalek</h3>
+                        <h3 class="text-lg font-bold text-black mb-2">Zamalek</h3>
                         <p class="text-xs silver-text mb-3 leading-relaxed">متخصصة في المشاريع السكنية الفاخرة والعقارات الاستثمارية. تتمتع بسمعة قوية في تقديم مشاريع بمعايير عالمية.</p>
-                        <p class="text-xs text-gray-400">مطور عقاري فاخر</p>
+                        <p class="text-xs text-black/70 font-bold">مطور عقاري فاخر</p>
                     </div>
                 </div>
             </div>
@@ -421,7 +421,7 @@
     <!-- Edit Unit Modal -->
     <div id="editUnitModal" class="modal" onclick="if(event.target.id==='editUnitModal') closeEditUnitModal()">
         <div class="bg-black border border-gold rounded-xl p-8 max-w-2xl w-full mx-auto max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
-            <h3 class="text-2xl gold-text font-bold mb-6">تعديل الوحدة</h3>
+            <h3 class="text-2xl text-black font-bold mb-6">تعديل الوحدة</h3>
             <form onsubmit="saveUnitEdit(event)" class="space-y-4">
                 <input type="hidden" id="editUnitId">
                 <input type="number" id="editUnitCode" placeholder="كود الوحدة" required class="form-input">
@@ -447,7 +447,7 @@
     <!-- Edit Lead Modal -->
     <div id="editLeadModal" class="modal" onclick="if(event.target.id==='editLeadModal') closeEditLeadModal()">
         <div class="bg-black border border-gold rounded-xl p-8 max-w-2xl w-full mx-auto max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
-            <h3 class="text-2xl gold-text font-bold mb-6">تعديل الـ Lead</h3>
+            <h3 class="text-2xl text-black font-bold mb-6">تعديل الـ Lead</h3>
             <form onsubmit="saveLeadEdit(event)" class="space-y-4">
                 <input type="hidden" id="editLeadId">
                 <input type="text" id="editLeadName" placeholder="الاسم" required class="form-input">
@@ -470,7 +470,7 @@
     <!-- Edit Employee Modal -->
     <div id="editEmployeeModal" class="modal" onclick="if(event.target.id==='editEmployeeModal') closeEditEmployeeModal()">
         <div class="bg-black border border-gold rounded-xl p-8 max-w-2xl w-full mx-auto max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
-            <h3 class="text-2xl gold-text font-bold mb-6">تعديل الموظف</h3>
+            <h3 class="text-2xl text-black font-bold mb-6">تعديل الموظف</h3>
             <form onsubmit="saveEmployeeEdit(event)" class="space-y-4">
                 <input type="hidden" id="editEmployeeId">
                 <input type="text" id="editEmployeeName" placeholder="الاسم" required class="form-input">
@@ -496,7 +496,7 @@
     <!-- Admin Login Modal -->
     <div id="adminLoginModal" class="modal" onclick="if(event.target.id==='adminLoginModal') closeModal()">
         <div class="bg-black border border-gold rounded-xl p-8 max-w-sm mx-auto mt-20" onclick="event.stopPropagation()">
-            <h3 class="text-2xl gold-text font-bold mb-6 text-center">لوحة التحكم</h3>
+            <h3 class="text-2xl text-black font-bold mb-6 text-center">لوحة التحكم</h3>
             <input type="password" id="adminPassword" placeholder="كلمة السر" class="w-full bg-zinc-900 border border-gold/30 rounded-lg px-4 py-2 mb-4 text-white">
             <button onclick="checkAdminPassword()" class="w-full btn-primary mb-2">دخول</button>
             <button onclick="closeModal()" class="w-full btn-secondary">إغلاق</button>
@@ -506,7 +506,7 @@
     <!-- Employee Login Modal -->
     <div id="employeeLoginModal" class="modal" onclick="if(event.target.id==='employeeLoginModal') closeEmployeeLoginModal()">
         <div class="bg-black border border-gold rounded-xl p-8 max-w-sm mx-auto mt-20" onclick="event.stopPropagation()">
-            <h3 class="text-2xl gold-text font-bold mb-6 text-center">تسجيل دخول الموظف</h3>
+            <h3 class="text-2xl text-black font-bold mb-6 text-center">تسجيل دخول الموظف</h3>
             <input type="email" id="employeeEmail" placeholder="البريد الإلكتروني" class="w-full bg-zinc-900 border border-gold/30 rounded-lg px-4 py-2 mb-4 text-white">
             <input type="password" id="employeePassword" placeholder="كلمة السر" class="w-full bg-zinc-900 border border-gold/30 rounded-lg px-4 py-2 mb-4 text-white">
             <button onclick="checkEmployeeLogin()" class="w-full btn-primary mb-2">دخول</button>
@@ -520,7 +520,7 @@
             <div class="flex justify-between items-center border-b border-gold pb-6 mb-8">
                 <div>
                     <h1 class="text-4xl font-bold gold-text">لوحة الموظف</h1>
-                    <p class="text-silver mt-2">مرحباً <span id="employeeName" class="gold-text font-bold"></span></p>
+                    <p class="text-silver mt-2">مرحباً <span id="employeeName" class="text-black font-bold"></span></p>
                 </div>
                 <button onclick="logoutEmployee()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-full font-bold transition">تسجيل خروج</button>
             </div>
@@ -592,17 +592,17 @@
                             <input type="number" placeholder="عدد الغرف" required class="form-input">
                             <input type="number" placeholder="المساحة (ممبر)" required class="form-input">
                             <div class="space-y-2">
-                                <label class="block text-silver text-sm">الصور (حتى 10 ملفات)</label>
+                                <label class="block text-black text-sm font-medium">الصور (حتى 10 ملفات)</label>
                                 <input type="file" id="unitImages" accept="image/*" multiple class="form-input" onchange="updateFileCount('unitImages', 'imageCount')">
                                 <span id="imageCount" class="text-xs text-silver">0 ملف</span>
                             </div>
                             <div class="space-y-2">
-                                <label class="block text-silver text-sm">الفيديوهات (حتى 10 ملفات)</label>
+                                <label class="block text-black text-sm font-medium">الفيديوهات (حتى 10 ملفات)</label>
                                 <input type="file" id="unitVideos" accept="video/*" multiple class="form-input" onchange="updateFileCount('unitVideos', 'videoCount')">
                                 <span id="videoCount" class="text-xs text-silver">0 ملف</span>
                             </div>
                             <div class="space-y-2">
-                                <label class="block text-silver text-sm">ملفات PDF (حتى 10 ملفات)</label>
+                                <label class="block text-black text-sm font-medium">ملفات PDF (حتى 10 ملفات)</label>
                                 <input type="file" id="unitPDFs" accept=".pdf" multiple class="form-input" onchange="updateFileCount('unitPDFs', 'pdfCount')">
                                 <span id="pdfCount" class="text-xs text-silver">0 ملف</span>
                             </div>
@@ -929,7 +929,7 @@
             
             <!-- Copyright -->
             <div class="text-center mt-8 pt-8 border-t border-gold/30">
-                <p class="text-silver text-sm">&copy; 2026 Summit Team Real Estate. جميع الحقوق محفوظة.</p>
+                <p class="text-black text-sm font-medium">&copy; 2026 Summit Team Real Estate. جميع الحقوق محفوظة.</p>
             </div>
         </div>
     </footer>
