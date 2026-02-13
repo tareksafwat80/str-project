@@ -150,21 +150,21 @@ function renderDashboard() {
     
     dashboard.innerHTML = `
         <div class="grid md:grid-cols-4 gap-4 mb-8">
-            <div class="bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/30 rounded-lg p-6">
-                <p class="text-silver text-sm mb-2">${lang === 'ar' ? 'إجمالي الوحدات' : 'Total Units'}</p>
+            <div class="bg-gold-card border-2 border-black rounded-lg p-6 shadow-lg">
+                <p class="text-black font-bold text-sm mb-2">${lang === 'ar' ? 'إجمالي الوحدات' : 'Total Units'}</p>
                 <p class="text-3xl font-bold gold-text">${totalUnits}</p>
             </div>
-            <div class="bg-gradient-to-br from-blue-900/20 to-blue-900/5 border border-blue-500/30 rounded-lg p-6">
-                <p class="text-silver text-sm mb-2">${lang === 'ar' ? 'إجمالي Leads' : 'Total Leads'}</p>
-                <p class="text-3xl font-bold text-blue-400">${totalLeads}</p>
+            <div class="bg-blue-100 border-2 border-blue-900 rounded-lg p-6 shadow-lg">
+                <p class="text-black font-bold text-sm mb-2">${lang === 'ar' ? 'إجمالي Leads' : 'Total Leads'}</p>
+                <p class="text-3xl font-bold text-blue-900">${totalLeads}</p>
             </div>
-            <div class="bg-gradient-to-br from-yellow-900/20 to-yellow-900/5 border border-yellow-500/30 rounded-lg p-6">
-                <p class="text-silver text-sm mb-2">${lang === 'ar' ? 'Leads جديد' : 'New Leads'}</p>
-                <p class="text-3xl font-bold text-yellow-400">${newLeads}</p>
+            <div class="bg-yellow-100 border-2 border-yellow-900 rounded-lg p-6 shadow-lg">
+                <p class="text-black font-bold text-sm mb-2">${lang === 'ar' ? 'Leads جديد' : 'New Leads'}</p>
+                <p class="text-3xl font-bold text-yellow-900">${newLeads}</p>
             </div>
-            <div class="bg-gradient-to-br from-green-900/20 to-green-900/5 border border-green-500/30 rounded-lg p-6">
-                <p class="text-silver text-sm mb-2">${lang === 'ar' ? 'Leads محول' : 'Converted'}</p>
-                <p class="text-3xl font-bold text-green-400">${convertedLeads}</p>
+            <div class="bg-green-100 border-2 border-green-900 rounded-lg p-6 shadow-lg">
+                <p class="text-black font-bold text-sm mb-2">${lang === 'ar' ? 'Leads محول' : 'Converted'}</p>
+                <p class="text-3xl font-bold text-green-900">${convertedLeads}</p>
             </div>
         </div>
     `;
@@ -220,41 +220,41 @@ function renderAdminStats() {
     
     statsDiv.innerHTML = `
         <!-- Row 1: Main Stats -->
-        <div class="bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/30 rounded-lg p-6">
-            <p class="text-silver text-sm mb-2">إجمالي الوحدات</p>
+        <div class="bg-gold-card border-2 border-black rounded-lg p-6 shadow-lg">
+            <p class="text-black font-bold text-sm mb-2">إجمالي الوحدات</p>
             <p class="text-3xl font-bold gold-text">${totalUnits}</p>
         </div>
-        <div class="bg-gradient-to-br from-blue-900/20 to-blue-900/5 border border-blue-500/30 rounded-lg p-6">
-            <p class="text-silver text-sm mb-2">إجمالي Leads</p>
-            <p class="text-3xl font-bold text-blue-400">${totalLeads}</p>
+        <div class="bg-blue-100 border-2 border-blue-900 rounded-lg p-6 shadow-lg">
+            <p class="text-black font-bold text-sm mb-2">إجمالي Leads</p>
+            <p class="text-3xl font-bold text-blue-900">${totalLeads}</p>
         </div>
-        <div class="bg-gradient-to-br from-yellow-900/20 to-yellow-900/5 border border-yellow-500/30 rounded-lg p-6">
-            <p class="text-silver text-sm mb-2">Leads جديد</p>
-            <p class="text-3xl font-bold text-yellow-400">${newLeads}</p>
+        <div class="bg-yellow-100 border-2 border-yellow-900 rounded-lg p-6 shadow-lg">
+            <p class="text-black font-bold text-sm mb-2">Leads جديد</p>
+            <p class="text-3xl font-bold text-yellow-900">${newLeads}</p>
         </div>
-        <div class="bg-gradient-to-br from-green-900/20 to-green-900/5 border border-green-500/30 rounded-lg p-6">
-            <p class="text-silver text-sm mb-2">Leads محول</p>
-            <p class="text-3xl font-bold text-green-400">${convertedLeads}</p>
+        <div class="bg-green-100 border-2 border-green-900 rounded-lg p-6 shadow-lg">
+            <p class="text-black font-bold text-sm mb-2">Leads محول</p>
+            <p class="text-3xl font-bold text-green-900">${convertedLeads}</p>
         </div>
         
         <!-- Row 2: Resale Units -->
-        <div class="bg-gradient-to-br from-purple-900/20 to-purple-900/5 border border-purple-500/30 rounded-lg p-6">
-            <p class="text-silver text-sm mb-2">وحدات ريسيل</p>
-            <p class="text-3xl font-bold text-purple-400">${resaleUnits}</p>
+        <div class="bg-purple-100 border-2 border-purple-900 rounded-lg p-6 shadow-lg">
+            <p class="text-black font-bold text-sm mb-2">وحدات ريسيل</p>
+            <p class="text-3xl font-bold text-purple-900">${resaleUnits}</p>
             <p class="text-xs text-purple-300 mt-1">مميز: ${resaleFeatured}</p>
         </div>
         
         <!-- Row 2: Primary Units -->
-        <div class="bg-gradient-to-br from-cyan-900/20 to-cyan-900/5 border border-cyan-500/30 rounded-lg p-6">
-            <p class="text-silver text-sm mb-2">وحدات برايمري</p>
-            <p class="text-3xl font-bold text-cyan-400">${primaryUnits}</p>
+        <div class="bg-cyan-100 border-2 border-cyan-900 rounded-lg p-6 shadow-lg">
+            <p class="text-black font-bold text-sm mb-2">وحدات برايمري</p>
+            <p class="text-3xl font-bold text-cyan-900">${primaryUnits}</p>
             <p class="text-xs text-cyan-300 mt-1">مميز: ${primaryFeatured}</p>
         </div>
         
         <!-- Row 2: Rental Units -->
-        <div class="bg-gradient-to-br from-orange-900/20 to-orange-900/5 border border-orange-500/30 rounded-lg p-6">
-            <p class="text-silver text-sm mb-2">وحدات إيجار</p>
-            <p class="text-3xl font-bold text-orange-400">${rentalUnits}</p>
+        <div class="bg-orange-100 border-2 border-orange-900 rounded-lg p-6 shadow-lg">
+            <p class="text-black font-bold text-sm mb-2">وحدات إيجار</p>
+            <p class="text-3xl font-bold text-orange-900">${rentalUnits}</p>
             <p class="text-xs text-orange-300 mt-1">مميز: ${rentalFeatured}</p>
         </div>
     `;
@@ -416,7 +416,7 @@ function renderAbout() {
         if(img) {
             return `<div class="flex items-center justify-center p-4 overflow-hidden"><img src="${img}" class="w-full h-48 object-cover rounded-lg" alt=""></div>`;
         }
-        return `<div class="bg-gradient-to-br ${fallbackColor} flex items-center justify-center p-10"><i class="fas ${fallbackIcon} text-6xl gold-text"></i></div>`;
+        return `<div class="bg-gold-light flex items-center justify-center p-10 border-b-2 border-black"><i class="fas ${fallbackIcon} text-6xl gold-text"></i></div>`;
     }
     
     about.innerHTML = `
@@ -425,60 +425,60 @@ function renderAbout() {
         <div class="max-w-6xl mx-auto space-y-10">
             
             <!-- Mission Section -->
-            <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden">
+            <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden shadow-lg">
                 <div class="grid md:grid-cols-5 gap-0">
                     ${sectionImage(aboutData.aboutUs.image, 'fa-bullseye', 'from-gold/20 to-gold/5')}
-                    <div class="md:col-span-2 p-6 border-b md:border-b-0 md:border-l border-gold/20" dir="rtl">
-                        <h2 class="text-2xl font-bold gold-text mb-3">رسالتنا</h2>
-                        <p class="text-white leading-relaxed text-sm">${aboutData.aboutUs.ar}</p>
+                    <div class="md:col-span-2 p-6 border-b-2 md:border-b-0 md:border-l-2 border-black/30" dir="rtl">
+                        <h2 class="text-2xl font-bold text-black mb-3">رسالتنا</h2>
+                        <p class="text-black font-bold leading-relaxed text-sm">${aboutData.aboutUs.ar}</p>
                     </div>
                     <div class="md:col-span-2 p-6" dir="ltr">
-                        <h2 class="text-2xl font-bold gold-text mb-3">Our Mission</h2>
-                        <p class="text-silver leading-relaxed text-sm">${aboutData.aboutUs.en}</p>
+                        <h2 class="text-2xl font-bold text-black mb-3">Our Mission</h2>
+                        <p class="text-black font-bold leading-relaxed text-sm">${aboutData.aboutUs.en}</p>
                     </div>
                 </div>
             </div>
             
             <!-- Vision Section -->
-            <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden">
+            <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden shadow-lg">
                 <div class="grid md:grid-cols-5 gap-0">
-                    <div class="md:col-span-2 p-6 border-b md:border-b-0 md:border-l border-gold/20" dir="rtl">
-                        <h2 class="text-2xl font-bold gold-text mb-3">رؤيتنا</h2>
-                        <p class="text-white leading-relaxed text-sm">${aboutData.vision.ar}</p>
+                    <div class="md:col-span-2 p-6 border-b-2 md:border-b-0 md:border-l-2 border-black/30" dir="rtl">
+                        <h2 class="text-2xl font-bold text-black mb-3">رؤيتنا</h2>
+                        <p class="text-black font-bold leading-relaxed text-sm">${aboutData.vision.ar}</p>
                     </div>
-                    <div class="md:col-span-2 p-6 border-b md:border-b-0 md:border-l border-gold/20" dir="ltr">
-                        <h2 class="text-2xl font-bold gold-text mb-3">Our Vision</h2>
-                        <p class="text-silver leading-relaxed text-sm">${aboutData.vision.en}</p>
+                    <div class="md:col-span-2 p-6 border-b-2 md:border-b-0 md:border-l-2 border-black/30" dir="ltr">
+                        <h2 class="text-2xl font-bold text-black mb-3">Our Vision</h2>
+                        <p class="text-black font-bold leading-relaxed text-sm">${aboutData.vision.en}</p>
                     </div>
                     ${sectionImage(aboutData.vision.image, 'fa-eye', 'from-purple-900/20 to-purple-900/5')}
                 </div>
             </div>
             
             <!-- Team Section -->
-            <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden">
+            <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden shadow-lg">
                 <div class="grid md:grid-cols-5 gap-0">
                     ${sectionImage(aboutData.team.image, 'fa-users', 'from-cyan-900/20 to-cyan-900/5')}
-                    <div class="md:col-span-2 p-6 border-b md:border-b-0 md:border-l border-gold/20" dir="rtl">
-                        <h2 class="text-2xl font-bold gold-text mb-3">فريقنا</h2>
-                        <p class="text-white leading-relaxed text-sm">${aboutData.team.ar}</p>
+                    <div class="md:col-span-2 p-6 border-b-2 md:border-b-0 md:border-l-2 border-black/30" dir="rtl">
+                        <h2 class="text-2xl font-bold text-black mb-3">فريقنا</h2>
+                        <p class="text-black font-bold leading-relaxed text-sm">${aboutData.team.ar}</p>
                     </div>
                     <div class="md:col-span-2 p-6" dir="ltr">
-                        <h2 class="text-2xl font-bold gold-text mb-3">Our Team</h2>
-                        <p class="text-silver leading-relaxed text-sm">${aboutData.team.en}</p>
+                        <h2 class="text-2xl font-bold text-black mb-3">Our Team</h2>
+                        <p class="text-black font-bold leading-relaxed text-sm">${aboutData.team.en}</p>
                     </div>
                 </div>
             </div>
             
             <!-- Closing Section -->
-            <div class="bg-gold/10 border border-gold/30 rounded-xl overflow-hidden">
+            <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden shadow-lg">
                 <div class="grid md:grid-cols-5 gap-0">
-                    <div class="md:col-span-2 p-6 border-b md:border-b-0 md:border-l border-gold/20" dir="rtl">
-                        <h2 class="text-2xl font-bold gold-text mb-3">لماذا نحن؟</h2>
-                        <p class="text-white leading-relaxed text-sm">${aboutData.closing.ar}</p>
+                    <div class="md:col-span-2 p-6 border-b-2 md:border-b-0 md:border-l-2 border-black/30" dir="rtl">
+                        <h2 class="text-2xl font-bold text-black mb-3">لماذا نحن؟</h2>
+                        <p class="text-black font-bold leading-relaxed text-sm">${aboutData.closing.ar}</p>
                     </div>
-                    <div class="md:col-span-2 p-6 border-b md:border-b-0 md:border-l border-gold/20" dir="ltr">
-                        <h2 class="text-2xl font-bold gold-text mb-3">Why Us?</h2>
-                        <p class="text-silver leading-relaxed text-sm">${aboutData.closing.en}</p>
+                    <div class="md:col-span-2 p-6 border-b-2 md:border-b-0 md:border-l-2 border-black/30" dir="ltr">
+                        <h2 class="text-2xl font-bold text-black mb-3">Why Us?</h2>
+                        <p class="text-black font-bold leading-relaxed text-sm">${aboutData.closing.en}</p>
                     </div>
                     ${sectionImage(aboutData.closing.image, 'fa-trophy', 'from-green-900/20 to-green-900/5')}
                 </div>
@@ -738,28 +738,28 @@ function renderUnits() {
     const paginatedUnits = filtered.slice(startIdx, endIdx);
     
     grid.innerHTML = paginatedUnits.map(unit => `
-        <div class="bg-zinc-900 border ${unit.featured ? 'border-gold-light' : 'border-gold/30'} rounded-xl overflow-hidden hover:border-gold transition hover:shadow-lg hover:shadow-gold/20 ${unit.featured ? 'ring-2 ring-gold/50' : ''}">
-            <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-40 flex items-center justify-center border-b border-gold/30 relative">
+        <div class="bg-gold-card border-2 ${unit.featured ? 'border-white' : 'border-black'} rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg ${unit.featured ? 'ring-2 ring-white/50' : ''}">
+            <div class="bg-gold-light h-40 flex items-center justify-center border-b-2 border-black relative">
                 ${unit.featured ? '<div class="absolute top-2 right-2 bg-gold text-black px-2 py-1 rounded text-xs font-bold">⭐ مميز</div>' : ''}
                 <i class="fas fa-building text-4xl gold-text"></i>
             </div>
             <div class="p-4">
                 <div class="flex justify-between items-start mb-2">
-                    <h3 class="text-lg font-bold gold-text">كود: ${unit.code}</h3>
-                    <span class="text-xs bg-gold/20 text-gold px-2 py-1 rounded">${unit.type}</span>
+                    <h3 class="text-lg font-bold text-black">كود: ${unit.code}</h3>
+                    <span class="text-xs bg-black text-gold px-2 py-1 rounded font-bold">${unit.type}</span>
                 </div>
-                <p class="text-sm silver-text mb-2">${unit.zone}</p>
+                <p class="text-sm text-black font-bold mb-2">${unit.zone}</p>
                 <div class="spec-grid mb-3">
                     <div class="spec-box text-xs">
-                        <p class="text-silver">غرف</p>
-                        <p class="gold-text font-bold">${unit.rooms}</p>
+                        <p class="text-black/70 font-bold">غرف</p>
+                        <p class="text-black font-bold">${unit.rooms}</p>
                     </div>
                     <div class="spec-box text-xs">
-                        <p class="text-silver">مساحة</p>
-                        <p class="gold-text font-bold">${unit.space}م²</p>
+                        <p class="text-black/70 font-bold">مساحة</p>
+                        <p class="text-black font-bold">${unit.space}م²</p>
                     </div>
                 </div>
-                <p class="text-lg font-bold gold-text mb-3">${unit.price.toLocaleString()} EGP</p>
+                <p class="text-lg font-bold text-black mb-3">${unit.price.toLocaleString()} EGP</p>
                 <button onclick="openUnit(${unit.id})" class="w-full btn-primary text-sm mb-2">عرض التفاصيل</button>
             </div>
         </div>
@@ -866,28 +866,21 @@ function bulkImport(e) {
         try {
             const csv = event.target.result;
             const lines = csv.split('\n');
-            
-            // Detect delimiter (comma or tab)
-            const firstLine = lines[0];
-            const delimiter = firstLine.includes(',') ? ',' : '\t';
-            
-            // Parse headers and remove quotes
-            const headers = lines[0].split(delimiter).map(h => h.trim().replace(/^"|"$/g, ''));
+            const headers = lines[0].split('\t').map(h => h.trim());
             
             let importedCount = 0;
             
             for(let i = 1; i < lines.length; i++) {
                 if(!lines[i].trim()) continue;
                 
-                // Parse values and remove quotes
-                const values = lines[i].split(delimiter).map(v => v.trim().replace(/^"|"$/g, ''));
+                const values = lines[i].split('\t');
                 const row = {};
                 
                 headers.forEach((header, idx) => {
-                    row[header] = values[idx] || '';
+                    row[header] = values[idx] ? values[idx].trim() : '';
                 });
                 
-                // Map columns to unit object
+                // Map columns to unit object - matching exact Excel format
                 const unit = {
                     id: Date.now() + i,
                     code: row['code :'] || row['code'] || row['كود'] || '',
@@ -922,6 +915,7 @@ function bulkImport(e) {
                     featured: false
                 };
                 
+                // Only add if has code and price
                 if(unit.code && unit.price > 0) {
                     units.push(unit);
                     importedCount++;
@@ -942,9 +936,10 @@ function bulkImport(e) {
         }
     };
     
-    reader.readAsText(file, 'UTF-8');
+    reader.readAsText(file);
     e.target.value = '';
 }
+
 function importLeads(e) {
     const file = e.target.files[0];
     if(!file) return;
@@ -954,28 +949,21 @@ function importLeads(e) {
         try {
             const csv = event.target.result;
             const lines = csv.split('\n');
-            
-            // Detect delimiter (comma or tab)
-            const firstLine = lines[0];
-            const delimiter = firstLine.includes(',') ? ',' : '\t';
-            
-            // Parse headers and remove quotes
-            const headers = lines[0].split(delimiter).map(h => h.trim().replace(/^"|"$/g, ''));
+            const headers = lines[0].split('\t').map(h => h.trim());
             
             let importedCount = 0;
             
             for(let i = 1; i < lines.length; i++) {
                 if(!lines[i].trim()) continue;
                 
-                // Parse values and remove quotes
-                const values = lines[i].split(delimiter).map(v => v.trim().replace(/^"|"$/g, ''));
+                const values = lines[i].split('\t');
                 const row = {};
                 
                 headers.forEach((header, idx) => {
-                    row[header] = values[idx] || '';
+                    row[header] = values[idx] ? values[idx].trim() : '';
                 });
                 
-                // Map columns to lead object
+                // Map columns to lead object - matching exact Excel format
                 const lead = {
                     id: Date.now() + i,
                     period: row['الفترة'] || '',
@@ -1015,9 +1003,695 @@ function importLeads(e) {
         }
     };
     
-    reader.readAsText(file, 'UTF-8');
+    reader.readAsText(file);
     e.target.value = '';
 }
+
+function exportUnits() {
+    const headers = ['الكود', 'النوع', 'السعر', 'المنطقة', 'الغرف', 'المساحة', 'الجاردن', 'الواجهة', 'الاستلام', 'الحالة', 'اسم العميل', 'هاتف العميل', 'ملاحظات'];
+    
+    const rows = units.map(u => [
+        u.code,
+        u.type,
+        u.price,
+        u.zone,
+        u.rooms,
+        u.space,
+        u.garden || '--',
+        u.facade || '--',
+        u.delivery || '--',
+        u.status,
+        u.clientName || '--',
+        u.clientPhone || '--',
+        u.notes || '--'
+    ]);
+    
+    const csv = [headers, ...rows].map(row => row.join('\t')).join('\n');
+    
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', `units_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function exportLeads() {
+    const headers = ['الاسم', 'الهاتف', 'البريد', 'كود الوحدة', 'الحالة', 'المصدر', 'التاريخ', 'ملاحظات'];
+    
+    const rows = leads.map(l => [
+        l.name,
+        l.phone,
+        l.email || '--',
+        l.unitCode || '--',
+        l.status,
+        l.source,
+        new Date(l.createdAt).toLocaleDateString('ar-EG'),
+        l.notes || '--'
+    ]);
+    
+    const csv = [headers, ...rows].map(row => row.join('\t')).join('\n');
+    
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    
+    link.setAttribute('href', url);
+    link.setAttribute('download', `leads_${new Date().toISOString().split('T')[0]}.csv`);
+    link.style.visibility = 'hidden';
+    
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+// ==================== UNIT OPERATIONS ====================
+
+function addUnit(e) {
+    e.preventDefault();
+    const form = e.target;
+    const inputs = form.querySelectorAll('input[type="number"], select');
+    
+    const imagesInput = document.getElementById('unitImages');
+    const videosInput = document.getElementById('unitVideos');
+    const pdfsInput = document.getElementById('unitPDFs');
+    
+    const images = [];
+    const videos = [];
+    const pdfs = [];
+    let filesProcessed = 0;
+    let totalFiles = 0;
+    
+    // Count total files
+    if(imagesInput) totalFiles += imagesInput.files.length;
+    if(videosInput) totalFiles += videosInput.files.length;
+    if(pdfsInput) totalFiles += pdfsInput.files.length;
+    
+    const newUnit = {
+        id: Date.now(),
+        code: inputs[0].value,
+        type: inputs[1].value,
+        price: parseInt(inputs[2].value),
+        zone: inputs[3].value,
+        rooms: parseInt(inputs[4].value),
+        space: parseInt(inputs[5].value),
+        images: images,
+        videos: videos,
+        pdfs: pdfs,
+        createdAt: new Date().toISOString(),
+        featured: false,
+        status: 'available'
+    };
+    
+    function processFile(file, type) {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                if(type === 'image') {
+                    images.push({name: file.name, data: e.target.result});
+                } else if(type === 'video') {
+                    videos.push({name: file.name, data: e.target.result});
+                } else if(type === 'pdf') {
+                    pdfs.push({name: file.name, data: e.target.result});
+                }
+                filesProcessed++;
+                resolve();
+            };
+            reader.readAsDataURL(file);
+        });
+    }
+    
+    async function processAllFiles() {
+        const promises = [];
+        
+        if(imagesInput && imagesInput.files.length > 0) {
+            for(let file of imagesInput.files) {
+                promises.push(processFile(file, 'image'));
+            }
+        }
+        
+        if(videosInput && videosInput.files.length > 0) {
+            for(let file of videosInput.files) {
+                promises.push(processFile(file, 'video'));
+            }
+        }
+        
+        if(pdfsInput && pdfsInput.files.length > 0) {
+            for(let file of pdfsInput.files) {
+                promises.push(processFile(file, 'pdf'));
+            }
+        }
+        
+        if(promises.length > 0) {
+            await Promise.all(promises);
+        }
+        
+        units.push(newUnit);
+        saveUnits();
+        form.reset();
+        alert('تمت إضافة الوحدة بنجاح!');
+        renderUnitsList();
+        renderUnits();
+    }
+    
+    if(totalFiles > 0) {
+        processAllFiles();
+    } else {
+        units.push(newUnit);
+        saveUnits();
+        form.reset();
+        alert('تمت إضافة الوحدة بنجاح!');
+        renderUnitsList();
+        renderUnits();
+    }
+}
+
+function openUnit(id) {
+    const unit = units.find(u => u.id === id);
+    if(!unit) return;
+    
+    document.getElementById('m-code').textContent = unit.code;
+    document.getElementById('m-address').textContent = unit.zone;
+    document.getElementById('m-specs').textContent = `${unit.rooms} غرف | ${unit.space} م²`;
+    document.getElementById('m-finance').textContent = `${unit.price.toLocaleString()} EGP`;
+    document.getElementById('m-dates').textContent = `تاريخ الإضافة: ${new Date(unit.createdAt).toLocaleDateString('ar-EG')}`;
+    document.getElementById('m-notes').textContent = unit.notes || 'لا توجد ملاحظات';
+    
+    const waBtn = document.getElementById('wa-btn');
+    waBtn.onclick = () => {
+        const message = `مرحباً، أنا مهتم بالوحدة رقم ${unit.code} في ${unit.zone}`;
+        window.open(`https://wa.me/201159333060?text=${encodeURIComponent(message)}`, '_blank');
+    };
+    
+    document.getElementById('unitModal').style.display = 'block';
+}
+
+// ==================== COMPANY SETTINGS ====================
+
+function saveCompanySettings(e) {
+    e.preventDefault();
+    
+    const settings = {
+        companyName: document.getElementById('companyName').value,
+        companyEmail: document.getElementById('companyEmail').value,
+        companyPhone1: document.getElementById('companyPhone1').value,
+        companyPhone2: document.getElementById('companyPhone2').value,
+        companyAddress: document.getElementById('companyAddress').value,
+        companyLogo: document.getElementById('companyLogo').value,
+        companyDescAr: document.getElementById('companyDescAr').value,
+        companyDescEn: document.getElementById('companyDescEn').value
+    };
+    
+    localStorage.setItem('companySettings', JSON.stringify(settings));
+    alert('تم حفظ إعدادات الشركة بنجاح!');
+}
+
+function loadCompanySettings() {
+    const settings = JSON.parse(localStorage.getItem('companySettings')) || {};
+    
+    if(document.getElementById('companyName')) {
+        document.getElementById('companyName').value = settings.companyName || 'Summit Team Real Estate';
+    }
+    if(document.getElementById('companyEmail')) {
+        document.getElementById('companyEmail').value = settings.companyEmail || 'admin@str-summitteam.com';
+    }
+    if(document.getElementById('companyPhone1')) {
+        document.getElementById('companyPhone1').value = settings.companyPhone1 || '01159333060';
+    }
+    if(document.getElementById('companyPhone2')) {
+        document.getElementById('companyPhone2').value = settings.companyPhone2 || '01222108383';
+    }
+    if(document.getElementById('companyAddress')) {
+        document.getElementById('companyAddress').value = settings.companyAddress || 'East Hub Mall, Building 16, Madinaty, New Cairo';
+    }
+    if(document.getElementById('companyLogo')) {
+        document.getElementById('companyLogo').value = settings.companyLogo || 'logo.jpg';
+    }
+    if(document.getElementById('companyDescAr')) {
+        document.getElementById('companyDescAr').value = settings.companyDescAr || '';
+    }
+    if(document.getElementById('companyDescEn')) {
+        document.getElementById('companyDescEn').value = settings.companyDescEn || '';
+    }
+}
+
+// Load settings when page loads
+document.addEventListener('DOMContentLoaded', () => {
+    loadCompanySettings();
+});
+
+// ==================== EMPLOYEE LOGIN SYSTEM ====================
+
+function openEmployeeLogin() {
+    document.getElementById('employeeLoginModal').style.display = 'flex';
+}
+
+function closeEmployeeLoginModal() {
+    document.getElementById('employeeLoginModal').style.display = 'none';
+    document.getElementById('employeeEmail').value = '';
+    document.getElementById('employeePassword').value = '';
+}
+
+function checkEmployeeLogin() {
+    const email = document.getElementById('employeeEmail').value;
+    const password = document.getElementById('employeePassword').value;
+    
+    if(!email || !password) {
+        alert('الرجاء إدخال البريد الإلكتروني وكلمة السر');
+        return;
+    }
+    
+    const employee = employees.find(e => e.email === email && e.password === password);
+    
+    if(employee) {
+        currentUser = employee;
+        localStorage.setItem('currentEmployee', JSON.stringify(employee));
+        closeEmployeeLoginModal();
+        showEmployeeDashboard();
+    } else {
+        alert('البريد الإلكتروني أو كلمة السر غير صحيحة');
+    }
+}
+
+function showEmployeeDashboard() {
+    document.getElementById('employeeDashboardModal').style.display = 'flex';
+    document.getElementById('employeeName').textContent = currentUser.name;
+    showEmployeeTab('leads');
+}
+
+function showEmployeeTab(tabName) {
+    document.querySelectorAll('#employeeDashboardModal .admin-tab-content').forEach(t => t.classList.remove('active-admin-tab'));
+    document.querySelectorAll('#employeeDashboardModal .admin-tab-btn').forEach(b => b.classList.remove('active'));
+    
+    document.getElementById('employee-' + tabName).classList.add('active-admin-tab');
+    event.target.classList.add('active');
+    
+    if(tabName === 'leads') renderEmployeeLeads();
+    if(tabName === 'stats') renderEmployeeStats();
+}
+
+function renderEmployeeLeads() {
+    const list = document.getElementById('employeeLeadsList');
+    const assignedLeads = leads.filter(l => l.assignedTo === currentUser.id);
+    
+    if(assignedLeads.length === 0) {
+        list.innerHTML = '<div class="p-4 text-center text-silver">لا توجد Leads مسندة</div>';
+        return;
+    }
+    
+    list.innerHTML = `
+        <table class="w-full text-sm">
+            <thead>
+                <tr class="border-b border-gold/30">
+                    <th class="p-4 text-right gold-text">الاسم</th>
+                    <th class="p-4 text-right gold-text">الهاتف</th>
+                    <th class="p-4 text-right gold-text">الحالة</th>
+                    <th class="p-4 text-right gold-text">الإجراءات</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${assignedLeads.map(lead => `
+                    <tr class="border-b border-gold/20 hover:bg-gold/5">
+                        <td class="p-4 text-white">${lead.name}</td>
+                        <td class="p-4 text-silver">${lead.phone}</td>
+                        <td class="p-4">
+                            <span class="px-3 py-1 rounded-full text-xs font-bold ${
+                                lead.status === 'new' ? 'bg-yellow-900/30 text-yellow-900' :
+                                lead.status === 'converted' ? 'bg-green-900/30 text-green-900' :
+                                'bg-blue-900/30 text-blue-900'
+                            }">
+                                ${lead.status === 'new' ? 'جديد' : lead.status === 'converted' ? 'محول' : 'متابعة'}
+                            </span>
+                        </td>
+                        <td class="p-4">
+                            <button onclick="convertLead(${lead.id})" class="text-green-900 hover:text-green-300 text-xs">تحويل</button>
+                        </td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `;
+}
+
+function renderEmployeeStats() {
+    const stats = document.getElementById('employeeStats');
+    const assignedLeads = leads.filter(l => l.assignedTo === currentUser.id);
+    const convertedLeads = assignedLeads.filter(l => l.status === 'converted').length;
+    const newLeads = assignedLeads.filter(l => l.status === 'new').length;
+    
+    stats.innerHTML = `
+        <div class="bg-blue-100 border-2 border-blue-900 rounded-lg p-6 shadow-lg">
+            <p class="text-black font-bold text-sm mb-2">إجمالي Leads</p>
+            <p class="text-3xl font-bold text-blue-900">${assignedLeads.length}</p>
+        </div>
+        <div class="bg-yellow-100 border-2 border-yellow-900 rounded-lg p-6 shadow-lg">
+            <p class="text-black font-bold text-sm mb-2">Leads جديد</p>
+            <p class="text-3xl font-bold text-yellow-900">${newLeads}</p>
+        </div>
+        <div class="bg-green-100 border-2 border-green-900 rounded-lg p-6 shadow-lg">
+            <p class="text-black font-bold text-sm mb-2">Leads محول</p>
+            <p class="text-3xl font-bold text-green-900">${convertedLeads}</p>
+        </div>
+    `;
+}
+
+function convertLead(leadId) {
+    const lead = leads.find(l => l.id === leadId);
+    if(lead) {
+        lead.status = 'converted';
+        localStorage.setItem('leads', JSON.stringify(leads));
+        currentUser.convertedLeads = (currentUser.convertedLeads || 0) + 1;
+        localStorage.setItem('currentEmployee', JSON.stringify(currentUser));
+        alert('تم تحويل الـ Lead بنجاح!');
+        renderEmployeeLeads();
+        renderEmployeeStats();
+    }
+}
+
+function logoutEmployee() {
+    currentUser = null;
+    localStorage.removeItem('currentEmployee');
+    document.getElementById('employeeDashboardModal').style.display = 'none';
+    alert('تم تسجيل الخروج بنجاح');
+}
+
+// Check if employee is already logged in
+window.addEventListener('load', () => {
+    const savedEmployee = localStorage.getItem('currentEmployee');
+    if(savedEmployee) {
+        currentUser = JSON.parse(savedEmployee);
+        // Optionally show dashboard
+    }
+});
+
+// ==================== ENHANCED FILE UPLOAD SYSTEM ====================
+
+function updateFileCount(inputId, countId) {
+    const input = document.getElementById(inputId);
+    const count = input.files.length;
+    const countSpan = document.getElementById(countId);
+    
+    if(count > 10) {
+        alert('يمكنك اختيار حتى 10 ملفات فقط!');
+        input.value = '';
+        countSpan.textContent = '0 ملف';
+        return;
+    }
+    
+    countSpan.textContent = count + ' ملف';
+}
+
+function processFilesAsync(files, type) {
+    return Promise.all(Array.from(files).map(file => {
+        return new Promise((resolve) => {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                resolve({
+                    name: file.name,
+                    size: file.size,
+                    type: file.type,
+                    data: e.target.result
+                });
+            };
+            reader.readAsDataURL(file);
+        });
+    }));
+}
+
+// ==================== EDIT FUNCTIONALITY ====================
+
+// ===== UNIT EDIT =====
+function openEditUnitModal(unitId) {
+    const unit = units.find(u => u.id === unitId);
+    if(!unit) return;
+    
+    document.getElementById('editUnitId').value = unit.id;
+    document.getElementById('editUnitCode').value = unit.code;
+    document.getElementById('editUnitType').value = unit.type;
+    document.getElementById('editUnitPrice').value = unit.price;
+    document.getElementById('editUnitZone').value = unit.zone;
+    document.getElementById('editUnitRooms').value = unit.rooms;
+    document.getElementById('editUnitSpace').value = unit.space;
+    document.getElementById('editUnitNotes').value = unit.notes || '';
+    
+    const modal = document.getElementById('editUnitModal');
+    modal.style.display = 'flex';
+    modal.scrollTop = 0;
+}
+
+function closeEditUnitModal() {
+    document.getElementById('editUnitModal').style.display = 'none';
+}
+
+function saveUnitEdit(e) {
+    e.preventDefault();
+    
+    const unitId = parseInt(document.getElementById('editUnitId').value);
+    const unit = units.find(u => u.id === unitId);
+    
+    if(unit) {
+        unit.code = document.getElementById('editUnitCode').value;
+        unit.type = document.getElementById('editUnitType').value;
+        unit.price = parseInt(document.getElementById('editUnitPrice').value);
+        unit.zone = document.getElementById('editUnitZone').value;
+        unit.rooms = parseInt(document.getElementById('editUnitRooms').value);
+        unit.space = parseInt(document.getElementById('editUnitSpace').value);
+        unit.notes = document.getElementById('editUnitNotes').value;
+        
+        saveUnits();
+        alert('تم تحديث الوحدة بنجاح!');
+        closeEditUnitModal();
+        renderUnitsList();
+        renderUnits();
+    }
+}
+
+// ===== LEAD EDIT =====
+function openEditLeadModal(leadId) {
+    const lead = leads.find(l => l.id === leadId);
+    if(!lead) return;
+    
+    document.getElementById('editLeadId').value = lead.id;
+    document.getElementById('editLeadName').value = lead.name;
+    document.getElementById('editLeadPhone').value = lead.phone;
+    document.getElementById('editLeadEmail').value = lead.email || '';
+    document.getElementById('editLeadStatus').value = lead.status;
+    document.getElementById('editLeadNotes').value = lead.notes || '';
+    
+    const modal = document.getElementById('editLeadModal');
+    modal.style.display = 'flex';
+    modal.scrollTop = 0;
+}
+
+function closeEditLeadModal() {
+    document.getElementById('editLeadModal').style.display = 'none';
+}
+
+function saveLeadEdit(e) {
+    e.preventDefault();
+    
+    const leadId = parseInt(document.getElementById('editLeadId').value);
+    const lead = leads.find(l => l.id === leadId);
+    
+    if(lead) {
+        lead.name = document.getElementById('editLeadName').value;
+        lead.phone = document.getElementById('editLeadPhone').value;
+        lead.email = document.getElementById('editLeadEmail').value;
+        lead.status = document.getElementById('editLeadStatus').value;
+        lead.notes = document.getElementById('editLeadNotes').value;
+        
+        localStorage.setItem('leads', JSON.stringify(leads));
+        alert('تم تحديث الـ Lead بنجاح!');
+        closeEditLeadModal();
+        renderLeadsList();
+    }
+}
+
+// ===== EMPLOYEE EDIT =====
+function openEditEmployeeModal(employeeId) {
+    const employee = employees.find(e => e.id === employeeId);
+    if(!employee) return;
+    
+    document.getElementById('editEmployeeId').value = employee.id;
+    document.getElementById('editEmployeeName').value = employee.name;
+    document.getElementById('editEmployeePhone').value = employee.phone;
+    document.getElementById('editEmployeeEmail').value = employee.email;
+    document.getElementById('editEmployeeRole').value = employee.role;
+    document.getElementById('editEmployeeCanAddUnits').checked = employee.canAddUnits || false;
+    
+    const modal = document.getElementById('editEmployeeModal');
+    modal.style.display = 'flex';
+    modal.scrollTop = 0;
+}
+
+function closeEditEmployeeModal() {
+    document.getElementById('editEmployeeModal').style.display = 'none';
+}
+
+function saveEmployeeEdit(e) {
+    e.preventDefault();
+    
+    const employeeId = parseInt(document.getElementById('editEmployeeId').value);
+    const employee = employees.find(e => e.id === employeeId);
+    
+    if(employee) {
+        employee.name = document.getElementById('editEmployeeName').value;
+        employee.phone = document.getElementById('editEmployeePhone').value;
+        employee.email = document.getElementById('editEmployeeEmail').value;
+        employee.role = document.getElementById('editEmployeeRole').value;
+        employee.canAddUnits = document.getElementById('editEmployeeCanAddUnits').checked;
+        
+        const newPassword = document.getElementById('editEmployeePassword').value;
+        if(newPassword) {
+            employee.password = newPassword;
+        }
+        
+        localStorage.setItem('employees', JSON.stringify(employees));
+        alert('تم تحديث الموظف بنجاح!');
+        closeEditEmployeeModal();
+        renderEmployeesList();
+    }
+}
+
+// Add pagination controls
+function addPaginationControls(grid, currentPage, totalPages, pageCallback) {
+    if(totalPages <= 1) return;
+    
+    let paginationHTML = '<div class="flex justify-center gap-2 mt-8 flex-wrap">';
+    
+    if(currentPage > 1) {
+        paginationHTML += `<button onclick="${pageCallback}(${currentPage - 1})" class="btn-secondary px-4 py-2 text-sm">السابق</button>`;
+    }
+    
+    for(let i = 1; i <= totalPages; i++) {
+        if(i === currentPage) {
+            paginationHTML += `<button class="btn-primary px-4 py-2 text-sm">${i}</button>`;
+        } else {
+            paginationHTML += `<button onclick="${pageCallback}(${i})" class="btn-secondary px-4 py-2 text-sm">${i}</button>`;
+        }
+    }
+    
+    if(currentPage < totalPages) {
+        paginationHTML += `<button onclick="${pageCallback}(${currentPage + 1})" class="btn-secondary px-4 py-2 text-sm">التالي</button>`;
+    }
+    
+    paginationHTML += '</div>';
+    grid.parentElement.insertAdjacentHTML('afterend', paginationHTML);
+}
+
+function goToUnitPage(page) {
+    window.currentUnitPage = page;
+    renderUnits();
+    document.getElementById('units-grid').scrollIntoView({ behavior: 'smooth' });
+}
+
+// ==================== ABOUT PAGE EDITOR ====================
+
+function previewAboutImage(input, previewId) {
+    const preview = document.getElementById(previewId);
+    if(input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function loadAboutEditor() {
+    // Fill textareas with current data
+    document.getElementById('aboutMissionAr').value = aboutData.aboutUs.ar;
+    document.getElementById('aboutMissionEn').value = aboutData.aboutUs.en;
+    document.getElementById('aboutVisionAr').value = aboutData.vision.ar;
+    document.getElementById('aboutVisionEn').value = aboutData.vision.en;
+    document.getElementById('aboutTeamAr').value = aboutData.team.ar;
+    document.getElementById('aboutTeamEn').value = aboutData.team.en;
+    document.getElementById('aboutClosingAr').value = aboutData.closing.ar;
+    document.getElementById('aboutClosingEn').value = aboutData.closing.en;
+    
+    // Show existing images
+    if(aboutData.aboutUs.image) {
+        const p = document.getElementById('missionPreview');
+        p.src = aboutData.aboutUs.image; p.classList.remove('hidden');
+    }
+    if(aboutData.vision.image) {
+        const p = document.getElementById('visionPreview');
+        p.src = aboutData.vision.image; p.classList.remove('hidden');
+    }
+    if(aboutData.team.image) {
+        const p = document.getElementById('teamPreview');
+        p.src = aboutData.team.image; p.classList.remove('hidden');
+    }
+    if(aboutData.closing.image) {
+        const p = document.getElementById('closingPreview');
+        p.src = aboutData.closing.image; p.classList.remove('hidden');
+    }
+}
+
+function saveAboutData(e) {
+    e.preventDefault();
+    
+    // Update text
+    aboutData.aboutUs.ar = document.getElementById('aboutMissionAr').value;
+    aboutData.aboutUs.en = document.getElementById('aboutMissionEn').value;
+    aboutData.vision.ar = document.getElementById('aboutVisionAr').value;
+    aboutData.vision.en = document.getElementById('aboutVisionEn').value;
+    aboutData.team.ar = document.getElementById('aboutTeamAr').value;
+    aboutData.team.en = document.getElementById('aboutTeamEn').value;
+    aboutData.closing.ar = document.getElementById('aboutClosingAr').value;
+    aboutData.closing.en = document.getElementById('aboutClosingEn').value;
+    
+    // Update images
+    const missionPreview = document.getElementById('missionPreview');
+    if(missionPreview.src && !missionPreview.classList.contains('hidden')) {
+        aboutData.aboutUs.image = missionPreview.src;
+    }
+    const visionPreview = document.getElementById('visionPreview');
+    if(visionPreview.src && !visionPreview.classList.contains('hidden')) {
+        aboutData.vision.image = visionPreview.src;
+    }
+    const teamPreview = document.getElementById('teamPreview');
+    if(teamPreview.src && !teamPreview.classList.contains('hidden')) {
+        aboutData.team.image = teamPreview.src;
+    }
+    const closingPreview = document.getElementById('closingPreview');
+    if(closingPreview.src && !closingPreview.classList.contains('hidden')) {
+        aboutData.closing.image = closingPreview.src;
+    }
+    
+    // Save to localStorage
+    localStorage.setItem('aboutData', JSON.stringify(aboutData));
+    
+    alert('تم حفظ تعديلات صفحة "عن الشركة" بنجاح!');
+    renderAbout();
+}
+// Function to download Excel template for units import
+function downloadUnitsTemplate() {
+    const headers = ['Category :', 'City :', 'Status :', 'Source :', 'code :', 'منطقة :', 'مجموعة :', 'عمارة :', 'وحدة :', 'الدور :', 'النموذج :', 'الاستلام :', 'الواجهة :', 'مساحة :', 'جاردن :', 'غرف نوم :', 'حمام :', 'تاريخ الحجز :', 'مدة القسط :', 'مدفوعات :', 'اوفر برايس :', 'مدفوعات + اوفر :', 'تفاصيل الاقساط :', 'اصل العقد او ثمن الكاش :', 'ملاحظات :', 'client name', 'phone', 'phone 2'];
+    const sampleData = [
+        ['Apt Resale', 'Madinaty', 'Refreshed', 'M 3bdalla', '4001', 'B12', '125', '71', '22', '2', 'شقة سكنية', 'استلام فوري', 'واجهه بحرى صريح', '78', '--', '2', '1', '--', '7', '1270000', '1300000', '2570000', 'سنوي 450.000', '1700000', 'مثال على وحدة', 'Gehan Shalaby', '01121112501', ''],
+        ['Apt Resale', 'Madinaty', 'Refreshed', 'M 3bdalla', '4002', 'B14', '144', '32', '1', 'G', 'شقة سكنية', '2028', 'فيو جاردن', '67', '35', '1', '--', 'مارس 2025', '10', '666000', '200000', '866000', 'شهري 25.605', '6883570', 'ستوديو ارضي بجاردن', 'Salah Selim', '01272227233', '']
+    ];
+    let csvContent = headers.join(',') + '\n';
+    sampleData.forEach(row => { csvContent += row.map(cell => `"${cell}"`).join(',') + '\n'; });
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement('a');
+    const url = URL.createObjectURL(blob);
+    link.setAttribute('href', url);
+    link.setAttribute('download', 'units_template_STR.csv');
+    link.style.visibility = 'hidden';
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+    alert('تم تحميل التيمبلت بنجاح! ✅\n\nالتعليمات:\n1. افتح الملف بـ Excel\n2. امسح الأمثلة وأضف وحداتك\n3. احفظ الملف\n4. ارجع وارفعه في التطبيق');
+}
+// Function to download Leads template
 function downloadLeadsTemplate() {
     const headers = [
         'name',
@@ -1079,12 +1753,12 @@ function renderCustomerUnits() {
         const imageUrl = unit.images && unit.images[0] ? unit.images[0] : 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="300" height="200"%3E%3Crect fill="%23333" width="300" height="200"/%3E%3Ctext x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23999" font-size="16"%3ENo Image%3C/text%3E%3C/svg%3E';
         
         html += `
-            <div class="bg-zinc-900 rounded-lg overflow-hidden border border-gold/30 hover:border-gold transition">
+            <div class="bg-gold-card rounded-lg overflow-hidden border-2 border-black hover:border-white transition shadow-lg">
                 <img src="${imageUrl}" alt="${unit.code}" class="w-full h-48 object-cover">
                 <div class="p-4 space-y-2">
-                    ${unit.featured ? '<div class="text-gold text-sm">⭐ مميز</div>' : ''}
-                    <h3 class="gold-text font-bold">${unit.zone} - ${unit.building}</h3>
-                    <div class="text-silver text-sm space-y-1">
+                    ${unit.featured ? '<div class="text-black font-bold text-sm">⭐ مميز</div>' : ''}
+                    <h3 class="text-black font-bold">${unit.zone} - ${unit.building}</h3>
+                    <div class="text-black font-medium text-sm space-y-1">
                         <p>📍 المنطقة: ${unit.zone}</p>
                         <p>🏢 المجموعة: ${unit.building}</p>
                         <p>🛏️ الغرف: ${unit.rooms}</p>
