@@ -67,42 +67,25 @@ function generateDemoUnits() {
 
 function showTab(tabName) {
     currentTab = tabName;
-    // Hide all tab content sections
     document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
-    // Also hide units-section explicitly
-    document.getElementById('units-section').style.display = 'none';
-    // Remove active from all nav buttons
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     
-    // Map tab names to button text
-    const tabLabels = {
-        'home': 'الرئيسية',
-        'about': 'عن الشركة',
-        'resale': 'ريسيل',
-        'primary': 'برايمري',
-        'rentals': 'إيجار',
-        'services': 'مناطق عملنا',
-        'partners': 'شركاؤنا'
-    };
-    const label = tabLabels[tabName];
-    if(label) {
-        const activeBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => b.textContent.trim() === label);
-        if(activeBtn) activeBtn.classList.add('active');
-    }
+    const activeBtn = Array.from(document.querySelectorAll('.nav-btn')).find(b => 
+        b.textContent.includes(tabName === 'home' ? 'الرئيسية' : 
+                              tabName === 'about' ? 'عن الشركة' :
+                              tabName === 'resale' ? 'ريسيل' :
+                              tabName === 'primary' ? 'برايمري' : 'إيجار')
+    );
+    if(activeBtn) activeBtn.classList.add('active');
 
     if(['resale', 'primary', 'rentals'].includes(tabName)) {
         currentUnitTab = tabName;
         document.getElementById('units-section').style.display = 'block';
         renderUnits();
     } else {
-        const section = document.getElementById(tabName);
-        if(section) {
-            section.style.display = 'block';
-            if(tabName === 'about') renderAbout();
-        }
+        document.getElementById(tabName).style.display = 'block';
+        if(tabName === 'about') renderAbout();
     }
-    // Scroll to top
-    window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ==================== UNITS MANAGEMENT ====================
@@ -150,21 +133,21 @@ function renderDashboard() {
     
     dashboard.innerHTML = `
         <div class="grid md:grid-cols-4 gap-4 mb-8">
-            <div class="bg-gold-card border-2 border-black rounded-lg p-6 shadow-lg">
-                <p class="text-black font-bold text-sm mb-2">${lang === 'ar' ? 'إجمالي الوحدات' : 'Total Units'}</p>
+            <div class="bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/30 rounded-lg p-6">
+                <p class="text-silver text-sm mb-2">${lang === 'ar' ? 'إجمالي الوحدات' : 'Total Units'}</p>
                 <p class="text-3xl font-bold gold-text">${totalUnits}</p>
             </div>
-            <div class="bg-blue-100 border-2 border-blue-900 rounded-lg p-6 shadow-lg">
-                <p class="text-black font-bold text-sm mb-2">${lang === 'ar' ? 'إجمالي Leads' : 'Total Leads'}</p>
-                <p class="text-3xl font-bold text-blue-900">${totalLeads}</p>
+            <div class="bg-gradient-to-br from-blue-900/20 to-blue-900/5 border border-blue-500/30 rounded-lg p-6">
+                <p class="text-silver text-sm mb-2">${lang === 'ar' ? 'إجمالي Leads' : 'Total Leads'}</p>
+                <p class="text-3xl font-bold text-blue-400">${totalLeads}</p>
             </div>
-            <div class="bg-yellow-100 border-2 border-yellow-900 rounded-lg p-6 shadow-lg">
-                <p class="text-black font-bold text-sm mb-2">${lang === 'ar' ? 'Leads جديد' : 'New Leads'}</p>
-                <p class="text-3xl font-bold text-yellow-900">${newLeads}</p>
+            <div class="bg-gradient-to-br from-yellow-900/20 to-yellow-900/5 border border-yellow-500/30 rounded-lg p-6">
+                <p class="text-silver text-sm mb-2">${lang === 'ar' ? 'Leads جديد' : 'New Leads'}</p>
+                <p class="text-3xl font-bold text-yellow-400">${newLeads}</p>
             </div>
-            <div class="bg-green-100 border-2 border-green-900 rounded-lg p-6 shadow-lg">
-                <p class="text-black font-bold text-sm mb-2">${lang === 'ar' ? 'Leads محول' : 'Converted'}</p>
-                <p class="text-3xl font-bold text-green-900">${convertedLeads}</p>
+            <div class="bg-gradient-to-br from-green-900/20 to-green-900/5 border border-green-500/30 rounded-lg p-6">
+                <p class="text-silver text-sm mb-2">${lang === 'ar' ? 'Leads محول' : 'Converted'}</p>
+                <p class="text-3xl font-bold text-green-400">${convertedLeads}</p>
             </div>
         </div>
     `;
@@ -220,41 +203,41 @@ function renderAdminStats() {
     
     statsDiv.innerHTML = `
         <!-- Row 1: Main Stats -->
-        <div class="bg-gold-card border-2 border-black rounded-lg p-6 shadow-lg">
-            <p class="text-black font-bold text-sm mb-2">إجمالي الوحدات</p>
+        <div class="bg-gradient-to-br from-gold/20 to-gold/5 border border-gold/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">إجمالي الوحدات</p>
             <p class="text-3xl font-bold gold-text">${totalUnits}</p>
         </div>
-        <div class="bg-blue-100 border-2 border-blue-900 rounded-lg p-6 shadow-lg">
-            <p class="text-black font-bold text-sm mb-2">إجمالي Leads</p>
-            <p class="text-3xl font-bold text-blue-900">${totalLeads}</p>
+        <div class="bg-gradient-to-br from-blue-900/20 to-blue-900/5 border border-blue-500/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">إجمالي Leads</p>
+            <p class="text-3xl font-bold text-blue-400">${totalLeads}</p>
         </div>
-        <div class="bg-yellow-100 border-2 border-yellow-900 rounded-lg p-6 shadow-lg">
-            <p class="text-black font-bold text-sm mb-2">Leads جديد</p>
-            <p class="text-3xl font-bold text-yellow-900">${newLeads}</p>
+        <div class="bg-gradient-to-br from-yellow-900/20 to-yellow-900/5 border border-yellow-500/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">Leads جديد</p>
+            <p class="text-3xl font-bold text-yellow-400">${newLeads}</p>
         </div>
-        <div class="bg-green-100 border-2 border-green-900 rounded-lg p-6 shadow-lg">
-            <p class="text-black font-bold text-sm mb-2">Leads محول</p>
-            <p class="text-3xl font-bold text-green-900">${convertedLeads}</p>
+        <div class="bg-gradient-to-br from-green-900/20 to-green-900/5 border border-green-500/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">Leads محول</p>
+            <p class="text-3xl font-bold text-green-400">${convertedLeads}</p>
         </div>
         
         <!-- Row 2: Resale Units -->
-        <div class="bg-purple-100 border-2 border-purple-900 rounded-lg p-6 shadow-lg">
-            <p class="text-black font-bold text-sm mb-2">وحدات ريسيل</p>
-            <p class="text-3xl font-bold text-purple-900">${resaleUnits}</p>
+        <div class="bg-gradient-to-br from-purple-900/20 to-purple-900/5 border border-purple-500/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">وحدات ريسيل</p>
+            <p class="text-3xl font-bold text-purple-400">${resaleUnits}</p>
             <p class="text-xs text-purple-300 mt-1">مميز: ${resaleFeatured}</p>
         </div>
         
         <!-- Row 2: Primary Units -->
-        <div class="bg-cyan-100 border-2 border-cyan-900 rounded-lg p-6 shadow-lg">
-            <p class="text-black font-bold text-sm mb-2">وحدات برايمري</p>
-            <p class="text-3xl font-bold text-cyan-900">${primaryUnits}</p>
+        <div class="bg-gradient-to-br from-cyan-900/20 to-cyan-900/5 border border-cyan-500/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">وحدات برايمري</p>
+            <p class="text-3xl font-bold text-cyan-400">${primaryUnits}</p>
             <p class="text-xs text-cyan-300 mt-1">مميز: ${primaryFeatured}</p>
         </div>
         
         <!-- Row 2: Rental Units -->
-        <div class="bg-orange-100 border-2 border-orange-900 rounded-lg p-6 shadow-lg">
-            <p class="text-black font-bold text-sm mb-2">وحدات إيجار</p>
-            <p class="text-3xl font-bold text-orange-900">${rentalUnits}</p>
+        <div class="bg-gradient-to-br from-orange-900/20 to-orange-900/5 border border-orange-500/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">وحدات إيجار</p>
+            <p class="text-3xl font-bold text-orange-400">${rentalUnits}</p>
             <p class="text-xs text-orange-300 mt-1">مميز: ${rentalFeatured}</p>
         </div>
     `;
@@ -337,45 +320,36 @@ function toggleLanguage() {
 function updateFilterLabels() {
     const isAr = lang === 'ar';
     
-    // Update Code input placeholder
-    const codeInput = document.getElementById('filterCode');
-    if (codeInput) {
-        codeInput.placeholder = isAr ? 'كود الوحدة' : 'Unit Code';
+    // Update Category filter
+    const categoryLabel = document.querySelector('label[for="category"]');
+    if (categoryLabel) {
+        categoryLabel.textContent = isAr ? 'النوع:' : 'Category:';
     }
     
-    // Update Price filter
-    const priceSelect = document.getElementById('filterPrice');
-    if (priceSelect) {
-        const options = priceSelect.querySelectorAll('option');
+    // Update Category select options
+    const categorySelect = document.getElementById('category');
+    if (categorySelect) {
+        const options = categorySelect.querySelectorAll('option');
         options.forEach(opt => {
-            if (opt.value === '') opt.textContent = isAr ? 'السعر' : 'Price';
-            if (opt.value === '2000000') opt.textContent = isAr ? 'تحت 2 مليون' : 'Under 2M';
-            if (opt.value === '5000000') opt.textContent = isAr ? 'تحت 5 مليون' : 'Under 5M';
-            if (opt.value === '10000000') opt.textContent = isAr ? 'تحت 10 مليون' : 'Under 10M';
-        });
-    }
-    
-    // Update Rooms filter
-    const roomsSelect = document.getElementById('filterRooms');
-    if (roomsSelect) {
-        const options = roomsSelect.querySelectorAll('option');
-        options.forEach(opt => {
-            if (opt.value === '') opt.textContent = isAr ? 'عدد الغرف' : 'Rooms';
-            if (opt.value === '1') opt.textContent = isAr ? 'غرفة واحدة' : '1 Room';
-            if (opt.value === '2') opt.textContent = isAr ? 'غرفتان' : '2 Rooms';
-            if (opt.value === '3') opt.textContent = isAr ? 'ثلاث غرف' : '3 Rooms';
+            if (opt.value === 'resale') opt.textContent = isAr ? 'إعادة بيع' : 'Resale';
+            if (opt.value === 'primary') opt.textContent = isAr ? 'أولي' : 'Primary';
+            if (opt.value === 'rentals') opt.textContent = isAr ? 'إيجار' : 'Rentals';
         });
     }
     
     // Update Zone filter
-    const zoneSelect = document.getElementById('filterZone');
+    const zoneLabel = document.querySelector('label[for="zone"]');
+    if (zoneLabel) {
+        zoneLabel.textContent = isAr ? 'المنطقة:' : 'Zone:';
+    }
+    
+    // Update Zone select options
+    const zoneSelect = document.getElementById('zone');
     if (zoneSelect) {
         const options = zoneSelect.querySelectorAll('option');
         options.forEach(opt => {
-            if (opt.value === '') opt.textContent = isAr ? 'المنطقة' : 'Zone';
-            if (opt.value === 'مدينتي') opt.textContent = isAr ? 'مدينتي' : 'Madinaty';
-            if (opt.value === 'الرحاب') opt.textContent = isAr ? 'الرحاب' : 'Al Rehab';
-            if (opt.value === 'العاصمة الإدارية') opt.textContent = isAr ? 'العاصمة الإدارية' : 'New Capital';
+            if (opt.value === 'all') opt.textContent = isAr ? 'الكل' : 'All';
+            if (opt.value === 'العاصمة الإدارية الجديدة') opt.textContent = isAr ? 'العاصمة الإدارية الجديدة' : 'New Capital';
             if (opt.value === 'الساحل الشمالي') opt.textContent = isAr ? 'الساحل الشمالي' : 'North Coast';
             if (opt.value === 'رأس الحكمة') opt.textContent = isAr ? 'رأس الحكمة' : 'Ras El Hekma';
             if (opt.value === 'القاهرة الجديدة') opt.textContent = isAr ? 'القاهرة الجديدة' : 'New Cairo';
@@ -383,20 +357,6 @@ function updateFilterLabels() {
             if (opt.value === 'الشيخ زايد') opt.textContent = isAr ? 'الشيخ زايد' : 'Sheikh Zayed';
         });
     }
-    
-    // Update unit tab buttons
-    const unitTabBtns = document.querySelectorAll('#units-section .nav-btn');
-    unitTabBtns.forEach(btn => {
-        if (btn.textContent.includes('ريسيل') || btn.textContent.includes('Resale')) {
-            btn.textContent = isAr ? 'ريسيل' : 'Resale';
-        }
-        if (btn.textContent.includes('برايمري') || btn.textContent.includes('Primary')) {
-            btn.textContent = isAr ? 'برايمري' : 'Primary';
-        }
-        if (btn.textContent.includes('إيجار') || btn.textContent.includes('Rentals')) {
-            btn.textContent = isAr ? 'إيجار' : 'Rentals';
-        }
-    });
 }
 
 function switchUnitTab(tab) {
@@ -416,7 +376,7 @@ function renderAbout() {
         if(img) {
             return `<div class="flex items-center justify-center p-4 overflow-hidden"><img src="${img}" class="w-full h-48 object-cover rounded-lg" alt=""></div>`;
         }
-        return `<div class="bg-gold-light flex items-center justify-center p-10 border-b-2 border-black"><i class="fas ${fallbackIcon} text-6xl gold-text"></i></div>`;
+        return `<div class="bg-gradient-to-br ${fallbackColor} flex items-center justify-center p-10"><i class="fas ${fallbackIcon} text-6xl gold-text"></i></div>`;
     }
     
     about.innerHTML = `
@@ -425,60 +385,60 @@ function renderAbout() {
         <div class="max-w-6xl mx-auto space-y-10">
             
             <!-- Mission Section -->
-            <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden shadow-lg">
+            <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden">
                 <div class="grid md:grid-cols-5 gap-0">
                     ${sectionImage(aboutData.aboutUs.image, 'fa-bullseye', 'from-gold/20 to-gold/5')}
-                    <div class="md:col-span-2 p-6 border-b-2 md:border-b-0 md:border-l-2 border-black/30" dir="rtl">
-                        <h2 class="text-2xl font-bold text-black mb-3">رسالتنا</h2>
-                        <p class="text-black font-bold leading-relaxed text-sm">${aboutData.aboutUs.ar}</p>
+                    <div class="md:col-span-2 p-6 border-b md:border-b-0 md:border-l border-gold/20" dir="rtl">
+                        <h2 class="text-2xl font-bold gold-text mb-3">رسالتنا</h2>
+                        <p class="text-white leading-relaxed text-sm">${aboutData.aboutUs.ar}</p>
                     </div>
                     <div class="md:col-span-2 p-6" dir="ltr">
-                        <h2 class="text-2xl font-bold text-black mb-3">Our Mission</h2>
-                        <p class="text-black font-bold leading-relaxed text-sm">${aboutData.aboutUs.en}</p>
+                        <h2 class="text-2xl font-bold gold-text mb-3">Our Mission</h2>
+                        <p class="text-silver leading-relaxed text-sm">${aboutData.aboutUs.en}</p>
                     </div>
                 </div>
             </div>
             
             <!-- Vision Section -->
-            <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden shadow-lg">
+            <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden">
                 <div class="grid md:grid-cols-5 gap-0">
-                    <div class="md:col-span-2 p-6 border-b-2 md:border-b-0 md:border-l-2 border-black/30" dir="rtl">
-                        <h2 class="text-2xl font-bold text-black mb-3">رؤيتنا</h2>
-                        <p class="text-black font-bold leading-relaxed text-sm">${aboutData.vision.ar}</p>
+                    <div class="md:col-span-2 p-6 border-b md:border-b-0 md:border-l border-gold/20" dir="rtl">
+                        <h2 class="text-2xl font-bold gold-text mb-3">رؤيتنا</h2>
+                        <p class="text-white leading-relaxed text-sm">${aboutData.vision.ar}</p>
                     </div>
-                    <div class="md:col-span-2 p-6 border-b-2 md:border-b-0 md:border-l-2 border-black/30" dir="ltr">
-                        <h2 class="text-2xl font-bold text-black mb-3">Our Vision</h2>
-                        <p class="text-black font-bold leading-relaxed text-sm">${aboutData.vision.en}</p>
+                    <div class="md:col-span-2 p-6 border-b md:border-b-0 md:border-l border-gold/20" dir="ltr">
+                        <h2 class="text-2xl font-bold gold-text mb-3">Our Vision</h2>
+                        <p class="text-silver leading-relaxed text-sm">${aboutData.vision.en}</p>
                     </div>
                     ${sectionImage(aboutData.vision.image, 'fa-eye', 'from-purple-900/20 to-purple-900/5')}
                 </div>
             </div>
             
             <!-- Team Section -->
-            <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden shadow-lg">
+            <div class="bg-zinc-900 border border-gold/30 rounded-xl overflow-hidden">
                 <div class="grid md:grid-cols-5 gap-0">
                     ${sectionImage(aboutData.team.image, 'fa-users', 'from-cyan-900/20 to-cyan-900/5')}
-                    <div class="md:col-span-2 p-6 border-b-2 md:border-b-0 md:border-l-2 border-black/30" dir="rtl">
-                        <h2 class="text-2xl font-bold text-black mb-3">فريقنا</h2>
-                        <p class="text-black font-bold leading-relaxed text-sm">${aboutData.team.ar}</p>
+                    <div class="md:col-span-2 p-6 border-b md:border-b-0 md:border-l border-gold/20" dir="rtl">
+                        <h2 class="text-2xl font-bold gold-text mb-3">فريقنا</h2>
+                        <p class="text-white leading-relaxed text-sm">${aboutData.team.ar}</p>
                     </div>
                     <div class="md:col-span-2 p-6" dir="ltr">
-                        <h2 class="text-2xl font-bold text-black mb-3">Our Team</h2>
-                        <p class="text-black font-bold leading-relaxed text-sm">${aboutData.team.en}</p>
+                        <h2 class="text-2xl font-bold gold-text mb-3">Our Team</h2>
+                        <p class="text-silver leading-relaxed text-sm">${aboutData.team.en}</p>
                     </div>
                 </div>
             </div>
             
             <!-- Closing Section -->
-            <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden shadow-lg">
+            <div class="bg-gold/10 border border-gold/30 rounded-xl overflow-hidden">
                 <div class="grid md:grid-cols-5 gap-0">
-                    <div class="md:col-span-2 p-6 border-b-2 md:border-b-0 md:border-l-2 border-black/30" dir="rtl">
-                        <h2 class="text-2xl font-bold text-black mb-3">لماذا نحن؟</h2>
-                        <p class="text-black font-bold leading-relaxed text-sm">${aboutData.closing.ar}</p>
+                    <div class="md:col-span-2 p-6 border-b md:border-b-0 md:border-l border-gold/20" dir="rtl">
+                        <h2 class="text-2xl font-bold gold-text mb-3">لماذا نحن؟</h2>
+                        <p class="text-white leading-relaxed text-sm">${aboutData.closing.ar}</p>
                     </div>
-                    <div class="md:col-span-2 p-6 border-b-2 md:border-b-0 md:border-l-2 border-black/30" dir="ltr">
-                        <h2 class="text-2xl font-bold text-black mb-3">Why Us?</h2>
-                        <p class="text-black font-bold leading-relaxed text-sm">${aboutData.closing.en}</p>
+                    <div class="md:col-span-2 p-6 border-b md:border-b-0 md:border-l border-gold/20" dir="ltr">
+                        <h2 class="text-2xl font-bold gold-text mb-3">Why Us?</h2>
+                        <p class="text-silver leading-relaxed text-sm">${aboutData.closing.en}</p>
                     </div>
                     ${sectionImage(aboutData.closing.image, 'fa-trophy', 'from-green-900/20 to-green-900/5')}
                 </div>
@@ -543,7 +503,6 @@ function showAdminTab(tabName) {
     if(tabName === 'units') {
         renderUnitsList();
         renderUnits();
-        renderAdminUnitsTable();
     }
     if(tabName === 'crm') renderLeadsList();
     if(tabName === 'employees') renderEmployeesList();
@@ -738,28 +697,28 @@ function renderUnits() {
     const paginatedUnits = filtered.slice(startIdx, endIdx);
     
     grid.innerHTML = paginatedUnits.map(unit => `
-        <div class="bg-gold-card border-2 ${unit.featured ? 'border-white' : 'border-black'} rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg ${unit.featured ? 'ring-2 ring-white/50' : ''}">
-            <div class="bg-gold-light h-40 flex items-center justify-center border-b-2 border-black relative">
+        <div class="bg-zinc-900 border ${unit.featured ? 'border-gold-light' : 'border-gold/30'} rounded-xl overflow-hidden hover:border-gold transition hover:shadow-lg hover:shadow-gold/20 ${unit.featured ? 'ring-2 ring-gold/50' : ''}">
+            <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-40 flex items-center justify-center border-b border-gold/30 relative">
                 ${unit.featured ? '<div class="absolute top-2 right-2 bg-gold text-black px-2 py-1 rounded text-xs font-bold">⭐ مميز</div>' : ''}
                 <i class="fas fa-building text-4xl gold-text"></i>
             </div>
             <div class="p-4">
                 <div class="flex justify-between items-start mb-2">
-                    <h3 class="text-lg font-bold text-black">كود: ${unit.code}</h3>
-                    <span class="text-xs bg-black text-gold px-2 py-1 rounded font-bold">${unit.type}</span>
+                    <h3 class="text-lg font-bold gold-text">كود: ${unit.code}</h3>
+                    <span class="text-xs bg-gold/20 text-gold px-2 py-1 rounded">${unit.type}</span>
                 </div>
-                <p class="text-sm text-black font-bold mb-2">${unit.zone}</p>
+                <p class="text-sm silver-text mb-2">${unit.zone}</p>
                 <div class="spec-grid mb-3">
                     <div class="spec-box text-xs">
-                        <p class="text-black/70 font-bold">غرف</p>
-                        <p class="text-black font-bold">${unit.rooms}</p>
+                        <p class="text-silver">غرف</p>
+                        <p class="gold-text font-bold">${unit.rooms}</p>
                     </div>
                     <div class="spec-box text-xs">
-                        <p class="text-black/70 font-bold">مساحة</p>
-                        <p class="text-black font-bold">${unit.space}م²</p>
+                        <p class="text-silver">مساحة</p>
+                        <p class="gold-text font-bold">${unit.space}م²</p>
                     </div>
                 </div>
-                <p class="text-lg font-bold text-black mb-3">${unit.price.toLocaleString()} EGP</p>
+                <p class="text-lg font-bold gold-text mb-3">${unit.price.toLocaleString()} EGP</p>
                 <button onclick="openUnit(${unit.id})" class="w-full btn-primary text-sm mb-2">عرض التفاصيل</button>
             </div>
         </div>
@@ -866,24 +825,15 @@ function bulkImport(e) {
         try {
             const csv = event.target.result;
             const lines = csv.split('\n');
-            // Detect delimiter (Tab or Comma)
-            const firstLine = lines[0];
-            const delimiter = firstLine.includes('\t') ? '\t' : ',';
-            const headers = firstLine.split(delimiter).map(h => h.trim().replace(/^"|"$/g, ''));
+            const delimiter = lines[0].includes(',') ? ',' : '\t';
+            const headers = lines[0].split(delimiter).map(h => h.trim().replace(/^"|"$/g, ''));
             
             let importedCount = 0;
             
             for(let i = 1; i < lines.length; i++) {
                 if(!lines[i].trim()) continue;
                 
-                let values = [];
-                if (delimiter === ',') {
-                    // Simple CSV parser for quoted values
-                    values = lines[i].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || lines[i].split(',');
-                    values = values.map(v => v.trim().replace(/^"|"$/g, ''));
-                } else {
-                    values = lines[i].split('\t').map(v => v.trim());
-                }
+                const values = lines[i].split(delimiter).map(v => v.trim().replace(/^"|"$/g, ''));
                 const row = {};
                 
                 headers.forEach((header, idx) => {
@@ -891,36 +841,39 @@ function bulkImport(e) {
                 });
                 
                 // Map columns to unit object - matching exact Excel format
+                // Handle column names with and without colons
+                const getRowValue = (key1, key2) => row[key1] || row[key1 + ' :'] || row[key2] || row[key2 + ' :'] || '';
+                
                 const unit = {
                     id: Date.now() + i,
-                    code: row['code :'] || row['code'] || row['كود'] || '',
-                    category: row['Category :'] || row['Category'] || '',
-                    type: row['Category :']?.toLowerCase().includes('villa') ? 'primary' : 
-                          row['Category :']?.toLowerCase().includes('resale') ? 'resale' : 'rentals',
-                    city: row['City :'] || row['City'] || 'Madinaty',
-                    zone: row['منطقة :'] || row['منطقة'] || '',
-                    building: row['عمارة :'] || row['عمارة'] || row['مجموعة :'] || row['مجموعة'] || '',
-                    unit: row['وحدة :'] || row['وحدة'] || '',
-                    floor: row['الدور :'] || row['الدور'] || '',
-                    model: row['النموذج :'] || row['النموذج'] || '',
-                    delivery: row['الاستلام :'] || row['الاستلام'] || '',
-                    facade: row['الواجهة :'] || row['الواجهة'] || '',
-                    space: parseInt((row['مساحة :'] || row['مساحة'] || '0')?.toString().replace(/,/g, '')) || 0,
-                    garden: row['جاردن :'] || row['جاردن'] || '',
-                    rooms: parseInt(row['غرف نوم :'] || row['غرف نوم'] || 0),
-                    bathroom: row['حمام :'] || row['حمام'] || '',
-                    bookingDate: row['تاريخ الحجز :'] || row['تاريخ الحجز'] || '',
-                    installmentPeriod: row['مدة القسط :'] || row['مدة القسط'] || '',
-                    payments: parseInt((row['مدفوعات :'] || row['مدفوعات'] || '0')?.toString().replace(/,/g, '')) || 0,
-                    offerPrice: parseInt((row['اوفر برايس :'] || row['اوفر برايس'] || '0')?.toString().replace(/,/g, '')) || 0,
-                    totalPayments: parseInt((row['مدفوعات + اوفر :'] || row['مدفوعات + اوفر'] || '0')?.toString().replace(/,/g, '')) || 0,
-                    installmentDetails: row['تفاصيل الاقساط :'] || row['تفاصيل الاقساط'] || '',
-                    price: parseInt((row['اصل العقد او ثمن الكاش :'] || row['اصل العقد او ثمن الكاش'] || row['مدفوعات :'] || row['مدفوعات'] || '0')?.toString().replace(/,/g, '')) || 0,
-                    notes: row['ملاحظات :'] || row['ملاحظات'] || '',
+                    code: getRowValue('code', 'كود'),
+                    category: getRowValue('Category', 'Category'),
+                    type: (getRowValue('Category', 'Category') || '').toLowerCase().includes('villa') ? 'primary' : 
+                          (getRowValue('Category', 'Category') || '').toLowerCase().includes('resale') ? 'resale' : 'rentals',
+                    city: getRowValue('City', 'City') || 'مدينتي',
+                    zone: getRowValue('منطقة', 'منطقة'),
+                    building: getRowValue('عمارة', 'عمارة') || getRowValue('مجموعة', 'مجموعة'),
+                    unit: getRowValue('وحدة', 'وحدة'),
+                    floor: getRowValue('الدور', 'الدور'),
+                    model: getRowValue('النموذج', 'النموذج'),
+                    delivery: getRowValue('الاستلام', 'الاستلام'),
+                    facade: getRowValue('الواجهة', 'الواجهة'),
+                    space: parseInt((getRowValue('مساحة', 'مساحة') || '0').toString().replace(/,/g, '')),
+                    garden: getRowValue('جاردن', 'جاردن'),
+                    rooms: parseInt(getRowValue('غرف نوم', 'غرف نوم') || 0),
+                    bathroom: getRowValue('حمام', 'حمام'),
+                    bookingDate: getRowValue('تاريخ الحجز', 'تاريخ الحجز'),
+                    installmentPeriod: getRowValue('مدة القسط', 'مدة القسط'),
+                    payments: parseInt((getRowValue('مدفوعات', 'مدفوعات') || '0').toString().replace(/,/g, '')),
+                    offerPrice: parseInt((getRowValue('اوفر برايس', 'اوفر برايس') || '0').toString().replace(/,/g, '')),
+                    totalPayments: parseInt((getRowValue('مدفوعات + اوفر', 'مدفوعات + اوفر') || '0').toString().replace(/,/g, '')),
+                    installmentDetails: getRowValue('تفاصيل الاقساط', 'تفاصيل الاقساط'),
+                    price: parseInt((getRowValue('اصل العقد او ثمن الكاش', 'اصل العقد او ثمن الكاش') || getRowValue('مدفوعات', 'مدفوعات') || '0').toString().replace(/,/g, '')),
+                    notes: getRowValue('ملاحظات', 'ملاحظات'),
                     clientName: row['client name'] || '',
-                    clientPhone: row['phone'] || row['phone 2'] || '',
-                    status: row['Status :'] || row['Status'] || 'available',
-                    source: row['Source :'] || row['Source'] || 'imported',
+                    clientPhone: row['phone'] || row['phone :'] || '',
+                    status: getRowValue('Status', 'Status') || 'available',
+                    source: getRowValue('Source', 'Source') || 'imported',
                     createdAt: new Date().toISOString(),
                     featured: false
                 };
@@ -959,24 +912,15 @@ function importLeads(e) {
         try {
             const csv = event.target.result;
             const lines = csv.split('\n');
-            // Detect delimiter (Tab or Comma)
-            const firstLine = lines[0];
-            const delimiter = firstLine.includes('\t') ? '\t' : ',';
-            const headers = firstLine.split(delimiter).map(h => h.trim().replace(/^"|"$/g, ''));
+            const delimiter = lines[0].includes(',') ? ',' : '\t';
+            const headers = lines[0].split(delimiter).map(h => h.trim().replace(/^"|"$/g, ''));
             
             let importedCount = 0;
             
             for(let i = 1; i < lines.length; i++) {
                 if(!lines[i].trim()) continue;
                 
-                let values = [];
-                if (delimiter === ',') {
-                    // Simple CSV parser for quoted values
-                    values = lines[i].match(/(".*?"|[^",\s]+)(?=\s*,|\s*$)/g) || lines[i].split(',');
-                    values = values.map(v => v.trim().replace(/^"|"$/g, ''));
-                } else {
-                    values = lines[i].split('\t').map(v => v.trim());
-                }
+                const values = lines[i].split(delimiter).map(v => v.trim().replace(/^"|"$/g, ''));
                 const row = {};
                 
                 headers.forEach((header, idx) => {
@@ -984,20 +928,23 @@ function importLeads(e) {
                 });
                 
                 // Map columns to lead object - matching exact Excel format
+                // Handle column names with and without colons
+                const getLeadValue = (key1, key2) => row[key1] || row[key1 + ' :'] || row[key2] || row[key2 + ' :'] || '';
+                
                 const lead = {
                     id: Date.now() + i,
-                    period: row['الفترة'] || '',
-                    name: row['الاسم'] || '',
-                    phone: row['تليفون'] || '',
-                    source: row['مصدر الليد'] || 'imported',
-                    contactMethod: row['طريقة تواصل العميل'] || '',
-                    ad: row['الاعلان'] || '',
-                    customerRequest: row['طلب العميل'] || '',
-                    rating: row['تقييم من 1 ل 10'] || '',
-                    salesPerson: row['Sales'] || '',
-                    whatsapp: row['واتس'] || '',
-                    phone2: row['فون'] || '',
-                    followUpResult: row['نتيجة متابعة السيلز'] || '',
+                    period: getLeadValue('الفترة', 'الفترة'),
+                    name: getLeadValue('الاسم', 'الاسم') || row['client name'] || '',
+                    phone: getLeadValue('تليفون', 'تليفون') || row['phone'] || row['phone :'] || '',
+                    source: getLeadValue('مصدر الليد', 'مصدر الليد') || 'imported',
+                    contactMethod: getLeadValue('طريقة تواصل العميل', 'طريقة تواصل العميل'),
+                    ad: getLeadValue('الاعلان', 'الاعلان'),
+                    customerRequest: getLeadValue('طلب العميل', 'طلب العميل'),
+                    rating: getLeadValue('تقييم من 1 ل 10', 'تقييم من 1 ل 10'),
+                    salesPerson: getLeadValue('Sales', 'Sales') || row['Source'] || row['Source :'] || '',
+                    whatsapp: getLeadValue('واتس', 'واتس'),
+                    phone2: getLeadValue('فون', 'فون') || row['phone 2'] || row['phone 2 :'] || '',
+                    followUpResult: getLeadValue('نتيجة متابعة السيلز', 'نتيجة متابعة السيلز'),
                     status: 'new',
                     createdAt: new Date().toISOString(),
                     featured: false,
@@ -1341,15 +1288,15 @@ function renderEmployeeLeads() {
                         <td class="p-4 text-silver">${lead.phone}</td>
                         <td class="p-4">
                             <span class="px-3 py-1 rounded-full text-xs font-bold ${
-                                lead.status === 'new' ? 'bg-yellow-900/30 text-yellow-900' :
-                                lead.status === 'converted' ? 'bg-green-900/30 text-green-900' :
-                                'bg-blue-900/30 text-blue-900'
+                                lead.status === 'new' ? 'bg-yellow-900/30 text-yellow-400' :
+                                lead.status === 'converted' ? 'bg-green-900/30 text-green-400' :
+                                'bg-blue-900/30 text-blue-400'
                             }">
                                 ${lead.status === 'new' ? 'جديد' : lead.status === 'converted' ? 'محول' : 'متابعة'}
                             </span>
                         </td>
                         <td class="p-4">
-                            <button onclick="convertLead(${lead.id})" class="text-green-900 hover:text-green-300 text-xs">تحويل</button>
+                            <button onclick="convertLead(${lead.id})" class="text-green-400 hover:text-green-300 text-xs">تحويل</button>
                         </td>
                     </tr>
                 `).join('')}
@@ -1365,17 +1312,17 @@ function renderEmployeeStats() {
     const newLeads = assignedLeads.filter(l => l.status === 'new').length;
     
     stats.innerHTML = `
-        <div class="bg-blue-100 border-2 border-blue-900 rounded-lg p-6 shadow-lg">
-            <p class="text-black font-bold text-sm mb-2">إجمالي Leads</p>
-            <p class="text-3xl font-bold text-blue-900">${assignedLeads.length}</p>
+        <div class="bg-gradient-to-br from-blue-900/20 to-blue-900/5 border border-blue-500/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">إجمالي Leads</p>
+            <p class="text-3xl font-bold text-blue-400">${assignedLeads.length}</p>
         </div>
-        <div class="bg-yellow-100 border-2 border-yellow-900 rounded-lg p-6 shadow-lg">
-            <p class="text-black font-bold text-sm mb-2">Leads جديد</p>
-            <p class="text-3xl font-bold text-yellow-900">${newLeads}</p>
+        <div class="bg-gradient-to-br from-yellow-900/20 to-yellow-900/5 border border-yellow-500/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">Leads جديد</p>
+            <p class="text-3xl font-bold text-yellow-400">${newLeads}</p>
         </div>
-        <div class="bg-green-100 border-2 border-green-900 rounded-lg p-6 shadow-lg">
-            <p class="text-black font-bold text-sm mb-2">Leads محول</p>
-            <p class="text-3xl font-bold text-green-900">${convertedLeads}</p>
+        <div class="bg-gradient-to-br from-green-900/20 to-green-900/5 border border-green-500/30 rounded-lg p-6">
+            <p class="text-silver text-sm mb-2">Leads محول</p>
+            <p class="text-3xl font-bold text-green-400">${convertedLeads}</p>
         </div>
     `;
 }
@@ -1459,9 +1406,7 @@ function openEditUnitModal(unitId) {
     document.getElementById('editUnitSpace').value = unit.space;
     document.getElementById('editUnitNotes').value = unit.notes || '';
     
-    const modal = document.getElementById('editUnitModal');
-    modal.style.display = 'flex';
-    modal.scrollTop = 0;
+    document.getElementById('editUnitModal').style.display = 'flex';
 }
 
 function closeEditUnitModal() {
@@ -1503,9 +1448,7 @@ function openEditLeadModal(leadId) {
     document.getElementById('editLeadStatus').value = lead.status;
     document.getElementById('editLeadNotes').value = lead.notes || '';
     
-    const modal = document.getElementById('editLeadModal');
-    modal.style.display = 'flex';
-    modal.scrollTop = 0;
+    document.getElementById('editLeadModal').style.display = 'flex';
 }
 
 function closeEditLeadModal() {
@@ -1544,9 +1487,7 @@ function openEditEmployeeModal(employeeId) {
     document.getElementById('editEmployeeRole').value = employee.role;
     document.getElementById('editEmployeeCanAddUnits').checked = employee.canAddUnits || false;
     
-    const modal = document.getElementById('editEmployeeModal');
-    modal.style.display = 'flex';
-    modal.scrollTop = 0;
+    document.getElementById('editEmployeeModal').style.display = 'flex';
 }
 
 function closeEditEmployeeModal() {
@@ -1691,131 +1632,346 @@ function saveAboutData(e) {
     alert('تم حفظ تعديلات صفحة "عن الشركة" بنجاح!');
     renderAbout();
 }
-// Function to download Excel template for units import
-function downloadUnitsTemplate() {
-    const headers = ['Category :', 'City :', 'Status :', 'Source :', 'code :', 'منطقة :', 'مجموعة :', 'عمارة :', 'وحدة :', 'الدور :', 'النموذج :', 'الاستلام :', 'الواجهة :', 'مساحة :', 'جاردن :', 'غرف نوم :', 'حمام :', 'تاريخ الحجز :', 'مدة القسط :', 'مدفوعات :', 'اوفر برايس :', 'مدفوعات + اوفر :', 'تفاصيل الاقساط :', 'اصل العقد او ثمن الكاش :', 'ملاحظات :', 'client name', 'phone', 'phone 2'];
-    const sampleData = [
-        ['Apt Resale', 'Madinaty', 'Refreshed', 'M 3bdalla', '4001', 'B12', '125', '71', '22', '2', 'شقة سكنية', 'استلام فوري', 'واجهه بحرى صريح', '78', '--', '2', '1', '--', '7', '1270000', '1300000', '2570000', 'سنوي 450.000', '1700000', 'مثال على وحدة', 'Gehan Shalaby', '01121112501', ''],
-        ['Apt Resale', 'Madinaty', 'Refreshed', 'M 3bdalla', '4002', 'B14', '144', '32', '1', 'G', 'شقة سكنية', '2028', 'فيو جاردن', '67', '35', '1', '--', 'مارس 2025', '10', '666000', '200000', '866000', 'شهري 25.605', '6883570', 'ستوديو ارضي بجاردن', 'Salah Selim', '01272227233', '']
-    ];
-    let csvContent = headers.join('\t') + '\n';
-    sampleData.forEach(row => { csvContent += row.join('\t') + '\n'; });
-    const blob = new Blob([csvContent], { type: 'text/tab-separated-values;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    link.setAttribute('href', url);
-    link.setAttribute('download', 'units_template_STR.tsv');
-    link.style.visibility = 'hidden';
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    alert('تم تحميل التيمبلت بنجاح! ✅\n\nالتعليمات:\n1. افتح الملف بـ Excel\n2. امسح الأمثلة وأضف وحداتك\n3. احفظ الملف\n4. ارجع وارفعه في التطبيق');
-}
-// Function to download Leads template
-function downloadLeadsTemplate() {
-    const headers = [
-        'name',
-        'phone',
-        'email',
-        'status',
-        'notes',
-        'assigned_to'
-    ];
-    
-    const sampleData = [
-        ['أحمد محمد', '01001234567', 'ahmed@email.com', 'new', 'عميل جديد', 'محمود'],
-        ['فاطمة علي', '01001234568', 'fatima@email.com', 'follow-up', 'في انتظار الرد', 'سارة'],
-        ['محمود حسن', '01001234569', 'mahmoud@email.com', 'converted', 'عميل محول', 'محمود']
-    ];
-    
-    let csvContent = headers.join('\t') + '\n';
-    sampleData.forEach(row => {
-        csvContent += row.join('\t') + '\n';
-    });
-    
-    const blob = new Blob([csvContent], { type: 'text/tab-separated-values;charset=utf-8;' });
-    const link = document.createElement('a');
-    const url = URL.createObjectURL(blob);
-    
-    link.setAttribute('href', url);
-    link.setAttribute('download', 'leads_template.tsv');
-    link.style.visibility = 'hidden';
-    
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
-    
-    alert('تم تحميل تيمبلت الـ Leads بنجاح! ✅');
-}
-// Function to render customer-facing unit cards (simplified view with 9 fields)
-function renderCustomerUnits() {
-    const container = document.getElementById('unitsList');
-    if (!container) return;
-    
-    let filtered = units.filter(u => u.status !== 'Sold');
-    
-    // Sort: featured first, then by price
-    filtered.sort((a, b) => {
-        if (b.featured !== a.featured) return b.featured - a.featured;
-        return a.price - b.price;
-    });
-    
-    // Pagination
-    const itemsPerPage = 20;
-    const totalPages = Math.ceil(filtered.length / itemsPerPage);
-    const start = (currentUnitPage - 1) * itemsPerPage;
-    const end = start + itemsPerPage;
-    const paginatedUnits = filtered.slice(start, end);
-    
-    let html = '<div class="grid md:grid-cols-4 gap-6">';
-    
-    paginatedUnits.forEach(unit => {
-        const imageUrl = unit.images && unit.images[0] ? unit.images[0] : 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="300" height="200"%3E%3Crect fill="%23333" width="300" height="200"/%3E%3Ctext x="50%" y="50%" text-anchor="middle" dy=".3em" fill="%23999" font-size="16"%3ENo Image%3C/text%3E%3C/svg%3E';
-        
-        html += `
-            <div class="bg-gold-card rounded-lg overflow-hidden border-2 border-black hover:border-white transition shadow-lg">
-                <img src="${imageUrl}" alt="${unit.code}" class="w-full h-48 object-cover">
-                <div class="p-4 space-y-2">
-                    ${unit.featured ? '<div class="text-black font-bold text-sm">⭐ مميز</div>' : ''}
-                    <h3 class="text-black font-bold">${unit.zone} - ${unit.building}</h3>
-                    <div class="text-black font-medium text-sm space-y-1">
-                        <p>📍 المنطقة: ${unit.zone}</p>
-                        <p>🏢 المجموعة: ${unit.building}</p>
-                        <p>🛏️ الغرف: ${unit.rooms}</p>
-                        <p>📐 المساحة: ${unit.space} م²</p>
-                        <p>💰 السعر: ${unit.price?.toLocaleString()} جنيه</p>
-                        ${unit.offerPrice ? `<p>🎁 اوفر برايس: ${unit.offerPrice?.toLocaleString()} جنيه</p>` : ''}
-                        <p>📅 التقسيط: ${unit.installmentPeriod}</p>
-                        <p>🚚 الاستلام: ${unit.delivery}</p>
-                    </div>
-                    <button onclick="contactAboutUnit('${unit.code}')" class="w-full btn-primary mt-2">تواصل معنا</button>
-                </div>
-            </div>
-        `;
-    });
-    
-    html += '</div>';
-    
-    // Add pagination
-    if (totalPages > 1) {
-        html += '<div class="flex justify-center gap-2 mt-6">';
-        if (currentUnitPage > 1) {
-            html += `<button onclick="currentUnitPage--; renderCustomerUnits()" class="btn-secondary">السابق</button>`;
-        }
-        for (let i = 1; i <= totalPages; i++) {
-            html += `<button onclick="currentUnitPage=${i}; renderCustomerUnits()" class="btn-${currentUnitPage === i ? 'primary' : 'secondary'}">${i}</button>`;
-        }
-        if (currentUnitPage < totalPages) {
-            html += `<button onclick="currentUnitPage++; renderCustomerUnits()" class="btn-secondary">التالي</button>`;
-        }
-        html += '</div>';
+// ==================== PARTNERS MANAGEMENT ====================
+
+let partners = JSON.parse(localStorage.getItem('partners')) || [
+    {
+        id: 1,
+        name: 'Emaar',
+        descAr: 'شركة عملاقة متخصصة في تطوير المشاريع السكنية والتجارية الفاخرة. تتمتع بخبرة عقود في بناء مجتمعات عمرانية متكاملة.',
+        descEn: 'A giant company specializing in developing luxury residential and commercial projects with decades of experience.',
+        image: '',
+        category: 'مطور عقاري رائد'
+    },
+    {
+        id: 2,
+        name: 'Tatweer Misr',
+        descAr: 'متخصصة في تطوير المشاريع السكنية المتميزة والمناطق السياحية. تركز على الجودة والاستدامة في جميع مشاريعها.',
+        descEn: 'Specialized in developing distinctive residential projects and tourist areas with focus on quality and sustainability.',
+        image: '',
+        category: 'مطور عقاري مبتكر'
+    },
+    {
+        id: 3,
+        name: 'Palm Hills',
+        descAr: 'رائدة في تطوير المجتمعات السكنية المتكاملة بتصاميم معمارية عصرية. معروفة بالتزامها بالجودة والخدمات المتميزة.',
+        descEn: 'Leading in developing integrated residential communities with modern architectural designs.',
+        image: '',
+        category: 'مطور عقاري متخصص'
+    },
+    {
+        id: 4,
+        name: 'Sodic',
+        descAr: 'متخصصة في تطوير مشاريع سكنية وتجارية عالية الجودة. تتميز بالابتكار والتصاميم المستدامة والخدمات العملاء المتقدمة.',
+        descEn: 'Specialized in developing high-quality residential and commercial projects with innovation and sustainability.',
+        image: '',
+        category: 'مطور عقاري عصري'
+    },
+    {
+        id: 5,
+        name: 'Zamalek',
+        descAr: 'متخصصة في المشاريع السكنية الفاخرة والعقارات الاستثمارية. تتمتع بسمعة قوية في تقديم مشاريع بمعايير عالمية.',
+        descEn: 'Specialized in luxury residential projects and investment real estate with strong reputation.',
+        image: '',
+        category: 'مطور عقاري فاخر'
     }
-    
-    container.innerHTML = html;
+];
+
+let services = JSON.parse(localStorage.getItem('services')) || [
+    {
+        id: 1,
+        nameAr: 'العاصمة الإدارية الجديدة',
+        nameEn: 'New Capital',
+        descAr: 'مشاريع سكنية وتجارية متميزة',
+        descEn: 'Distinguished residential and commercial projects',
+        image: ''
+    },
+    {
+        id: 2,
+        nameAr: 'راس الحكمة',
+        nameEn: 'Ras El Hekma',
+        descAr: 'مدينة ساحلية حديثة ومتطورة',
+        descEn: 'Modern and developed coastal city',
+        image: ''
+    },
+    {
+        id: 3,
+        nameAr: 'مدينتي',
+        nameEn: 'Madinaty',
+        descAr: 'مجتمع عمراني متكامل',
+        descEn: 'Integrated urban community',
+        image: ''
+    },
+    {
+        id: 4,
+        nameAr: 'الرحاب',
+        nameEn: 'Al Rehab',
+        descAr: 'منطقة سكنية راقية',
+        descEn: 'Upscale residential area',
+        image: ''
+    },
+    {
+        id: 5,
+        nameAr: 'القاهرة الجديدة',
+        nameEn: 'New Cairo City',
+        descAr: 'منطقة حيوية ومتطورة',
+        descEn: 'Vibrant and developed area',
+        image: ''
+    },
+    {
+        id: 6,
+        nameAr: 'الساحل الشمالي',
+        nameEn: 'North Coast',
+        descAr: 'وجهة سياحية وسكنية',
+        descEn: 'Tourist and residential destination',
+        image: ''
+    },
+    {
+        id: 7,
+        nameAr: 'العين السخنة',
+        nameEn: 'Ain Sokhna',
+        descAr: 'منتجع ساحلي متميز',
+        descEn: 'Distinguished coastal resort',
+        image: ''
+    },
+    {
+        id: 8,
+        nameAr: 'الشيخ زايد',
+        nameEn: 'Sheikh Zayed',
+        descAr: 'منطقة سكنية فاخرة',
+        descEn: 'Luxury residential area',
+        image: ''
+    }
+];
+
+function savePartners() {
+    localStorage.setItem('partners', JSON.stringify(partners));
 }
 
-// Contact function for customers
-function contactAboutUnit(code) {
-    const message = `أنا مهتم بالوحدة رقم ${code}`;
-    window.open(`https://wa.me/201159333060?text=${encodeURIComponent(message)}`, '_blank');
+function saveServices() {
+    localStorage.setItem('services', JSON.stringify(services));
 }
+
+function previewPartnerImage(input) {
+    const preview = document.getElementById('partnerImagePreview');
+    if(input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function previewServiceImage(input) {
+    const preview = document.getElementById('serviceImagePreview');
+    if(input.files && input.files[0]) {
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            preview.src = e.target.result;
+            preview.classList.remove('hidden');
+        };
+        reader.readAsDataURL(input.files[0]);
+    }
+}
+
+function addPartner(e) {
+    e.preventDefault();
+    
+    const name = document.getElementById('partnerName').value;
+    const descAr = document.getElementById('partnerDescAr').value;
+    const descEn = document.getElementById('partnerDescEn').value;
+    const imageFile = document.getElementById('partnerImage').files[0];
+    
+    let imageData = '';
+    if(imageFile) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            imageData = event.target.result;
+            
+            const partner = {
+                id: Date.now(),
+                name: name,
+                descAr: descAr,
+                descEn: descEn,
+                image: imageData,
+                category: 'مطور عقاري'
+            };
+            
+            partners.push(partner);
+            savePartners();
+            renderPartnersList();
+            
+            // Reset form
+            document.getElementById('partnerName').value = '';
+            document.getElementById('partnerDescAr').value = '';
+            document.getElementById('partnerDescEn').value = '';
+            document.getElementById('partnerImage').value = '';
+            document.getElementById('partnerImagePreview').classList.add('hidden');
+            
+            alert('تم إضافة الشريك بنجاح');
+        };
+        reader.readAsDataURL(imageFile);
+    } else {
+        alert('الرجاء اختيار صورة للشريك');
+    }
+}
+
+function editPartner(id) {
+    const partner = partners.find(p => p.id === id);
+    if(!partner) return;
+    
+    const newName = prompt('اسم الشريك:', partner.name);
+    if(newName === null) return;
+    
+    const newDescAr = prompt('الوصف بالعربية:', partner.descAr);
+    if(newDescAr === null) return;
+    
+    const newDescEn = prompt('Description in English:', partner.descEn);
+    if(newDescEn === null) return;
+    
+    partner.name = newName;
+    partner.descAr = newDescAr;
+    partner.descEn = newDescEn;
+    
+    savePartners();
+    renderPartnersList();
+    alert('تم تحديث الشريك بنجاح');
+}
+
+function deletePartner(id) {
+    if(!confirm('هل تريد حذف هذا الشريك؟')) return;
+    
+    partners = partners.filter(p => p.id !== id);
+    savePartners();
+    renderPartnersList();
+    alert('تم حذف الشريك بنجاح');
+}
+
+function renderPartnersList() {
+    const list = document.getElementById('partnersList');
+    if(!list) return;
+    
+    list.innerHTML = partners.map(partner => `
+        <div class="p-4 border-b border-gold/20 last:border-b-0">
+            <div class="flex gap-4 items-start">
+                ${partner.image ? `<img src="${partner.image}" class="w-16 h-16 rounded-lg object-cover">` : '<div class="w-16 h-16 bg-gold/20 rounded-lg flex items-center justify-center"><i class="fas fa-image text-gold"></i></div>'}
+                <div class="flex-1">
+                    <h4 class="gold-text font-bold mb-1">${partner.name}</h4>
+                    <p class="text-xs silver-text mb-2">${partner.descAr}</p>
+                    <div class="flex gap-2">
+                        <button onclick="editPartner(${partner.id})" class="text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded transition">تعديل</button>
+                        <button onclick="deletePartner(${partner.id})" class="text-xs bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded transition">حذف</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+function addService(e) {
+    e.preventDefault();
+    
+    const nameAr = document.getElementById('serviceName').value;
+    const nameEn = document.getElementById('serviceNameEn').value;
+    const descAr = document.getElementById('serviceDescAr').value;
+    const descEn = document.getElementById('serviceDescEn').value;
+    const imageFile = document.getElementById('serviceImage').files[0];
+    
+    let imageData = '';
+    if(imageFile) {
+        const reader = new FileReader();
+        reader.onload = function(event) {
+            imageData = event.target.result;
+            
+            const service = {
+                id: Date.now(),
+                nameAr: nameAr,
+                nameEn: nameEn,
+                descAr: descAr,
+                descEn: descEn,
+                image: imageData
+            };
+            
+            services.push(service);
+            saveServices();
+            renderServicesList();
+            
+            // Reset form
+            document.getElementById('serviceName').value = '';
+            document.getElementById('serviceNameEn').value = '';
+            document.getElementById('serviceDescAr').value = '';
+            document.getElementById('serviceDescEn').value = '';
+            document.getElementById('serviceImage').value = '';
+            document.getElementById('serviceImagePreview').classList.add('hidden');
+            
+            alert('تم إضافة المنطقة بنجاح');
+        };
+        reader.readAsDataURL(imageFile);
+    } else {
+        alert('الرجاء اختيار صورة للمنطقة');
+    }
+}
+
+function editService(id) {
+    const service = services.find(s => s.id === id);
+    if(!service) return;
+    
+    const newNameAr = prompt('اسم المنطقة (عربي):', service.nameAr);
+    if(newNameAr === null) return;
+    
+    const newNameEn = prompt('Area Name (English):', service.nameEn);
+    if(newNameEn === null) return;
+    
+    const newDescAr = prompt('الوصف بالعربية:', service.descAr);
+    if(newDescAr === null) return;
+    
+    const newDescEn = prompt('Description in English:', service.descEn);
+    if(newDescEn === null) return;
+    
+    service.nameAr = newNameAr;
+    service.nameEn = newNameEn;
+    service.descAr = newDescAr;
+    service.descEn = newDescEn;
+    
+    saveServices();
+    renderServicesList();
+    alert('تم تحديث المنطقة بنجاح');
+}
+
+function deleteService(id) {
+    if(!confirm('هل تريد حذف هذه المنطقة؟')) return;
+    
+    services = services.filter(s => s.id !== id);
+    saveServices();
+    renderServicesList();
+    alert('تم حذف المنطقة بنجاح');
+}
+
+function renderServicesList() {
+    const list = document.getElementById('servicesList');
+    if(!list) return;
+    
+    list.innerHTML = services.map(service => `
+        <div class="p-4 border-b border-gold/20 last:border-b-0">
+            <div class="flex gap-4 items-start">
+                ${service.image ? `<img src="${service.image}" class="w-16 h-16 rounded-lg object-cover">` : '<div class="w-16 h-16 bg-gold/20 rounded-lg flex items-center justify-center"><i class="fas fa-image text-gold"></i></div>'}
+                <div class="flex-1">
+                    <h4 class="gold-text font-bold mb-1">${service.nameAr} / ${service.nameEn}</h4>
+                    <p class="text-xs silver-text mb-2">${service.descAr}</p>
+                    <div class="flex gap-2">
+                        <button onclick="editService(${service.id})" class="text-xs bg-blue-600 hover:bg-blue-700 text-white px-3 py-1 rounded transition">تعديل</button>
+                        <button onclick="deleteService(${service.id})" class="text-xs bg-red-600 hover:bg-red-700 text-white px-3 py-1 rounded transition">حذف</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    `).join('');
+}
+
+// Initialize on load
+document.addEventListener('DOMContentLoaded', () => {
+    renderPartnersList();
+    renderServicesList();
+});
