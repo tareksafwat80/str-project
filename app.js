@@ -406,6 +406,34 @@ function switchUnitTab(tab) {
     const btns = document.querySelectorAll('.nav-btn');
     btns.forEach(b => b.classList.remove('active'));
     event.target.classList.add('active');
+    window.currentUnitPage = 1;
+    renderUnits();
+}
+
+// Add filter event listeners
+document.addEventListener('DOMContentLoaded', function() {
+    const filterInputs = ['filterCode', 'filterPrice', 'filterRooms', 'filterZone'];
+    filterInputs.forEach(id => {
+        const elem = document.getElementById(id);
+        if(elem) {
+            elem.addEventListener('change', function() {
+                window.currentUnitPage = 1;
+                renderUnits();
+            });
+            elem.addEventListener('input', function() {
+                window.currentUnitPage = 1;
+                renderUnits();
+            });
+        }
+    });
+});
+
+function clearFilters() {
+    document.getElementById('filterCode').value = '';
+    document.getElementById('filterPrice').value = '';
+    document.getElementById('filterRooms').value = '';
+    document.getElementById('filterZone').value = '';
+    window.currentUnitPage = 1;
     renderUnits();
 }
 
@@ -1964,6 +1992,183 @@ function renderServicesList() {
 
 // Initialize on page load
 document.addEventListener('DOMContentLoaded', function() {
+    renderPartnersList();
+    renderServicesList();
+});
+
+
+function searchUnits(query) {
+    if(!query) {
+        renderUnits();
+        return;
+    }
+    
+    const grid = document.getElementById('units-grid');
+    if(!grid) return;
+    
+    const searchTerm = query.toLowerCase();
+    let filtered = units.filter(u => 
+        u.code.toString().includes(searchTerm) ||
+        u.zone.toLowerCase().includes(searchTerm) ||
+        u.model.toLowerCase().includes(searchTerm) ||
+        u.notes.toLowerCase().includes(searchTerm)
+    );
+    
+    grid.innerHTML = filtered.slice(0, 20).map(unit => `
+        <div class="bg-gold-card border-2 ${unit.featured ? 'border-white' : 'border-black'} rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg ${unit.featured ? 'ring-2 ring-white/50' : ''}">
+            <div class="bg-gold-light h-40 flex items-center justify-center border-b-2 border-black relative">
+                ${unit.featured ? '<div class="absolute top-2 right-2 bg-gold text-black px-2 py-1 rounded text-xs font-bold">⭐ مميز</div>' : ''}
+                <i class="fas fa-building text-4xl gold-text"></i>
+            </div>
+            <div class="p-4">
+                <div class="flex justify-between items-start mb-2">
+                    <h3 class="text-lg font-bold text-black">كود: ${unit.code}</h3>
+                    <span class="text-xs bg-black text-gold px-2 py-1 rounded font-bold">${unit.type}</span>
+                </div>
+                <p class="text-sm text-black font-bold mb-2">${unit.zone}</p>
+                <div class="spec-grid mb-3">
+                    <div class="spec-box text-xs">
+                        <p class="text-black/70 font-bold">غرف</p>
+                        <p class="text-black font-bold">${unit.rooms}</p>
+                    </div>
+                    <div class="spec-box text-xs">
+                        <p class="text-black/70 font-bold">مساحة</p>
+                        <p class="text-black font-bold">${unit.space}م²</p>
+                    </div>
+                </div>
+                <p class="text-lg font-bold text-black mb-3">${unit.price.toLocaleString()} EGP</p>
+                <button onclick="openUnit(${unit.id})" class="w-full btn-primary text-sm mb-2">عرض التفاصيل</button>
+            </div>
+        </div>
+    `).join('');
+    
+    if(filtered.length === 0) {
+        grid.innerHTML = '<p class="col-span-full text-center text-silver text-lg">لا توجد نتائج</p>';
+    }
+}
+
+// Add search event listener
+document.addEventListener('DOMContentLoaded', function() {
+    const searchInput = document.getElementById('globalSearch');
+    if(searchInput) {
+        searchInput.addEventListener('input', function() {
+            searchUnits(this.value);
+        });
+    }
+});
+
+
+// ==================== LOAD HARDCODED DATA ====================
+
+function initializeHardcodedData() {
+    // Check if partners already exist in localStorage
+    let partners = JSON.parse(localStorage.getItem('partners')) || [];
+    let services = JSON.parse(localStorage.getItem('services')) || [];
+    
+    // If empty, load hardcoded data
+    if(partners.length === 0) {
+        partners = [
+            {
+                id: 1,
+                name: 'Emaar',
+                descAr: 'شركة عملاقة متخصصة في تطوير المشاريع السكنية والتجارية الفاخرة. تتمتع بخبرة عقود في بناء مجتمعات عمرانية متكاملة.',
+                descEn: 'A giant company specializing in developing luxury residential and commercial projects. It has decades of experience in building integrated urban communities.',
+                image: ''
+            },
+            {
+                id: 2,
+                name: 'Tatweer Misr',
+                descAr: 'متخصصة في تطوير المشاريع السكنية المتميزة والمناطق السياحية. تركز على الجودة والاستدامة في جميع مشاريعها.',
+                descEn: 'Specializing in developing distinguished residential projects and tourist areas. Focuses on quality and sustainability in all its projects.',
+                image: ''
+            },
+            {
+                id: 3,
+                name: 'Palm Hills',
+                descAr: 'رائدة في تطوير المجتمعات السكنية المتكاملة بتصاميم معمارية عصرية. معروفة بالتزامها بالجودة والخدمات المتميزة.',
+                descEn: 'A leader in developing integrated residential communities with modern architectural designs. Known for its commitment to quality and distinguished services.',
+                image: ''
+            },
+            {
+                id: 4,
+                name: 'Sodic',
+                descAr: 'متخصصة في تطوير مشاريع سكنية وتجارية عالية الجودة. تتميز بالابتكار والتصاميم المستدامة والخدمات العملاء المتقدمة.',
+                descEn: 'Specializing in developing high-quality residential and commercial projects. Distinguished by innovation, sustainable designs, and advanced customer services.',
+                image: ''
+            },
+            {
+                id: 5,
+                name: 'Zamalek',
+                descAr: 'متخصصة في المشاريع السكنية الفاخرة والعقارات الاستثمارية. تتمتع بسمعة قوية في تقديم مشاريع بمعايير عالمية.',
+                descEn: 'Specializing in luxury residential projects and investment real estate. Enjoys a strong reputation for delivering projects to international standards.',
+                image: ''
+            }
+        ];
+        localStorage.setItem('partners', JSON.stringify(partners));
+    }
+    
+    if(services.length === 0) {
+        services = [
+            {
+                id: 1,
+                nameAr: 'العاصمة الإدارية الجديدة',
+                nameEn: 'New Capital',
+                descAr: 'مشاريع سكنية وتجارية متميزة في قلب العاصمة الإدارية الجديدة',
+                descEn: 'Distinguished residential and commercial projects in the heart of the New Capital',
+                image: ''
+            },
+            {
+                id: 2,
+                nameAr: 'راس الحكمة',
+                nameEn: 'Ras El Hekma',
+                descAr: 'مشاريع ساحلية فاخرة على ساحل البحر المتوسط',
+                descEn: 'Luxury coastal projects on the Mediterranean coast',
+                image: ''
+            },
+            {
+                id: 3,
+                nameAr: 'مدينتي',
+                nameEn: 'Madinaty',
+                descAr: 'مجتمع سكني متكامل بأحدث المرافق والخدمات',
+                descEn: 'An integrated residential community with the latest facilities and services',
+                image: ''
+            },
+            {
+                id: 4,
+                nameAr: 'الساحل الشمالي',
+                nameEn: 'North Coast',
+                descAr: 'منتجعات ساحلية وفيلات فاخرة على الساحل الشمالي',
+                descEn: 'Coastal resorts and luxury villas on the North Coast',
+                image: ''
+            },
+            {
+                id: 5,
+                nameAr: 'الرحاب',
+                nameEn: 'Al Rehab',
+                descAr: 'مجتمع سكني راقي مع مرافق متطورة',
+                descEn: 'An upscale residential community with advanced facilities',
+                image: ''
+            },
+            {
+                id: 6,
+                nameAr: 'القاهرة الجديدة',
+                nameEn: 'New Cairo',
+                descAr: 'مشاريع سكنية وتجارية في أرقى مناطق القاهرة الجديدة',
+                descEn: 'Residential and commercial projects in the finest areas of New Cairo',
+                image: ''
+            }
+        ];
+        localStorage.setItem('services', JSON.stringify(services));
+    }
+    
+    // Update global variables
+    window.partners = partners;
+    window.services = services;
+}
+
+// Call on page load
+document.addEventListener('DOMContentLoaded', function() {
+    initializeHardcodedData();
     renderPartnersList();
     renderServicesList();
 });
