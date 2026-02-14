@@ -10,8 +10,10 @@
     --white: #ffffff;
     --white-off: #f5f5f5;
     --dark-bg: #0f0f0f;
-    --card-bg: var(--gold); /* تم التعديل إلى ذهبي */
-    --card-hover: var(--gold-light); /* تم التعديل إلى ذهبي فاتح */
+    --card-bg: #d4af37;
+    --card-hover: #e8c547;
+    --card-text: #000000;
+    --card-border: #ffffff;
 }
 
 /* ==================== GLOBAL STYLES ====================  */
@@ -33,7 +35,7 @@ body {
 /* ==================== TEXT UTILITIES ====================  */
 
 .gold-text {
-    color: var(--gold);
+    color: var(--card-text);
 }
 
 .silver-text {
@@ -197,46 +199,42 @@ footer a:hover {
 }
 
 .unit-card-container {
-    background: var(--gold); /* تم التعديل إلى ذهبي */
-    border: 2px solid var(--black); /* تم التعديل إلى أسود للتباين */
+    background: linear-gradient(135deg, var(--card-bg), var(--card-hover));
+    border: 2px solid var(--card-border);
     max-width: 500px;
     margin: 20px auto;
     border-radius: 15px;
     overflow: hidden;
     position: relative;
-    box-shadow: 0 15px 50px rgba(0, 0, 0, 0.3);
-}
-
-.unit-card-container * {
-    color: var(--black) !important; /* ضمان أن الخط أسود داخل الكارت */
+    box-shadow: 0 15px 50px rgba(212, 175, 55, 0.3);
 }
 
 /* ==================== FORMS ====================  */
 
 .form-input {
     width: 100%;
-    background: var(--white); /* تم التعديل ليكون أسهل في القراءة */
-    border: 2px solid var(--gold);
+    background: var(--card-bg);
+    border: 2px solid var(--silver-dark);
     border-radius: 8px;
     padding: 12px;
-    color: var(--black);
+    color: var(--white);
     font-family: 'Cairo', sans-serif;
     transition: all 0.3s ease;
 }
 
 .form-input:focus {
     outline: none;
-    border-color: var(--black);
-    background: var(--white-off);
+    border-color: var(--gold);
+    background: var(--card-hover);
     box-shadow: 0 0 15px rgba(212, 175, 55, 0.3);
 }
 
 .filter-input {
-    background: var(--white);
-    border: 2px solid var(--gold);
+    background: var(--card-bg);
+    border: 2px solid var(--silver-dark);
     border-radius: 8px;
     padding: 10px;
-    color: var(--black);
+    color: var(--white);
     font-family: 'Cairo', sans-serif;
     font-size: 13px;
     cursor: pointer;
@@ -245,8 +243,8 @@ footer a:hover {
 
 .filter-input:hover,
 .filter-input:focus {
-    border-color: var(--black);
-    background: var(--white-off);
+    border-color: var(--gold);
+    background: var(--card-hover);
     outline: none;
     box-shadow: 0 0 10px rgba(212, 175, 55, 0.2);
 }
@@ -258,27 +256,22 @@ footer a:hover {
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
     padding: 15px;
-    background: var(--gold-light); /* تم التعديل ليتناسب مع الكارت الذهبي */
+    background: var(--black);
 }
 
 .spec-box {
-    background: var(--gold);
-    border: 2px solid var(--black);
+    background: var(--card-bg);
+    border: 2px solid var(--silver-dark);
     padding: 12px;
     border-radius: 8px;
     text-align: center;
     transition: all 0.3s ease;
-    color: var(--black);
 }
 
 .spec-box:hover {
-    border-color: var(--white);
-    background: var(--gold-light);
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-}
-
-.spec-box * {
-    color: var(--black) !important;
+    border-color: var(--gold);
+    background: var(--card-hover);
+    box-shadow: 0 4px 15px rgba(212, 175, 55, 0.2);
 }
 
 /* ==================== ANIMATIONS ====================  */
@@ -396,16 +389,6 @@ footer a:hover {
 
 .bg-black { background-color: var(--black); }
 .bg-zinc-900 { background-color: #18181b; }
-
-/* كلاسات مخصصة للكروت الذهبية */
-.bg-gold-card {
-    background-color: var(--gold) !important;
-    color: var(--black) !important;
-}
-
-.bg-gold-card * {
-    color: var(--black) !important;
-}
 
 .text-xs { font-size: 0.75rem; }
 .text-sm { font-size: 0.875rem; }
