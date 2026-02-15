@@ -22,7 +22,7 @@
 
                 <!-- Language Switch -->
                 <div class="flex items-center gap-3">
-                    <button onclick="toggleLanguage()" class="px-3 py-2 border border-gold/30 rounded-lg hover:border-gold transition text-sm text-black font-bold">
+                    <button onclick="toggleLanguage()" class="px-3 py-2 border border-black/30 rounded-lg hover:border-gold transition text-sm text-black font-bold">
                         <span id="langToggle">English</span>
                     </button>
                 </div>
@@ -33,8 +33,8 @@
                         <i class="fas fa-bell text-xl gold-text"></i>
                         <span id="notificationBadge" class="absolute top-0 right-0 bg-red-600 text-white text-xs rounded-full w-5 h-5 flex items-center justify-center">0</span>
                     </button>
-                    <div id="notificationPanel" class="hidden absolute top-12 right-0 bg-zinc-900 border border-gold/30 rounded-lg shadow-lg w-80 max-h-96 overflow-y-auto z-50">
-                        <div class="p-4 border-b border-gold/30">
+                    <div id="notificationPanel" class="hidden absolute top-12 right-0 bg-gold-card border border-black/30 rounded-lg shadow-lg w-80 max-h-96 overflow-y-auto z-50">
+                        <div class="p-4 border-b border-black/30">
                             <h3 class="text-black font-bold">آخر الوحدات المضافة</h3>
                         </div>
                         <div id="notificationsList" class="p-2"></div>
@@ -44,7 +44,7 @@
                 <!-- Search Bar -->
                 <div class="flex-1 max-w-xs">
                     <input type="text" id="globalSearch" placeholder="بحث..." 
-                           class="w-full bg-zinc-900 border border-gold/30 rounded-lg px-4 py-2 text-sm focus:border-gold outline-none text-white">
+                           class="w-full bg-gold-card border border-black rounded-lg px-4 py-2 text-sm focus:border-gold outline-none text-black">
                 </div>
 
                 <!-- Navigation Buttons -->
@@ -81,7 +81,7 @@
                     </div>
                 </div>
                 <!-- Right: Hero Image -->
-                <div class="relative h-96 rounded-xl overflow-hidden border-2 border-gold/30">
+                <div class="relative h-96 rounded-xl overflow-hidden border-2 border-black/30">
                     <img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop" alt="Real Estate" class="w-full h-full object-cover">
                     <div class="absolute inset-0 bg-gradient-to-r from-black/50 to-transparent"></div>
                 </div>
@@ -113,7 +113,7 @@
         <!-- Units Section (Resale, Primary, Rentals) -->
         <div id="units-section" style="display:none;">
             <div class="mb-8">
-                <div class="flex gap-2 mb-6 border-b border-gold/30 pb-4 flex-wrap">
+                <div class="flex gap-2 mb-6 border-b border-black/30 pb-4 flex-wrap">
                     <button class="nav-btn active" onclick="switchUnitTab('resale')">ريسيل</button>
                     <button class="nav-btn" onclick="switchUnitTab('primary')">برايمري</button>
                     <button class="nav-btn" onclick="switchUnitTab('rentals')">إيجار</button>
@@ -288,7 +288,7 @@
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 mb-12">
                 <!-- Partner 1: Emaar -->
                 <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg">
-                    <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-40 flex items-center justify-center border-b border-gold/30">
+                    <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-40 flex items-center justify-center border-b border-black/30">
                         <div class="text-center">
                             <div class="text-5xl font-bold gold-text">E</div>
                         </div>
@@ -302,7 +302,7 @@
 
                 <!-- Partner 2: Tatweer Misr -->
                 <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg">
-                    <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-40 flex items-center justify-center border-b border-gold/30">
+                    <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-40 flex items-center justify-center border-b border-black/30">
                         <div class="text-center">
                             <div class="text-5xl font-bold gold-text">T</div>
                         </div>
@@ -316,7 +316,7 @@
 
                 <!-- Partner 3: Palm Hills -->
                 <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg">
-                    <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-40 flex items-center justify-center border-b border-gold/30">
+                    <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-40 flex items-center justify-center border-b border-black/30">
                         <div class="text-center">
                             <div class="text-5xl font-bold gold-text">P</div>
                         </div>
@@ -330,7 +330,7 @@
 
                 <!-- Partner 4: Sodic -->
                 <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg">
-                    <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-40 flex items-center justify-center border-b border-gold/30">
+                    <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-40 flex items-center justify-center border-b border-black/30">
                         <div class="text-center">
                             <div class="text-5xl font-bold gold-text">S</div>
                         </div>
@@ -344,7 +344,7 @@
 
                 <!-- Partner 5: Zamalek -->
                 <div class="bg-gold-card border-2 border-black rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg">
-                    <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-40 flex items-center justify-center border-b border-gold/30">
+                    <div class="bg-gradient-to-br from-gold/20 to-gold/5 h-40 flex items-center justify-center border-b border-black/30">
                         <div class="text-center">
                             <div class="text-5xl font-bold gold-text">Z</div>
                         </div>
@@ -358,7 +358,7 @@
             </div>
 
             <!-- Contact Section -->
-            <div class="bg-gradient-to-r from-gold/10 to-gold/5 border border-gold/30 rounded-xl p-8">
+            <div class="bg-gradient-to-r from-gold/10 to-gold/5 border border-black/30 rounded-xl p-8">
                 <h2 class="text-2xl font-bold gold-text mb-6 text-center">تواصل معنا</h2>
                 <div class="grid md:grid-cols-3 gap-6">
                     <div class="text-center">
@@ -377,7 +377,7 @@
                         <p class="text-white font-bold text-sm">admin@str-summitteam.com</p>
                     </div>
                 </div>
-                <div class="text-center mt-6 pt-6 border-t border-gold/30">
+                <div class="text-center mt-6 pt-6 border-t border-black/30">
                     <p class="silver-text mb-2">العنوان</p>
                     <p class="text-white">East Hub Mall, Building 16, Madinaty, New Cairo</p>
                 </div>
@@ -388,7 +388,7 @@
     <!-- Unit Modal -->
     <div id="unitModal" class="modal" onclick="if(event.target.id==='unitModal') document.getElementById('unitModal').style.display='none'">
         <div class="unit-card-container" onclick="event.stopPropagation()">
-            <div id="sliderWrapper" class="h-64 bg-black"></div>
+            <div id="sliderWrapper" class="h-64 bg-gold-card"></div>
             <div class="p-6">
                 <div class="spec-grid">
                     <div class="spec-box">
@@ -420,7 +420,7 @@
 
     <!-- Edit Unit Modal -->
     <div id="editUnitModal" class="modal" onclick="if(event.target.id==='editUnitModal') closeEditUnitModal()">
-        <div class="bg-black border border-gold rounded-xl p-8 max-w-2xl w-full mx-auto max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+        <div class="bg-gold-card border-2 border-black rounded-xl p-8 max-w-2xl w-full mx-auto max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
             <h3 class="text-2xl text-black font-bold mb-6">تعديل الوحدة</h3>
             <form onsubmit="saveUnitEdit(event)" class="space-y-4">
                 <input type="hidden" id="editUnitId">
@@ -446,7 +446,7 @@
 
     <!-- Edit Lead Modal -->
     <div id="editLeadModal" class="modal" onclick="if(event.target.id==='editLeadModal') closeEditLeadModal()">
-        <div class="bg-black border border-gold rounded-xl p-8 max-w-2xl w-full mx-auto max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+        <div class="bg-gold-card border-2 border-black rounded-xl p-8 max-w-2xl w-full mx-auto max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
             <h3 class="text-2xl text-black font-bold mb-6">تعديل الـ Lead</h3>
             <form onsubmit="saveLeadEdit(event)" class="space-y-4">
                 <input type="hidden" id="editLeadId">
@@ -469,7 +469,7 @@
 
     <!-- Edit Employee Modal -->
     <div id="editEmployeeModal" class="modal" onclick="if(event.target.id==='editEmployeeModal') closeEditEmployeeModal()">
-        <div class="bg-black border border-gold rounded-xl p-8 max-w-2xl w-full mx-auto max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
+        <div class="bg-gold-card border-2 border-black rounded-xl p-8 max-w-2xl w-full mx-auto max-h-[90vh] overflow-y-auto" onclick="event.stopPropagation()">
             <h3 class="text-2xl text-black font-bold mb-6">تعديل الموظف</h3>
             <form onsubmit="saveEmployeeEdit(event)" class="space-y-4">
                 <input type="hidden" id="editEmployeeId">
@@ -495,9 +495,9 @@
     </div>
     <!-- Admin Login Modal -->
     <div id="adminLoginModal" class="modal" onclick="if(event.target.id==='adminLoginModal') closeModal()">
-        <div class="bg-black border border-gold rounded-xl p-8 max-w-sm mx-auto mt-20" onclick="event.stopPropagation()">
+        <div class="bg-gold-card border-2 border-black rounded-xl p-8 max-w-sm mx-auto mt-20" onclick="event.stopPropagation()">
             <h3 class="text-2xl text-black font-bold mb-6 text-center">لوحة التحكم</h3>
-            <input type="password" id="adminPassword" placeholder="كلمة السر" class="w-full bg-zinc-900 border border-gold/30 rounded-lg px-4 py-2 mb-4 text-white">
+            <input type="password" id="adminPassword" placeholder="كلمة السر" class="w-full bg-gold-card border border-black rounded-lg px-4 py-2 mb-4 text-black">
             <button onclick="checkAdminPassword()" class="w-full btn-primary mb-2">دخول</button>
             <button onclick="closeModal()" class="w-full btn-secondary">إغلاق</button>
         </div>
@@ -505,10 +505,10 @@
 
     <!-- Employee Login Modal -->
     <div id="employeeLoginModal" class="modal" onclick="if(event.target.id==='employeeLoginModal') closeEmployeeLoginModal()">
-        <div class="bg-black border border-gold rounded-xl p-8 max-w-sm mx-auto mt-20" onclick="event.stopPropagation()">
+        <div class="bg-gold-card border-2 border-black rounded-xl p-8 max-w-sm mx-auto mt-20" onclick="event.stopPropagation()">
             <h3 class="text-2xl text-black font-bold mb-6 text-center">تسجيل دخول الموظف</h3>
-            <input type="email" id="employeeEmail" placeholder="البريد الإلكتروني" class="w-full bg-zinc-900 border border-gold/30 rounded-lg px-4 py-2 mb-4 text-white">
-            <input type="password" id="employeePassword" placeholder="كلمة السر" class="w-full bg-zinc-900 border border-gold/30 rounded-lg px-4 py-2 mb-4 text-white">
+            <input type="email" id="employeeEmail" placeholder="البريد الإلكتروني" class="w-full bg-gold-card border border-black rounded-lg px-4 py-2 mb-4 text-black">
+            <input type="password" id="employeePassword" placeholder="كلمة السر" class="w-full bg-gold-card border border-black rounded-lg px-4 py-2 mb-4 text-black">
             <button onclick="checkEmployeeLogin()" class="w-full btn-primary mb-2">دخول</button>
             <button onclick="closeEmployeeLoginModal()" class="w-full btn-secondary">إغلاق</button>
         </div>
@@ -526,14 +526,14 @@
             </div>
 
             <!-- Employee Tabs -->
-            <div class="flex gap-2 mb-8 border-b border-gold/30 pb-4 flex-wrap">
+            <div class="flex gap-2 mb-8 border-b border-black/30 pb-4 flex-wrap">
                 <button class="admin-tab-btn active" onclick="showEmployeeTab('leads')">الـ Leads المسندة</button>
                 <button class="admin-tab-btn" onclick="showEmployeeTab('stats')">الإحصائيات</button>
             </div>
 
             <!-- Employee Leads Tab -->
             <div id="employee-leads" class="admin-tab-content active-admin-tab">
-                <div id="employeeLeadsList" class="bg-zinc-900 rounded-xl border border-gold/30 overflow-x-auto"></div>
+                <div id="employeeLeadsList" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto"></div>
             </div>
 
             <!-- Employee Stats Tab -->
@@ -551,7 +551,7 @@
             </div>
 
             <!-- Admin Tabs -->
-            <div class="flex gap-2 mb-8 border-b border-gold/30 pb-4 flex-wrap">
+            <div class="flex gap-2 mb-8 border-b border-black/30 pb-4 flex-wrap">
                 <button class="admin-tab-btn active" onclick="showAdminTab('stats')">الإحصائيات</button>
                 <button class="admin-tab-btn" onclick="showAdminTab('units')">إدارة الوحدات</button>
                 <button class="admin-tab-btn" onclick="showAdminTab('crm')">إدارة CRM</button>
@@ -569,7 +569,7 @@
             <!-- Units Tab -->
             <div id="admin-units" class="admin-tab-content">
                 <div class="grid md:grid-cols-2 gap-8">
-                    <div class="bg-zinc-900 p-6 rounded-xl border border-gold/30">
+                    <div class="bg-gold-card p-6 rounded-xl border border-black/30">
                         <h3 class="gold-text text-xl mb-4 font-bold">إضافة وحدة جديدة</h3>
                         <form onsubmit="addUnit(event)" class="space-y-4">
                             <input type="number" placeholder="كود الوحدة" required class="form-input">
@@ -611,7 +611,7 @@
                             <button type="submit" class="w-full btn-primary">إضافة الوحدة</button>
                         </form>
                     </div>
-                    <div class="bg-zinc-900 p-6 rounded-xl border border-gold/30">
+                    <div class="bg-gold-card p-6 rounded-xl border border-black/30">
                         <h3 class="gold-text text-xl mb-4 font-bold">استيراد الوحدات</h3>
                         <button onclick="downloadUnitsTemplate()" class="w-full btn-primary mb-2">📥 تحميل تيمبلت</button>
                         <button onclick="document.getElementById('bulkImportFile').click()" class="w-full btn-secondary mb-2">استيراد من Excel</button>
@@ -621,20 +621,20 @@
                 </div>
                 <div class="mt-8">
                     <h3 class="gold-text text-xl mb-4 font-bold">قائمة الوحدات</h3>
-                    <div id="unitsList" class="bg-zinc-900 rounded-xl border border-gold/30 overflow-x-auto"></div>
+                    <div id="unitsList" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto"></div>
                 </div>
                 
                 <!-- Admin Units Table -->
                 <div class="mt-8">
                     <h3 class="gold-text text-xl mb-4 font-bold">جدول الوحدات الكامل (للأدمن)</h3>
-                    <div id="adminUnitsList" class="bg-zinc-900 rounded-xl border border-gold/30 overflow-x-auto max-h-[70vh]"></div>
+                    <div id="adminUnitsList" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto max-h-[70vh]"></div>
                 </div>
             </div>
 
             <!-- CRM Tab -->
             <div id="admin-crm" class="admin-tab-content">
                 <div class="grid md:grid-cols-2 gap-8">
-                    <div class="bg-zinc-900 p-6 rounded-xl border border-gold/30">
+                    <div class="bg-gold-card p-6 rounded-xl border border-black/30">
                         <h3 class="gold-text text-xl mb-4 font-bold">إضافة Lead</h3>
                         <form onsubmit="addLead(event)" class="space-y-4">
                             <input type="text" placeholder="الاسم" required class="form-input">
@@ -648,7 +648,7 @@
                             <button type="submit" class="w-full btn-primary">إضافة Lead</button>
                         </form>
                     </div>
-                    <div class="bg-zinc-900 p-6 rounded-xl border border-gold/30">
+                    <div class="bg-gold-card p-6 rounded-xl border border-black/30">
                         <h3 class="gold-text text-xl mb-4 font-bold">استيراد Leads</h3>
                         <button onclick="downloadLeadsTemplate()" class="w-full btn-primary mb-2">📥 تحميل تيمبلت</button>
                         <button onclick="document.getElementById('importLeadsFile').click()" class="w-full btn-secondary mb-2">استيراد من Excel</button>
@@ -658,14 +658,14 @@
                 </div>
                 <div class="mt-8">
                     <h3 class="gold-text text-xl mb-4 font-bold">قائمة Leads</h3>
-                    <div id="leadsList" class="bg-zinc-900 rounded-xl border border-gold/30 overflow-x-auto"></div>
+                    <div id="leadsList" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto"></div>
                 </div>
             </div>
 
             <!-- Employees Tab -->
             <div id="admin-employees" class="admin-tab-content">
                 <div class="grid md:grid-cols-2 gap-8">
-                    <div class="bg-zinc-900 p-6 rounded-xl border border-gold/30">
+                    <div class="bg-gold-card p-6 rounded-xl border border-black/30">
                         <h3 class="gold-text text-xl mb-4 font-bold">إضافة موظف</h3>
                         <form onsubmit="addEmployee(event)" class="space-y-4">
                             <input type="text" placeholder="الاسم" required class="form-input">
@@ -688,14 +688,14 @@
                 </div>
                 <div class="mt-8">
                     <h3 class="gold-text text-xl mb-4 font-bold">قائمة الموظفين</h3>
-                    <div id="employeesList" class="bg-zinc-900 rounded-xl border border-gold/30 overflow-x-auto"></div>
+                    <div id="employeesList" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto"></div>
                 </div>
             </div>
 
             <!-- Partners Tab -->
             <div id="admin-partners" class="admin-tab-content">
                 <div class="grid md:grid-cols-2 gap-8">
-                    <div class="bg-zinc-900 p-6 rounded-xl border border-gold/30">
+                    <div class="bg-gold-card p-6 rounded-xl border border-black/30">
                         <h3 class="gold-text text-xl mb-4 font-bold">إضافة شريك جديد</h3>
                         <form onsubmit="addPartner(event)" class="space-y-4">
                             <input type="text" placeholder="اسم الشريك" required class="form-input">
@@ -709,14 +709,14 @@
                 </div>
                 <div class="mt-8">
                     <h3 class="gold-text text-xl mb-4 font-bold">قائمة الشركاء</h3>
-                    <div id="partnersList" class="bg-zinc-900 rounded-xl border border-gold/30 overflow-x-auto"></div>
+                    <div id="partnersList" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto"></div>
                 </div>
             </div>
 
             <!-- Services Tab -->
             <div id="admin-services" class="admin-tab-content">
                 <div class="grid md:grid-cols-2 gap-8">
-                    <div class="bg-zinc-900 p-6 rounded-xl border border-gold/30">
+                    <div class="bg-gold-card p-6 rounded-xl border border-black/30">
                         <h3 class="gold-text text-xl mb-4 font-bold">إضافة منطقة عمل جديدة</h3>
                         <form onsubmit="addService(event)" class="space-y-4">
                             <input type="text" placeholder="اسم المنطقة (عربي)" required class="form-input">
@@ -731,13 +731,13 @@
                 </div>
                 <div class="mt-8">
                     <h3 class="gold-text text-xl mb-4 font-bold">قائمة مناطق العمل</h3>
-                    <div id="servicesList" class="bg-zinc-900 rounded-xl border border-gold/30 overflow-x-auto"></div>
+                    <div id="servicesList" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto"></div>
                 </div>
             </div>
 
             <!-- Settings Tab -->
             <div id="admin-settings" class="admin-tab-content">
-                <div class="bg-zinc-900 p-8 rounded-xl border border-gold/30">
+                <div class="bg-gold-card p-8 rounded-xl border border-black/30">
                     <h2 class="text-2xl font-bold gold-text mb-6">إعدادات الشركة</h2>
                     <form onsubmit="saveCompanySettings(event)" class="space-y-6">
                         <div class="grid md:grid-cols-2 gap-6">
@@ -779,7 +779,7 @@
                 </div>
 
                 <!-- About Page Editor -->
-                <div class="bg-zinc-900 p-8 rounded-xl border border-gold/30 mt-6">
+                <div class="bg-gold-card p-8 rounded-xl border border-black/30 mt-6">
                     <h2 class="text-2xl font-bold gold-text mb-6">تعديل صفحة "عن الشركة"</h2>
                     <form onsubmit="saveAboutData(event)" class="space-y-8">
                         
@@ -872,7 +872,7 @@
     </div>
 
     <!-- Footer -->
-    <footer class="bg-black border-t border-gold/30 mt-16 py-12">
+    <footer class="bg-gold-card border-t border-black mt-16 py-12">
         <div class="container mx-auto px-4">
             <div class="grid md:grid-cols-4 gap-8 mb-12">
                 <!-- Company Info -->
@@ -926,7 +926,7 @@
             </div>
             
             <!-- Social Media Links -->
-            <div class="border-t border-gold/30 pt-8">
+            <div class="border-t border-black/30 pt-8">
                 <h3 class="text-xl font-bold gold-text mb-6 text-center">تابعنا على وسائل التواصل</h3>
                 <div class="flex justify-center gap-6 flex-wrap">
                     <a href="https://www.facebook.com/summitteamrealestateeg" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-blue-600 hover:bg-blue-700 rounded-lg transition text-white font-bold">
@@ -937,7 +937,7 @@
                         <i class="fab fa-instagram"></i>
                         Instagram
                     </a>
-                    <a href="https://www.tiktok.com/@strsummitteam" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-black border-2 border-white hover:bg-gray-900 rounded-lg transition text-white font-bold">
+                    <a href="https://www.tiktok.com/@strsummitteam" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-gold-card border-2 border-black hover:bg-gold rounded-lg transition text-black font-bold">
                         <i class="fab fa-tiktok"></i>
                         TikTok
                     </a>
@@ -945,7 +945,7 @@
                         <i class="fab fa-youtube"></i>
                         YouTube
                     </a>
-                    <a href="https://x.com/strsummitteam" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-black border-2 border-white hover:bg-gray-900 rounded-lg transition text-white font-bold">
+                    <a href="https://x.com/strsummitteam" target="_blank" class="flex items-center gap-2 px-4 py-2 bg-gold-card border-2 border-black hover:bg-gold rounded-lg transition text-black font-bold">
                         <i class="fab fa-x-twitter"></i>
                         Twitter
                     </a>
@@ -956,7 +956,7 @@
                 </div>
                 
                 <!-- Property Platforms -->
-                <div class="mt-8 pt-8 border-t border-gold/30">
+                <div class="mt-8 pt-8 border-t border-black/30">
                     <h4 class="text-lg font-bold gold-text mb-4 text-center">ابحث عن عقاراتنا على</h4>
                     <div class="flex justify-center gap-4 flex-wrap">
                         <a href="https://aqarmap.com.eg/ar/user/5240697" target="_blank" class="px-4 py-2 border border-gold hover:bg-gold/10 rounded-lg transition text-silver hover:text-gold font-bold">
@@ -973,7 +973,7 @@
             </div>
             
             <!-- Copyright -->
-            <div class="text-center mt-8 pt-8 border-t border-gold/30">
+            <div class="text-center mt-8 pt-8 border-t border-black/30">
                 <p class="text-black text-sm font-medium">&copy; 2026 Summit Team Real Estate. جميع الحقوق محفوظة.</p>
             </div>
         </div>
