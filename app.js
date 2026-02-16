@@ -67,6 +67,25 @@ const itemsPerPage = 30;
 let filteredUnits = [];
 let filteredLeads = [];
 
+// ==================== FILTER VARIABLES ====================
+let currentFilters = {
+    units: {
+        code: '',
+        area: '',
+        minSpace: '',
+        maxSpace: '',
+        minPrice: '',
+        maxPrice: '',
+        category: ''
+    },
+    leads: {
+        name: '',
+        phone: '',
+        source: '',
+        campaign: ''
+    }
+};
+
 
 
 
@@ -74,6 +93,58 @@ let filteredLeads = [];
 let currentTab = 'home';
 let currentUnitTab = 'resale';
 const ADMIN_PASSWORD = 'str2026';
+
+
+
+// Employee Permissions System
+let employeePermissions = {
+    canViewUnits: localStorage.getItem('employeeCanViewUnits') === 'true',
+    canViewLeads: localStorage.getItem('employeeCanViewLeads') === 'true'
+};
+
+function updateEmployeePermissions(canViewUnits, canViewLeads) {
+    employeePermissions.canViewUnits = canViewUnits;
+    employeePermissions.canViewLeads = canViewLeads;
+    localStorage.setItem('employeeCanViewUnits', canViewUnits);
+    localStorage.setItem('employeeCanViewLeads', canViewLeads);
+    console.log('✅ تم تحديث صلاحيات الموظفين');
+}
+
+function checkEmployeeAccess(type) {
+    if (type === 'units') return employeePermissions.canViewUnits;
+    if (type === 'leads') return employeePermissions.canViewLeads;
+    return false;
+}
+
+// Load data from JSON files on page load
+async function loadDataFromJSON() {
+    try {
+        const resaleResponse = await fetch('resale.json');
+        const rentalResponse = await fetch('rental.json');
+        const primaryResponse = await fetch('primary.json');
+        const leadsResponse = await fetch('leads.json');
+        
+        const resaleData = await resaleResponse.json();
+        const rentalData = await rentalResponse.json();
+        const primaryData = await primaryResponse.json();
+        const leadsData = await leadsResponse.json();
+        
+        // Merge resale, rental, and primary into units
+        units = [...resaleData, ...rentalData, ...primaryData];
+        leads = leadsData;
+        
+        // Initialize displays
+        renderUnits();
+        renderLeadsList();
+        
+        console.log('✅ Data loaded:', units.length, 'units,', leads.length, 'leads');
+    } catch (error) {
+        console.error('Error loading data:', error);
+    }
+}
+
+// Call on page load
+document.addEventListener('DOMContentLoaded', loadDataFromJSON);
 
 // Load data from JSON files
 async function loadData() {
@@ -758,6 +829,31 @@ function showAdminTab(tabName) {
     if(tabName === 'settings') loadAboutEditor();
 }
 
+
+// Add to admin panel - permissions tab
+function showPermissionsTab() {
+    const adminContent = document.getElementById('admin-content');
+    if (!adminContent) return;
+    
+    adminContent.innerHTML = `
+        <div class="p-6">
+            <h2 class="text-2xl font-bold mb-4">صلاحيات الموظفين</h2>
+            <div class="space-y-4">
+                <label class="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" id="employeeUnitsPermission" ${employeePermissions.canViewUnits ? 'checked' : ''} 
+                        onchange="updateEmployeePermissions(this.checked, employeePermissions.canViewLeads)">
+                    <span>السماح للموظفين برؤية جدول الوحدات</span>
+                </label>
+                <label class="flex items-center gap-3 cursor-pointer">
+                    <input type="checkbox" id="employeeLeadsPermission" ${employeePermissions.canViewLeads ? 'checked' : ''} 
+                        onchange="updateEmployeePermissions(employeePermissions.canViewUnits, this.checked)">
+                    <span>السماح للموظفين برؤية جدول الليدز</span>
+                </label>
+            </div>
+        </div>
+    `;
+}
+
 function addEmployee(e) {
     e.preventDefault();
     const form = e.target;
@@ -923,19 +1019,17 @@ function renderUnits() {
     
     let filtered = units.filter(u => u.type === currentUnitTab);
     
+    // Apply admin filters
+    const filters = currentFilters.units;
+    if(filters.code) filtered = filtered.filter(u => u.code.toLowerCase().includes(filters.code.toLowerCase()));
+    if(filters.area) filtered = filtered.filter(u => (u.zone || u.area || '').toLowerCase().includes(filters.area.toLowerCase()));
+    if(filters.minSpace) filtered = filtered.filter(u => u.space >= parseInt(filters.minSpace));
+    if(filters.maxSpace) filtered = filtered.filter(u => u.space <= parseInt(filters.maxSpace));
+    if(filters.minPrice) filtered = filtered.filter(u => u.price >= parseInt(filters.minPrice));
+    if(filters.maxPrice) filtered = filtered.filter(u => u.price <= parseInt(filters.maxPrice));
+    
     // Featured first
     filtered.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
-    
-    // Apply filters
-    const codeFilter = document.getElementById('filterCode')?.value;
-    const priceFilter = document.getElementById('filterPrice')?.value;
-    const roomsFilter = document.getElementById('filterRooms')?.value;
-    const zoneFilter = document.getElementById('filterZone')?.value;
-    
-    if(codeFilter) filtered = filtered.filter(u => u.code.toString().includes(codeFilter));
-    if(priceFilter) filtered = filtered.filter(u => u.price <= parseInt(priceFilter));
-    if(roomsFilter) filtered = filtered.filter(u => u.rooms == roomsFilter);
-    if(zoneFilter) filtered = filtered.filter(u => u.zone === zoneFilter);
     
     // Pagination
     const itemsPerPage = 20;
@@ -949,7 +1043,14 @@ function renderUnits() {
         <div class="bg-gold-card border-2 ${unit.featured ? 'border-white' : 'border-black'} rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg ${unit.featured ? 'ring-2 ring-white/50' : ''}">
             <div class="bg-gold-light h-40 flex items-center justify-center border-b-2 border-black relative overflow-hidden">
                 ${unit.featured ? '<div class="absolute top-2 right-2 bg-gold text-black px-2 py-1 rounded text-xs font-bold">⭐ مميز</div>' : ''}
-                ${unit.images && unit.images.length > 0 ? `<img src="${unit.images[0]}" alt="${unit.code}" class="w-full h-full object-cover">` : '<i class="fas fa-building text-4xl gold-text"></i>'}
+                ${unit.images && unit.images.length > 0 ? `
+                <div class="image-carousel relative w-full h-full">
+                    <img src="${unit.images[0]}" alt="${unit.code}" class="w-full h-full object-cover" id="img-${unit.id}">
+                    <div class="absolute bottom-2 left-2 right-2 flex gap-1 justify-center">
+                        ${unit.images.map((img, idx) => `<div class="w-2 h-2 rounded-full ${idx === 0 ? 'bg-gold' : 'bg-white/50'}" onclick="changeImage(${unit.id}, ${idx})"></div>`).join('')}
+                    </div>
+                </div>
+                ` : '<i class="fas fa-building text-4xl gold-text"></i>'}
             </div>
             <div class="p-4">
                 <div class="flex justify-between items-start mb-2">
@@ -976,6 +1077,21 @@ function renderUnits() {
     // Add pagination controls
     addPaginationControls(grid, currentPage, totalPages, 'goToUnitPage');
 }
+
+function changeImage(unitId, imageIndex) {
+    const img = document.getElementById(`img-${unitId}`);
+    const unit = units.find(u => u.id === unitId);
+    if (img && unit && unit.images && unit.images[imageIndex]) {
+        img.src = unit.images[imageIndex];
+        // Update carousel dots
+        const carousel = img.parentElement;
+        const dots = carousel.querySelectorAll('.w-2');
+        dots.forEach((dot, idx) => {
+            dot.className = idx === imageIndex ? 'w-2 h-2 rounded-full bg-gold' : 'w-2 h-2 rounded-full bg-white/50';
+        });
+    }
+}
+
 
 function renderUnitsList() {
     const list = document.getElementById('unitsList');
@@ -1021,13 +1137,45 @@ function renderUnitsList() {
 }
 
 function renderLeadsList() {
-    const list = document.getElementById('leadsList');
-    if(!list) return;
+    const filteredLeads = filterLeads();
+    const leadsTable = document.getElementById('admin-leads-table');
+    if (!leadsTable) return;
     
-    if(leads.length === 0) {
-        list.innerHTML = '<div class="p-4 text-center text-silver">لا توجد leads</div>';
-        return;
+    const currentPage = parseInt(document.getElementById('leadsPage')?.value || '1');
+    const itemsPerPage = 30;
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const paginatedLeads = filteredLeads.slice(startIndex, endIndex);
+    
+    leadsTable.innerHTML = paginatedLeads.map(lead => `
+        <tr>
+            <td>${lead.date || '-'}</td>
+            <td>${lead.name || '-'}</td>
+            <td>${lead.phone || '-'}</td>
+            <td>${lead.source || '-'}</td>
+            <td>${lead.method || '-'}</td>
+            <td>${lead.campaign || '-'}</td>
+            <td>${lead.notes || '-'}</td>
+            <td>${lead.rating || '-'}</td>
+            <td>${lead.sales || '-'}</td>
+            <td>${lead.followUp || '-'}</td>
+        </tr>
+    `).join('');
+    
+    // Update pagination
+    const totalPages = Math.ceil(filteredLeads.length / itemsPerPage);
+    const paginationDiv = document.getElementById('leadsPagination');
+    if (paginationDiv) {
+        paginationDiv.innerHTML = Array.from({length: totalPages}, (_, i) => `
+            <button onclick="goToLeadsPage(${i + 1})" class="${currentPage === i + 1 ? 'active' : ''}">${i + 1}</button>
+        `).join('');
     }
+}
+
+function goToLeadsPage(page) {
+    document.getElementById('leadsPage').value = page;
+    renderLeadsList();
+}
     
     list.innerHTML = `
         <table class="w-full text-sm">
@@ -2371,7 +2519,14 @@ function searchUnits(query) {
         <div class="bg-gold-card border-2 ${unit.featured ? 'border-white' : 'border-black'} rounded-xl overflow-hidden hover:border-white transition hover:shadow-2xl shadow-lg ${unit.featured ? 'ring-2 ring-white/50' : ''}">
             <div class="bg-gold-light h-40 flex items-center justify-center border-b-2 border-black relative overflow-hidden">
                 ${unit.featured ? '<div class="absolute top-2 right-2 bg-gold text-black px-2 py-1 rounded text-xs font-bold">⭐ مميز</div>' : ''}
-                ${unit.images && unit.images.length > 0 ? `<img src="${unit.images[0]}" alt="${unit.code}" class="w-full h-full object-cover">` : '<i class="fas fa-building text-4xl gold-text"></i>'}
+                ${unit.images && unit.images.length > 0 ? `
+                <div class="image-carousel relative w-full h-full">
+                    <img src="${unit.images[0]}" alt="${unit.code}" class="w-full h-full object-cover" id="img-${unit.id}">
+                    <div class="absolute bottom-2 left-2 right-2 flex gap-1 justify-center">
+                        ${unit.images.map((img, idx) => `<div class="w-2 h-2 rounded-full ${idx === 0 ? 'bg-gold' : 'bg-white/50'}" onclick="changeImage(${unit.id}, ${idx})"></div>`).join('')}
+                    </div>
+                </div>
+                ` : '<i class="fas fa-building text-4xl gold-text"></i>'}
             </div>
             <div class="p-4">
                 <div class="flex justify-between items-start mb-2">
@@ -2710,6 +2865,244 @@ function initializeFooter() {
         copyright.style.backgroundColor = '#d4af37';
         copyright.style.color = '#000000';
     }
+
+
+// Employee View Functions
+
+
+
+
+// Filter Functions for Units and Leads
+
+function filterUnits() {
+    const filters = currentFilters.units;
+    
+    return units.filter(unit => {
+        const codeMatch = !filters.code || unit.code.toLowerCase().includes(filters.code.toLowerCase());
+        const areaMatch = !filters.area || unit.area.toLowerCase().includes(filters.area.toLowerCase());
+        const spaceMatch = (!filters.minSpace || unit.space >= parseInt(filters.minSpace)) &&
+                          (!filters.maxSpace || unit.space <= parseInt(filters.maxSpace));
+        const priceMatch = (!filters.minPrice || unit.price >= parseInt(filters.minPrice)) &&
+                          (!filters.maxPrice || unit.price <= parseInt(filters.maxPrice));
+        const categoryMatch = !filters.category || unit.category === filters.category;
+        
+        return codeMatch && areaMatch && spaceMatch && priceMatch && categoryMatch;
+    });
+}
+
+function filterLeads() {
+    const filters = currentFilters.leads;
+    
+    return leads.filter(lead => {
+        const nameMatch = !filters.name || lead.name.toLowerCase().includes(filters.name.toLowerCase());
+        const phoneMatch = !filters.phone || lead.phone.includes(filters.phone);
+        const sourceMatch = !filters.source || lead.source.toLowerCase().includes(filters.source.toLowerCase());
+        const campaignMatch = !filters.campaign || lead.campaign.toLowerCase().includes(filters.campaign.toLowerCase());
+        
+        return nameMatch && phoneMatch && sourceMatch && campaignMatch;
+    });
+}
+
+function applyUnitFilters() {
+    // Get filter values from inputs
+    currentFilters.units.code = document.getElementById('filterCode')?.value || '';
+    currentFilters.units.area = document.getElementById('filterArea')?.value || '';
+    currentFilters.units.minSpace = document.getElementById('filterMinSpace')?.value || '';
+    currentFilters.units.maxSpace = document.getElementById('filterMaxSpace')?.value || '';
+    currentFilters.units.minPrice = document.getElementById('filterMinPrice')?.value || '';
+    currentFilters.units.maxPrice = document.getElementById('filterMaxPrice')?.value || '';
+    currentFilters.units.category = document.getElementById('filterCategory')?.value || '';
+    
+    // Reset to page 1
+    document.getElementById('unitsPage').value = '1';
+    renderUnits();
+}
+
+function applyLeadFilters() {
+    // Get filter values from inputs
+    currentFilters.leads.name = document.getElementById('filterLeadName')?.value || '';
+    currentFilters.leads.phone = document.getElementById('filterLeadPhone')?.value || '';
+    currentFilters.leads.source = document.getElementById('filterLeadSource')?.value || '';
+    currentFilters.leads.campaign = document.getElementById('filterLeadCampaign')?.value || '';
+    
+    // Reset to page 1
+    document.getElementById('leadsPage').value = '1';
+    renderLeadsList();
+}
+
+function clearUnitFilters() {
+    currentFilters.units = {code: '', area: '', minSpace: '', maxSpace: '', minPrice: '', maxPrice: '', category: ''};
+    document.getElementById('filterCode').value = '';
+    document.getElementById('filterArea').value = '';
+    document.getElementById('filterMinSpace').value = '';
+    document.getElementById('filterMaxSpace').value = '';
+    document.getElementById('filterMinPrice').value = '';
+    document.getElementById('filterMaxPrice').value = '';
+    document.getElementById('filterCategory').value = '';
+    applyUnitFilters();
+}
+
+function clearLeadFilters() {
+    currentFilters.leads = {name: '', phone: '', source: '', campaign: ''};
+    document.getElementById('filterLeadName').value = '';
+    document.getElementById('filterLeadPhone').value = '';
+    document.getElementById('filterLeadSource').value = '';
+    document.getElementById('filterLeadCampaign').value = '';
+    applyLeadFilters();
+}
+
+
+
+function showEmployeeUnitsView() {
+    const modal = document.getElementById('employeeViewModal');
+    if (!modal) {
+        const newModal = document.createElement('div');
+        newModal.id = 'employeeViewModal';
+        newModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+        newModal.innerHTML = `
+            <div class="bg-gold-card p-6 rounded-lg max-w-4xl w-full max-h-96 overflow-auto">
+                <h2 class="text-2xl font-bold mb-4">جدول الوحدات</h2>
+                <div class="mb-4 grid grid-cols-2 gap-2">
+                    <input type="text" id="empFilterCode" placeholder="البحث بالكود" class="p-2 rounded bg-white text-black" onchange="updateEmployeeUnitsView()">
+                    <input type="text" id="empFilterArea" placeholder="المنطقة" class="p-2 rounded bg-white text-black" onchange="updateEmployeeUnitsView()">
+                    <input type="number" id="empFilterMinSpace" placeholder="الحد الأدنى للمساحة" class="p-2 rounded bg-white text-black" onchange="updateEmployeeUnitsView()">
+                    <input type="number" id="empFilterMaxPrice" placeholder="الحد الأقصى للسعر" class="p-2 rounded bg-white text-black" onchange="updateEmployeeUnitsView()">
+                </div>
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-black text-gold-card">
+                            <th class="border p-2">الكود</th>
+                            <th class="border p-2">النوع</th>
+                            <th class="border p-2">المنطقة</th>
+                            <th class="border p-2">الغرف</th>
+                            <th class="border p-2">المساحة</th>
+                            <th class="border p-2">السعر</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employeeUnitsTable"></tbody>
+                </table>
+                <button onclick="document.getElementById('employeeViewModal').remove()" class="mt-4 bg-black text-gold-card px-4 py-2 rounded">إغلاق</button>
+            </div>
+        `;
+        document.body.appendChild(newModal);
+    }
+    updateEmployeeUnitsView();
+}
+
+function updateEmployeeUnitsView() {
+    const code = document.getElementById('empFilterCode')?.value || '';
+    const area = document.getElementById('empFilterArea')?.value || '';
+    const minSpace = document.getElementById('empFilterMinSpace')?.value || '';
+    const maxPrice = document.getElementById('empFilterMaxPrice')?.value || '';
+    
+    const filtered = units.filter(unit => {
+        return (!code || unit.code.toLowerCase().includes(code.toLowerCase())) &&
+               (!area || unit.area.toLowerCase().includes(area.toLowerCase())) &&
+               (!minSpace || unit.space >= parseInt(minSpace)) &&
+               (!maxPrice || unit.price <= parseInt(maxPrice));
+    });
+    
+    const table = document.getElementById('employeeUnitsTable');
+    table.innerHTML = filtered.slice(0, 30).map(unit => `
+        <tr>
+            <td class="border p-2">${unit.code}</td>
+            <td class="border p-2">${unit.category}</td>
+            <td class="border p-2">${unit.area}</td>
+            <td class="border p-2">${unit.rooms}</td>
+            <td class="border p-2">${unit.space}</td>
+            <td class="border p-2">${unit.price}</td>
+        </tr>
+    `).join('');
+}
+
+function showEmployeeLeadsView() {
+    const modal = document.getElementById('employeeLeadsModal');
+    if (!modal) {
+        const newModal = document.createElement('div');
+        newModal.id = 'employeeLeadsModal';
+        newModal.className = 'fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50';
+        newModal.innerHTML = `
+            <div class="bg-gold-card p-6 rounded-lg max-w-4xl w-full max-h-96 overflow-auto">
+                <h2 class="text-2xl font-bold mb-4">جدول الليدز</h2>
+                <div class="mb-4 grid grid-cols-2 gap-2">
+                    <input type="text" id="empFilterLeadName" placeholder="البحث بالاسم" class="p-2 rounded bg-white text-black" onchange="updateEmployeeLeadsView()">
+                    <input type="text" id="empFilterLeadPhone" placeholder="البحث برقم الهاتف" class="p-2 rounded bg-white text-black" onchange="updateEmployeeLeadsView()">
+                </div>
+                <table class="w-full border-collapse">
+                    <thead>
+                        <tr class="bg-black text-gold-card">
+                            <th class="border p-2">الاسم</th>
+                            <th class="border p-2">الهاتف</th>
+                            <th class="border p-2">المصدر</th>
+                            <th class="border p-2">الحملة</th>
+                            <th class="border p-2">التقييم</th>
+                        </tr>
+                    </thead>
+                    <tbody id="employeeLeadsTable"></tbody>
+                </table>
+                <button onclick="document.getElementById('employeeLeadsModal').remove()" class="mt-4 bg-black text-gold-card px-4 py-2 rounded">إغلاق</button>
+            </div>
+        `;
+        document.body.appendChild(newModal);
+    }
+    updateEmployeeLeadsView();
+}
+
+function updateEmployeeLeadsView() {
+    const name = document.getElementById('empFilterLeadName')?.value || '';
+    const phone = document.getElementById('empFilterLeadPhone')?.value || '';
+    
+    const filtered = leads.filter(lead => {
+        return (!name || lead.name.toLowerCase().includes(name.toLowerCase())) &&
+               (!phone || lead.phone.includes(phone));
+    });
+    
+    const table = document.getElementById('employeeLeadsTable');
+    table.innerHTML = filtered.slice(0, 30).map(lead => `
+        <tr>
+            <td class="border p-2">${lead.name}</td>
+            <td class="border p-2">${lead.phone}</td>
+            <td class="border p-2">${lead.source}</td>
+            <td class="border p-2">${lead.campaign}</td>
+            <td class="border p-2">${lead.rating}</td>
+        </tr>
+    `).join('');
+}
+
+
+
+function handleContactSubmit(event) {
+    event.preventDefault();
+    const form = event.target;
+    const name = form.querySelector('input[type="text"]').value;
+    const email = form.querySelector('input[type="email"]').value;
+    const phone = form.querySelector('input[type="tel"]').value;
+    const subject = form.querySelectorAll('input[type="text"]')[1].value;
+    const message = form.querySelector('textarea').value;
+    
+    // Create a lead from contact form
+    const newLead = {
+        id: leads.length + 1,
+        date: new Date().toLocaleDateString('ar-EG'),
+        name: name,
+        phone: phone,
+        email: email,
+        source: 'Contact Form',
+        method: 'Website',
+        campaign: subject,
+        notes: message,
+        rating: 0,
+        sales: 0,
+        followUp: 'Pending'
+    };
+    
+    leads.push(newLead);
+    localStorage.setItem('leads', JSON.stringify(leads));
+    
+    alert('شكراً لتواصلك معنا! سيتم الرد عليك قريباً.');
+    form.reset();
+}
+
 }
 
 // Initialize footer on page load
