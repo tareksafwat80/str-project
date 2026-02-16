@@ -53,7 +53,7 @@
                     <button class="nav-btn" onclick="showTab('about')">عن الشركة</button>
                     <button class="nav-btn" onclick="showTab('resale')">ريسيل</button>
                     <button class="nav-btn" onclick="showTab('primary')">برايمري</button>
-                    <button class="nav-btn" onclick="showTab('rentals')">إيجار</button>
+                    <button class="nav-btn" onclick="showTab('rental')">إيجار</button>
                     <button class="nav-btn" onclick="showTab('services')">مناطق عملنا</button>
                     <button class="nav-btn" onclick="showTab('partners')">شركاؤنا</button>
                     <button class="nav-btn text-red-500 font-bold" onclick="openAdminLogin()">الأدمن</button>
@@ -116,7 +116,7 @@
                 <div class="flex gap-2 mb-6 border-b border-black/30 pb-4 flex-wrap">
                     <button class="nav-btn active" onclick="switchUnitTab('resale')">ريسيل</button>
                     <button class="nav-btn" onclick="switchUnitTab('primary')">برايمري</button>
-                    <button class="nav-btn" onclick="switchUnitTab('rentals')">إيجار</button>
+                    <button class="nav-btn" onclick="switchUnitTab('rental')">إيجار</button>
                 </div>
 
                 <!-- Filters -->
@@ -778,7 +778,7 @@
                                 <option value="">نوع الوحدة</option>
                                 <option value="resale">ريسيل</option>
                                 <option value="primary">برايمري</option>
-                                <option value="rentals">إيجار</option>
+                                <option value="rental">إيجار</option>
                             </select>
                             <input type="number" placeholder="السعر" required class="form-input">
                             <select required class="form-input">
@@ -971,7 +971,7 @@
                             <select id="admin-units-filter-type" style="padding:10px; margin-left:10px; border:1px solid #999; border-radius:5px;">
                                 <option value="">جميع الأنواع</option>
                                 <option value="resale">ريسيل</option>
-                                <option value="rentals">إيجار</option>
+                                <option value="rental">إيجار</option>
                                 <option value="primary">برايميري</option>
                             </select>
                             <button onclick="renderAdminUnitsPage(1)" style="padding:10px; margin-left:10px; background:#d4af37; color:#000; border:none; border-radius:5px; cursor:pointer;">بحث</button>
@@ -1169,11 +1169,11 @@
                 <div class="container mx-auto px-4 text-center">
                     <h4 class="text-lg font-bold text-gold mb-4">تابعنا على وسائل التواصل</h4>
                     <div class="flex justify-center gap-6 flex-wrap">
-                        <a href="#" class="text-gold hover:text-white transition text-2xl"><i class="fab fa-facebook"></i></a>
-                        <a href="#" class="text-gold hover:text-white transition text-2xl"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="text-gold hover:text-white transition text-2xl"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="text-gold hover:text-white transition text-2xl"><i class="fab fa-linkedin"></i></a>
-                        <a href="#" class="text-gold hover:text-white transition text-2xl"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.facebook.com/" target="_blank" class="text-gold hover:text-white transition text-2xl" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://www.twitter.com/" target="_blank" class="text-gold hover:text-white transition text-2xl" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://www.instagram.com/" target="_blank" class="text-gold hover:text-white transition text-2xl" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.linkedin.com/" target="_blank" class="text-gold hover:text-white transition text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://wa.me/201000000000" target="_blank" class="text-gold hover:text-white transition text-2xl" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
             </div>
@@ -1183,10 +1183,10 @@
                 <div class="container mx-auto px-4 text-center">
                     <h4 class="text-lg font-bold text-gold mb-4">ابحث عن عقاراتنا على</h4>
                     <div class="flex justify-center gap-6 flex-wrap items-center">
-                        <a href="#" class="text-gold hover:text-white transition font-bold">OLX</a>
-                        <a href="#" class="text-gold hover:text-white transition font-bold">Property Finder</a>
-                        <a href="#" class="text-gold hover:text-white transition font-bold">Immobilia</a>
-                        <a href="#" class="text-gold hover:text-white transition font-bold">4Rent</a>
+                        <a href="https://www.olx.com.eg/" target="_blank" class="text-gold hover:text-white transition font-bold">OLX</a>
+                        <a href="https://www.propertyfinder.eg/" target="_blank" class="text-gold hover:text-white transition font-bold">Property Finder</a>
+                        <a href="https://www.immobilia.eg/" target="_blank" class="text-gold hover:text-white transition font-bold">Immobilia</a>
+                        <a href="https://www.4rent.com.eg/" target="_blank" class="text-gold hover:text-white transition font-bold">4Rent</a>
                     </div>
                 </div>
             </div>
