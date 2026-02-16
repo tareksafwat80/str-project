@@ -44,7 +44,9 @@ Promise.all([
     fetch('rental.json').then(r => r.json())
 ])
 .then(([resaleData, rentalData]) => {
-    units = [...resaleData, ...rentalData];
+    const resaleWithType = resaleData.map(u => ({ ...u, type: 'resale' }));
+    const rentalWithType = rentalData.map(u => ({ ...u, type: 'rental' }));
+    units = [...resaleWithType, ...rentalWithType];
     console.log(`✅ تم تحميل ${resaleData.length} ريسيل + ${rentalData.length} إيجار = ${units.length} وحدة`);
 })
 .catch(error => console.error('خطأ في تحميل الوحدات:', error));
@@ -321,7 +323,8 @@ function showTab(tabName) {
     // Hide all tab content sections
     document.querySelectorAll('.tab-content').forEach(t => t.style.display = 'none');
     // Also hide units-section explicitly
-    document.getElementById('units-section').style.display = 'none';
+    const unitsSection = document.getElementById('units-section');
+    if(unitsSection) unitsSection.style.display = 'none';
     // Remove active from all nav buttons
     document.querySelectorAll('.nav-btn').forEach(b => b.classList.remove('active'));
     
@@ -331,9 +334,13 @@ function showTab(tabName) {
         'about': 'عن الشركة',
         'resale': 'ريسيل',
         'primary': 'برايمري',
-        'rentals': 'إيجار',
+        'rental': 'إيجار',
         'services': 'مناطق عملنا',
-        'partners': 'شركاؤنا'
+        'partners': 'شركاؤنا',
+        'privacy': 'سياسة الخصوصية',
+        'terms': 'الشروط والأحكام',
+        'faq': 'الأسئلة الشائعة',
+        'contact': 'اتصل بنا'
     };
     const label = tabLabels[tabName];
     if(label) {
@@ -341,9 +348,9 @@ function showTab(tabName) {
         if(activeBtn) activeBtn.classList.add('active');
     }
 
-    if(['resale', 'primary', 'rentals'].includes(tabName)) {
+    if(['resale', 'primary', 'rental'].includes(tabName)) {
         currentUnitTab = tabName;
-        document.getElementById('units-section').style.display = 'block';
+        if(unitsSection) unitsSection.style.display = 'block';
         renderUnits();
     } else {
         const section = document.getElementById(tabName);
@@ -1176,6 +1183,15 @@ function goToLeadsPage(page) {
     document.getElementById('leadsPage').value = page;
     renderLeadsList();
 }
+
+function renderLeadsList() {
+    const list = document.getElementById('leadsList');
+    if(!list) return;
+    
+    if(leads.length === 0) {
+        list.innerHTML = '<div class="p-4 text-center text-silver">لا توجد ليدز</div>';
+        return;
+    }
     
     list.innerHTML = `
         <table class="w-full text-sm">
@@ -2865,7 +2881,7 @@ function initializeFooter() {
         copyright.style.backgroundColor = '#d4af37';
         copyright.style.color = '#000000';
     }
-
+}
 
 // Employee View Functions
 
@@ -3099,10 +3115,8 @@ function handleContactSubmit(event) {
     leads.push(newLead);
     localStorage.setItem('leads', JSON.stringify(leads));
     
-    alert('شكراً لتواصلك معنا! سيتم الرد عليك قريباً.');
+     alert('شكراً لتواصلك معنا! سيتم الرد عليك قريباً.');
     form.reset();
-}
-
 }
 
 // Initialize footer on page load
