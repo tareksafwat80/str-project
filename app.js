@@ -29,6 +29,28 @@ let aboutData = JSON.parse(localStorage.getItem('aboutData')) || {
     }
 };
 
+
+// Partners Data
+let partnersData = JSON.parse(localStorage.getItem('partnersData')) || [
+    { id: 1, name: 'شركة الأهلي العقارية', logo: 'https://via.placeholder.com/200x100?text=Ahly', description: 'متخصصة في المشاريع السكنية الكبرى' },
+    { id: 2, name: 'شركة الإمارات للتطوير', logo: 'https://via.placeholder.com/200x100?text=Emirates', description: 'رائدة في التطوير العقاري الفاخر' },
+    { id: 3, name: 'شركة النيل للاستثمار', logo: 'https://via.placeholder.com/200x100?text=Nile', description: 'متخصصة في المشاريع التجارية' },
+    { id: 4, name: 'شركة الرحاب للتطوير', logo: 'https://via.placeholder.com/200x100?text=Rehab', description: 'رائدة في المجتمعات العمرانية' },
+    { id: 5, name: 'شركة العاصمة الإدارية', logo: 'https://via.placeholder.com/200x100?text=Capital', description: 'متخصصة في مشاريع العاصمة الإدارية' },
+    { id: 6, name: 'شركة الساحل الشمالي', logo: 'https://via.placeholder.com/200x100?text=Coast', description: 'متخصصة في مشاريع الساحل الشمالي' }
+];
+
+// Services/Areas Data
+let servicesData = JSON.parse(localStorage.getItem('servicesData')) || [
+    { id: 1, name: 'مدينتي', description: 'مجتمع عمراني متكامل بالقاهرة الجديدة', units: 45 },
+    { id: 2, name: 'الرحاب', description: 'مدينة سكنية حديثة بالقاهرة الجديدة', units: 38 },
+    { id: 3, name: 'العاصمة الإدارية', description: 'مشاريع حكومية وسكنية بالعاصمة الجديدة', units: 52 },
+    { id: 4, name: 'الساحل الشمالي', description: 'مشاريع سياحية وسكنية على الساحل', units: 28 },
+    { id: 5, name: 'رأس الحكمة', description: 'منتجعات ومشاريع سياحية بالساحل الشمالي', units: 35 },
+    { id: 6, name: 'القاهرة الجديدة', description: 'مشاريع سكنية وتجارية بالقاهرة الجديدة', units: 42 }
+];
+
+
 const areas = ["مدينتي", "الرحاب", "العاصمة الإدارية", "الساحل الشمالي", "رأس الحكمة", "القاهرة الجديدة", "العين السخنة", "الشيخ زايد"];
 
 // Initialize data from localStorage
@@ -357,6 +379,8 @@ function showTab(tabName) {
         if(section) {
             section.style.display = 'block';
             if(tabName === 'about') renderAbout();
+            if(tabName === 'partners') renderPartners();
+            if(tabName === 'services') renderServices();
         }
     }
     // Scroll to top
@@ -1954,6 +1978,12 @@ function saveEmployeeEdit(e) {
 function addPaginationControls(grid, currentPage, totalPages, pageCallback) {
     if(totalPages <= 1) return;
     
+    // Remove existing pagination
+    const existingPagination = grid.parentElement.nextElementSibling;
+    if(existingPagination && existingPagination.classList.contains('flex') && existingPagination.classList.contains('justify-center')) {
+        existingPagination.remove();
+    }
+    
     let paginationHTML = '<div class="flex justify-center gap-2 mt-8 flex-wrap">';
     
     if(currentPage > 1) {
@@ -3022,8 +3052,8 @@ function updateEmployeeUnitsView() {
     table.innerHTML = filtered.slice(0, 30).map(unit => `
         <tr>
             <td class="border p-2">${unit.code}</td>
-            <td class="border p-2">${unit.category}</td>
-            <td class="border p-2">${unit.area}</td>
+            <td class="border p-2">${unit.type}</td>
+            <td class="border p-2">${unit.zone || unit.area || '--'}</td>
             <td class="border p-2">${unit.rooms}</td>
             <td class="border p-2">${unit.space}</td>
             <td class="border p-2">${unit.price}</td>
@@ -3117,6 +3147,49 @@ function handleContactSubmit(event) {
     
      alert('شكراً لتواصلك معنا! سيتم الرد عليك قريباً.');
     form.reset();
+}
+
+
+// ==================== RENDER PARTNERS & SERVICES ====================
+
+function renderPartners() {
+    const section = document.getElementById('partners');
+    if(!section) return;
+    
+    section.innerHTML = `
+        <div class="py-12">
+            <h2 class="text-4xl font-bold text-black mb-12 text-center">شركاؤنا</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                ${partnersData.map(partner => `
+                    <div class="bg-gold-card border-2 border-black rounded-xl p-6 text-center hover:shadow-lg transition">
+                        <img src="${partner.logo}" alt="${partner.name}" class="w-full h-24 object-cover mb-4 rounded">
+                        <h3 class="text-xl font-bold text-black mb-2">${partner.name}</h3>
+                        <p class="text-black text-sm">${partner.description}</p>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
+}
+
+function renderServices() {
+    const section = document.getElementById('services');
+    if(!section) return;
+    
+    section.innerHTML = `
+        <div class="py-12">
+            <h2 class="text-4xl font-bold text-black mb-12 text-center">مناطق عملنا</h2>
+            <div class="grid md:grid-cols-3 gap-8">
+                ${servicesData.map(service => `
+                    <div class="bg-gold-card border-2 border-black rounded-xl p-6 text-center hover:shadow-lg transition">
+                        <div class="text-5xl font-bold text-gold mb-4">${service.units}</div>
+                        <h3 class="text-2xl font-bold text-black mb-2">${service.name}</h3>
+                        <p class="text-black text-sm">${service.description}</p>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `;
 }
 
 // Initialize footer on page load
