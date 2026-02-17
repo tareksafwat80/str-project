@@ -9,7 +9,14 @@
     "bathrooms": 1,
     "space": 110,
     "price": 2500000,
-    "notes": "وحدة برايميري رقم 1"
+    "notes": "وحدة برايميري رقم 1",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-002",
@@ -21,7 +28,14 @@
     "bathrooms": 2,
     "space": 124,
     "price": 4000000,
-    "notes": "وحدة برايميري رقم 2"
+    "notes": "وحدة برايميري رقم 2",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-003",
@@ -33,7 +47,14 @@
     "bathrooms": 1,
     "space": 186,
     "price": 2500000,
-    "notes": "وحدة برايميري رقم 3"
+    "notes": "وحدة برايميري رقم 3",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-004",
@@ -45,7 +66,14 @@
     "bathrooms": 1,
     "space": 203,
     "price": 2500000,
-    "notes": "وحدة برايميري رقم 4"
+    "notes": "وحدة برايميري رقم 4",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-005",
@@ -57,7 +85,14 @@
     "bathrooms": 1,
     "space": 119,
     "price": 5000000,
-    "notes": "وحدة برايميري رقم 5"
+    "notes": "وحدة برايميري رقم 5",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-006",
@@ -69,7 +104,14 @@
     "bathrooms": 1,
     "space": 243,
     "price": 2500000,
-    "notes": "وحدة برايميري رقم 6"
+    "notes": "وحدة برايميري رقم 6",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-007",
@@ -81,7 +123,14 @@
     "bathrooms": 1,
     "space": 122,
     "price": 5000000,
-    "notes": "وحدة برايميري رقم 7"
+    "notes": "وحدة برايميري رقم 7",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-008",
@@ -93,7 +142,14 @@
     "bathrooms": 2,
     "space": 173,
     "price": 3000000,
-    "notes": "وحدة برايميري رقم 8"
+    "notes": "وحدة برايميري رقم 8",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-009",
@@ -105,7 +161,14 @@
     "bathrooms": 1,
     "space": 172,
     "price": 5000000,
-    "notes": "وحدة برايميري رقم 9"
+    "notes": "وحدة برايميري رقم 9",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-010",
@@ -117,7 +180,14 @@
     "bathrooms": 1,
     "space": 190,
     "price": 5000000,
-    "notes": "وحدة برايميري رقم 10"
+    "notes": "وحدة برايميري رقم 10",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-011",
@@ -129,7 +199,14 @@
     "bathrooms": 2,
     "space": 132,
     "price": 3000000,
-    "notes": "وحدة برايميري رقم 11"
+    "notes": "وحدة برايميري رقم 11",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-012",
@@ -141,7 +218,14 @@
     "bathrooms": 1,
     "space": 200,
     "price": 3000000,
-    "notes": "وحدة برايميري رقم 12"
+    "notes": "وحدة برايميري رقم 12",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-013",
@@ -153,7 +237,14 @@
     "bathrooms": 2,
     "space": 157,
     "price": 5000000,
-    "notes": "وحدة برايميري رقم 13"
+    "notes": "وحدة برايميري رقم 13",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-014",
@@ -165,7 +256,14 @@
     "bathrooms": 1,
     "space": 80,
     "price": 2500000,
-    "notes": "وحدة برايميري رقم 14"
+    "notes": "وحدة برايميري رقم 14",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-015",
@@ -177,7 +275,14 @@
     "bathrooms": 1,
     "space": 127,
     "price": 5000000,
-    "notes": "وحدة برايميري رقم 15"
+    "notes": "وحدة برايميري رقم 15",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-016",
@@ -189,7 +294,14 @@
     "bathrooms": 1,
     "space": 108,
     "price": 4500000,
-    "notes": "وحدة برايميري رقم 16"
+    "notes": "وحدة برايميري رقم 16",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-017",
@@ -201,7 +313,14 @@
     "bathrooms": 1,
     "space": 205,
     "price": 3000000,
-    "notes": "وحدة برايميري رقم 17"
+    "notes": "وحدة برايميري رقم 17",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-018",
@@ -213,7 +332,14 @@
     "bathrooms": 2,
     "space": 208,
     "price": 3000000,
-    "notes": "وحدة برايميري رقم 18"
+    "notes": "وحدة برايميري رقم 18",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-019",
@@ -225,7 +351,14 @@
     "bathrooms": 1,
     "space": 82,
     "price": 5000000,
-    "notes": "وحدة برايميري رقم 19"
+    "notes": "وحدة برايميري رقم 19",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-020",
@@ -237,7 +370,14 @@
     "bathrooms": 1,
     "space": 179,
     "price": 3000000,
-    "notes": "وحدة برايميري رقم 20"
+    "notes": "وحدة برايميري رقم 20",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-021",
@@ -249,7 +389,14 @@
     "bathrooms": 2,
     "space": 233,
     "price": 4500000,
-    "notes": "وحدة برايميري رقم 21"
+    "notes": "وحدة برايميري رقم 21",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-022",
@@ -261,7 +408,14 @@
     "bathrooms": 1,
     "space": 95,
     "price": 2500000,
-    "notes": "وحدة برايميري رقم 22"
+    "notes": "وحدة برايميري رقم 22",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-023",
@@ -273,7 +427,14 @@
     "bathrooms": 1,
     "space": 146,
     "price": 4000000,
-    "notes": "وحدة برايميري رقم 23"
+    "notes": "وحدة برايميري رقم 23",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-024",
@@ -285,7 +446,14 @@
     "bathrooms": 1,
     "space": 90,
     "price": 4500000,
-    "notes": "وحدة برايميري رقم 24"
+    "notes": "وحدة برايميري رقم 24",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-025",
@@ -297,7 +465,14 @@
     "bathrooms": 1,
     "space": 148,
     "price": 4000000,
-    "notes": "وحدة برايميري رقم 25"
+    "notes": "وحدة برايميري رقم 25",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-026",
@@ -309,7 +484,14 @@
     "bathrooms": 1,
     "space": 217,
     "price": 3500000,
-    "notes": "وحدة برايميري رقم 26"
+    "notes": "وحدة برايميري رقم 26",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-027",
@@ -321,7 +503,14 @@
     "bathrooms": 1,
     "space": 120,
     "price": 2500000,
-    "notes": "وحدة برايميري رقم 27"
+    "notes": "وحدة برايميري رقم 27",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-028",
@@ -333,7 +522,14 @@
     "bathrooms": 2,
     "space": 244,
     "price": 2500000,
-    "notes": "وحدة برايميري رقم 28"
+    "notes": "وحدة برايميري رقم 28",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-029",
@@ -345,7 +541,14 @@
     "bathrooms": 1,
     "space": 114,
     "price": 5000000,
-    "notes": "وحدة برايميري رقم 29"
+    "notes": "وحدة برايميري رقم 29",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-030",
@@ -357,7 +560,14 @@
     "bathrooms": 2,
     "space": 169,
     "price": 4000000,
-    "notes": "وحدة برايميري رقم 30"
+    "notes": "وحدة برايميري رقم 30",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-031",
@@ -369,7 +579,14 @@
     "bathrooms": 2,
     "space": 129,
     "price": 3500000,
-    "notes": "وحدة برايميري رقم 31"
+    "notes": "وحدة برايميري رقم 31",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-032",
@@ -381,7 +598,14 @@
     "bathrooms": 2,
     "space": 227,
     "price": 4000000,
-    "notes": "وحدة برايميري رقم 32"
+    "notes": "وحدة برايميري رقم 32",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-033",
@@ -393,7 +617,14 @@
     "bathrooms": 1,
     "space": 210,
     "price": 2500000,
-    "notes": "وحدة برايميري رقم 33"
+    "notes": "وحدة برايميري رقم 33",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-034",
@@ -405,7 +636,14 @@
     "bathrooms": 2,
     "space": 122,
     "price": 4000000,
-    "notes": "وحدة برايميري رقم 34"
+    "notes": "وحدة برايميري رقم 34",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-035",
@@ -417,7 +655,14 @@
     "bathrooms": 2,
     "space": 174,
     "price": 4500000,
-    "notes": "وحدة برايميري رقم 35"
+    "notes": "وحدة برايميري رقم 35",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-036",
@@ -429,7 +674,14 @@
     "bathrooms": 1,
     "space": 92,
     "price": 3000000,
-    "notes": "وحدة برايميري رقم 36"
+    "notes": "وحدة برايميري رقم 36",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-037",
@@ -441,7 +693,14 @@
     "bathrooms": 2,
     "space": 185,
     "price": 3000000,
-    "notes": "وحدة برايميري رقم 37"
+    "notes": "وحدة برايميري رقم 37",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-038",
@@ -453,7 +712,14 @@
     "bathrooms": 1,
     "space": 221,
     "price": 2500000,
-    "notes": "وحدة برايميري رقم 38"
+    "notes": "وحدة برايميري رقم 38",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-039",
@@ -465,7 +731,14 @@
     "bathrooms": 2,
     "space": 221,
     "price": 4500000,
-    "notes": "وحدة برايميري رقم 39"
+    "notes": "وحدة برايميري رقم 39",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-040",
@@ -477,7 +750,14 @@
     "bathrooms": 1,
     "space": 127,
     "price": 4000000,
-    "notes": "وحدة برايميري رقم 40"
+    "notes": "وحدة برايميري رقم 40",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-041",
@@ -489,7 +769,14 @@
     "bathrooms": 1,
     "space": 167,
     "price": 5000000,
-    "notes": "وحدة برايميري رقم 41"
+    "notes": "وحدة برايميري رقم 41",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-042",
@@ -501,7 +788,14 @@
     "bathrooms": 2,
     "space": 109,
     "price": 3000000,
-    "notes": "وحدة برايميري رقم 42"
+    "notes": "وحدة برايميري رقم 42",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-043",
@@ -513,7 +807,14 @@
     "bathrooms": 2,
     "space": 82,
     "price": 3500000,
-    "notes": "وحدة برايميري رقم 43"
+    "notes": "وحدة برايميري رقم 43",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-044",
@@ -525,7 +826,14 @@
     "bathrooms": 2,
     "space": 244,
     "price": 4500000,
-    "notes": "وحدة برايميري رقم 44"
+    "notes": "وحدة برايميري رقم 44",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-045",
@@ -537,7 +845,14 @@
     "bathrooms": 1,
     "space": 213,
     "price": 5000000,
-    "notes": "وحدة برايميري رقم 45"
+    "notes": "وحدة برايميري رقم 45",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-046",
@@ -549,7 +864,14 @@
     "bathrooms": 2,
     "space": 222,
     "price": 4000000,
-    "notes": "وحدة برايميري رقم 46"
+    "notes": "وحدة برايميري رقم 46",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-047",
@@ -561,7 +883,14 @@
     "bathrooms": 2,
     "space": 106,
     "price": 3000000,
-    "notes": "وحدة برايميري رقم 47"
+    "notes": "وحدة برايميري رقم 47",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-048",
@@ -573,7 +902,14 @@
     "bathrooms": 1,
     "space": 205,
     "price": 3000000,
-    "notes": "وحدة برايميري رقم 48"
+    "notes": "وحدة برايميري رقم 48",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-049",
@@ -585,7 +921,14 @@
     "bathrooms": 1,
     "space": 208,
     "price": 2500000,
-    "notes": "وحدة برايميري رقم 49"
+    "notes": "وحدة برايميري رقم 49",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop"
+    ]
   },
   {
     "code": "PRI-050",
@@ -597,6 +940,13 @@
     "bathrooms": 2,
     "space": 155,
     "price": 3000000,
-    "notes": "وحدة برايميري رقم 50"
+    "notes": "وحدة برايميري رقم 50",
+    "type": "primary",
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop"
+    ]
   }
 ]
