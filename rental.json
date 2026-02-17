@@ -3,7 +3,7 @@
     "id": 20002,
     "code": "R-1001",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B8",
     "building": "24",
@@ -29,13 +29,19 @@
     "status": "available",
     "source": "AZAZY",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 40004,
     "code": "R-1003",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B15",
     "building": "B43",
@@ -61,13 +67,19 @@
     "status": "Refreshed",
     "source": "AZAZY",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 50005,
     "code": "R-1004",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B7",
     "building": "",
@@ -93,13 +105,19 @@
     "status": "available",
     "source": "AZAZY",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 60006,
     "code": "R-1005",
     "category": "Apt Rent Kanon",
-    "type": "rentals",
+    "type": "rental",
     "city": "Alrehab",
     "zone": "Alrehab",
     "building": "",
@@ -125,13 +143,19 @@
     "status": "available",
     "source": "AZAZY",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 70007,
     "code": "R-1006",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B6",
     "building": "",
@@ -157,13 +181,19 @@
     "status": "available",
     "source": "AZAZY",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 80008,
     "code": "R-1007",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B7",
     "building": "",
@@ -189,13 +219,19 @@
     "status": "available",
     "source": "AZAZY",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 90009,
     "code": "R-1008",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B2",
     "building": "",
@@ -221,13 +257,19 @@
     "status": "available",
     "source": "AZAZY",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 100010,
     "code": "R-1009",
     "category": "Apt Rent Kanon",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B7",
     "building": "",
@@ -253,13 +295,19 @@
     "status": "available",
     "source": "Gha",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 110011,
     "code": "R-10010",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B8",
     "building": "",
@@ -285,13 +333,19 @@
     "status": "available",
     "source": "GHA",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 120012,
     "code": "R-10011",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B8",
     "building": "4",
@@ -317,13 +371,19 @@
     "status": "available",
     "source": "GHA",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 130013,
     "code": "R-10012",
     "category": "Apt Rent Kanon",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B6",
     "building": "",
@@ -349,13 +409,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 140014,
     "code": "R-10013",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B7",
     "building": "38",
@@ -381,13 +447,19 @@
     "status": "available",
     "source": "Gha",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 150015,
     "code": "R-10014",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B8",
     "building": "29",
@@ -413,13 +485,19 @@
     "status": "available",
     "source": "Gha",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 160016,
     "code": "R-10015",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B6",
     "building": "",
@@ -445,13 +523,19 @@
     "status": "available",
     "source": "Gha",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 170017,
     "code": "R-10016",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "PRIVADO",
     "building": "",
@@ -477,13 +561,19 @@
     "status": "available",
     "source": "GHA",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 180018,
     "code": "R-10017",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B11",
     "building": "50",
@@ -509,13 +599,19 @@
     "status": "available",
     "source": "Gha",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 190019,
     "code": "R-10018",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "PRIVADO",
     "building": "B1",
@@ -541,13 +637,19 @@
     "status": "available",
     "source": "GHA",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 200020,
     "code": "R-10019",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B10",
     "building": "",
@@ -573,13 +675,19 @@
     "status": "available",
     "source": "Gha",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 210021,
     "code": "R-10020",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B11",
     "building": "44",
@@ -605,13 +713,19 @@
     "status": "available",
     "source": "Gha",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 220022,
     "code": "R-10021",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B7",
     "building": "",
@@ -637,13 +751,19 @@
     "status": "available",
     "source": "Gha",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 230023,
     "code": "R-10022",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B10",
     "building": "",
@@ -669,13 +789,19 @@
     "status": "available",
     "source": "Gha",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 240024,
     "code": "R-10023",
     "category": "Apt Rent Kanon",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B7",
     "building": "30",
@@ -701,13 +827,19 @@
     "status": "available",
     "source": "Gha",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 260026,
     "code": "R-10025",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B12",
     "building": "",
@@ -733,13 +865,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 270027,
     "code": "R-10026",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B12",
     "building": "9",
@@ -765,13 +903,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 280028,
     "code": "R-10027",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B6",
     "building": "54",
@@ -797,13 +941,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 290029,
     "code": "R-10028",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B15",
     "building": "43",
@@ -829,13 +979,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 300030,
     "code": "R-10029",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B7",
     "building": "",
@@ -861,13 +1017,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 310031,
     "code": "R-10030",
     "category": "Apt Rent Kanon",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B12",
     "building": "4/5/6/7/8",
@@ -893,13 +1055,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 320032,
     "code": "R-10031",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B12",
     "building": "2",
@@ -925,13 +1093,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 330033,
     "code": "R-10032",
     "category": "Villa Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "Villas",
     "building": "",
@@ -957,13 +1131,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 340034,
     "code": "R-10033",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B1",
     "building": "19",
@@ -989,13 +1169,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 350035,
     "code": "R-10034",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B3",
     "building": "19",
@@ -1021,13 +1207,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 360036,
     "code": "R-10035",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B10",
     "building": "22",
@@ -1053,13 +1245,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 370037,
     "code": "R-10036",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B12",
     "building": "51",
@@ -1085,13 +1283,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 380038,
     "code": "R-10037",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B15",
     "building": "29-B",
@@ -1117,13 +1321,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 390039,
     "code": "R-10038",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B15",
     "building": "47-A",
@@ -1149,13 +1359,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 400040,
     "code": "R-10039",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B7",
     "building": "40",
@@ -1181,13 +1397,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 410041,
     "code": "R-10040",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "Privado",
     "building": "92",
@@ -1213,13 +1435,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 420042,
     "code": "R-10041",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B8",
     "building": "15",
@@ -1245,13 +1473,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 430043,
     "code": "R-10042",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B6",
     "building": "",
@@ -1277,13 +1511,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 440044,
     "code": "R-10043",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "New Cairo",
     "zone": "DAR MISR ANDALOUS",
     "building": "",
@@ -1309,13 +1549,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 450045,
     "code": "R-10044",
     "category": "Apt Rent Kanon",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B12",
     "building": "",
@@ -1341,13 +1587,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 460046,
     "code": "R-10045",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B2",
     "building": "25",
@@ -1373,13 +1625,19 @@
     "status": "available",
     "source": "TSS",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 470047,
     "code": "R-10046",
     "category": "Apt Rent Kanon",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B2",
     "building": "4",
@@ -1405,13 +1663,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 480048,
     "code": "R-10047",
     "category": "Apt Rent Kanon",
-    "type": "rentals",
+    "type": "rental",
     "city": "New Cairo",
     "zone": "DAR MISR ANDALOUS",
     "building": "184",
@@ -1437,13 +1701,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 490049,
     "code": "R-10048",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "PRIVADO",
     "building": "",
@@ -1469,13 +1739,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1493857671505-72967e2e2760?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 500050,
     "code": "R-10049",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "New Cairo",
     "zone": "wesal res",
     "building": "",
@@ -1501,13 +1777,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 510051,
     "code": "R-10050",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B11",
     "building": "55",
@@ -1533,13 +1815,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 520052,
     "code": "R-10051",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B12",
     "building": "61",
@@ -1565,13 +1853,19 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop"
+    ]
   },
   {
     "id": 530053,
     "code": "R-10052",
     "category": "Apt Rent Furnished",
-    "type": "rentals",
+    "type": "rental",
     "city": "Madinaty",
     "zone": "B11",
     "building": "16",
@@ -1597,6 +1891,12 @@
     "status": "available",
     "source": "STR",
     "createdAt": "",
-    "featured": false
+    "featured": false,
+    "images": [
+      "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=400&h=300&fit=crop",
+      "https://images.unsplash.com/photo-1552321554-5fefe8c9ef14?w=400&h=300&fit=crop"
+    ]
   }
 ]
