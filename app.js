@@ -851,13 +851,15 @@ function showAdminTab(tabName) {
     
     if(tabName === 'stats') renderAdminStats();
     if(tabName === 'units') {
-        renderUnitsList();
-        renderUnits();
-        renderAdminUnitsTable();
+        renderAdminUnitsPage(1);
     }
-    if(tabName === 'crm') renderLeadsList();
+    if(tabName === 'crm') {
+        renderAdminLeadsPage(1);
+    }
     if(tabName === 'employees') renderEmployeesList();
     if(tabName === 'settings') loadAboutEditor();
+    if(tabName === 'partners') renderAdminPartnersList();
+    if(tabName === 'services') renderAdminServicesList();
 }
 
 
@@ -977,20 +979,6 @@ function assignLeadToEmployee(leadId, employeeId) {
 
 // ==================== ENHANCED UNITS & LEADS MANAGEMENT ====================
 
-function editUnit(id) {
-    const unit = units.find(u => u.id === id);
-    if(!unit) return;
-    
-    const newPrice = prompt('السعر الجديد:', unit.price);
-    if(newPrice) {
-        unit.price = parseInt(newPrice);
-        unit.updatedAt = new Date().toISOString();
-        saveUnits();
-        renderUnitsList();
-        alert('تم تحديث الوحدة بنجاح');
-    }
-}
-
 function deleteUnit(id) {
     if(confirm('هل تريد حذف هذه الوحدة؟')) {
         units = units.filter(u => u.id !== id);
@@ -1007,20 +995,6 @@ function toggleFeaturedUnit(id) {
         saveUnits();
         renderUnitsList();
         renderUnits();
-    }
-}
-
-function editLead(id) {
-    const lead = leads.find(l => l.id === id);
-    if(!lead) return;
-    
-    const newStatus = prompt('الحالة الجديدة (new/assigned/converted):', lead.status);
-    if(newStatus) {
-        lead.status = newStatus;
-        if(newStatus === 'converted') lead.convertedLeads = (lead.convertedLeads || 0) + 1;
-        saveLead(lead);
-        renderLeadsList();
-        alert('تم تحديث Lead');
     }
 }
 
@@ -1208,14 +1182,7 @@ function goToLeadsPage(page) {
     renderLeadsList();
 }
 
-function renderLeadsList() {
-    const list = document.getElementById('leadsList');
-    if(!list) return;
-    
-    if(leads.length === 0) {
-        list.innerHTML = '<div class="p-4 text-center text-silver">لا توجد ليدز</div>';
-        return;
-    }
+
     
     list.innerHTML = `
         <table class="w-full text-sm">
@@ -1249,7 +1216,6 @@ function renderLeadsList() {
             </tbody>
         </table>
     `;
-}
 
 // ==================== ADVANCED IMPORT/EXPORT ====================
 
@@ -2369,15 +2335,7 @@ function editPartner(index) {
     alert('تعديل الشريك: سيتم تطويره قريباً');
 }
 
-function deletePartner(index) {
-    if (confirm('هل أنت متأكد من حذف هذا الشريك؟')) {
-        let partners = JSON.parse(localStorage.getItem('partners')) || [];
-        partners.splice(index, 1);
-        localStorage.setItem('partners', JSON.stringify(partners));
-        renderPartnersList();
-        alert('تم حذف الشريك بنجاح!');
-    }
-}
+
 
 function closePartnerModal() {
     const modal = document.getElementById('partner-modal');
@@ -2528,15 +2486,7 @@ function editService(index) {
     alert('تعديل المنطقة: سيتم تطويره قريباً');
 }
 
-function deleteService(index) {
-    if (confirm('هل أنت متأكد من حذف هذه المنطقة؟')) {
-        let services = JSON.parse(localStorage.getItem('services')) || [];
-        services.splice(index, 1);
-        localStorage.setItem('services', JSON.stringify(services));
-        renderServicesList();
-        alert('تم حذف المنطقة بنجاح!');
-    }
-}
+
 
 function closeServiceModal() {
     const modal = document.getElementById('service-modal');
@@ -2852,10 +2802,7 @@ function renderLeadsPagination(totalPages) {
     paginationDiv.innerHTML = html;
 }
 
-function goToLeadsPage(page) {
-    currentLeadsPage = page;
-    renderLeadsWithPagination();
-}
+
 
 function searchLeadsAdmin(query) {
     if (!query) {
@@ -3190,6 +3137,145 @@ function renderServices() {
             </div>
         </div>
     `;
+}
+
+// ==================== ADMIN PARTNERS & SERVICES MANAGEMENT ====================
+
+function renderAdminPartnersList() {
+    const container = document.getElementById('admin-partners');
+    if(!container) return;
+    
+    let html = `<h2 class="text-2xl font-bold text-black mb-6">إدارة الشركاء</h2>
+        <div style="margin-bottom:20px;">
+            <button onclick="showAddPartnerForm()" style="padding:10px; background:#d4af37; color:#000; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">+ إضافة شريك جديد</button>
+        </div>
+        <table style="width:100%; border-collapse:collapse;">
+            <tr style="background:#d4af37;">
+                <th style="padding:10px; text-align:right;">الاسم</th>
+                <th style="padding:10px; text-align:right;">الوصف</th>
+                <th style="padding:10px; text-align:right;">الإجراءات</th>
+            </tr>`;
+    
+    partnersData.forEach(partner => {
+        html += `<tr style="border:1px solid #ddd;">
+                <td style="padding:10px;">${partner.name}</td>
+                <td style="padding:10px;">${partner.description}</td>
+                <td style="padding:10px;">
+                    <button onclick="editPartner(${partner.id})" style="padding:5px 10px; background:#333; color:#d4af37; border:none; border-radius:3px; cursor:pointer; margin-right:5px;">تعديل</button>
+                    <button onclick="deletePartner(${partner.id})" style="padding:5px 10px; background:#d32f2f; color:white; border:none; border-radius:3px; cursor:pointer;">حذف</button>
+                </td>
+            </tr>`;
+    });
+    
+    html += '</table>';
+    container.innerHTML = html;
+}
+
+function renderAdminServicesList() {
+    const container = document.getElementById('admin-services');
+    if(!container) return;
+    
+    let html = `<h2 class="text-2xl font-bold text-black mb-6">إدارة مناطق العمل</h2>
+        <div style="margin-bottom:20px;">
+            <button onclick="showAddServiceForm()" style="padding:10px; background:#d4af37; color:#000; border:none; border-radius:5px; cursor:pointer; font-weight:bold;">+ إضافة منطقة جديدة</button>
+        </div>
+        <table style="width:100%; border-collapse:collapse;">
+            <tr style="background:#d4af37;">
+                <th style="padding:10px; text-align:right;">الاسم</th>
+                <th style="padding:10px; text-align:right;">الوصف</th>
+                <th style="padding:10px; text-align:right;">عدد الوحدات</th>
+                <th style="padding:10px; text-align:right;">الإجراءات</th>
+            </tr>`;
+    
+    servicesData.forEach(service => {
+        html += `<tr style="border:1px solid #ddd;">
+                <td style="padding:10px;">${service.name}</td>
+                <td style="padding:10px;">${service.description}</td>
+                <td style="padding:10px;">${service.units}</td>
+                <td style="padding:10px;">
+                    <button onclick="editService(${service.id})" style="padding:5px 10px; background:#333; color:#d4af37; border:none; border-radius:3px; cursor:pointer; margin-right:5px;">تعديل</button>
+                    <button onclick="deleteService(${service.id})" style="padding:5px 10px; background:#d32f2f; color:white; border:none; border-radius:3px; cursor:pointer;">حذف</button>
+                </td>
+            </tr>`;
+    });
+    
+    html += '</table>';
+    container.innerHTML = html;
+}
+
+function showAddPartnerForm() {
+    const name = prompt('اسم الشريك:');
+    if(!name) return;
+    const description = prompt('الوصف:');
+    if(!description) return;
+    
+    const newPartner = {
+        id: Math.max(...partnersData.map(p => p.id), 0) + 1,
+        name: name,
+        description: description,
+        logo: 'https://via.placeholder.com/200x100?text=' + name
+    };
+    
+    partnersData.push(newPartner);
+    localStorage.setItem('partnersData', JSON.stringify(partnersData));
+    renderAdminPartnersList();
+    alert('تم إضافة الشريك بنجاح');
+}
+
+function editPartner(id) {
+    const partner = partnersData.find(p => p.id === id);
+    if(!partner) return;
+    
+    const name = prompt('اسم الشريك:', partner.name);
+    if(!name) return;
+    const description = prompt('الوصف:', partner.description);
+    if(!description) return;
+    
+    partner.name = name;
+    partner.description = description;
+    localStorage.setItem('partnersData', JSON.stringify(partnersData));
+    renderAdminPartnersList();
+    alert('تم تعديل الشريك بنجاح');
+}
+
+function showAddServiceForm() {
+    const name = prompt('اسم المنطقة:');
+    if(!name) return;
+    const description = prompt('الوصف:');
+    if(!description) return;
+    const units = prompt('عدد الوحدات:', '0');
+    if(!units) return;
+    
+    const newService = {
+        id: Math.max(...servicesData.map(s => s.id), 0) + 1,
+        name: name,
+        description: description,
+        units: parseInt(units)
+    };
+    
+    servicesData.push(newService);
+    localStorage.setItem('servicesData', JSON.stringify(servicesData));
+    renderAdminServicesList();
+    alert('تم إضافة المنطقة بنجاح');
+}
+
+function editService(id) {
+    const service = servicesData.find(s => s.id === id);
+    if(!service) return;
+    
+    const name = prompt('اسم المنطقة:', service.name);
+    if(!name) return;
+    const description = prompt('الوصف:', service.description);
+    if(!description) return;
+    const units = prompt('عدد الوحدات:', service.units);
+    if(!units) return;
+    
+    service.name = name;
+    service.description = description;
+    service.units = parseInt(units);
+    localStorage.setItem('servicesData', JSON.stringify(servicesData));
+    renderAdminServicesList();
+    alert('تم تعديل المنطقة بنجاح');
 }
 
 // Initialize footer on page load
