@@ -1064,17 +1064,17 @@ function renderUnits() {
                 </div>
                 <p class="text-sm text-black font-bold mb-2">${unit.zone}</p>
                 <div class="spec-grid mb-3">
-                    <div class="spec-box text-xs">
-                        <p class="text-black/70 font-bold">غرف</p>
-                        <p class="text-black font-bold">${unit.rooms}</p>
+                    <div class="spec-box text-xs bg-black border-2 border-gold rounded-lg p-3">
+                        <p class="text-gold/70 font-bold">غرف</p>
+                        <p class="text-gold font-bold">${unit.rooms}</p>
                     </div>
-                    <div class="spec-box text-xs">
-                        <p class="text-black/70 font-bold">مساحة</p>
-                        <p class="text-black font-bold">${unit.space}م²</p>
+                    <div class="spec-box text-xs bg-black border-2 border-gold rounded-lg p-3">
+                        <p class="text-gold/70 font-bold">مساحة</p>
+                        <p class="text-gold font-bold">${unit.space}م²</p>
                     </div>
                 </div>
                 <p class="text-lg font-bold text-black mb-3">${unit.price.toLocaleString()} EGP</p>
-                <button onclick="openUnit(${unit.id})" class="w-full btn-primary text-sm mb-2">عرض التفاصيل</button>
+                <button onclick="openUnit(${unit.id})" class="w-full bg-black text-gold border-2 border-gold rounded-lg py-2 px-4 font-bold hover:bg-gold hover:text-black transition text-sm mb-2">عرض التفاصيل</button>
             </div>
         </div>
     `).join('');
@@ -1564,6 +1564,33 @@ function openUnit(id) {
     document.getElementById('m-dates').textContent = `تاريخ الإضافة: ${new Date(unit.createdAt).toLocaleDateString('ar-EG')}`;
     document.getElementById('m-notes').textContent = unit.notes || 'لا توجد ملاحظات';
     
+    // Add images to slider
+    const sliderWrapper = document.getElementById('sliderWrapper');
+    sliderWrapper.innerHTML = '';
+    
+    if(unit.images && unit.images.length > 0) {
+        unit.images.forEach((img, index) => {
+            const imgDiv = document.createElement('div');
+            imgDiv.className = 'carousel-slide';
+            imgDiv.style.display = index === 0 ? 'block' : 'none';
+            imgDiv.innerHTML = `<img src="${img}" alt="صورة الوحدة" style="width:100%; height:100%; object-fit:cover;">`;
+            sliderWrapper.appendChild(imgDiv);
+        });
+        
+        // Add carousel dots
+        const dotsDiv = document.createElement('div');
+        dotsDiv.className = 'carousel-dots';
+        unit.images.forEach((_, index) => {
+            const dot = document.createElement('button');
+            dot.className = `carousel-dot ${index === 0 ? 'active' : ''}`;
+            dot.onclick = () => changeImage(index, unit.images.length);
+            dotsDiv.appendChild(dot);
+        });
+        sliderWrapper.appendChild(dotsDiv);
+    } else {
+        sliderWrapper.innerHTML = '<img src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=600&h=400&fit=crop" alt="صورة افتراضية" style="width:100%; height:100%; object-fit:cover;">';
+    }
+    
     const waBtn = document.getElementById('wa-btn');
     waBtn.onclick = () => {
         const message = `مرحباً، أنا مهتم بالوحدة رقم ${unit.code} في ${unit.zone}`;
@@ -1674,6 +1701,7 @@ function showEmployeeTab(tabName) {
     event.target.classList.add('active');
     
     if(tabName === 'leads') renderEmployeeLeads();
+    if(tabName === 'units') renderEmployeeUnits();
     if(tabName === 'stats') renderEmployeeStats();
 }
 
@@ -1713,6 +1741,43 @@ function renderEmployeeLeads() {
                         <td class="p-4">
                             <button onclick="convertLead(${lead.id})" class="text-green-900 hover:text-green-300 text-xs">تحويل</button>
                         </td>
+                    </tr>
+                `).join('')}
+            </tbody>
+        </table>
+    `;
+}
+
+function renderEmployeeUnits() {
+    const list = document.getElementById('employeeUnitsList');
+    if(!list) return;
+    
+    if(units.length === 0) {
+        list.innerHTML = '<div class="p-4 text-center text-silver">لا توجد وحدات</div>';
+        return;
+    }
+    
+    list.innerHTML = `
+        <table class="w-full text-sm">
+            <thead class="bg-gold/10 border-b border-gold/30">
+                <tr>
+                    <th class="p-3 text-right">الكود</th>
+                    <th class="p-3 text-right">النوع</th>
+                    <th class="p-3 text-right">السعر</th>
+                    <th class="p-3 text-right">المنطقة</th>
+                    <th class="p-3 text-right">الغرف</th>
+                    <th class="p-3 text-right">المساحة</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${units.map(u => `
+                    <tr class="border-b border-gold/20 hover:bg-black/50">
+                        <td class="p-3 gold-text font-bold">${u.code}</td>
+                        <td class="p-3">${u.type}</td>
+                        <td class="p-3">${u.price.toLocaleString()}</td>
+                        <td class="p-3">${u.zone}</td>
+                        <td class="p-3">${u.rooms}</td>
+                        <td class="p-3">${u.space} م²</td>
                     </tr>
                 `).join('')}
             </tbody>
@@ -2531,17 +2596,17 @@ function searchUnits(query) {
                 </div>
                 <p class="text-sm text-black font-bold mb-2">${unit.zone}</p>
                 <div class="spec-grid mb-3">
-                    <div class="spec-box text-xs">
-                        <p class="text-black/70 font-bold">غرف</p>
-                        <p class="text-black font-bold">${unit.rooms}</p>
+                    <div class="spec-box text-xs bg-black border-2 border-gold rounded-lg p-3">
+                        <p class="text-gold/70 font-bold">غرف</p>
+                        <p class="text-gold font-bold">${unit.rooms}</p>
                     </div>
-                    <div class="spec-box text-xs">
-                        <p class="text-black/70 font-bold">مساحة</p>
-                        <p class="text-black font-bold">${unit.space}م²</p>
+                    <div class="spec-box text-xs bg-black border-2 border-gold rounded-lg p-3">
+                        <p class="text-gold/70 font-bold">مساحة</p>
+                        <p class="text-gold font-bold">${unit.space}م²</p>
                     </div>
                 </div>
                 <p class="text-lg font-bold text-black mb-3">${unit.price.toLocaleString()} EGP</p>
-                <button onclick="openUnit(${unit.id})" class="w-full btn-primary text-sm mb-2">عرض التفاصيل</button>
+                <button onclick="openUnit(${unit.id})" class="w-full bg-black text-gold border-2 border-gold rounded-lg py-2 px-4 font-bold hover:bg-gold hover:text-black transition text-sm mb-2">عرض التفاصيل</button>
             </div>
         </div>
     `).join('');
