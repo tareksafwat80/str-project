@@ -17,7 +17,7 @@
             <div class="flex justify-between items-center flex-wrap gap-4">
                 <!-- Logo -->
                 <div class="flex items-center gap-2 cursor-pointer" onclick="showTab('home')" title="الرئيسية">
-                    <img src="logo.jpg" alt="STR Logo" class="h-12 w-auto object-contain">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=200&h=100&fit=crop" alt="STR Logo" class="h-12 w-auto object-contain">
                 </div>
 
                 <!-- Language Switch -->
@@ -71,7 +71,7 @@
             <div class="grid md:grid-cols-2 gap-8 items-center mb-16 py-12">
                 <!-- Left: Logo & Text -->
                 <div class="text-center md:text-right">
-                    <img src="logo.jpg" alt="STR Logo" class="h-32 w-auto object-contain mx-auto md:mx-0 mb-6">
+                    <img src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=400&h=200&fit=crop" alt="STR Logo" class="h-32 w-auto object-contain mx-auto md:mx-0 mb-6">
                     <h1 class="text-6xl md:text-7xl font-bold gold-text mb-4">Summit Team</h1>
                     <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">REAL ESTATE</h2>
                     <p class="text-white text-xl mb-8 font-bold">حيث تؤدي كل خطوة إلى القمة</p>
@@ -729,12 +729,18 @@
             <!-- Employee Tabs -->
             <div class="flex gap-2 mb-8 border-b border-black/30 pb-4 flex-wrap">
                 <button class="admin-tab-btn active" onclick="showEmployeeTab('leads')">الـ Leads المسندة</button>
+                <button class="admin-tab-btn" onclick="showEmployeeTab('units')">الوحدات</button>
                 <button class="admin-tab-btn" onclick="showEmployeeTab('stats')">الإحصائيات</button>
             </div>
 
             <!-- Employee Leads Tab -->
             <div id="employee-leads" class="admin-tab-content active-admin-tab">
                 <div id="employeeLeadsList" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto"></div>
+            </div>
+
+            <!-- Employee Units Tab -->
+            <div id="employee-units" class="admin-tab-content">
+                <div id="employeeUnitsList" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto"></div>
             </div>
 
             <!-- Employee Stats Tab -->
@@ -768,7 +774,7 @@
             </div>
 
             <!-- Units Tab -->
-            
+            <div id="admin-units" class="admin-tab-content">
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="bg-gold-card p-6 rounded-xl border border-black/30">
                         <h3 class="gold-text text-xl mb-4 font-bold">إضافة وحدة جديدة</h3>
@@ -1169,11 +1175,13 @@
                 <div class="container mx-auto px-4 text-center">
                     <h4 class="text-lg font-bold text-gold mb-4">تابعنا على وسائل التواصل</h4>
                     <div class="flex justify-center gap-6 flex-wrap">
-                        <a href="https://www.facebook.com/" target="_blank" class="text-gold hover:text-white transition text-2xl" title="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="https://www.twitter.com/" target="_blank" class="text-gold hover:text-white transition text-2xl" title="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="https://www.instagram.com/" target="_blank" class="text-gold hover:text-white transition text-2xl" title="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.linkedin.com/" target="_blank" class="text-gold hover:text-white transition text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://wa.me/201000000000" target="_blank" class="text-gold hover:text-white transition text-2xl" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                        <a href="https://www.facebook.com/summitteamrealestateeg" target="_blank" style="color:#1877F2" class="hover:opacity-80 transition text-2xl" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://x.com/strsummitteam" target="_blank" style="color:#000000" class="hover:opacity-80 transition text-2xl" title="Twitter/X"><i class="fab fa-x-twitter"></i></a>
+                        <a href="https://www.instagram.com/str.summit.team/" target="_blank" style="color:#E4405F" class="hover:opacity-80 transition text-2xl" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.tiktok.com/@strsummitteam" target="_blank" style="color:#000000" class="hover:opacity-80 transition text-2xl" title="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.youtube.com/@strsummitteam" target="_blank" style="color:#FF0000" class="hover:opacity-80 transition text-2xl" title="YouTube"><i class="fab fa-youtube"></i></a>
+                        <a href="https://www.linkedin.com/in/str-summitteam-6aa4aa342" target="_blank" style="color:#0077B5" class="hover:opacity-80 transition text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://wa.me/201159333060" target="_blank" style="color:#25D366" class="hover:opacity-80 transition text-2xl" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
                     </div>
                 </div>
             </div>
@@ -1183,10 +1191,9 @@
                 <div class="container mx-auto px-4 text-center">
                     <h4 class="text-lg font-bold text-gold mb-4">ابحث عن عقاراتنا على</h4>
                     <div class="flex justify-center gap-6 flex-wrap items-center">
-                        <a href="https://www.olx.com.eg/" target="_blank" class="text-gold hover:text-white transition font-bold">OLX</a>
-                        <a href="https://www.propertyfinder.eg/" target="_blank" class="text-gold hover:text-white transition font-bold">Property Finder</a>
-                        <a href="https://www.immobilia.eg/" target="_blank" class="text-gold hover:text-white transition font-bold">Immobilia</a>
-                        <a href="https://www.4rent.com.eg/" target="_blank" class="text-gold hover:text-white transition font-bold">4Rent</a>
+                        <a href="https://aqarmap.com.eg/ar/user/5240697" target="_blank" style="color:#d4af37" class="hover:text-white transition font-bold">Aqar Map</a>
+                        <a href="https://www.bayut.eg/en/property/details-501731005.html" target="_blank" style="color:#d4af37" class="hover:text-white transition font-bold">Bayut</a>
+                        <a href="https://www.propertyfinder.eg/en/agent/summit-team-real-estate-str-51854" target="_blank" style="color:#d4af37" class="hover:text-white transition font-bold">Property Finder</a>
                     </div>
                 </div>
             </div>
