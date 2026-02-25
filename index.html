@@ -8,6 +8,11 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
+    <script src="performance.js"></script>
+    <script src="crm.js"></script>
+    <script src="crm-ui.js"></script>
+    <script src="inventory.js"></script>
+    <script src="inventory-ui.js"></script>
 </head>
 <body>
 
@@ -56,6 +61,7 @@
                     <button class="nav-btn" onclick="showTab('rental')">إيجار</button>
                     <button class="nav-btn" onclick="showTab('services')">مناطق عملنا</button>
                     <button class="nav-btn" onclick="showTab('partners')">شركاؤنا</button>
+                    <button class="nav-btn text-green-600 font-bold" onclick="openInventoryLogin()">الإنفنتوري</button>
                     <button class="nav-btn text-red-500 font-bold" onclick="openAdminLogin()">الأدمن</button>
                     <button class="nav-btn text-blue-500 font-bold" onclick="openEmployeeLogin()">الموظف</button>
                 </div>
@@ -694,6 +700,16 @@
             </form>
         </div>
     </div>
+    <!-- Inventory Login Modal -->
+    <div id="inventoryLoginModal" class="modal" onclick="if(event.target.id==='inventoryLoginModal') closeInventoryLoginModal()">
+        <div class="bg-gold-card border-2 border-black rounded-xl p-8 max-w-sm mx-auto mt-20" onclick="event.stopPropagation()">
+            <h3 class="text-2xl text-black font-bold mb-6 text-center">الإنفنتوري</h3>
+            <input type="password" id="inventoryPassword" placeholder="كلمة السر" class="w-full bg-gold-card border border-black rounded-lg px-4 py-2 mb-4 text-black">
+            <button onclick="checkInventoryPassword()" class="w-full btn-primary mb-2">دخول</button>
+            <button onclick="closeInventoryLoginModal()" class="w-full btn-secondary">إغلاق</button>
+        </div>
+    </div>
+
     <!-- Admin Login Modal -->
     <div id="adminLoginModal" class="modal" onclick="if(event.target.id==='adminLoginModal') closeModal()">
         <div class="bg-gold-card border-2 border-black rounded-xl p-8 max-w-sm mx-auto mt-20" onclick="event.stopPropagation()">
@@ -712,6 +728,56 @@
             <input type="password" id="employeePassword" placeholder="كلمة السر" class="w-full bg-gold-card border border-black rounded-lg px-4 py-2 mb-4 text-black">
             <button onclick="checkEmployeeLogin()" class="w-full btn-primary mb-2">دخول</button>
             <button onclick="closeEmployeeLoginModal()" class="w-full btn-secondary">إغلاق</button>
+        </div>
+    </div>
+
+    <!-- Inventory Dashboard Modal -->
+    <div id="inventoryDashboardModal" class="modal">
+        <div class="container mx-auto px-4 py-10">
+            <div class="flex justify-between items-center border-b border-gold pb-6 mb-8">
+                <h1 class="text-4xl font-bold gold-text">لوحة الإنفنتوري</h1>
+                <button onclick="closeInventoryDashboard()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-full font-bold transition">تسجيل خروج</button>
+            </div>
+
+            <!-- Inventory Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-6 gap-6 mb-8">
+                <div class="bg-blue-100 border-2 border-blue-900 rounded-lg p-6 shadow-lg">
+                    <p class="text-black font-bold text-sm mb-2">إجمالي الوحدات</p>
+                    <p class="text-3xl font-bold text-blue-900" id="invTotalUnits">0</p>
+                </div>
+                <div class="bg-green-100 border-2 border-green-900 rounded-lg p-6 shadow-lg">
+                    <p class="text-black font-bold text-sm mb-2">متاح</p>
+                    <p class="text-3xl font-bold text-green-900" id="invAvailable">0</p>
+                </div>
+                <div class="bg-yellow-100 border-2 border-yellow-900 rounded-lg p-6 shadow-lg">
+                    <p class="text-black font-bold text-sm mb-2">محجوز</p>
+                    <p class="text-3xl font-bold text-yellow-900" id="invReserved">0</p>
+                </div>
+                <div class="bg-purple-100 border-2 border-purple-900 rounded-lg p-6 shadow-lg">
+                    <p class="text-black font-bold text-sm mb-2">مباع</p>
+                    <p class="text-3xl font-bold text-purple-900" id="invSold">0</p>
+                </div>
+                <div class="bg-red-100 border-2 border-red-900 rounded-lg p-6 shadow-lg">
+                    <p class="text-black font-bold text-sm mb-2">القيمة الكلية</p>
+                    <p class="text-2xl font-bold text-red-900" id="invTotalValue">0M</p>
+                </div>
+                <div class="bg-orange-100 border-2 border-orange-900 rounded-lg p-6 shadow-lg">
+                    <p class="text-black font-bold text-sm mb-2">متوسط السعر</p>
+                    <p class="text-2xl font-bold text-orange-900" id="invAveragePrice">0M</p>
+                </div>
+            </div>
+
+            <!-- Pipeline View -->
+            <div class="mb-8">
+                <h3 class="gold-text text-2xl mb-4 font-bold">حالة الوحدات</h3>
+                <div class="grid grid-cols-1 md:grid-cols-5 gap-4" id="inventoryPipeline"></div>
+            </div>
+
+            <!-- Inventory List -->
+            <div class="mt-8">
+                <h3 class="gold-text text-xl mb-4 font-bold">قائمة الوحدات</h3>
+                <div id="inventoryListContainer" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto max-h-[70vh]"></div>
+            </div>
         </div>
     </div>
 
@@ -743,7 +809,7 @@
                 <div class="mb-6">
                     <h3 class="gold-text text-xl mb-4 font-bold">البحث والفلاتر</h3>
                     <div class="grid md:grid-cols-4 gap-4">
-                        <input type="text" id="employee-units-search" placeholder="ابحث عن كود أو منطقة" class="form-input" onkeyup="renderEmployeeUnits()">
+                        <input type="text" id="employee-units-search" placeholder="ابحث عن كود أو منطقة" class="form-input" onkeyup="debouncedRenderEmployeeUnits()">
                         <select id="employee-units-filter-type" class="form-input" onchange="renderEmployeeUnits()">
                             <option value="">جميع الأنواع</option>
                             <option value="resale">ريسيل</option>
@@ -842,7 +908,7 @@
                 <div class="mt-8">
                     <h3 class="gold-text text-xl mb-4 font-bold">البحث والفلاتر</h3>
                     <div class="grid md:grid-cols-4 gap-4 mb-6">
-                        <input type="text" id="admin-units-search" placeholder="ابحث عن كود أو منطقة" class="form-input" onkeyup="renderAdminUnitsPage(1)">
+                        <input type="text" id="admin-units-search" placeholder="ابحث عن كود أو منطقة" class="form-input" onkeyup="debouncedRenderAdminUnits()">
                         <select id="admin-units-filter-type" class="form-input" onchange="renderAdminUnitsPage(1)">
                             <option value="">جميع الأنواع</option>
                             <option value="resale">ريسيل</option>
@@ -863,63 +929,37 @@
 
             <!-- CRM Tab -->
             <div id="admin-crm" class="admin-tab-content">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="bg-gold-card p-6 rounded-xl border border-black/30">
-                        <h3 class="gold-text text-xl mb-4 font-bold">إضافة Lead</h3>
-                        <form onsubmit="addLead(event)" class="space-y-4">
-                            <input type="text" placeholder="الاسم" required class="form-input">
-                            <input type="tel" placeholder="الهاتف" required class="form-input">
-                            <input type="email" placeholder="البريد الإلكتروني" required class="form-input">
-                            <input type="text" placeholder="كود الوحدة" class="form-input">
-                            <select class="form-input">
-                                <option value="new">جديد</option>
-                                <option value="converted">محول</option>
-                            </select>
-                            <button type="submit" class="w-full btn-primary">إضافة Lead</button>
-                        </form>
+                <!-- CRM Dashboard Stats -->
+                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-blue-100 border-2 border-blue-900 rounded-lg p-6 shadow-lg">
+                        <p class="text-black font-bold text-sm mb-2">إجمالي Leads</p>
+                        <p class="text-3xl font-bold text-blue-900" id="crmTotalLeads">0</p>
                     </div>
-                    <div class="bg-gold-card p-6 rounded-xl border border-black/30">
-                        <h3 class="gold-text text-xl mb-4 font-bold">استيراد Leads</h3>
-                        <button onclick="downloadLeadsTemplate()" class="w-full btn-primary mb-2">📥 تحميل تيمبلت</button>
-                        <button onclick="document.getElementById('importLeadsFile').click()" class="w-full btn-secondary mb-2">استيراد من Excel</button>
-                        <button onclick="exportLeads()" class="w-full btn-secondary">تصدير Leads</button>
-                        <input type="file" id="importLeadsFile" accept=".csv,.xlsx,.tsv" style="display:none" onchange="importLeads(event)">
+                    <div class="bg-green-100 border-2 border-green-900 rounded-lg p-6 shadow-lg">
+                        <p class="text-black font-bold text-sm mb-2">Leads ساخنة</p>
+                        <p class="text-3xl font-bold text-green-900" id="crmHotLeads">0</p>
                     </div>
-                </div>
-                <div class="mt-8">
-                    <h3 class="gold-text text-xl mb-4 font-bold">البحث والفلاتر</h3>
-                    <div class="grid md:grid-cols-3 gap-4 mb-6">
-                        <input type="text" id="admin-leads-search" placeholder="ابحث عن اسم أو هاتف" class="form-input" onkeyup="renderAdminLeadsPage(1)">
-                        <input type="hidden" id="leadsPage" value="1">
-                        <button onclick="clearLeadFilters()" class="btn-secondary">مسح الفلاتر</button>
+                    <div class="bg-yellow-100 border-2 border-yellow-900 rounded-lg p-6 shadow-lg">
+                        <p class="text-black font-bold text-sm mb-2">معدل التحويل</p>
+                        <p class="text-3xl font-bold text-yellow-900" id="crmConversionRate">0%</p>
+                    </div>
+                    <div class="bg-red-100 border-2 border-red-900 rounded-lg p-6 shadow-lg">
+                        <p class="text-black font-bold text-sm mb-2">مهام مستحقة</p>
+                        <p class="text-3xl font-bold text-red-900" id="crmOverdueTasks">0</p>
                     </div>
                 </div>
 
+                <!-- Pipeline View -->
+                <div class="mb-8">
+                    <h3 class="gold-text text-2xl mb-4 font-bold">مراحل البيع (Pipeline)</h3>
+                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4" id="crmPipeline"></div>
+                </div>
+
+                <!-- CRM Leads List -->
                 <div class="mt-8">
                     <h3 class="gold-text text-xl mb-4 font-bold">قائمة Leads</h3>
-                    <div id="admin-leads-list" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto max-h-[70vh]">
-                        <table class="w-full text-sm">
-                            <thead class="bg-gold/10 border-b border-gold/30">
-                                <tr>
-                                    <th class="p-3 text-right">التاريخ</th>
-                                    <th class="p-3 text-right">الاسم</th>
-                                    <th class="p-3 text-right">الهاتف</th>
-                                    <th class="p-3 text-right">المصدر</th>
-                                    <th class="p-3 text-right">طريقة التواصل</th>
-                                    <th class="p-3 text-right">الحملة</th>
-                                    <th class="p-3 text-right">الملاحظات</th>
-                                    <th class="p-3 text-right">التقييم</th>
-                                    <th class="p-3 text-right">المبيعات</th>
-                                    <th class="p-3 text-right">متابعة</th>
-                                    <th class="p-3 text-right">الإجراءات</th>
-                                </tr>
-                            </thead>
-                            <tbody id="admin-leads-table"></tbody>
-                        </table>
-                    </div>
+                    <div id="crmLeadsListContainer" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto max-h-[70vh]"></div>
                 </div>
-                
-                <div class="mt-4" id="leads-pagination"></div>
             </div>
 
             <!-- Employees Tab -->
@@ -1210,17 +1250,38 @@
             </div>
 
             <!-- Social Media Section (Black) -->
-            <div class="bg-black py-8 border-b-2 border-gold">
+            <div class="bg-black py-12 border-b-2 border-gold">
                 <div class="container mx-auto px-4 text-center">
-                    <h4 class="text-lg font-bold text-gold mb-4">تابعنا على وسائل التواصل</h4>
-                    <div class="flex justify-center gap-6 flex-wrap">
-                        <a href="https://www.facebook.com/summitteamrealestateeg" target="_blank" style="color:#1877F2" class="hover:opacity-80 transition text-2xl" title="Facebook"><i class="fab fa-facebook"></i></a>
-                        <a href="https://x.com/strsummitteam" target="_blank" style="color:#000000" class="hover:opacity-80 transition text-2xl" title="Twitter/X"><i class="fab fa-x-twitter"></i></a>
-                        <a href="https://www.instagram.com/str.summit.team/" target="_blank" style="color:#E4405F" class="hover:opacity-80 transition text-2xl" title="Instagram"><i class="fab fa-instagram"></i></a>
-                        <a href="https://www.tiktok.com/@strsummitteam" target="_blank" style="color:#000000" class="hover:opacity-80 transition text-2xl" title="TikTok"><i class="fab fa-tiktok"></i></a>
-                        <a href="https://www.youtube.com/@strsummitteam" target="_blank" style="color:#FF0000" class="hover:opacity-80 transition text-2xl" title="YouTube"><i class="fab fa-youtube"></i></a>
-                        <a href="https://www.linkedin.com/in/str-summitteam-6aa4aa342" target="_blank" style="color:#0077B5" class="hover:opacity-80 transition text-2xl" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://wa.me/201159333060" target="_blank" style="color:#25D366" class="hover:opacity-80 transition text-2xl" title="WhatsApp"><i class="fab fa-whatsapp"></i></a>
+                    <h4 class="text-2xl font-bold text-gold mb-8">تابعنا على وسائل التواصل</h4>
+                    <div class="flex justify-center gap-8 flex-wrap items-center">
+                        <!-- Facebook -->
+                        <a href="https://www.facebook.com/summitteamrealestateeg" target="_blank" class="social-link facebook-link" title="Facebook">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <!-- Instagram -->
+                        <a href="https://www.instagram.com/str.summit.team/" target="_blank" class="social-link instagram-link" title="Instagram">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <!-- TikTok -->
+                        <a href="https://www.tiktok.com/@strsummitteam" target="_blank" class="social-link tiktok-link" title="TikTok">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
+                        <!-- YouTube -->
+                        <a href="https://www.youtube.com/@strsummitteam" target="_blank" class="social-link youtube-link" title="YouTube">
+                            <i class="fab fa-youtube"></i>
+                        </a>
+                        <!-- Twitter/X -->
+                        <a href="https://x.com/strsummitteam" target="_blank" class="social-link twitter-link" title="Twitter/X">
+                            <i class="fab fa-x-twitter"></i>
+                        </a>
+                        <!-- LinkedIn -->
+                        <a href="https://www.linkedin.com/in/str-summitteam-6aa4aa342" target="_blank" class="social-link linkedin-link" title="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <!-- WhatsApp -->
+                        <a href="https://wa.me/201159333060" target="_blank" class="social-link whatsapp-link" title="WhatsApp">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
                     </div>
                 </div>
             </div>
@@ -1246,10 +1307,36 @@
         </footer>
 
     <!-- Floating WhatsApp Button -->
-    <a href="https://wa.me/201159333060?text=%D0%A7%D0%BB%D0%B0%D0%B2%D0%BD%D0%B0%D1%8F%20%D0%BF%D1%80%D0%BE%D0%B3%D1%80%D0%B0%D0%BC%D0%BC%D0%B0%20%D0%BD%D0%B5%D0%B4%D0%B2%D0%B8%D0%B6%D0%B8%D0%BC%D0%BE%D1%81%D1%82%D0%B8" target="_blank" class="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white rounded-full p-4 shadow-lg hover:shadow-xl transition z-40 flex items-center justify-center" title="تواصل عبر واتس">
-        <i class="fab fa-whatsapp text-2xl"></i>
+    <a href="https://wa.me/201159333060" target="_blank" class="fixed bottom-6 right-6 whatsapp-float-btn z-40" title="تواصل عبر واتس">
+        <i class="fab fa-whatsapp"></i>
     </a>
 
+    <style>
+        .whatsapp-float-btn {
+            width: 60px;
+            height: 60px;
+            background-color: #25D366;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            color: white;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.4);
+            transition: all 0.3s ease;
+            border: 2px solid rgba(37, 211, 102, 0.5);
+        }
+        
+        .whatsapp-float-btn:hover {
+            background-color: #20BA5A;
+            transform: scale(1.1) translateY(-3px);
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.6);
+        }
+        
+        .whatsapp-float-btn:active {
+            transform: scale(0.95);
+        }
+    </style>
     <script src="app.js"></script>
 </body>
 </html>
