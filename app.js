@@ -84,10 +84,23 @@ fetch('leads.json')
     })
     .catch(error => console.error('خطأ في تحميل الليدز:', error));
 
+// ==================== PERFORMANCE UTILITIES ====================
+/**
+ * Debounce function - delays execution until user stops typing
+ * Reduces number of render calls during search/filter
+ */
+function debounce(func, delay = 300) {
+    let timeoutId;
+    return function(...args) {
+        clearTimeout(timeoutId);
+        timeoutId = setTimeout(() => func(...args), delay);
+    };
+}
+
 // ==================== PAGINATION VARIABLES ====================
 let currentUnitsPage = 1;
 let currentLeadsPage = 1;
-const itemsPerPage = 30;
+const itemsPerPage = 40;
 let filteredUnits = [];
 let filteredLeads = [];
 
@@ -234,15 +247,24 @@ function renderAdminUnitsPage(page = 1) {
     const end = start + itemsPerPage;
     const pageItems = filtered.slice(start, end);
     
-    let html = '<table style="width:100%; border-collapse:collapse;"><tr style="background:#d4af37;"><th>الكود</th><th>النوع</th><th>المنطقة</th><th>السعر</th><th>الإجراءات</th></tr>';
+    let html = '<table style="width:100%; border-collapse:collapse; font-size:12px;"><tr style="background:#d4af37; color:#000; font-weight:bold;"><th style="padding:8px; text-align:right;">الكود</th><th style="padding:8px; text-align:right;">النوع</th><th style="padding:8px; text-align:right;">المنطقة</th><th style="padding:8px; text-align:right;">الغرف</th><th style="padding:8px; text-align:right;">المساحة</th><th style="padding:8px; text-align:right;">المجموعة</th><th style="padding:8px; text-align:right;">السعر</th><th style="padding:8px; text-align:right;">الأقساط</th><th style="padding:8px; text-align:right;">الأوفر</th><th style="padding:8px; text-align:right;">الإجراءات</th></tr>';
     
     pageItems.forEach(unit => {
         html += `<tr style="border:1px solid #ddd;">
-            <td>${unit.code}</td>
-            <td>${unit.type}</td>
-            <td>${unit.zone}</td>
-            <td>${unit.price?.toLocaleString() || '--'}</td>
-            <td><button onclick="editUnit(${unit.id})">تعديل</button></td>
+            <td style="padding:8px;">${unit.code}</td>
+            <td style="padding:8px;">${unit.type}</td>
+            <td style="padding:8px;">${unit.zone || '--'}</td>
+            <td style="padding:8px;">${unit.rooms || '--'}</td>
+            <td style="padding:8px;">${unit.space || '--'} m2</td>
+            <td style="padding:8px;">${unit.category || '--'}</td>
+            <td style="padding:8px;">${unit.price?.toLocaleString() || '--'}</td>
+            <td style="padding:8px;">${unit.installments || '--'}</td>
+            <td style="padding:8px;">${unit.offer_price ? unit.offer_price.toLocaleString() : '--'}</td>
+            <td style="padding:8px;">
+                <button onclick="openEditUnitModal(${unit.id})" style="background:#d4af37; color:#000; padding:4px 8px; margin:2px; border:none; border-radius:3px; cursor:pointer; font-weight:bold; font-size:11px;">تعديل</button>
+                <button onclick="toggleFeaturedUnit(${unit.id})" style="background:#0077B5; color:#fff; padding:4px 8px; margin:2px; border:none; border-radius:3px; cursor:pointer; font-weight:bold; font-size:11px;">تمييز</button>
+                <button onclick="deleteUnit(${unit.id})" style="background:#FF0000; color:#fff; padding:4px 8px; margin:2px; border:none; border-radius:3px; cursor:pointer; font-weight:bold; font-size:11px;">حذف</button>
+            </td>
         </tr>`;
     });
     
@@ -305,8 +327,128 @@ function renderAdminLeadsPage(page = 1) {
     leadsContainer.innerHTML = html;
 }
 
-function editUnit(unitId) {
-    alert('تعديل الوحدة: ' + unitId);
+function openEditUnitModal(unitId) {
+    const unit = units.find(u => u.id === unitId);
+    if (!unit) {
+        alert('الوحدة غير موجودة');
+        return;
+    }
+    
+    // Create modal
+    const modal = document.createElement('div');
+    modal.id = 'editUnitModal';
+    modal.style.cssText = 'position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.7); display:flex; align-items:center; justify-content:center; z-index:9999;';
+    
+    modal.innerHTML = `
+        <div style="background:#1a1a1a; color:#fff; padding:20px; border-radius:8px; max-width:600px; width:90%; max-height:80vh; overflow-y:auto; border:2px solid #d4af37;">
+            <h2 style="color:#d4af37; margin-bottom:20px;">تعديل الوحدة: ${unit.code}</h2>
+            
+            <form id="editUnitForm" style="display:grid; gap:15px;">
+                <div>
+                    <label style="display:block; margin-bottom:5px; font-weight:bold;">الكود:</label>
+                    <input type="text" id="editCode" value="${unit.code}" style="width:100%; padding:8px; background:#333; color:#fff; border:1px solid #d4af37; border-radius:4px;">
+                </div>
+                
+                <div>
+                    <label style="display:block; margin-bottom:5px; font-weight:bold;">النوع:</label>
+                    <select id="editType" style="width:100%; padding:8px; background:#333; color:#fff; border:1px solid #d4af37; border-radius:4px;">
+                        <option value="resale" ${unit.type === 'resale' ? 'selected' : ''}>ريسيل</option>
+                        <option value="rental" ${unit.type === 'rental' ? 'selected' : ''}>إيجار</option>
+                        <option value="primary" ${unit.type === 'primary' ? 'selected' : ''}>برايمري</option>
+                    </select>
+                </div>
+                
+                <div>
+                    <label style="display:block; margin-bottom:5px; font-weight:bold;">المنطقة:</label>
+                    <input type="text" id="editZone" value="${unit.zone || ''}" style="width:100%; padding:8px; background:#333; color:#fff; border:1px solid #d4af37; border-radius:4px;">
+                </div>
+                
+                <div>
+                    <label style="display:block; margin-bottom:5px; font-weight:bold;">عدد الغرف:</label>
+                    <input type="number" id="editRooms" value="${unit.rooms || ''}" style="width:100%; padding:8px; background:#333; color:#fff; border:1px solid #d4af37; border-radius:4px;">
+                </div>
+                
+                <div>
+                    <label style="display:block; margin-bottom:5px; font-weight:bold;">المساحة (م²):</label>
+                    <input type="number" id="editSpace" value="${unit.space || ''}" style="width:100%; padding:8px; background:#333; color:#fff; border:1px solid #d4af37; border-radius:4px;">
+                </div>
+                
+                <div>
+                    <label style="display:block; margin-bottom:5px; font-weight:bold;">المجموعة:</label>
+                    <input type="text" id="editCategory" value="${unit.category || ''}" style="width:100%; padding:8px; background:#333; color:#fff; border:1px solid #d4af37; border-radius:4px;">
+                </div>
+                
+                <div>
+                    <label style="display:block; margin-bottom:5px; font-weight:bold;">السعر:</label>
+                    <input type="number" id="editPrice" value="${unit.price || ''}" style="width:100%; padding:8px; background:#333; color:#fff; border:1px solid #d4af37; border-radius:4px;">
+                </div>
+                
+                <div>
+                    <label style="display:block; margin-bottom:5px; font-weight:bold;">تفاصيل الأقساط:</label>
+                    <textarea id="editInstallments" style="width:100%; padding:8px; background:#333; color:#fff; border:1px solid #d4af37; border-radius:4px; min-height:60px;">${unit.installments || ''}</textarea>
+                </div>
+                
+                <div>
+                    <label style="display:block; margin-bottom:5px; font-weight:bold;">سعر الأوفر:</label>
+                    <input type="number" id="editOfferPrice" value="${unit.offer_price || ''}" style="width:100%; padding:8px; background:#333; color:#fff; border:1px solid #d4af37; border-radius:4px;">
+                </div>
+                
+                <div style="display:flex; gap:10px; margin-top:20px;">
+                    <button type="button" onclick="saveUnitChanges(${unitId})" style="flex:1; background:#d4af37; color:#000; padding:10px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">حفظ التعديلات</button>
+                    <button type="button" onclick="closeEditModal()" style="flex:1; background:#666; color:#fff; padding:10px; border:none; border-radius:4px; font-weight:bold; cursor:pointer;">إغلاق</button>
+                </div>
+            </form>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+}
+
+function closeEditModal() {
+    const modal = document.getElementById('editUnitModal');
+    if (modal) modal.remove();
+}
+
+function saveUnitChanges(unitId) {
+    const unit = units.find(u => u.id === unitId);
+    if (!unit) return;
+    
+    // Update unit properties
+    unit.code = document.getElementById('editCode').value;
+    unit.type = document.getElementById('editType').value;
+    unit.zone = document.getElementById('editZone').value;
+    unit.rooms = parseInt(document.getElementById('editRooms').value) || 0;
+    unit.space = parseInt(document.getElementById('editSpace').value) || 0;
+    unit.category = document.getElementById('editCategory').value;
+    unit.price = parseInt(document.getElementById('editPrice').value) || 0;
+    unit.installments = document.getElementById('editInstallments').value;
+    unit.offer_price = parseInt(document.getElementById('editOfferPrice').value) || 0;
+    
+    // Save to localStorage
+    localStorage.setItem('units', JSON.stringify(units));
+    
+    alert('تم حفظ التعديلات بنجاح');
+    closeEditModal();
+    renderAdminUnitsPage(1);
+}
+
+function toggleFeaturedUnit(unitId) {
+    const unit = units.find(u => u.id === unitId);
+    if (!unit) return;
+    
+    unit.featured = !unit.featured;
+    localStorage.setItem('units', JSON.stringify(units));
+    alert(unit.featured ? 'تم تمييز الوحدة' : 'تم إلغاء التمييز');
+    renderAdminUnitsPage(1);
+}
+
+function deleteUnit(unitId) {
+    if (!confirm('هل أنت متأكد من حذف هذه الوحدة؟')) return;
+    
+    units = units.filter(u => u.id !== unitId);
+    localStorage.setItem('units', JSON.stringify(units));
+    alert('تم حذف الوحدة بنجاح');
+    renderAdminUnitsPage(1);
 }
 
 function editLead(leadId) {
@@ -1147,7 +1289,7 @@ function renderLeadsList() {
     if (!leadsTable) return;
     
     const currentPage = parseInt(document.getElementById('leadsPage')?.value || '1');
-    const itemsPerPage = 30;
+    const itemsPerPage = 40;
     const startIndex = (currentPage - 1) * itemsPerPage;
     const endIndex = startIndex + itemsPerPage;
     const paginatedLeads = filteredLeads.slice(startIndex, endIndex);
@@ -1748,16 +1890,42 @@ function renderEmployeeLeads() {
     `;
 }
 
-function renderEmployeeUnits() {
+function renderEmployeeUnits(page = 1) {
     const list = document.getElementById('employeeUnitsList');
     if(!list) return;
     
-    if(units.length === 0) {
+    const searchInput = document.getElementById('employee-units-search');
+    const filterType = document.getElementById('employee-units-filter-type');
+    
+    let filtered = units;
+    
+    // Apply search
+    if (searchInput && searchInput.value) {
+        const searchTerm = searchInput.value.toLowerCase();
+        filtered = filtered.filter(u => 
+            u.code?.toString().includes(searchTerm) ||
+            u.zone?.toLowerCase().includes(searchTerm) ||
+            u.category?.toLowerCase().includes(searchTerm)
+        );
+    }
+    
+    // Apply filter
+    if (filterType && filterType.value) {
+        filtered = filtered.filter(u => u.type === filterType.value);
+    }
+    
+    if(filtered.length === 0) {
         list.innerHTML = '<div class="p-4 text-center text-silver">لا توجد وحدات</div>';
         return;
     }
     
-    list.innerHTML = `
+    // Pagination
+    const start = (page - 1) * itemsPerPage;
+    const end = start + itemsPerPage;
+    const pageItems = filtered.slice(start, end);
+    const totalPages = Math.ceil(filtered.length / itemsPerPage);
+    
+    let html = `
         <table class="w-full text-sm">
             <thead class="bg-gold/10 border-b border-gold/30">
                 <tr>
@@ -1770,7 +1938,7 @@ function renderEmployeeUnits() {
                 </tr>
             </thead>
             <tbody>
-                ${units.map(u => `
+                ${pageItems.map(u => `
                     <tr class="border-b border-gold/20 hover:bg-black/50">
                         <td class="p-3 gold-text font-bold">${u.code}</td>
                         <td class="p-3">${u.type}</td>
@@ -1783,6 +1951,15 @@ function renderEmployeeUnits() {
             </tbody>
         </table>
     `;
+    
+    // Add pagination
+    html += '<div style="margin-top:20px; text-align:center;">';
+    for (let i = 1; i <= totalPages; i++) {
+        html += `<button onclick="renderEmployeeUnits(${i})" style="margin:5px; padding:8px 12px; ${i === page ? 'background:#d4af37; color:#000;' : 'background:#333; color:#fff;'} border:1px solid #d4af37; border-radius:4px; cursor:pointer;">${i}</button>`;
+    }
+    html += '</div>';
+    
+    list.innerHTML = html;
 }
 
 function renderEmployeeStats() {
@@ -2742,6 +2919,12 @@ document.addEventListener('DOMContentLoaded', function() {
     renderServicesList();
 });
 
+// ==================== DEBOUNCED SEARCH FUNCTIONS ====================
+// Create debounced versions of render functions to improve performance
+const debouncedRenderAdminUnits = debounce(() => renderAdminUnitsPage(1), 300);
+const debouncedRenderAdminLeads = debounce(() => renderAdminLeadsPage(1), 300);
+const debouncedRenderEmployeeUnits = debounce(() => renderEmployeeUnits(1), 300);
+
 // ==================== PAGINATION FUNCTIONS ====================
 
 function renderUnitsWithPagination() {
@@ -2997,12 +3180,17 @@ function clearUnitFilters() {
 }
 
 function clearLeadFilters() {
-    currentFilters.leads = {name: '', phone: '', source: '', campaign: ''};
-    document.getElementById('filterLeadName').value = '';
-    document.getElementById('filterLeadPhone').value = '';
-    document.getElementById('filterLeadSource').value = '';
-    document.getElementById('filterLeadCampaign').value = '';
-    applyLeadFilters();
+    const searchInput = document.getElementById('admin-leads-search');
+    if(searchInput) searchInput.value = '';
+    renderAdminLeadsPage(1);
+}
+
+function clearEmployeeUnitFilters() {
+    const searchInput = document.getElementById('employee-units-search');
+    const filterType = document.getElementById('employee-units-filter-type');
+    if(searchInput) searchInput.value = '';
+    if(filterType) filterType.value = '';
+    renderEmployeeUnits(1);
 }
 
 
@@ -3341,3 +3529,150 @@ function editService(id) {
 
 // Initialize footer on page load
 document.addEventListener('DOMContentLoaded', initializeFooter);
+
+
+// ==================== INVENTORY SYSTEM ====================
+
+const INVENTORY_PASSWORD = 'inventory123';
+
+/**
+ * Open inventory login modal
+ */
+function openInventoryLogin() {
+    document.getElementById('inventoryLoginModal').style.display = 'flex';
+}
+
+/**
+ * Close inventory login modal
+ */
+function closeInventoryLoginModal() {
+    document.getElementById('inventoryLoginModal').style.display = 'none';
+    document.getElementById('inventoryPassword').value = '';
+}
+
+/**
+ * Check inventory password
+ */
+function checkInventoryPassword() {
+    const password = document.getElementById('inventoryPassword').value;
+    
+    if (password === INVENTORY_PASSWORD) {
+        closeInventoryLoginModal();
+        openInventoryDashboard();
+    } else {
+        alert('كلمة السر غير صحيحة!');
+        document.getElementById('inventoryPassword').value = '';
+    }
+}
+
+/**
+ * Open inventory dashboard
+ */
+function openInventoryDashboard() {
+    document.getElementById('inventoryDashboardModal').style.display = 'flex';
+    showInventoryTab();
+}
+
+/**
+ * Close inventory dashboard
+ */
+function closeInventoryDashboard() {
+    document.getElementById('inventoryDashboardModal').style.display = 'none';
+}
+
+/**
+ * Open edit unit modal
+ */
+function openEditUnitModal(unitId) {
+    const unit = inventoryData.units.find(u => u.id === unitId);
+    if (!unit) return;
+    
+    const modal = document.createElement('div');
+    modal.id = 'editUnitModal';
+    modal.style.cssText = 'position:fixed; top:0; left:0; right:0; bottom:0; background:rgba(0,0,0,0.7); display:flex; align-items:center; justify-content:center; z-index:10000;';
+    
+    modal.innerHTML = `
+        <div style="background:#1a1a1a; color:#fff; padding:20px; border-radius:8px; max-width:600px; width:90%; max-height:80vh; overflow-y:auto; border:2px solid #d4af37;">
+            <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:20px; border-bottom:2px solid #d4af37; padding-bottom:10px;">
+                <h2 style="color:#d4af37; margin:0;">تعديل الوحدة</h2>
+                <button onclick="closeEditUnitModal()" style="background:#FF0000; color:#fff; border:none; padding:8px 16px; border-radius:4px; cursor:pointer; font-weight:bold;">إغلاق</button>
+            </div>
+            
+            <form onsubmit="saveEditedUnit(event, ${unitId})" style="display:grid; grid-template-columns:1fr 1fr; gap:15px;">
+                <div>
+                    <label style="color:#d4af37; font-weight:bold;">الكود:</label>
+                    <input type="text" value="${unit.code}" id="editCode" style="width:100%; padding:8px; background:#333; color:#fff; border:1px solid #d4af37; border-radius:3px;">
+                </div>
+                <div>
+                    <label style="color:#d4af37; font-weight:bold;">النوع:</label>
+                    <select id="editType" style="width:100%; padding:8px; background:#333; color:#fff; border:1px solid #d4af37; border-radius:3px;">
+                        <option value="resale" ${unit.type === 'resale' ? 'selected' : ''}>ريسيل</option>
+                        <option value="rental" ${unit.type === 'rental' ? 'selected' : ''}>إيجار</option>
+                        <option value="primary" ${unit.type === 'primary' ? 'selected' : ''}>برايمري</option>
+                    </select>
+                </div>
+                <div>
+                    <label style="color:#d4af37; font-weight:bold;">المنطقة:</label>
+                    <input type="text" value="${unit.zone}" id="editZone" style="width:100%; padding:8px; background:#333; color:#fff; border:1px solid #d4af37; border-radius:3px;">
+                </div>
+                <div>
+                    <label style="color:#d4af37; font-weight:bold;">الغرف:</label>
+                    <input type="number" value="${unit.rooms}" id="editRooms" style="width:100%; padding:8px; background:#333; color:#fff; border:1px solid #d4af37; border-radius:3px;">
+                </div>
+                <div>
+                    <label style="color:#d4af37; font-weight:bold;">المساحة (م²):</label>
+                    <input type="number" value="${unit.space}" id="editSpace" style="width:100%; padding:8px; background:#333; color:#fff; border:1px solid #d4af37; border-radius:3px;">
+                </div>
+                <div>
+                    <label style="color:#d4af37; font-weight:bold;">السعر:</label>
+                    <input type="number" value="${unit.price}" id="editPrice" style="width:100%; padding:8px; background:#333; color:#fff; border:1px solid #d4af37; border-radius:3px;">
+                </div>
+                <div style="grid-column: 1 / -1;">
+                    <label style="color:#d4af37; font-weight:bold;">الأقساط:</label>
+                    <textarea id="editInstallments" style="width:100%; padding:8px; background:#333; color:#fff; border:1px solid #d4af37; border-radius:3px; min-height:60px;">${unit.installments}</textarea>
+                </div>
+                <div style="grid-column: 1 / -1;">
+                    <label style="color:#d4af37; font-weight:bold;">الوصف:</label>
+                    <textarea id="editDescription" style="width:100%; padding:8px; background:#333; color:#fff; border:1px solid #d4af37; border-radius:3px; min-height:60px;">${unit.description}</textarea>
+                </div>
+                <button type="submit" style="grid-column: 1 / -1; background:#d4af37; color:#000; padding:10px; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">حفظ التعديلات</button>
+            </form>
+        </div>
+    `;
+    
+    document.body.appendChild(modal);
+}
+
+/**
+ * Close edit unit modal
+ */
+function closeEditUnitModal() {
+    const modal = document.getElementById('editUnitModal');
+    if (modal) modal.remove();
+}
+
+/**
+ * Save edited unit
+ */
+function saveEditedUnit(event, unitId) {
+    event.preventDefault();
+    
+    const updates = {
+        code: document.getElementById('editCode').value,
+        type: document.getElementById('editType').value,
+        zone: document.getElementById('editZone').value,
+        rooms: parseInt(document.getElementById('editRooms').value),
+        space: parseInt(document.getElementById('editSpace').value),
+        price: parseInt(document.getElementById('editPrice').value),
+        installments: document.getElementById('editInstallments').value,
+        description: document.getElementById('editDescription').value
+    };
+    
+    updateUnit(unitId, updates);
+    closeEditUnitModal();
+    renderInventoryList(1);
+    updateInventoryStats();
+    alert('تم حفظ التعديلات بنجاح');
+}
+
+console.log('✅ نظام الإنفنتوري جاهز');
