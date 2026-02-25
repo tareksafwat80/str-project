@@ -740,6 +740,19 @@
 
             <!-- Employee Units Tab -->
             <div id="employee-units" class="admin-tab-content">
+                <div class="mb-6">
+                    <h3 class="gold-text text-xl mb-4 font-bold">البحث والفلاتر</h3>
+                    <div class="grid md:grid-cols-4 gap-4">
+                        <input type="text" id="employee-units-search" placeholder="ابحث عن كود أو منطقة" class="form-input" onkeyup="renderEmployeeUnits()">
+                        <select id="employee-units-filter-type" class="form-input" onchange="renderEmployeeUnits()">
+                            <option value="">جميع الأنواع</option>
+                            <option value="resale">ريسيل</option>
+                            <option value="rental">إيجار</option>
+                            <option value="primary">برايمري</option>
+                        </select>
+                        <button onclick="clearEmployeeUnitFilters()" class="btn-secondary">مسح الفلاتر</button>
+                    </div>
+                </div>
                 <div id="employeeUnitsList" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto"></div>
             </div>
 
@@ -827,15 +840,25 @@
                     </div>
                 </div>
                 <div class="mt-8">
+                    <h3 class="gold-text text-xl mb-4 font-bold">البحث والفلاتر</h3>
+                    <div class="grid md:grid-cols-4 gap-4 mb-6">
+                        <input type="text" id="admin-units-search" placeholder="ابحث عن كود أو منطقة" class="form-input" onkeyup="renderAdminUnitsPage(1)">
+                        <select id="admin-units-filter-type" class="form-input" onchange="renderAdminUnitsPage(1)">
+                            <option value="">جميع الأنواع</option>
+                            <option value="resale">ريسيل</option>
+                            <option value="rental">إيجار</option>
+                            <option value="primary">برايمري</option>
+                        </select>
+                        <button onclick="clearUnitFilters()" class="btn-secondary">مسح الفلاتر</button>
+                    </div>
+                </div>
+
+                <div class="mt-8">
                     <h3 class="gold-text text-xl mb-4 font-bold">قائمة الوحدات</h3>
-                    <div id="unitsList" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto"></div>
+                    <div id="admin-units-list" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto max-h-[70vh]"></div>
                 </div>
                 
-                <!-- Admin Units Table -->
-                <div class="mt-8">
-                    <h3 class="gold-text text-xl mb-4 font-bold">جدول الوحدات الكامل (للأدمن)</h3>
-                    <div id="adminUnitsList" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto max-h-[70vh]"></div>
-                </div>
+                <div class="mt-4" id="units-pagination"></div>
             </div>
 
             <!-- CRM Tab -->
@@ -864,9 +887,39 @@
                     </div>
                 </div>
                 <div class="mt-8">
-                    <h3 class="gold-text text-xl mb-4 font-bold">قائمة Leads</h3>
-                    <div id="leadsList" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto"></div>
+                    <h3 class="gold-text text-xl mb-4 font-bold">البحث والفلاتر</h3>
+                    <div class="grid md:grid-cols-3 gap-4 mb-6">
+                        <input type="text" id="admin-leads-search" placeholder="ابحث عن اسم أو هاتف" class="form-input" onkeyup="renderAdminLeadsPage(1)">
+                        <input type="hidden" id="leadsPage" value="1">
+                        <button onclick="clearLeadFilters()" class="btn-secondary">مسح الفلاتر</button>
+                    </div>
                 </div>
+
+                <div class="mt-8">
+                    <h3 class="gold-text text-xl mb-4 font-bold">قائمة Leads</h3>
+                    <div id="admin-leads-list" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto max-h-[70vh]">
+                        <table class="w-full text-sm">
+                            <thead class="bg-gold/10 border-b border-gold/30">
+                                <tr>
+                                    <th class="p-3 text-right">التاريخ</th>
+                                    <th class="p-3 text-right">الاسم</th>
+                                    <th class="p-3 text-right">الهاتف</th>
+                                    <th class="p-3 text-right">المصدر</th>
+                                    <th class="p-3 text-right">طريقة التواصل</th>
+                                    <th class="p-3 text-right">الحملة</th>
+                                    <th class="p-3 text-right">الملاحظات</th>
+                                    <th class="p-3 text-right">التقييم</th>
+                                    <th class="p-3 text-right">المبيعات</th>
+                                    <th class="p-3 text-right">متابعة</th>
+                                    <th class="p-3 text-right">الإجراءات</th>
+                                </tr>
+                            </thead>
+                            <tbody id="admin-leads-table"></tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <div class="mt-4" id="leads-pagination"></div>
             </div>
 
             <!-- Employees Tab -->
@@ -891,20 +944,6 @@
                             </label>
                             <button type="submit" class="w-full btn-primary">إضافة موظف</button>
                         </form>
-                    </div>
-
-                    <!-- Admin Partners Tab -->
-                    <button class="admin-tab-btn" onclick="showAdminTab('partners')">الشركاء</button>
-                    
-                        <h2 class="text-2xl font-bold text-black mb-6">إدارة الشركاء</h2>
-                        <div id="admin-partners-list"></div>
-                    </div>
-
-                    <!-- Admin Services Tab -->
-                    <button class="admin-tab-btn" onclick="showAdminTab('services')">مناطق عملنا</button>
-                    
-                        <h2 class="text-2xl font-bold text-black mb-6">إدارة مناطق عملنا</h2>
-                        <div id="admin-services-list"></div>
                     </div>
 
                 </div>
