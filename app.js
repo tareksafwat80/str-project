@@ -2989,15 +2989,11 @@ function applyLeadFilters() {
 }
 
 function clearUnitFilters() {
-    currentFilters.units = {code: '', area: '', minSpace: '', maxSpace: '', minPrice: '', maxPrice: '', category: ''};
-    document.getElementById('filterCode').value = '';
-    document.getElementById('filterArea').value = '';
-    document.getElementById('filterMinSpace').value = '';
-    document.getElementById('filterMaxSpace').value = '';
-    document.getElementById('filterMinPrice').value = '';
-    document.getElementById('filterMaxPrice').value = '';
-    document.getElementById('filterCategory').value = '';
-    applyUnitFilters();
+    const searchInput = document.getElementById('admin-units-search');
+    const filterType = document.getElementById('admin-units-filter-type');
+    if(searchInput) searchInput.value = '';
+    if(filterType) filterType.value = '';
+    renderAdminUnitsPage(1);
 }
 
 function clearLeadFilters() {
