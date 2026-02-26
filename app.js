@@ -66,8 +66,8 @@ Promise.all([
     fetch('rental.json').then(r => r.json())
 ])
 .then(([resaleData, rentalData]) => {
-    const resaleWithType = resaleData.map(u => ({ ...u, type: 'resale' }));
-    const rentalWithType = rentalData.map(u => ({ ...u, type: 'rental' }));
+    const resaleWithType = resaleData.map(u => ({ ...u, type: 'resale', published: true }));
+    const rentalWithType = rentalData.map(u => ({ ...u, type: 'rental', published: true }));
     units = [...resaleWithType, ...rentalWithType];
     console.log(`✅ تم تحميل ${resaleData.length} ريسيل + ${rentalData.length} إيجار = ${units.length} وحدة`);
 })
@@ -3533,7 +3533,7 @@ document.addEventListener('DOMContentLoaded', initializeFooter);
 
 // ==================== INVENTORY SYSTEM ====================
 
-const INVENTORY_PASSWORD = 'inventory123';
+const INVENTORY_PASSWORD = 'str2026';
 
 /**
  * Open inventory login modal
@@ -3635,7 +3635,10 @@ function openEditUnitModal(unitId) {
                     <label style="color:#d4af37; font-weight:bold;">الوصف:</label>
                     <textarea id="editDescription" style="width:100%; padding:8px; background:#333; color:#fff; border:1px solid #d4af37; border-radius:3px; min-height:60px;">${unit.description}</textarea>
                 </div>
-                <button type="submit" style="grid-column: 1 / -1; background:#d4af37; color:#000; padding:10px; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">حفظ التعديلات</button>
+                <div style="grid-column: 1 / -1; display:flex; gap:10px;">
+                    <button type="submit" style="flex:1; background:#d4af37; color:#000; padding:10px; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">حفظ التعديلات</button>
+                    <button type="button" onclick="togglePublishUnit(${unitId})" style="flex:1; background:${unit.published ? '#FF6B35' : '#25D366'}; color:#fff; padding:10px; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">${unit.published ? 'إلغاء النشر' : 'نشر الوحدة'}</button>
+                </div>
             </form>
         </div>
     `;
@@ -3676,3 +3679,86 @@ function saveEditedUnit(event, unitId) {
 }
 
 console.log('✅ نظام الإنفنتوري جاهز');
+
+
+// ==================== CRM SYSTEM ====================
+
+const CRM_PASSWORD = 'str2026';
+
+/**
+ * Open CRM login modal
+ */
+function openCRMLogin() {
+    document.getElementById('crmLoginModal').style.display = 'flex';
+}
+
+/**
+ * Close CRM login modal
+ */
+function closeCRMLoginModal() {
+    document.getElementById('crmLoginModal').style.display = 'none';
+    document.getElementById('crmPassword').value = '';
+}
+
+/**
+ * Check CRM password
+ */
+function checkCRMPassword() {
+    const password = document.getElementById('crmPassword').value;
+    
+    if (password === CRM_PASSWORD) {
+        closeCRMLoginModal();
+        openCRMDashboard();
+    } else {
+        alert('كلمة السر غير صحيحة!');
+        document.getElementById('crmPassword').value = '';
+    }
+}
+
+/**
+ * Open CRM dashboard
+ */
+function openCRMDashboard() {
+    document.getElementById('crmDashboardModal').style.display = 'flex';
+    showCRMTab();
+}
+
+/**
+ * Close CRM dashboard
+ */
+function closeCRMDashboard() {
+    document.getElementById('crmDashboardModal').style.display = 'none';
+}
+
+console.log('✅ نظام CRM بكلمة سر جاهز');
+
+
+/**
+ * Toggle publish status of a unit
+ */
+function togglePublishUnit(unitId) {
+    const unit = units.find(u => u.id === unitId);
+    if (!unit) return;
+    
+    unit.published = !unit.published;
+    
+    // Save to localStorage
+    localStorage.setItem('units', JSON.stringify(units));
+    
+    // Show notification
+    const status = unit.published ? 'تم نشر الوحدة' : 'تم إلغاء نشر الوحدة';
+    alert(status);
+    
+    // Close modal and refresh
+    closeEditUnitModal();
+    renderAdminUnitsPage();
+}
+
+/**
+ * Get only published units for display to customers
+ */
+function getPublishedUnits() {
+    return units.filter(u => u.published === true);
+}
+
+console.log('✅ نظام Publish للوحدات جاهز');
