@@ -8,105 +8,89 @@
     height: 80px;
     border-radius: 50%;
     font-size: 36px;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    transition: all 0.3s ease;
     border: 3px solid currentColor;
     box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
     position: relative;
     overflow: hidden;
-}
-
-.social-icon-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: currentColor;
-    transition: left 0.4s ease;
-    z-index: -1;
-}
-
-.social-icon-btn:hover::before {
-    left: 0;
+    background: rgba(255, 255, 255, 0.05);
 }
 
 .social-icon-btn:hover {
-    transform: translateY(-8px) scale(1.15);
+    transform: translateY(-8px) scale(1.1);
     box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
-    color: white;
 }
 
 /* Facebook */
 .facebook-btn {
     color: #1877F2;
-    background: rgba(24, 119, 242, 0.1);
+    background: rgba(24, 119, 242, 0.15);
 }
 
 .facebook-btn:hover {
-    box-shadow: 0 15px 40px rgba(24, 119, 242, 0.6);
+    box-shadow: 0 15px 40px rgba(24, 119, 242, 0.5);
 }
 
 /* Instagram */
 .instagram-btn {
     color: #E4405F;
-    background: rgba(228, 64, 95, 0.1);
+    background: rgba(228, 64, 95, 0.15);
 }
 
 .instagram-btn:hover {
-    box-shadow: 0 15px 40px rgba(228, 64, 95, 0.6);
+    box-shadow: 0 15px 40px rgba(228, 64, 95, 0.5);
 }
 
 /* TikTok */
 .tiktok-btn {
     color: #000000;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.15);
     border-color: #000000;
 }
 
 .tiktok-btn:hover {
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
 }
 
 /* YouTube */
 .youtube-btn {
     color: #FF0000;
-    background: rgba(255, 0, 0, 0.1);
+    background: rgba(255, 0, 0, 0.15);
 }
 
 .youtube-btn:hover {
-    box-shadow: 0 15px 40px rgba(255, 0, 0, 0.6);
+    box-shadow: 0 15px 40px rgba(255, 0, 0, 0.5);
 }
 
 /* Twitter/X */
 .twitter-btn {
     color: #000000;
-    background: rgba(0, 0, 0, 0.1);
+    background: rgba(0, 0, 0, 0.15);
     border-color: #000000;
 }
 
 .twitter-btn:hover {
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.8);
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.6);
 }
 
 /* LinkedIn */
 .linkedin-btn {
     color: #0077B5;
-    background: rgba(0, 119, 181, 0.1);
+    background: rgba(0, 119, 181, 0.15);
 }
 
 .linkedin-btn:hover {
-    box-shadow: 0 15px 40px rgba(0, 119, 181, 0.6);
+    box-shadow: 0 15px 40px rgba(0, 119, 181, 0.5);
 }
 
 /* WhatsApp */
 .whatsapp-btn {
     color: #25D366;
-    background: rgba(37, 211, 102, 0.1);
+    background: rgba(37, 211, 102, 0.15);
 }
 
 .whatsapp-btn:hover {
-    box-shadow: 0 15px 40px rgba(37, 211, 102, 0.6);
+    box-shadow: 0 15px 40px rgba(37, 211, 102, 0.5);
 }
 
 /* ==================== PROPERTY PLATFORM BUTTONS ====================  */
@@ -119,39 +103,21 @@
     border-radius: 8px;
     font-weight: bold;
     font-size: 16px;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
     border: 3px solid currentColor;
-    position: relative;
-    overflow: hidden;
-    min-width: 180px;
-}
-
-.property-platform-btn::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: -100%;
-    width: 100%;
-    height: 100%;
-    background: currentColor;
-    transition: left 0.4s ease;
-    z-index: -1;
-}
-
-.property-platform-btn:hover::before {
-    left: 0;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
 }
 
 .property-platform-btn:hover {
-    transform: translateY(-4px);
-    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
-    color: white;
+    transform: translateY(-5px);
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.4);
 }
 
 /* Aqar Map */
 .aqarmap-btn {
     color: #FF6B35;
-    background: rgba(255, 107, 53, 0.1);
+    background: rgba(255, 107, 53, 0.15);
 }
 
 .aqarmap-btn:hover {
@@ -161,7 +127,7 @@
 /* Bayut */
 .bayut-btn {
     color: #1E90FF;
-    background: rgba(30, 144, 255, 0.1);
+    background: rgba(30, 144, 255, 0.15);
 }
 
 .bayut-btn:hover {
@@ -171,7 +137,7 @@
 /* Property Finder */
 .propertyfinder-btn {
     color: #00B4D8;
-    background: rgba(0, 180, 216, 0.1);
+    background: rgba(0, 180, 216, 0.15);
 }
 
 .propertyfinder-btn:hover {
@@ -181,34 +147,38 @@
 /* ==================== WHATSAPP FLOATING BUTTON ====================  */
 
 .whatsapp-float-btn {
-    background: linear-gradient(135deg, #25D366, #20BA58);
-    color: white;
+    position: fixed;
+    bottom: 30px;
+    left: 30px;
     width: 70px;
     height: 70px;
     border-radius: 50%;
+    background: #25D366;
+    color: white;
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 32px;
-    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-    text-decoration: none;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+    transition: all 0.3s ease;
+    z-index: 999;
     border: 3px solid #25D366;
-    animation: pulse-whatsapp 2s infinite;
+    animation: pulse 2s infinite;
 }
 
 .whatsapp-float-btn:hover {
-    transform: scale(1.15) translateY(-5px);
-    box-shadow: 0 15px 40px rgba(37, 211, 102, 0.7);
+    transform: scale(1.15);
+    box-shadow: 0 12px 35px rgba(37, 211, 102, 0.6);
     animation: none;
 }
 
-@keyframes pulse-whatsapp {
+@keyframes pulse {
     0%, 100% {
-        box-shadow: 0 8px 25px rgba(37, 211, 102, 0.5);
+        transform: scale(1);
     }
     50% {
-        box-shadow: 0 8px 40px rgba(37, 211, 102, 0.8);
+        transform: scale(1.05);
     }
 }
 
@@ -216,20 +186,22 @@
 
 @media (max-width: 768px) {
     .social-icon-btn {
-        width: 65px;
-        height: 65px;
+        width: 60px;
+        height: 60px;
         font-size: 28px;
+        border: 2px solid currentColor;
     }
-
+    
     .property-platform-btn {
         padding: 10px 20px;
         font-size: 14px;
-        min-width: 140px;
     }
-
+    
     .whatsapp-float-btn {
         width: 60px;
         height: 60px;
         font-size: 28px;
+        bottom: 20px;
+        left: 20px;
     }
 }
