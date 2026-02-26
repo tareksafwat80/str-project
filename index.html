@@ -62,6 +62,7 @@
                     <button class="nav-btn" onclick="showTab('rental')">إيجار</button>
                     <button class="nav-btn" onclick="showTab('services')">مناطق عملنا</button>
                     <button class="nav-btn" onclick="showTab('partners')">شركاؤنا</button>
+                    <button class="nav-btn text-blue-600 font-bold" onclick="openCRMLogin()">CRM</button>
                     <button class="nav-btn text-green-600 font-bold" onclick="openInventoryLogin()">الإنفنتوري</button>
                     <button class="nav-btn text-red-500 font-bold" onclick="openAdminLogin()">الأدمن</button>
                 </div>
@@ -858,8 +859,6 @@
             <!-- Admin Tabs -->
             <div class="flex gap-2 mb-8 border-b border-black/30 pb-4 flex-wrap">
                 <button class="admin-tab-btn active" onclick="showAdminTab('stats')">الإحصائيات</button>
-                <button class="admin-tab-btn" onclick="showAdminTab('units')">إدارة الوحدات</button>
-                <button class="admin-tab-btn" onclick="showAdminTab('crm')">إدارة CRM</button>
                 <button class="admin-tab-btn" onclick="showAdminTab('employees')">الموظفين</button>
                 <button class="admin-tab-btn" onclick="showAdminTab('partners')">الشركاء</button>
                 <button class="admin-tab-btn" onclick="showAdminTab('services')">مناطق عملنا</button>
@@ -871,8 +870,8 @@
                 <div id="adminStats" class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8"></div>
             </div>
 
-            <!-- Units Tab -->
-            <div id="admin-units" class="admin-tab-content">
+            <!-- Units Tab - REMOVED (moved to Inventory) -->
+            <!-- <div id="admin-units" class="admin-tab-content" style="display:none;">
                 <div class="grid md:grid-cols-2 gap-8">
                     <div class="bg-gold-card p-6 rounded-xl border border-black/30">
                         <h3 class="gold-text text-xl mb-4 font-bold">إضافة وحدة جديدة</h3>
@@ -945,8 +944,8 @@
                 <div class="mt-4" id="units-pagination"></div>
             </div>
 
-            <!-- CRM Tab -->
-            <div id="admin-crm" class="admin-tab-content">
+            <!-- CRM Tab - REMOVED (moved to separate CRM system) -->
+            <!-- <div id="admin-crm" class="admin-tab-content" style="display:none;">
                 <!-- CRM Dashboard Stats -->
                 <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                     <div class="bg-blue-100 border-2 border-blue-900 rounded-lg p-6 shadow-lg">
@@ -978,7 +977,7 @@
                     <h3 class="gold-text text-xl mb-4 font-bold">قائمة Leads</h3>
                     <div id="crmLeadsListContainer" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto max-h-[70vh]"></div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- Employees Tab -->
             <div id="admin-employees" class="admin-tab-content">
