@@ -3762,3 +3762,28 @@ function getPublishedUnits() {
 }
 
 console.log('✅ نظام Publish للوحدات جاهز');
+
+
+/**
+ * Show inventory tab and load data
+ */
+function showInventoryTab() {
+    console.log('✅ فتح لوحة الإنفنتوري');
+    // Load inventory data and display
+    if (typeof renderInventoryDashboard === 'function') {
+        renderInventoryDashboard();
+    }
+}
+
+/**
+ * Show CRM tab and load data
+ */
+function showCRMTab() {
+    console.log('✅ فتح لوحة CRM');
+    // Load CRM data and display
+    if (typeof renderCRMDashboard === 'function') {
+        renderCRMDashboard();
+    }
+}
+
+console.log('✅ دوال showInventoryTab و showCRMTab جاهزة');
