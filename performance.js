@@ -1,4 +1,4 @@
-/ ==================== PERFORMANCE OPTIMIZATION UTILITIES ====================
+// ==================== PERFORMANCE OPTIMIZATION UTILITIES ====================
 
 /**
  * Debounce function - delays execution until user stops typing
