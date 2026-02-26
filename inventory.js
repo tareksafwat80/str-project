@@ -134,58 +134,7 @@ function incrementUnitViews(unitId) {
 
 // ==================== SEARCH & FILTER ====================
 
-/**
- * Advanced search with multiple criteria
- */
-function searchUnits(criteria) {
-    let results = inventoryData.units.filter(u => !u.archived);
-    
-    if (criteria.code) {
-        results = results.filter(u => u.code.toString().includes(criteria.code));
-    }
-    
-    if (criteria.type) {
-        results = results.filter(u => u.type === criteria.type);
-    }
-    
-    if (criteria.zone) {
-        results = results.filter(u => u.zone?.toLowerCase().includes(criteria.zone.toLowerCase()));
-    }
-    
-    if (criteria.status) {
-        results = results.filter(u => u.status === criteria.status);
-    }
-    
-    if (criteria.minPrice !== undefined) {
-        results = results.filter(u => u.price >= criteria.minPrice);
-    }
-    
-    if (criteria.maxPrice !== undefined) {
-        results = results.filter(u => u.price <= criteria.maxPrice);
-    }
-    
-    if (criteria.minSpace !== undefined) {
-        results = results.filter(u => u.space >= criteria.minSpace);
-    }
-    
-    if (criteria.maxSpace !== undefined) {
-        results = results.filter(u => u.space <= criteria.maxSpace);
-    }
-    
-    if (criteria.rooms) {
-        results = results.filter(u => u.rooms === criteria.rooms);
-    }
-    
-    if (criteria.featured) {
-        results = results.filter(u => u.featured === criteria.featured);
-    }
-    
-    if (criteria.assignedTo) {
-        results = results.filter(u => u.assignedTo === criteria.assignedTo);
-    }
-    
-    return results;
-}
+// Note: searchUnits function is defined in app.js to avoid duplication
 
 /**
  * Get units by status
@@ -465,3 +414,4 @@ function clearAllInventoryData() {
 document.addEventListener('DOMContentLoaded', () => {
     console.log('✅ نظام الإنفنتوري المتقدم جاهز');
     console.log(`📦 عدد الوحدات: ${getAllUnits().length}`);
+});
