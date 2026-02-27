@@ -66,8 +66,8 @@ Promise.all([
     fetch('rental.json').then(r => r.json())
 ])
 .then(([resaleData, rentalData]) => {
-    const resaleWithType = resaleData.map(u => ({ ...u, type: 'resale', published: true }));
-    const rentalWithType = rentalData.map(u => ({ ...u, type: 'rental', published: true }));
+    const resaleWithType = resaleData.map(u => ({ ...u, type: 'resale' }));
+    const rentalWithType = rentalData.map(u => ({ ...u, type: 'rental' }));
     units = [...resaleWithType, ...rentalWithType];
     console.log(`✅ تم تحميل ${resaleData.length} ريسيل + ${rentalData.length} إيجار = ${units.length} وحدة`);
 })
@@ -754,6 +754,7 @@ function toggleLanguage() {
     document.documentElement.lang = lang;
     document.getElementById('langToggle').textContent = lang === 'ar' ? 'English' : 'عربي';
     updateFilterLabels();
+    updateNavigationLabels();
     renderAbout();
     renderUnits();
 }
@@ -3635,10 +3636,7 @@ function openEditUnitModal(unitId) {
                     <label style="color:#d4af37; font-weight:bold;">الوصف:</label>
                     <textarea id="editDescription" style="width:100%; padding:8px; background:#333; color:#fff; border:1px solid #d4af37; border-radius:3px; min-height:60px;">${unit.description}</textarea>
                 </div>
-                <div style="grid-column: 1 / -1; display:flex; gap:10px;">
-                    <button type="submit" style="flex:1; background:#d4af37; color:#000; padding:10px; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">حفظ التعديلات</button>
-                    <button type="button" onclick="togglePublishUnit(${unitId})" style="flex:1; background:${unit.published ? '#FF6B35' : '#25D366'}; color:#fff; padding:10px; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">${unit.published ? 'إلغاء النشر' : 'نشر الوحدة'}</button>
-                </div>
+                <button type="submit" style="grid-column: 1 / -1; background:#d4af37; color:#000; padding:10px; border:none; border-radius:4px; cursor:pointer; font-weight:bold;">حفظ التعديلات</button>
             </form>
         </div>
     `;
@@ -3680,7 +3678,6 @@ function saveEditedUnit(event, unitId) {
 
 console.log('✅ نظام الإنفنتوري جاهز');
 
-
 // ==================== CRM SYSTEM ====================
 
 const CRM_PASSWORD = 'str2026';
@@ -3720,7 +3717,7 @@ function checkCRMPassword() {
  */
 function openCRMDashboard() {
     document.getElementById('crmDashboardModal').style.display = 'flex';
-    showCRMTab();
+    updateCRMStats();
 }
 
 /**
@@ -3730,60 +3727,86 @@ function closeCRMDashboard() {
     document.getElementById('crmDashboardModal').style.display = 'none';
 }
 
-console.log('✅ نظام CRM بكلمة سر جاهز');
-
-
 /**
- * Toggle publish status of a unit
+ * Update CRM statistics
  */
-function togglePublishUnit(unitId) {
-    const unit = units.find(u => u.id === unitId);
-    if (!unit) return;
-    
-    unit.published = !unit.published;
-    
-    // Save to localStorage
-    localStorage.setItem('units', JSON.stringify(units));
-    
-    // Show notification
-    const status = unit.published ? 'تم نشر الوحدة' : 'تم إلغاء نشر الوحدة';
-    alert(status);
-    
-    // Close modal and refresh
-    closeEditUnitModal();
-    renderAdminUnitsPage();
-}
-
-/**
- * Get only published units for display to customers
- */
-function getPublishedUnits() {
-    return units.filter(u => u.published === true);
-}
-
-console.log('✅ نظام Publish للوحدات جاهز');
-
-
-/**
- * Show inventory tab and load data
- */
-function showInventoryTab() {
-    console.log('✅ فتح لوحة الإنفنتوري');
-    // Load inventory data and display
-    if (typeof renderInventoryDashboard === 'function') {
-        renderInventoryDashboard();
+function updateCRMStats() {
+    if (!leads || leads.length === 0) {
+        document.getElementById('crmTotalLeads').textContent = '0';
+        document.getElementById('crmHotLeads').textContent = '0';
+        document.getElementById('crmConversionRate').textContent = '0%';
+        document.getElementById('crmOverdueTasks').textContent = '0';
+        return;
     }
+    
+    const totalLeads = leads.length;
+    const hotLeads = leads.filter(l => l.status === 'hot').length;
+    const convertedLeads = leads.filter(l => l.status === 'converted').length;
+    const conversionRate = totalLeads > 0 ? Math.round((convertedLeads / totalLeads) * 100) : 0;
+    const overdueTasks = leads.filter(l => l.followUpDate && new Date(l.followUpDate) < new Date()).length;
+    
+    document.getElementById('crmTotalLeads').textContent = totalLeads;
+    document.getElementById('crmHotLeads').textContent = hotLeads;
+    document.getElementById('crmConversionRate').textContent = conversionRate + '%';
+    document.getElementById('crmOverdueTasks').textContent = overdueTasks;
+    
+    renderCRMLeadsList();
 }
 
 /**
- * Show CRM tab and load data
+ * Render CRM leads list
  */
-function showCRMTab() {
-    console.log('✅ فتح لوحة CRM');
-    // Load CRM data and display
-    if (typeof renderCRMDashboard === 'function') {
-        renderCRMDashboard();
+function renderCRMLeadsList() {
+    const container = document.getElementById('crmLeadsListContainer');
+    if (!container || !leads || leads.length === 0) {
+        if (container) container.innerHTML = '<p class="p-4 text-black">لا توجد leads حالياً</p>';
+        return;
     }
+    
+    let html = '<table class="w-full border-collapse"><thead><tr class="bg-gold-card border-b border-black">';
+    html += '<th class="p-3 text-black font-bold text-right">الاسم</th>';
+    html += '<th class="p-3 text-black font-bold text-right">الهاتف</th>';
+    html += '<th class="p-3 text-black font-bold text-right">الحالة</th>';
+    html += '<th class="p-3 text-black font-bold text-right">تاريخ المتابعة</th>';
+    html += '</tr></thead><tbody>';
+    
+    leads.forEach(lead => {
+        const statusColor = lead.status === 'hot' ? 'text-green-600' : lead.status === 'cold' ? 'text-red-600' : 'text-yellow-600';
+        html += `<tr class="border-b border-black/30 hover:bg-gold-card/50">`;
+        html += `<td class="p-3 text-black">${lead.name || 'N/A'}</td>`;
+        html += `<td class="p-3 text-black">${lead.phone || 'N/A'}</td>`;
+        html += `<td class="p-3 ${statusColor} font-bold">${lead.status || 'N/A'}</td>`;
+        html += `<td class="p-3 text-black">${lead.followUpDate ? new Date(lead.followUpDate).toLocaleDateString('ar-EG') : 'N/A'}</td>`;
+        html += `</tr>`;
+    });
+    
+    html += '</tbody></table>';
+    container.innerHTML = html;
 }
 
-console.log('✅ دوال showInventoryTab و showCRMTab جاهزة');
+console.log('✅ نظام CRM جاهز');
+
+function updateNavigationLabels() {
+    const isAr = lang === 'ar';
+    const navBtns = document.querySelectorAll('.nav-btn');
+    navBtns.forEach(btn => {
+        const text = btn.textContent.trim();
+        if (text === 'الرئيسية' || text === 'Home') btn.textContent = isAr ? 'الرئيسية' : 'Home';
+        if (text === 'عن الشركة' || text === 'About') btn.textContent = isAr ? 'عن الشركة' : 'About';
+        if (text === 'ريسيل' || text === 'Resale') btn.textContent = isAr ? 'ريسيل' : 'Resale';
+        if (text === 'برايمري' || text === 'Primary') btn.textContent = isAr ? 'برايمري' : 'Primary';
+        if (text === 'إيجار' || text === 'Rentals') btn.textContent = isAr ? 'إيجار' : 'Rentals';
+        if (text === 'مناطق عملنا' || text === 'Our Areas') btn.textContent = isAr ? 'مناطق عملنا' : 'Our Areas';
+        if (text === 'شركاؤنا' || text === 'Partners') btn.textContent = isAr ? 'شركاؤنا' : 'Partners';
+    });
+    
+    const adminTabs = document.querySelectorAll('.admin-tab-btn');
+    adminTabs.forEach(btn => {
+        const text = btn.textContent.trim();
+        if (text === 'الإحصائيات' || text === 'Statistics') btn.textContent = isAr ? 'الإحصائيات' : 'Statistics';
+        if (text === 'الموظفين' || text === 'Employees') btn.textContent = isAr ? 'الموظفين' : 'Employees';
+        if (text === 'الشركاء' || text === 'Partners') btn.textContent = isAr ? 'الشركاء' : 'Partners';
+        if (text === 'مناطق عملنا' || text === 'Work Areas') btn.textContent = isAr ? 'مناطق عملنا' : 'Work Areas';
+        if (text === 'الإعدادات' || text === 'Settings') btn.textContent = isAr ? 'الإعدادات' : 'Settings';
+    });
+}
