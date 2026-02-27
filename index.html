@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
-    <link rel="stylesheet" href="styles-social.css">
+    <link rel="stylesheet" href="social-colors.css">
     <script src="performance.js"></script>
     <script src="crm.js"></script>
     <script src="crm-ui.js"></script>
@@ -62,9 +62,10 @@
                     <button class="nav-btn" onclick="showTab('rental')">إيجار</button>
                     <button class="nav-btn" onclick="showTab('services')">مناطق عملنا</button>
                     <button class="nav-btn" onclick="showTab('partners')">شركاؤنا</button>
-                    <button class="nav-btn text-blue-600 font-bold" onclick="openCRMLogin()">CRM</button>
                     <button class="nav-btn text-green-600 font-bold" onclick="openInventoryLogin()">الإنفنتوري</button>
+                    <button class="nav-btn text-purple-600 font-bold" onclick="openCRMLogin()">CRM</button>
                     <button class="nav-btn text-red-500 font-bold" onclick="openAdminLogin()">الأدمن</button>
+                    <button class="nav-btn text-blue-500 font-bold" onclick="openEmployeeLogin()">الموظف</button>
                 </div>
             </div>
         </div>
@@ -735,7 +736,7 @@
     <!-- CRM Login Modal -->
     <div id="crmLoginModal" class="modal" onclick="if(event.target.id==='crmLoginModal') closeCRMLoginModal()">
         <div class="bg-gold-card border-2 border-black rounded-xl p-8 max-w-sm mx-auto mt-20" onclick="event.stopPropagation()">
-            <h3 class="text-2xl text-black font-bold mb-6 text-center">إدارة CRM</h3>
+            <h3 class="text-2xl text-black font-bold mb-6 text-center">CRM System</h3>
             <input type="password" id="crmPassword" placeholder="كلمة السر" class="w-full bg-gold-card border border-black rounded-lg px-4 py-2 mb-4 text-black">
             <button onclick="checkCRMPassword()" class="w-full btn-primary mb-2">دخول</button>
             <button onclick="closeCRMLoginModal()" class="w-full btn-secondary">إغلاق</button>
@@ -792,8 +793,8 @@
         </div>
     </div>
 
-    <!-- Employee Dashboard Modal (Hidden) -->
-    <div id="employeeDashboardModal" class="modal" style="display:none;">
+    <!-- Employee Dashboard Modal -->
+    <div id="employeeDashboardModal" class="modal">
         <div class="container mx-auto px-4 py-10">
             <div class="flex justify-between items-center border-b border-gold pb-6 mb-8">
                 <div>
@@ -803,20 +804,51 @@
                 <button onclick="logoutEmployee()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-full font-bold transition">تسجيل خروج</button>
             </div>
 
+            <!-- Employee Tabs -->
+            <div class="flex gap-2 mb-8 border-b border-black/30 pb-4 flex-wrap">
+                <button class="admin-tab-btn active" onclick="showEmployeeTab('leads')">الـ Leads المسندة</button>
+                <button class="admin-tab-btn" onclick="showEmployeeTab('units')">الوحدات</button>
+                <button class="admin-tab-btn" onclick="showEmployeeTab('stats')">الإحصائيات</button>
+            </div>
 
+            <!-- Employee Leads Tab -->
+            <div id="employee-leads" class="admin-tab-content active-admin-tab">
+                <div id="employeeLeadsList" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto"></div>
+            </div>
+
+            <!-- Employee Units Tab -->
+            <div id="employee-units" class="admin-tab-content">
+                <div class="mb-6">
+                    <h3 class="gold-text text-xl mb-4 font-bold">البحث والفلاتر</h3>
+                    <div class="grid md:grid-cols-4 gap-4">
+                        <input type="text" id="employee-units-search" placeholder="ابحث عن كود أو منطقة" class="form-input" onkeyup="debouncedRenderEmployeeUnits()">
+                        <select id="employee-units-filter-type" class="form-input" onchange="renderEmployeeUnits()">
+                            <option value="">جميع الأنواع</option>
+                            <option value="resale">ريسيل</option>
+                            <option value="rental">إيجار</option>
+                            <option value="primary">برايمري</option>
+                        </select>
+                        <button onclick="clearEmployeeUnitFilters()" class="btn-secondary">مسح الفلاتر</button>
+                    </div>
+                </div>
+                <div id="employeeUnitsList" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto"></div>
+            </div>
+
+            <!-- Employee Stats Tab -->
+            <div id="employee-stats" class="admin-tab-content">
+                <div id="employeeStats" class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8"></div>
+            </div>
         </div>
     </div>
-    <!-- Admin Dashboard Modal -->
-
     <!-- CRM Dashboard Modal -->
     <div id="crmDashboardModal" class="modal">
         <div class="container mx-auto px-4 py-10">
             <div class="flex justify-between items-center border-b border-gold pb-6 mb-8">
-                <h1 class="text-4xl font-bold gold-text">لوحة إدارة CRM</h1>
+                <h1 class="text-4xl font-bold gold-text">CRM System</h1>
                 <button onclick="closeCRMDashboard()" class="bg-red-600 hover:bg-red-700 text-white px-6 py-2 rounded-full font-bold transition">تسجيل خروج</button>
             </div>
 
-            <!-- CRM Dashboard Stats -->
+            <!-- CRM Stats -->
             <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
                 <div class="bg-blue-100 border-2 border-blue-900 rounded-lg p-6 shadow-lg">
                     <p class="text-black font-bold text-sm mb-2">إجمالي Leads</p>
@@ -836,12 +868,6 @@
                 </div>
             </div>
 
-            <!-- Pipeline View -->
-            <div class="mb-8">
-                <h3 class="gold-text text-2xl mb-4 font-bold">مراحل البيع (Pipeline)</h3>
-                <div class="grid grid-cols-1 md:grid-cols-5 gap-4" id="crmPipeline"></div>
-            </div>
-
             <!-- CRM Leads List -->
             <div class="mt-8">
                 <h3 class="gold-text text-xl mb-4 font-bold">قائمة Leads</h3>
@@ -849,6 +875,8 @@
             </div>
         </div>
     </div>
+
+    <!-- Admin Dashboard Modal -->
     <div id="adminModal" class="modal">
         <div class="container mx-auto px-4 py-10">
             <div class="flex justify-between items-center border-b border-gold pb-6 mb-8">
@@ -859,6 +887,7 @@
             <!-- Admin Tabs -->
             <div class="flex gap-2 mb-8 border-b border-black/30 pb-4 flex-wrap">
                 <button class="admin-tab-btn active" onclick="showAdminTab('stats')">الإحصائيات</button>
+
                 <button class="admin-tab-btn" onclick="showAdminTab('employees')">الموظفين</button>
                 <button class="admin-tab-btn" onclick="showAdminTab('partners')">الشركاء</button>
                 <button class="admin-tab-btn" onclick="showAdminTab('services')">مناطق عملنا</button>
@@ -870,114 +899,7 @@
                 <div id="adminStats" class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8"></div>
             </div>
 
-            <!-- Units Tab - REMOVED (moved to Inventory) -->
-            <!-- <div id="admin-units" class="admin-tab-content" style="display:none;">
-                <div class="grid md:grid-cols-2 gap-8">
-                    <div class="bg-gold-card p-6 rounded-xl border border-black/30">
-                        <h3 class="gold-text text-xl mb-4 font-bold">إضافة وحدة جديدة</h3>
-                        <form onsubmit="addUnit(event)" class="space-y-4">
-                            <input type="number" placeholder="كود الوحدة" required class="form-input">
-                            <select required class="form-input">
-            <!-- Admin Tabs -->
-            <div class="flex gap-2 mb-8 border-b border-black/30 pb-4 flex-wrap">
-                <button class="admin-tab-btn active" onclick="showAdminTab('stats')">الإحصائيات</button>
-                <button class="admin-tab-btn" onclick="showAdminTab('employees')">الموظفين</button>
-                <button class="admin-tab-btn" onclick="showAdminTab('partners')">الشركاء</button>
-                <button class="admin-tab-btn" onclick="showAdminTab('services')">مناطق عملنا</button>
-                <button class="admin-tab-btn" onclick="showAdminTab('settings')">الإعدادات</button>
-            </div>
-                                <option value="الرحاب">الرحاب</option>
-                                <option value="العاصمة الإدارية">العاصمة الإدارية</option>
-                                <option value="الساحل الشمالي">الساحل الشمالي</option>
-                                <option value="رأس الحكمة">رأس الحكمة</option>
-                                <option value="القاهرة الجديدة">القاهرة الجديدة</option>
-                                <option value="العين السخنة">العين السخنة</option>
-                                <option value="الشيخ زايد">الشيخ زايد</option>
-                            </select>
-                            <input type="number" placeholder="عدد الغرف" required class="form-input">
-                            <input type="number" placeholder="المساحة (ممبر)" required class="form-input">
-                            <div class="space-y-2">
-                                <label class="block text-black text-sm font-medium">الصور (حتى 10 ملفات)</label>
-                                <input type="file" id="unitImages" accept="image/*" multiple class="form-input" onchange="updateFileCount('unitImages', 'imageCount')">
-                                <span id="imageCount" class="text-xs text-silver">0 ملف</span>
-                            </div>
-                            <div class="space-y-2">
-                                <label class="block text-black text-sm font-medium">الفيديوهات (حتى 10 ملفات)</label>
-                                <input type="file" id="unitVideos" accept="video/*" multiple class="form-input" onchange="updateFileCount('unitVideos', 'videoCount')">
-                                <span id="videoCount" class="text-xs text-silver">0 ملف</span>
-                            </div>
-                            <div class="space-y-2">
-                                <label class="block text-black text-sm font-medium">ملفات PDF (حتى 10 ملفات)</label>
-                                <input type="file" id="unitPDFs" accept=".pdf" multiple class="form-input" onchange="updateFileCount('unitPDFs', 'pdfCount')">
-                                <span id="pdfCount" class="text-xs text-silver">0 ملف</span>
-                            </div>
-                            <button type="submit" class="w-full btn-primary">إضافة الوحدة</button>
-                        </form>
-                    </div>
-                    <div class="bg-gold-card p-6 rounded-xl border border-black/30">
-                        <h3 class="gold-text text-xl mb-4 font-bold">استيراد الوحدات</h3>
-                        <button onclick="downloadUnitsTemplate()" class="w-full btn-primary mb-2">📥 تحميل تيمبلت</button>
-                        <button onclick="document.getElementById('bulkImportFile').click()" class="w-full btn-secondary mb-2">استيراد من Excel</button>
-                        <button onclick="exportUnits()" class="w-full btn-secondary">تصدير الوحدات</button>
-                        <input type="file" id="bulkImportFile" accept=".csv,.xlsx,.tsv" style="display:none" onchange="bulkImport(event)">
-                    </div>
-                </div>
-                <div class="mt-8">
-                    <h3 class="gold-text text-xl mb-4 font-bold">البحث والفلاتر</h3>
-                    <div class="grid md:grid-cols-4 gap-4 mb-6">
-                        <input type="text" id="admin-units-search" placeholder="ابحث عن كود أو منطقة" class="form-input" onkeyup="debouncedRenderAdminUnits()">
-                        <select id="admin-units-filter-type" class="form-input" onchange="renderAdminUnitsPage(1)">
-                            <option value="">جميع الأنواع</option>
-                            <option value="resale">ريسيل</option>
-                            <option value="rental">إيجار</option>
-                            <option value="primary">برايمري</option>
-                        </select>
-                        <button onclick="clearUnitFilters()" class="btn-secondary">مسح الفلاتر</button>
-                    </div>
-                </div>
 
-                <div class="mt-8">
-                    <h3 class="gold-text text-xl mb-4 font-bold">قائمة الوحدات</h3>
-                    <div id="admin-units-list" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto max-h-[70vh]"></div>
-                </div>
-                
-                <div class="mt-4" id="units-pagination"></div>
-            </div>
-
-            <!-- CRM Tab - REMOVED (moved to separate CRM system) -->
-            <!-- <div id="admin-crm" class="admin-tab-content" style="display:none;">
-                <!-- CRM Dashboard Stats -->
-                <div class="grid grid-cols-1 md:grid-cols-4 gap-6 mb-8">
-                    <div class="bg-blue-100 border-2 border-blue-900 rounded-lg p-6 shadow-lg">
-                        <p class="text-black font-bold text-sm mb-2">إجمالي Leads</p>
-                        <p class="text-3xl font-bold text-blue-900" id="crmTotalLeads">0</p>
-                    </div>
-                    <div class="bg-green-100 border-2 border-green-900 rounded-lg p-6 shadow-lg">
-                        <p class="text-black font-bold text-sm mb-2">Leads ساخنة</p>
-                        <p class="text-3xl font-bold text-green-900" id="crmHotLeads">0</p>
-                    </div>
-                    <div class="bg-yellow-100 border-2 border-yellow-900 rounded-lg p-6 shadow-lg">
-                        <p class="text-black font-bold text-sm mb-2">معدل التحويل</p>
-                        <p class="text-3xl font-bold text-yellow-900" id="crmConversionRate">0%</p>
-                    </div>
-                    <div class="bg-red-100 border-2 border-red-900 rounded-lg p-6 shadow-lg">
-                        <p class="text-black font-bold text-sm mb-2">مهام مستحقة</p>
-                        <p class="text-3xl font-bold text-red-900" id="crmOverdueTasks">0</p>
-                    </div>
-                </div>
-
-                <!-- Pipeline View -->
-                <div class="mb-8">
-                    <h3 class="gold-text text-2xl mb-4 font-bold">مراحل البيع (Pipeline)</h3>
-                    <div class="grid grid-cols-1 md:grid-cols-5 gap-4" id="crmPipeline"></div>
-                </div>
-
-                <!-- CRM Leads List -->
-                <div class="mt-8">
-                    <h3 class="gold-text text-xl mb-4 font-bold">قائمة Leads</h3>
-                    <div id="crmLeadsListContainer" class="bg-gold-card rounded-xl border border-black/30 overflow-x-auto max-h-[70vh]"></div>
-                </div>
-            </div> -->
 
             <!-- Employees Tab -->
             <div id="admin-employees" class="admin-tab-content">
@@ -1269,34 +1191,34 @@
             <!-- Social Media Section (Black) -->
             <div class="bg-black py-12 border-b-2 border-gold">
                 <div class="container mx-auto px-4 text-center">
-                    <h4 class="text-3xl font-bold text-gold mb-10">تابعنا على وسائل التواصل</h4>
-                    <div class="flex justify-center gap-6 flex-wrap items-center">
+                    <h4 class="text-2xl font-bold text-gold mb-8">تابعنا على وسائل التواصل</h4>
+                    <div class="flex justify-center gap-8 flex-wrap items-center">
                         <!-- Facebook -->
-                        <a href="https://www.facebook.com/summitteamrealestateeg" target="_blank" class="social-icon-btn facebook-btn" title="Facebook">
-                            <i class="fab fa-facebook-f"></i>
+                        <a href="https://www.facebook.com/summitteamrealestateeg" target="_blank" class="social-link facebook-link" title="Facebook">
+                            <i class="fab fa-facebook"></i>
                         </a>
                         <!-- Instagram -->
-                        <a href="https://www.instagram.com/str.summit.team/" target="_blank" class="social-icon-btn instagram-btn" title="Instagram">
+                        <a href="https://www.instagram.com/str.summit.team/" target="_blank" class="social-link instagram-link" title="Instagram">
                             <i class="fab fa-instagram"></i>
                         </a>
                         <!-- TikTok -->
-                        <a href="https://www.tiktok.com/@strsummitteam" target="_blank" class="social-icon-btn tiktok-btn" title="TikTok">
+                        <a href="https://www.tiktok.com/@strsummitteam" target="_blank" class="social-link tiktok-link" title="TikTok">
                             <i class="fab fa-tiktok"></i>
                         </a>
                         <!-- YouTube -->
-                        <a href="https://www.youtube.com/@strsummitteam" target="_blank" class="social-icon-btn youtube-btn" title="YouTube">
+                        <a href="https://www.youtube.com/@strsummitteam" target="_blank" class="social-link youtube-link" title="YouTube">
                             <i class="fab fa-youtube"></i>
                         </a>
                         <!-- Twitter/X -->
-                        <a href="https://x.com/strsummitteam" target="_blank" class="social-icon-btn twitter-btn" title="Twitter/X">
+                        <a href="https://x.com/strsummitteam" target="_blank" class="social-link twitter-link" title="Twitter/X">
                             <i class="fab fa-x-twitter"></i>
                         </a>
                         <!-- LinkedIn -->
-                        <a href="https://www.linkedin.com/in/str-summitteam-6aa4aa342" target="_blank" class="social-icon-btn linkedin-btn" title="LinkedIn">
-                            <i class="fab fa-linkedin-in"></i>
+                        <a href="https://www.linkedin.com/in/str-summitteam-6aa4aa342" target="_blank" class="social-link linkedin-link" title="LinkedIn">
+                            <i class="fab fa-linkedin"></i>
                         </a>
                         <!-- WhatsApp -->
-                        <a href="https://wa.me/201159333060" target="_blank" class="social-icon-btn whatsapp-btn" title="WhatsApp">
+                        <a href="https://wa.me/201159333060" target="_blank" class="social-link whatsapp-link" title="WhatsApp">
                             <i class="fab fa-whatsapp"></i>
                         </a>
                     </div>
@@ -1304,19 +1226,13 @@
             </div>
 
             <!-- Property Platforms Section (Black) -->
-            <div class="bg-black py-10 border-b-2 border-gold">
+            <div class="bg-black py-8 border-b-2 border-gold">
                 <div class="container mx-auto px-4 text-center">
-                    <h4 class="text-2xl font-bold text-gold mb-8">ابحث عن عقاراتنا على</h4>
-                    <div class="flex justify-center gap-8 flex-wrap items-center">
-                        <a href="https://aqarmap.com.eg/ar/user/5240697" target="_blank" class="property-platform-btn aqarmap-btn">
-                            <span class="text-lg font-bold">Aqar Map</span>
-                        </a>
-                        <a href="https://www.bayut.eg/en/property/details-501731005.html" target="_blank" class="property-platform-btn bayut-btn">
-                            <span class="text-lg font-bold">Bayut</span>
-                        </a>
-                        <a href="https://www.propertyfinder.eg/en/agent/summit-team-real-estate-str-51854" target="_blank" class="property-platform-btn propertyfinder-btn">
-                            <span class="text-lg font-bold">Property Finder</span>
-                        </a>
+                    <h4 class="text-lg font-bold text-gold mb-4">ابحث عن عقاراتنا على</h4>
+                    <div class="flex justify-center gap-6 flex-wrap items-center">
+                        <a href="https://aqarmap.com.eg/ar/user/5240697" target="_blank" class="platform-link aqarmap-link font-bold">Aqar Map</a>
+                        <a href="https://www.bayut.eg/en/property/details-501731005.html" target="_blank" class="platform-link bayut-link font-bold">Bayut</a>
+                        <a href="https://www.propertyfinder.eg/en/agent/summit-team-real-estate-str-51854" target="_blank" class="platform-link propertyfinder-link font-bold">Property Finder</a>
                     </div>
                 </div>
             </div>
