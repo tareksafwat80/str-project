@@ -3556,11 +3556,14 @@ function closeInventoryLoginModal() {
  */
 function checkInventoryPassword() {
     const password = document.getElementById('inventoryPassword').value;
+    console.log('🔐 Inventory Password Check:', password, 'Expected:', INVENTORY_PASSWORD);
     
     if (password === INVENTORY_PASSWORD) {
+        console.log('✅ Password Correct!');
         closeInventoryLoginModal();
         openInventoryDashboard();
     } else {
+        console.log('❌ Password Incorrect!');
         alert('كلمة السر غير صحيحة!');
         document.getElementById('inventoryPassword').value = '';
     }
@@ -3702,11 +3705,14 @@ function closeCRMLoginModal() {
  */
 function checkCRMPassword() {
     const password = document.getElementById('crmPassword').value;
+    console.log('🔐 CRM Password Check:', password, 'Expected:', CRM_PASSWORD);
     
     if (password === CRM_PASSWORD) {
+        console.log('✅ Password Correct!');
         closeCRMLoginModal();
         openCRMDashboard();
     } else {
+        console.log('❌ Password Incorrect!');
         alert('كلمة السر غير صحيحة!');
         document.getElementById('crmPassword').value = '';
     }
