@@ -13,6 +13,7 @@
     <script src="crm-ui.js"></script>
     <script src="inventory.js"></script>
     <script src="inventory-ui.js"></script>
+    <script src="app.js"></script>
 </head>
 <body>
 
@@ -706,8 +707,8 @@
         <div class="bg-gold-card border-2 border-black rounded-xl p-8 max-w-sm mx-auto mt-20" onclick="event.stopPropagation()">
             <h3 class="text-2xl text-black font-bold mb-6 text-center">الإنفنتوري</h3>
             <input type="password" id="inventoryPassword" placeholder="كلمة السر" class="w-full bg-gold-card border border-black rounded-lg px-4 py-2 mb-4 text-black">
-            <button onclick="checkInventoryPassword(); return false;" class="w-full btn-primary mb-2">دخول</button>
-            <button onclick="closeInventoryLoginModal(); return false;" class="w-full btn-secondary">إغلاق</button>
+            <button onclick="checkInventoryPassword()" class="w-full btn-primary mb-2">دخول</button>
+            <button onclick="closeInventoryLoginModal()" class="w-full btn-secondary">إغلاق</button>
         </div>
     </div>
 
@@ -737,8 +738,8 @@
         <div class="bg-gold-card border-2 border-black rounded-xl p-8 max-w-sm mx-auto mt-20" onclick="event.stopPropagation()">
             <h3 class="text-2xl text-black font-bold mb-6 text-center">CRM System</h3>
             <input type="password" id="crmPassword" placeholder="كلمة السر" class="w-full bg-gold-card border border-black rounded-lg px-4 py-2 mb-4 text-black">
-            <button onclick="checkCRMPassword(); return false;" class="w-full btn-primary mb-2">دخول</button>
-            <button onclick="closeCRMLoginModal(); return false;" class="w-full btn-secondary">إغلاق</button>
+            <button onclick="checkCRMPassword()" class="w-full btn-primary mb-2">دخول</button>
+            <button onclick="closeCRMLoginModal()" class="w-full btn-secondary">إغلاق</button>
         </div>
     </div>
 
@@ -1275,6 +1276,5 @@
             transform: scale(0.95);
         }
     </style>
-    <script src="app.js"></script>
 </body>
 </html>
