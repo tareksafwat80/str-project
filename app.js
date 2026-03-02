@@ -3555,7 +3555,9 @@ function closeInventoryLoginModal() {
  * Check inventory password
  */
 function checkInventoryPassword() {
+    console.log('✅ checkInventoryPassword called!');
     const password = document.getElementById('inventoryPassword').value;
+    console.log('Password entered:', password, 'Expected:', INVENTORY_PASSWORD);
     
     if (password === INVENTORY_PASSWORD) {
         const loginModal = document.getElementById('inventoryLoginModal');
@@ -3707,7 +3709,9 @@ function closeCRMLoginModal() {
  * Check CRM password
  */
 function checkCRMPassword() {
+    console.log('✅ checkCRMPassword called!');
     const password = document.getElementById('crmPassword').value;
+    console.log('Password entered:', password, 'Expected:', CRM_PASSWORD);
     
     if (password === CRM_PASSWORD) {
         const loginModal = document.getElementById('crmLoginModal');
