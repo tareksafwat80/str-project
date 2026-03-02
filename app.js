@@ -3556,14 +3556,17 @@ function closeInventoryLoginModal() {
  */
 function checkInventoryPassword() {
     const password = document.getElementById('inventoryPassword').value;
-    console.log('🔐 Inventory Password Check:', password, 'Expected:', INVENTORY_PASSWORD);
     
     if (password === INVENTORY_PASSWORD) {
-        console.log('✅ Password Correct!');
-        closeInventoryLoginModal();
-        openInventoryDashboard();
+        const loginModal = document.getElementById('inventoryLoginModal');
+        const dashboardModal = document.getElementById('inventoryDashboardModal');
+        
+        loginModal.style.cssText = 'display: none !important;';
+        dashboardModal.style.cssText = 'display: flex !important; position: fixed !important; z-index: 9999 !important; inset: 0 !important; background: rgba(0, 0, 0, 0.95) !important;';
+        
+        updateInventoryStats();
+        renderInventoryList(1);
     } else {
-        console.log('❌ Password Incorrect!');
         alert('كلمة السر غير صحيحة!');
         document.getElementById('inventoryPassword').value = '';
     }
@@ -3705,14 +3708,17 @@ function closeCRMLoginModal() {
  */
 function checkCRMPassword() {
     const password = document.getElementById('crmPassword').value;
-    console.log('🔐 CRM Password Check:', password, 'Expected:', CRM_PASSWORD);
     
     if (password === CRM_PASSWORD) {
-        console.log('✅ Password Correct!');
-        closeCRMLoginModal();
-        openCRMDashboard();
+        const loginModal = document.getElementById('crmLoginModal');
+        const dashboardModal = document.getElementById('crmDashboardModal');
+        
+        loginModal.style.cssText = 'display: none !important;';
+        dashboardModal.style.cssText = 'display: flex !important; position: fixed !important; z-index: 9999 !important; inset: 0 !important; background: rgba(0, 0, 0, 0.95) !important;';
+        
+        updateCRMStats();
+        renderCRMLeadsList();
     } else {
-        console.log('❌ Password Incorrect!');
         alert('كلمة السر غير صحيحة!');
         document.getElementById('crmPassword').value = '';
     }
