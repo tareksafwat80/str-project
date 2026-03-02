@@ -3540,7 +3540,7 @@ const INVENTORY_PASSWORD = 'str2026';
  * Open inventory login modal
  */
 function openInventoryLogin() {
-    document.getElementById('inventoryLoginModal').style.display = 'flex';
+    document.getElementById('inventoryLoginModal').style.display = 'block';
 }
 
 /**
@@ -3694,7 +3694,7 @@ const CRM_PASSWORD = 'str2026';
  * Open CRM login modal
  */
 function openCRMLogin() {
-    document.getElementById('crmLoginModal').style.display = 'flex';
+    document.getElementById('crmLoginModal').style.display = 'block';
 }
 
 /**
