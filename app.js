@@ -3540,7 +3540,7 @@ const INVENTORY_PASSWORD = 'str2026';
  * Open inventory login modal
  */
 function openInventoryLogin() {
-    document.getElementById('inventoryLoginModal').style.display = 'block';
+    document.getElementById('inventoryLoginModal').style.display = 'flex';
 }
 
 /**
@@ -3555,17 +3555,11 @@ function closeInventoryLoginModal() {
  * Check inventory password
  */
 function checkInventoryPassword() {
-    console.log('✅ checkInventoryPassword called!');
     const password = document.getElementById('inventoryPassword').value;
-    console.log('Password entered:', password, 'Expected:', INVENTORY_PASSWORD);
     
     if (password === INVENTORY_PASSWORD) {
-        const loginModal = document.getElementById('inventoryLoginModal');
-        const dashboardModal = document.getElementById('inventoryDashboardModal');
-        
-        loginModal.style.cssText = 'display: none !important;';
-        dashboardModal.style.cssText = 'display: flex !important; position: fixed !important; z-index: 9999 !important; inset: 0 !important; background: rgba(0, 0, 0, 0.95) !important;';
-        
+        document.getElementById('inventoryLoginModal').style.display = 'none';
+        document.getElementById('inventoryDashboardModal').style.display = 'flex';
         updateInventoryStats();
         renderInventoryList(1);
     } else {
@@ -3694,7 +3688,7 @@ const CRM_PASSWORD = 'str2026';
  * Open CRM login modal
  */
 function openCRMLogin() {
-    document.getElementById('crmLoginModal').style.display = 'block';
+    document.getElementById('crmLoginModal').style.display = 'flex';
 }
 
 /**
@@ -3709,17 +3703,11 @@ function closeCRMLoginModal() {
  * Check CRM password
  */
 function checkCRMPassword() {
-    console.log('✅ checkCRMPassword called!');
     const password = document.getElementById('crmPassword').value;
-    console.log('Password entered:', password, 'Expected:', CRM_PASSWORD);
     
     if (password === CRM_PASSWORD) {
-        const loginModal = document.getElementById('crmLoginModal');
-        const dashboardModal = document.getElementById('crmDashboardModal');
-        
-        loginModal.style.cssText = 'display: none !important;';
-        dashboardModal.style.cssText = 'display: flex !important; position: fixed !important; z-index: 9999 !important; inset: 0 !important; background: rgba(0, 0, 0, 0.95) !important;';
-        
+        document.getElementById('crmLoginModal').style.display = 'none';
+        document.getElementById('crmDashboardModal').style.display = 'flex';
         updateCRMStats();
         renderCRMLeadsList();
     } else {
